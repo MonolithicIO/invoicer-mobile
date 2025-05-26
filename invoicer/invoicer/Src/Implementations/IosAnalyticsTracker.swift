@@ -6,9 +6,13 @@
 //
 
 import invoicerShared
+import FirebaseAnalytics
 
 final class IosAnalyticsTracker: AnalyticsTracker {
     func track(event: invoicerShared.AnalyticsEvent) {
-        
+        Analytics.logEvent(
+            event.name,
+            parameters: event.params
+        )
     }
 }
