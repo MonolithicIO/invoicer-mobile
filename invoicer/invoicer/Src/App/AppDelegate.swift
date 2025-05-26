@@ -39,7 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func initApp() {
         AppInit(initializers: KotlinArray(size: 1, init: { KotlinInt in
             KoinModule(
-                storage: IosLocalStorage(),
+                storage: IosLocalStorage(
+                    secureStorage: SecureStorage()
+                ),
                 analyticsTracker: IosAnalyticsTracker(),
                 firebaseHelper: IosFirebaseHelper(),
                 googleFirebaseHelper: IosGoogleFirebaseHelperImpl(hostViewController: self.mainViewController)

@@ -9,15 +9,21 @@ import invoicerShared
 
 final class IosLocalStorage: LocalStorage {
     
+    private let secureStorage: SecureStorageProtocol
+    
+    init(secureStorage: SecureStorageProtocol) {
+        self.secureStorage = secureStorage
+    }
+    
     func clear(key: String) {
         
     }
     
     func getString(key: String) -> String? {
-        return nil
+        return secureStorage.getString(forKey: key)
     }
     
     func setString(value: String, key: String) {
-
+        return secureStorage.setString(value: value, forKey: key)
     }
 }
