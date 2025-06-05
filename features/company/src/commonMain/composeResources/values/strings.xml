@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<resources></resources>
+<resources>
+
+    <!-- General -->
+    <string name="company_error_retry">Retry</string>
+    <string name="company_error_title">Something went wrong</string>
+    <string name="company_error_message">Please try again later.</string>
+
+    <!-- Company Selection -->
+    <string name="company_selection_title">Select Company</string>
+    <string name="company_selection_new_company">New Company</string>
+    <string name="company_selection_no_companies_title">No companies available</string>
+    <string name="company_selection_no_companies_description">Create a company to start using the app</string>
+
+</resources>

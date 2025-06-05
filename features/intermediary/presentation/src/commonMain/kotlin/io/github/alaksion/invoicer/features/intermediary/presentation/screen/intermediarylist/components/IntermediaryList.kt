@@ -15,7 +15,7 @@ import invoicer.features.intermediary.presentation.generated.resources.Res
 import invoicer.features.intermediary.presentation.generated.resources.intermediary_list_empty_description
 import invoicer.features.intermediary.presentation.generated.resources.intermediary_list_empty_title
 import io.github.alaksion.invoicer.features.intermediary.services.domain.model.IntermediaryModel
-import io.github.alaksion.invoicer.foundation.designSystem.components.emptystate.EmptyState
+import io.github.alaksion.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
