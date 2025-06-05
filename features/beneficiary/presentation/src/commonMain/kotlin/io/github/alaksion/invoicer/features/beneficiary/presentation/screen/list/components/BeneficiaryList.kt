@@ -14,7 +14,7 @@ import invoicer.features.beneficiary.presentation.generated.resources.Res
 import invoicer.features.beneficiary.presentation.generated.resources.beneficiary_list_empty_description
 import invoicer.features.beneficiary.presentation.generated.resources.beneficiary_list_empty_title
 import io.github.alaksion.invoicer.features.beneficiary.services.domain.model.BeneficiaryModel
-import io.github.alaksion.invoicer.foundation.designSystem.components.emptystate.EmptyState
+import io.github.alaksion.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource

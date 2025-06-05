@@ -51,7 +51,7 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoice
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.CloseButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.alaksion.invoicer.foundation.designSystem.components.emptystate.EmptyState
+import io.github.alaksion.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.Feedback
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer

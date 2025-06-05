@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Business
 import androidx.compose.material.icons.outlined.ChevronRight
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -25,6 +26,9 @@ import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import invoicer.features.company.generated.resources.Res
+import invoicer.features.company.generated.resources.company_error_message
+import invoicer.features.company.generated.resources.company_error_retry
+import invoicer.features.company.generated.resources.company_error_title
 import invoicer.features.company.generated.resources.company_selection_new_company
 import invoicer.features.company.generated.resources.company_selection_title
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
@@ -32,6 +36,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitl
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.CloseButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.card.ListCard
+import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.Feedback
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
@@ -142,7 +147,14 @@ internal class SelectCompanyScreen : Screen {
                     }
 
                     SelectCompanyMode.Error -> {
-                        // Show error message
+                        Feedback(
+                            modifier = Modifier.fillMaxSize(),
+                            primaryActionText = stringResource(Res.string.company_error_retry),
+                            onPrimaryAction = {},
+                            title = stringResource(Res.string.company_error_title),
+                            description = stringResource(Res.string.company_error_message),
+                            icon = Icons.Outlined.ErrorOutline
+                        )
                     }
 
                     SelectCompanyMode.CreateCompany -> {

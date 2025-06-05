@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.foundation.designSystem.components.emptystate
+package io.github.alaksion.invoicer.foundation.designSystem.components.screenstate
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
