@@ -43,6 +43,7 @@ kotlin {
             implementation(projects.features.intermediary.presentation)
             implementation(projects.foundation.watchers)
             implementation(projects.features.qrcodeSession)
+            implementation(projects.features.company)
 
             // Voyager
             implementation(libs.bundles.voyager)
