@@ -30,6 +30,8 @@ import invoicer.features.company.generated.resources.company_error_message
 import invoicer.features.company.generated.resources.company_error_retry
 import invoicer.features.company.generated.resources.company_error_title
 import invoicer.features.company.generated.resources.company_selection_new_company
+import invoicer.features.company.generated.resources.company_selection_no_companies_description
+import invoicer.features.company.generated.resources.company_selection_no_companies_title
 import invoicer.features.company.generated.resources.company_selection_title
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
@@ -37,6 +39,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Cl
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.card.ListCard
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.Feedback
+import io.github.alaksion.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
@@ -50,6 +53,10 @@ internal class SelectCompanyScreen : Screen {
         val state = screenModel.state.collectAsState()
 
         LaunchedEffect(screenModel) {
+            screenModel.loadCompanies()
+        }
+
+        LaunchedEffect(screenModel) {
             screenModel.events.collect {
                 when (it) {
                     SelectCompanyEvent.ContinueToHome -> Unit
@@ -60,7 +67,8 @@ internal class SelectCompanyScreen : Screen {
         StateContent(
             state = state.value,
             onSelectCompanyClick = {},
-            onCreateCompanyClick = {}
+            onCreateCompanyClick = {},
+            onRetryClick = screenModel::loadCompanies
         )
     }
 
@@ -70,6 +78,7 @@ internal class SelectCompanyScreen : Screen {
         state: SelectCompanyState,
         onCreateCompanyClick: () -> Unit,
         onSelectCompanyClick: (companyId: String) -> Unit,
+        onRetryClick: () -> Unit,
     ) {
         Scaffold(
             modifier = Modifier.imePadding(),
@@ -141,6 +150,7 @@ internal class SelectCompanyScreen : Screen {
                         }
                         VerticalSpacer(height = SpacerSize.Medium)
                         PrimaryButton(
+                            modifier = Modifier.fillMaxWidth(),
                             label = stringResource(Res.string.company_selection_new_company),
                             onClick = onCreateCompanyClick
                         )
@@ -150,7 +160,7 @@ internal class SelectCompanyScreen : Screen {
                         Feedback(
                             modifier = Modifier.fillMaxSize(),
                             primaryActionText = stringResource(Res.string.company_error_retry),
-                            onPrimaryAction = {},
+                            onPrimaryAction = onRetryClick,
                             title = stringResource(Res.string.company_error_title),
                             description = stringResource(Res.string.company_error_message),
                             icon = Icons.Outlined.ErrorOutline
@@ -158,7 +168,17 @@ internal class SelectCompanyScreen : Screen {
                     }
 
                     SelectCompanyMode.CreateCompany -> {
-                        // Show create company form
+                        EmptyState(
+                            title = stringResource(Res.string.company_selection_no_companies_title),
+                            description = stringResource(Res.string.company_selection_no_companies_description),
+                            modifier = Modifier.fillMaxSize()
+                        )
+                        VerticalSpacer(height = SpacerSize.Medium)
+                        PrimaryButton(
+                            modifier = Modifier.fillMaxWidth(),
+                            label = stringResource(Res.string.company_selection_new_company),
+                            onClick = onCreateCompanyClick
+                        )
                     }
                 }
             }
