@@ -3,5 +3,6 @@
 
     <!-- Company Selection -->
     <string name="company_selection_title">Select Company</string>
+    <string name="company_selection_new_company">New Company</string>
 
 </resources>

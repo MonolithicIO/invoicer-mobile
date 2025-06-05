@@ -11,7 +11,6 @@ internal data class SelectCompanyState(
 
 internal sealed interface SelectCompanyEvent {
     data object ContinueToHome : SelectCompanyEvent
-    data object CreateCompany : SelectCompanyEvent
 }
 
 internal enum class SelectCompanyMode {
