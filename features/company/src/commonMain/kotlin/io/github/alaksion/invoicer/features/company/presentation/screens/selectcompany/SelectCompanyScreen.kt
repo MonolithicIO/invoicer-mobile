@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.selectcompany
+package io.github.alaksion.invoicer.features.company.presentation.screens.selectcompany
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -23,8 +23,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.navigator.internal.BackHandler
 import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.company_error_message
 import invoicer.features.company.generated.resources.company_error_retry
@@ -47,6 +49,7 @@ import org.jetbrains.compose.resources.stringResource
 
 internal class SelectCompanyScreen : Screen {
 
+    @OptIn(InternalVoyagerApi::class)
     @Composable
     override fun Content() {
         val screenModel = koinScreenModel<SelectCompanyScreenModel>()
@@ -63,6 +66,8 @@ internal class SelectCompanyScreen : Screen {
                 }
             }
         }
+
+        BackHandler(true) { /* no op */ }
 
         StateContent(
             state = state.value,

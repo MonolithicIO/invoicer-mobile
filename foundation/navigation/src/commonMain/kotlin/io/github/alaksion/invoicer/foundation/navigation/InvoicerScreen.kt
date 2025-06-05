@@ -28,4 +28,8 @@ sealed interface InvoicerScreen : ScreenProvider {
     sealed interface Authorization : ScreenProvider {
         data object Home : Authorization
     }
+
+    sealed interface Company : InvoicerScreen {
+        data object SelectCompany : Company
+    }
 }
