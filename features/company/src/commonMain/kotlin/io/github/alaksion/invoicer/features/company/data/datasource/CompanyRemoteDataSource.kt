@@ -11,7 +11,7 @@ import io.ktor.http.parameters
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-internal interface CompanyDataSource {
+internal interface CompanyRemoteDataSource {
     suspend fun listCompanies(
         page: Int,
         limit: Int
@@ -22,10 +22,10 @@ internal interface CompanyDataSource {
     ): String
 }
 
-internal class CompanyDataSourceImpl(
+internal class CompanyRemoteDataSourceImpl(
     private val dispatcher: CoroutineDispatcher,
     private val httpWrapper: HttpWrapper
-) : CompanyDataSource {
+) : CompanyRemoteDataSource {
 
     override suspend fun listCompanies(
         page: Int,
