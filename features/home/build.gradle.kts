@@ -29,6 +29,7 @@ kotlin {
             implementation(projects.foundation.designSystem)
             implementation(projects.foundation.auth)
             implementation(projects.foundation.ui)
+            implementation(projects.foundation.session)
         }
     }
 }

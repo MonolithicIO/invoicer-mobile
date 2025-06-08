@@ -58,6 +58,7 @@ internal fun WelcomeTopBar(
                 OutlinedButton(
                     onClick = onChangeClick,
                     enabled = true,
+                    shape = MaterialTheme.shapes.small
                 ) {
                     Text(
                         text = stringResource(Res.string.welcome_change_company),
