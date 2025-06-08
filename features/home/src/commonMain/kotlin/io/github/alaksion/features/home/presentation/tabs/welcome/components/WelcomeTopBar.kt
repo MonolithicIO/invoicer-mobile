@@ -25,6 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun WelcomeTopBar(
     companyName: String,
+    isChangeCompanyEnabled: Boolean,
     modifier: Modifier = Modifier,
     onChangeClick: () -> Unit,
 ) {
@@ -53,14 +54,16 @@ internal fun WelcomeTopBar(
                 overflow = TextOverflow.Ellipsis
             )
 
-            OutlinedButton(
-                onClick = onChangeClick,
-                enabled = true,
-            ) {
-                Text(
-                    text = stringResource(Res.string.welcome_change_company),
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
+            if (isChangeCompanyEnabled) {
+                OutlinedButton(
+                    onClick = onChangeClick,
+                    enabled = true,
+                ) {
+                    Text(
+                        text = stringResource(Res.string.welcome_change_company),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
             }
         }
     }
