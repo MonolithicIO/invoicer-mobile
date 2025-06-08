@@ -44,4 +44,4 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run linter
-        run: ./gradlew detekt
+        run: ./gradlew detektAndroidDebug
