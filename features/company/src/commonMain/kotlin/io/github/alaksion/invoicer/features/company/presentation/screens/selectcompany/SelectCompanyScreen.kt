@@ -1,6 +1,7 @@
 package io.github.alaksion.invoicer.features.company.presentation.screens.selectcompany
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -124,7 +125,8 @@ internal class SelectCompanyScreen : Screen {
                         LazyColumn(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .weight(1f)
+                                .weight(1f),
+                            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
                         ) {
                             items(
                                 items = state.companies,
@@ -161,6 +163,7 @@ internal class SelectCompanyScreen : Screen {
                                 )
                             }
                         }
+
                         VerticalSpacer(height = SpacerSize.Medium)
                         PrimaryButton(
                             modifier = Modifier.fillMaxWidth(),
