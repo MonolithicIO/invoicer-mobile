@@ -53,7 +53,8 @@ internal class SelectCompanyScreenModel(
 
         session.company = SessionCompany(
             id = company.id,
-            name = company.name
+            name = company.name,
+            isChangeCompanyEnabled = state.value.companies.size > 1
         )
         screenModelScope.launch(dispatcher) {
             _events.emit(SelectCompanyEvent.ContinueToHome)
@@ -71,7 +72,8 @@ internal class SelectCompanyScreenModel(
         if (companies.size == 1) {
             session.company = SessionCompany(
                 id = companies.first().id,
-                name = companies.first().name
+                name = companies.first().name,
+                isChangeCompanyEnabled = false
             )
             screenModelScope.launch(dispatcher) {
                 _events.emit(SelectCompanyEvent.ContinueToHome)
