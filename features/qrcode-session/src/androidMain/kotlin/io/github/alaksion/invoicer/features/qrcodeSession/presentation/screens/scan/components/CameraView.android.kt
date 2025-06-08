@@ -39,8 +39,8 @@ actual fun QrCodeCameraView(
 
     AndroidView(
         modifier = Modifier.fillMaxWidth(),
-        factory = { context ->
-            val previewView = PreviewView(context)
+        factory = { factoryContext ->
+            val previewView = PreviewView(factoryContext)
             with(previewView) {
                 scaleType = PreviewView.ScaleType.FIT_START
                 layoutParams = ViewGroup.LayoutParams(

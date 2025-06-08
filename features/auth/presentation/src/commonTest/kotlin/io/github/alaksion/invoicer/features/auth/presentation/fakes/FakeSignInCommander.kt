@@ -8,8 +8,8 @@ class FakeSignInCommander : SignInCommandManager {
     var failure: Throwable? = null
     var signInCommand: SignInCommand? = null
 
-    override suspend fun resolveCommand(type: SignInCommand) {
+    override suspend fun resolveCommand(command: SignInCommand) {
         failure?.let { throw it }
-        signInCommand = type
+        signInCommand = command
     }
 }

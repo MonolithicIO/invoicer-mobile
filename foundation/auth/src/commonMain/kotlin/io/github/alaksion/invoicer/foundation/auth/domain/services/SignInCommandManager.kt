@@ -8,7 +8,7 @@ import io.github.alaksion.invoicer.foundation.session.Session
 import io.github.alaksion.invoicer.foundation.session.SessionTokens
 
 interface SignInCommandManager {
-    suspend fun resolveCommand(type: SignInCommand)
+    suspend fun resolveCommand(command: SignInCommand)
 }
 
 sealed interface SignInCommand {
