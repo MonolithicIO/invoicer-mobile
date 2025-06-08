@@ -24,8 +24,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
+import cafe.adriel.voyager.core.registry.ScreenRegistry
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.company_error_message
@@ -45,6 +47,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.screenstat
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.navigation.InvoicerScreen
 import org.jetbrains.compose.resources.stringResource
 
 internal class SelectCompanyScreen : Screen {
@@ -53,6 +56,7 @@ internal class SelectCompanyScreen : Screen {
     @Composable
     override fun Content() {
         val screenModel = koinScreenModel<SelectCompanyScreenModel>()
+        val navigator = LocalNavigator.current
         val state = screenModel.state.collectAsState()
 
         LaunchedEffect(screenModel) {
@@ -62,7 +66,9 @@ internal class SelectCompanyScreen : Screen {
         LaunchedEffect(screenModel) {
             screenModel.events.collect {
                 when (it) {
-                    SelectCompanyEvent.ContinueToHome -> Unit
+                    SelectCompanyEvent.ContinueToHome -> navigator?.replaceAll(
+                        ScreenRegistry.get(InvoicerScreen.Home)
+                    )
                 }
             }
         }
@@ -71,7 +77,9 @@ internal class SelectCompanyScreen : Screen {
 
         StateContent(
             state = state.value,
-            onSelectCompanyClick = {},
+            onSelectCompanyClick = {
+                screenModel.selectCompany(it)
+            },
             onCreateCompanyClick = {},
             onRetryClick = screenModel::loadCompanies
         )

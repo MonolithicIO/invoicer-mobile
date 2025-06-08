@@ -34,6 +34,7 @@ kotlin {
             implementation(projects.foundation.designSystem)
             implementation(projects.foundation.ui)
             implementation(projects.foundation.utils)
+            implementation(projects.foundation.session)
 
             // Ktor
             implementation(libs.ktor.client.serialization)
