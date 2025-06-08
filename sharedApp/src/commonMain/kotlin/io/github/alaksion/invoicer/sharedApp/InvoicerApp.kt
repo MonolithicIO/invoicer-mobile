@@ -33,7 +33,7 @@ fun InvoicerApp() {
                 bus = authEventBus,
                 onSignIn = {
                     navigator.replaceAll(
-                        ScreenRegistry.get(InvoicerScreen.Home)
+                        ScreenRegistry.get(InvoicerScreen.Company.SelectCompany)
                     )
                 },
                 onSignOff = {

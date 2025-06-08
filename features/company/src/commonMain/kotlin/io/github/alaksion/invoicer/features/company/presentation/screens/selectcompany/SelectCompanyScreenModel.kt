@@ -6,6 +6,8 @@ import io.github.alaksion.invoicer.features.company.domain.model.ListCompaniesIt
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
 import io.github.alaksion.invoicer.foundation.network.request.handle
 import io.github.alaksion.invoicer.foundation.network.request.launchRequest
+import io.github.alaksion.invoicer.foundation.session.Session
+import io.github.alaksion.invoicer.foundation.session.SessionCompany
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,7 +19,8 @@ import kotlinx.coroutines.launch
 
 internal class SelectCompanyScreenModel(
     private val repository: CompanyRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val session: Session
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(SelectCompanyState())
@@ -45,6 +48,18 @@ internal class SelectCompanyScreenModel(
         }
     }
 
+    fun selectCompany(companyId: String) {
+        val company = state.value.companies.first { it.id == companyId }
+
+        session.company = SessionCompany(
+            id = company.id,
+            name = company.name
+        )
+        screenModelScope.launch(dispatcher) {
+            _events.emit(SelectCompanyEvent.ContinueToHome)
+        }
+    }
+
     private fun handleCompaniesResponse(
         companies: List<ListCompaniesItemModel>
     ) {
@@ -54,7 +69,10 @@ internal class SelectCompanyScreenModel(
         }
 
         if (companies.size == 1) {
-            // Set company info and continue to home
+            session.company = SessionCompany(
+                id = companies.first().id,
+                name = companies.first().name
+            )
             screenModelScope.launch(dispatcher) {
                 _events.emit(SelectCompanyEvent.ContinueToHome)
             }

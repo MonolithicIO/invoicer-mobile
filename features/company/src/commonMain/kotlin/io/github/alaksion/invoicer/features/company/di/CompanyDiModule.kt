@@ -5,6 +5,7 @@ import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemot
 import io.github.alaksion.invoicer.features.company.data.repository.CompanyRepositoryImpl
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
 import io.github.alaksion.invoicer.features.company.presentation.screens.selectcompany.SelectCompanyScreenModel
+import io.github.alaksion.invoicer.foundation.session.Session
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
@@ -26,7 +27,8 @@ val companyDiModule = module {
     factory<SelectCompanyScreenModel> {
         SelectCompanyScreenModel(
             dispatcher = Dispatchers.Default,
-            repository = get()
+            repository = get(),
+            session = Session
         )
     }
 }
