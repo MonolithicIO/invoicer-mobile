@@ -25,6 +25,10 @@ internal class CreateCompanyFormManager {
         scope = null
     }
 
+    fun getForm(): CreateCompanyForm {
+        return scope?.get()!!
+    }
+
     companion object {
         const val ScopeName = "CreateCompanyFlowScope"
         val ScopeQualifier = named("CreateCompanyFormManager")

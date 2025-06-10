@@ -8,7 +8,8 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
 import cafe.adriel.voyager.transitions.SlideTransition
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyFormManager
-import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.CompanyInfoStep
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoStep
+import org.koin.mp.KoinPlatform
 
 internal class CreateCompanyFlow : Screen {
 
@@ -17,7 +18,7 @@ internal class CreateCompanyFlow : Screen {
     override fun Content() {
 
         DisposableEffect(Unit) {
-            val manager = CreateCompanyFormManager()
+            val manager: CreateCompanyFormManager = KoinPlatform.getKoin().get()
             manager.startScope()
             onDispose {
                 manager.closeScope()

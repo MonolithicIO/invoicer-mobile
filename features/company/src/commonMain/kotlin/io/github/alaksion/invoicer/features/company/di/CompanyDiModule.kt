@@ -6,6 +6,7 @@ import io.github.alaksion.invoicer.features.company.data.repository.CompanyRepos
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyForm
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyFormManager
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
 import io.github.alaksion.invoicer.foundation.session.Session
 import kotlinx.coroutines.Dispatchers
@@ -32,6 +33,16 @@ val companyDiModule = module {
             repository = get(),
             session = Session
         )
+    }
+
+    factory {
+        CompanyInfoScreenModel(
+            form = get<CreateCompanyFormManager>().getForm()
+        )
+    }
+
+    single<CreateCompanyFormManager> {
+        CreateCompanyFormManager()
     }
 
     scope(CreateCompanyFormManager.ScopeQualifier) {

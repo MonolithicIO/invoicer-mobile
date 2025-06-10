@@ -12,4 +12,9 @@
     <string name="company_selection_no_companies_title">No companies available</string>
     <string name="company_selection_no_companies_description">Create a company to start using the app</string>
 
+    <!-- Create company -->
+    <string name="create_company_continue">Continue</string>
+    <string name="crate_company_info_title">Company Identity</string>
+    <string name="create_company_info_description">Inform company name and document</string>
+
 </resources>
