@@ -1,7 +1,6 @@
 package io.github.alaksion.invoicer.features.company.presentation.model
 
 import org.koin.core.qualifier.named
-import org.koin.core.scope.Scope
 import org.koin.mp.KoinPlatform.getKoin
 
 class CreateCompanyForm {
@@ -11,26 +10,25 @@ class CreateCompanyForm {
 
 internal class CreateCompanyFormManager {
 
-    private var scope: Scope? = null
-
-    fun startScope() {
-        scope = getKoin().createScope(
-            scopeId = ScopeName,
-            qualifier = ScopeQualifier
-        )
-    }
-
     fun closeScope() {
+        val scope = getKoin().getScopeOrNull(ScopeName)
         scope?.close()
-        scope = null
     }
 
     fun getForm(): CreateCompanyForm {
-        return scope?.get()!!
+        val currentScope = getKoin().getScopeOrNull(ScopeName)
+
+        if (currentScope == null) {
+            val newScope = getKoin().createScope(ScopeName, ScopeQualifier)
+            newScope.declare(CreateCompanyForm())
+            return newScope.get<CreateCompanyForm>()
+        }
+
+        return currentScope.get<CreateCompanyForm>()
     }
 
     companion object {
         const val ScopeName = "CreateCompanyFlowScope"
-        val ScopeQualifier = named("CreateCompanyFormManager")
+        val ScopeQualifier = named("CreateCompanyFlowScope")
     }
 }

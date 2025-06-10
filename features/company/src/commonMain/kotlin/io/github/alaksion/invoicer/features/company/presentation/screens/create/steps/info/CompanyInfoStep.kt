@@ -43,17 +43,22 @@ internal class CompanyInfoStep : Screen {
         val state = screenModel.state.collectAsState()
 
         LaunchedEffect(Unit) { screenModel.resumeState() }
+        val callbacks = remember {
+            Callbacks(
+                onClose = { parentNavigator?.pop() },
+                onContinue = { /* Handle continue action */ },
+                onNameChange = {
+                    screenModel.setName(it)
+                },
+                onDocumentChange = {
+                    screenModel.setDocument(it)
+                }
+            )
+        }
 
         StateContent(
             state = state.value,
-            callbacks = remember {
-                Callbacks(
-                    onClose = { parentNavigator?.pop() },
-                    onContinue = { },
-                    onNameChange = screenModel::setName,
-                    onDocumentChange = screenModel::setDocument
-                )
-            }
+            callbacks = callbacks
         )
     }
 
@@ -101,6 +106,7 @@ internal class CompanyInfoStep : Screen {
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
+                VerticalSpacer(SpacerSize.Medium)
                 InputField(
                     value = state.companyDocument,
                     onValueChange = callbacks.onDocumentChange,

@@ -19,7 +19,6 @@ internal class CreateCompanyFlow : Screen {
 
         DisposableEffect(Unit) {
             val manager: CreateCompanyFormManager = KoinPlatform.getKoin().get()
-            manager.startScope()
             onDispose {
                 manager.closeScope()
             }

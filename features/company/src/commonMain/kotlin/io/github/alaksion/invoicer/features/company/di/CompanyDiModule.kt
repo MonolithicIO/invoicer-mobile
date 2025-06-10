@@ -4,7 +4,6 @@ import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemot
 import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemoteDataSourceImpl
 import io.github.alaksion.invoicer.features.company.data.repository.CompanyRepositoryImpl
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
-import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyForm
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyFormManager
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
@@ -43,11 +42,5 @@ val companyDiModule = module {
 
     single<CreateCompanyFormManager> {
         CreateCompanyFormManager()
-    }
-
-    scope(CreateCompanyFormManager.ScopeQualifier) {
-        scoped {
-            CreateCompanyForm()
-        }
     }
 }
