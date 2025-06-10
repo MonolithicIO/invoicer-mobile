@@ -73,7 +73,6 @@ internal object WelcomeTab : Tab {
                     companyName = state.companyName,
                     modifier = Modifier.fillMaxWidth(),
                     onChangeClick = callbacks.onChangeCompanyClick,
-                    isChangeCompanyEnabled = state.isChangeCompanyEnabled
                 )
             }
         ) {

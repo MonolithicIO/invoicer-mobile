@@ -38,6 +38,7 @@ import invoicer.features.company.generated.resources.company_selection_new_compa
 import invoicer.features.company.generated.resources.company_selection_no_companies_description
 import invoicer.features.company.generated.resources.company_selection_no_companies_title
 import invoicer.features.company.generated.resources.company_selection_title
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.CreateCompanyFlow
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.CloseButton
@@ -81,7 +82,9 @@ internal class SelectCompanyScreen : Screen {
             onSelectCompanyClick = {
                 screenModel.selectCompany(it)
             },
-            onCreateCompanyClick = {},
+            onCreateCompanyClick = {
+                navigator?.push(CreateCompanyFlow())
+            },
             onRetryClick = screenModel::loadCompanies
         )
     }
