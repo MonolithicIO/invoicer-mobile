@@ -16,5 +16,9 @@
     <string name="create_company_continue">Continue</string>
     <string name="crate_company_info_title">Company Identity</string>
     <string name="create_company_info_description">Inform company name and document</string>
+    <string name="create_company_info_name_hint">Company Name</string>
+    <string name="create_company_info_name_placeholder">John Doe Pizzeria</string>
+    <string name="create_company_info_document_hint">Document</string>
+    <string name="create_company_info_document_placeholder">12341234</string>
 
 </resources>
