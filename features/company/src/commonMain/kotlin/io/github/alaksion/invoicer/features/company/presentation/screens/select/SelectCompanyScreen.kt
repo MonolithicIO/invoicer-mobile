@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.screens.selectcompany
+package io.github.alaksion.invoicer.features.company.presentation.screens.select
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
