@@ -89,7 +89,8 @@ internal class CompanyAddressStep : Screen {
                     PrimaryButton(
                         label = stringResource(Res.string.create_company_continue),
                         isEnabled = state.isButtonEnabled,
-                        onClick = callbacks.onNextClick
+                        onClick = callbacks.onNextClick,
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             }
