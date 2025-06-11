@@ -5,6 +5,7 @@ import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemot
 import io.github.alaksion.invoicer.features.company.data.repository.CompanyRepositoryImpl
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyFormManager
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
 import io.github.alaksion.invoicer.foundation.session.Session
@@ -36,6 +37,12 @@ val companyDiModule = module {
 
     factory {
         CompanyInfoScreenModel(
+            form = get<CreateCompanyFormManager>().getForm()
+        )
+    }
+
+    factory {
+        CompanyAddressScreenModel(
             form = get<CreateCompanyFormManager>().getForm()
         )
     }

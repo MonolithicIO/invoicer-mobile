@@ -83,7 +83,7 @@ internal class CompanyInfoStep : Screen {
             bottomBar = {
                 PrimaryButton(
                     label = stringResource(Res.string.create_company_continue),
-                    onClick = {},
+                    onClick = callbacks.onContinue,
                     isEnabled = state.isButtonEnabled,
                     modifier = Modifier.fillMaxWidth().padding(Spacing.medium),
                 )
