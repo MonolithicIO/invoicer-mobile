@@ -24,6 +24,7 @@ import invoicer.features.company.generated.resources.create_company_info_documen
 import invoicer.features.company.generated.resources.create_company_info_document_placeholder
 import invoicer.features.company.generated.resources.create_company_info_name_hint
 import invoicer.features.company.generated.resources.create_company_info_name_placeholder
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressStep
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.CloseButton
@@ -39,14 +40,16 @@ internal class CompanyInfoStep : Screen {
     @Composable
     override fun Content() {
         val parentNavigator = LocalNavigator.current?.parent
+        val localNavigator = LocalNavigator.current
         val screenModel = koinScreenModel<CompanyInfoScreenModel>()
         val state = screenModel.state.collectAsState()
 
         LaunchedEffect(Unit) { screenModel.resumeState() }
+
         val callbacks = remember {
             Callbacks(
                 onClose = { parentNavigator?.pop() },
-                onContinue = { /* Handle continue action */ },
+                onContinue = { localNavigator?.push(CompanyAddressStep()) },
                 onNameChange = {
                     screenModel.setName(it)
                 },

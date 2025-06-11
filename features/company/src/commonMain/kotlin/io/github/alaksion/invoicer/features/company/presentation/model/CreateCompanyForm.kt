@@ -6,6 +6,13 @@ import org.koin.mp.KoinPlatform.getKoin
 class CreateCompanyForm {
     var companyName: String = ""
     var companyDocument: String = ""
+
+    var addressLine1: String = ""
+    var addressLine2: String = ""
+    var city: String = ""
+    var state: String = ""
+    var postalCode: String = ""
+    var countryCode: String = ""
 }
 
 internal class CreateCompanyFormManager {

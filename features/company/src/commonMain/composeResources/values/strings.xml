@@ -12,7 +12,7 @@
     <string name="company_selection_no_companies_title">No companies available</string>
     <string name="company_selection_no_companies_description">Create a company to start using the app</string>
 
-    <!-- Create company -->
+    <!-- Create company Info-->
     <string name="create_company_continue">Continue</string>
     <string name="crate_company_info_title">Company Identity</string>
     <string name="create_company_info_description">Inform company name and document</string>
@@ -20,5 +20,15 @@
     <string name="create_company_info_name_placeholder">John Doe Pizzeria</string>
     <string name="create_company_info_document_hint">Document</string>
     <string name="create_company_info_document_placeholder">12341234</string>
+
+    <!-- Create Company Address-->
+    <string name="create_company_address_title">Company Address</string>
+    <string name="create_company_address_description">Inform company address</string>
+    <string name="create_company_address_line_1_label">Address line</string>
+    <string name="create_company_address_line_2_label">Address line 2</string>
+    <string name="create_company_address_line_2_help_text">Optional</string>
+    <string name="create_company_address_city_label">City</string>
+    <string name="create_company_address_state_label">State</string>
+    <string name="create_company_address_postal_code_label">Postal Code</string>
 
 </resources>
