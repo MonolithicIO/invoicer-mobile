@@ -1,6 +1,7 @@
 package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.primary
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
@@ -10,11 +11,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -23,6 +26,7 @@ import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.create_company_continue
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_description
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_title
+import invoicer.features.company.generated.resources.create_company_pay_info_primary_use_intermediary
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoFormCallbacks
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
@@ -85,7 +89,7 @@ internal class PrimaryPayInfoScreen : Screen {
                         label = stringResource(Res.string.create_company_continue),
                         onClick = callbacks.onContinue,
                         modifier = Modifier.fillMaxWidth(),
-                        isEnabled = state.shouldGoToIntermediary
+                        isEnabled = state.buttonEnabled
                     )
                 }
             }
@@ -121,10 +125,19 @@ internal class PrimaryPayInfoScreen : Screen {
                     bankAddress = state.bankAddress,
                     callbacks = formCallbacks
                 ) {
-                    Switch(
-                        checked = state.shouldGoToIntermediary,
-                        onCheckedChange = callbacks.toggleIntermediary
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Switch(
+                            checked = state.shouldGoToIntermediary,
+                            onCheckedChange = callbacks.toggleIntermediary,
+                        )
+
+                        Text(
+                            text = stringResource(Res.string.create_company_pay_info_primary_use_intermediary)
+                        )
+                    }
                 }
             }
         }
