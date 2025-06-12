@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.screens.selectcompany
+package io.github.alaksion.invoicer.features.company.presentation.screens.select
 
 import io.github.alaksion.invoicer.features.company.domain.model.ListCompaniesItemModel
 import kotlinx.collections.immutable.ImmutableList

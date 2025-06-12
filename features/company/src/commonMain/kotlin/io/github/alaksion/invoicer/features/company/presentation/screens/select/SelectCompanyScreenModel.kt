@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.screens.selectcompany
+package io.github.alaksion.invoicer.features.company.presentation.screens.select
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
