@@ -91,7 +91,7 @@ internal fun CompanyPayInfoForm(
 
         InputField(
             value = bankName,
-            onValueChange = callbacks.onChangeIban,
+            onValueChange = callbacks.onChangeBankName,
             modifier = Modifier
                 .fillMaxWidth()
                 .focusRequester(bankNameRef),

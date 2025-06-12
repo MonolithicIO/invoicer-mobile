@@ -1,5 +1,6 @@
 package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.primary
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -139,7 +140,8 @@ internal class PrimaryPayInfoScreen : Screen {
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(Spacing.medium)
                     ) {
                         Switch(
                             checked = state.shouldGoToIntermediary,
