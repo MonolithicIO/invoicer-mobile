@@ -19,6 +19,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.company.generated.resources.Res
+import invoicer.features.company.generated.resources.create_company_continue
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_description
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_title
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
@@ -79,9 +80,10 @@ internal class PrimaryPayInfoScreen : Screen {
                     modifier = Modifier.fillMaxWidth().padding(Spacing.medium)
                 ) {
                     PrimaryButton(
-                        label = "",
+                        label = stringResource(Res.string.create_company_continue),
                         onClick = callbacks.onContinue,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        isEnabled = state.shouldGoToIntermediary
                     )
                 }
             }
