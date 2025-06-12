@@ -29,6 +29,7 @@ import invoicer.features.company.generated.resources.create_company_pay_info_pri
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_use_intermediary
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoFormCallbacks
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.intermediary.IntermediaryPayInfoScreen
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
@@ -53,7 +54,18 @@ internal class PrimaryPayInfoScreen : Screen {
                 onChangeBankAddress = screenModel::updateAddress,
                 toggleIntermediary = screenModel::toggleIntermediary,
                 onBack = { navigator?.pop() },
-                onContinue = {},
+                onContinue = {
+                    screenModel.submit()
+                    val destination = if (state.value.shouldGoToIntermediary) {
+                        IntermediaryPayInfoScreen()
+                    } else {
+                        // TODO -> Navigate to confirmation screen
+                        null
+                    }
+                    destination?.let {
+                        navigator?.push(it)
+                    }
+                },
             )
         }
 

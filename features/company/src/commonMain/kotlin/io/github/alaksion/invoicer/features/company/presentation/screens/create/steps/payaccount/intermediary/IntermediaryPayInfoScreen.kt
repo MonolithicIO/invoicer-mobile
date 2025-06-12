@@ -47,7 +47,10 @@ internal class IntermediaryPayInfoScreen : Screen {
                 onChangeBankName = screenModel::updateBankName,
                 onChangeBankAddress = screenModel::updateAddress,
                 onBack = { navigator?.pop() },
-                onContinue = {},
+                onContinue = {
+                    screenModel.submit()
+                    // TODO -> navigate to confirmation screen
+                },
             )
         }
 
