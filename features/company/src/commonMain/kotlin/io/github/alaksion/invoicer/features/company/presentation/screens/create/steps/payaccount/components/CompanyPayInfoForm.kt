@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -13,8 +14,14 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import invoicer.features.company.generated.resources.Res
+import invoicer.features.company.generated.resources.create_company_pay_info_bank_address_label
+import invoicer.features.company.generated.resources.create_company_pay_info_bank_name_label
+import invoicer.features.company.generated.resources.create_company_pay_info_iban_code_label
+import invoicer.features.company.generated.resources.create_company_pay_info_swift_code_label
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 internal data class CompanyPayInfoFormCallbacks(
     val onChangeIban: (String) -> Unit,
@@ -53,7 +60,12 @@ internal fun CompanyPayInfoForm(
                 capitalization = KeyboardCapitalization.Characters,
                 autoCorrectEnabled = false,
                 imeAction = ImeAction.Next
-            )
+            ),
+            label = {
+                Text(
+                    text = stringResource(Res.string.create_company_pay_info_swift_code_label)
+                )
+            }
         )
 
         InputField(
@@ -69,7 +81,12 @@ internal fun CompanyPayInfoForm(
                 capitalization = KeyboardCapitalization.Characters,
                 autoCorrectEnabled = false,
                 imeAction = ImeAction.Next
-            )
+            ),
+            label = {
+                Text(
+                    text = stringResource(Res.string.create_company_pay_info_iban_code_label)
+                )
+            }
         )
 
         InputField(
@@ -85,7 +102,12 @@ internal fun CompanyPayInfoForm(
                 capitalization = KeyboardCapitalization.Characters,
                 autoCorrectEnabled = false,
                 imeAction = ImeAction.Next
-            )
+            ),
+            label = {
+                Text(
+                    text = stringResource(Res.string.create_company_pay_info_bank_name_label)
+                )
+            }
         )
 
         InputField(
@@ -101,7 +123,12 @@ internal fun CompanyPayInfoForm(
                 capitalization = KeyboardCapitalization.Characters,
                 autoCorrectEnabled = false,
                 imeAction = ImeAction.Done
-            )
+            ),
+            label = {
+                Text(
+                    text = stringResource(Res.string.create_company_pay_info_bank_address_label)
+                )
+            }
         )
 
         extraContent?.let { it() }

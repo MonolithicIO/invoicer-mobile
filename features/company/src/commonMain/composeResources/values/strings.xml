@@ -40,6 +40,7 @@
     <!-- Create company pay info Primary -->
     <string name="create_company_pay_info_primary_title">Payment Information</string>
     <string name="create_company_pay_info_primary_description">Inform payment information</string>
+    <string name="create_company_pay_info_primary_use_intermediary">Add intermediary account</string>
 
 
 </resources>
