@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
@@ -16,11 +18,18 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import invoicer.features.company.generated.resources.Res
+import invoicer.features.company.generated.resources.create_company_pay_info_primary_description
+import invoicer.features.company.generated.resources.create_company_pay_info_primary_title
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoFormCallbacks
+import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
+import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
+import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 internal class PrimaryPayInfoScreen : Screen {
 
@@ -87,18 +96,32 @@ internal class PrimaryPayInfoScreen : Screen {
                 )
             }
 
-            CompanyPayInfoForm(
-                modifier = Modifier.padding(scaffoldPadding).padding(Spacing.medium).fillMaxSize(),
-                iban = state.iban,
-                swift = state.swift,
-                bankName = state.bankName,
-                bankAddress = state.bankAddress,
-                callbacks = formCallbacks
+            Column(
+                modifier = Modifier.padding(scaffoldPadding).padding(Spacing.medium).fillMaxSize()
             ) {
-                Switch(
-                    checked = state.shouldGoToIntermediary,
-                    onCheckedChange = callbacks.toggleIntermediary
+                ScreenTitle(
+                    title = stringResource(Res.string.create_company_pay_info_primary_title),
+                    subTitle = stringResource(Res.string.create_company_pay_info_primary_description)
                 )
+
+                VerticalSpacer(SpacerSize.XLarge3)
+
+                CompanyPayInfoForm(
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                        .verticalScroll(rememberScrollState()),
+                    iban = state.iban,
+                    swift = state.swift,
+                    bankName = state.bankName,
+                    bankAddress = state.bankAddress,
+                    callbacks = formCallbacks
+                ) {
+                    Switch(
+                        checked = state.shouldGoToIntermediary,
+                        onCheckedChange = callbacks.toggleIntermediary
+                    )
+                }
             }
         }
     }
