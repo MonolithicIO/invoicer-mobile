@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payinfo.primary
+package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.primary
 
 internal data class PrimaryPayInfoState(
     val iban: String = "",

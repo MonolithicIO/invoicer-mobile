@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payinfo.primary
+package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.primary
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen

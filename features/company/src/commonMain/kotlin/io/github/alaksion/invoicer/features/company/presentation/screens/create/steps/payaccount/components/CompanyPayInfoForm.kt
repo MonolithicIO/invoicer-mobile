@@ -1,4 +1,4 @@
-package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payinfo.components
+package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
