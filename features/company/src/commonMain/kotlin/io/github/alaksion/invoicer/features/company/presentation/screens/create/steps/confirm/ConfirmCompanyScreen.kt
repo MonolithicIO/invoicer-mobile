@@ -1,5 +1,6 @@
 package io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +22,9 @@ import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.create_company_confirmation_cta
 import invoicer.features.company.generated.resources.create_company_confirmation_description
 import invoicer.features.company.generated.resources.create_company_confirmation_title
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.AddressSection
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.CompanySection
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.PaySection
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
@@ -100,9 +104,41 @@ internal class ConfirmCompanyScreen : Screen {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .verticalScroll(scrollState)
+                        .verticalScroll(scrollState),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.medium)
                 ) {
 
+                    CompanySection(
+                        name = state.companyName,
+                        document = state.companyDocument
+                    )
+
+                    AddressSection(
+                        addressLine1 = state.addressLine1,
+                        addressLine2 = state.addressLine2,
+                        city = state.city,
+                        state = state.state,
+                        postalCode = state.postalCode,
+                        countryCode = state.countryCode
+                    )
+
+                    PaySection(
+                        title = "Payment account",
+                        swift = state.primaryPayAccount.swift,
+                        iban = state.primaryPayAccount.iban,
+                        bankName = state.primaryPayAccount.bankName,
+                        bankAddress = state.primaryPayAccount.bankAddress,
+                    )
+
+                    state.intermediaryPayAccount?.let { account ->
+                        PaySection(
+                            title = "Intermediary account",
+                            swift = account.swift,
+                            iban = account.iban,
+                            bankName = account.bankName,
+                            bankAddress = account.bankAddress,
+                        )
+                    }
                 }
             }
         }
@@ -113,5 +149,4 @@ internal class ConfirmCompanyScreen : Screen {
         val onConfirm: () -> Unit,
         val onScrollEnd: () -> Unit,
     )
-
 }
