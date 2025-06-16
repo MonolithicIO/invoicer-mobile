@@ -22,6 +22,7 @@ import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.create_company_continue
 import invoicer.features.company.generated.resources.create_company_pay_info_intermediary_description
 import invoicer.features.company.generated.resources.create_company_pay_info_intermediary_title
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreen
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoFormCallbacks
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
@@ -49,7 +50,7 @@ internal class IntermediaryPayInfoScreen : Screen {
                 onBack = { navigator?.pop() },
                 onContinue = {
                     screenModel.submit()
-                    // TODO -> navigate to confirmation screen
+                    navigator?.push(ConfirmCompanyScreen())
                 },
             )
         }
