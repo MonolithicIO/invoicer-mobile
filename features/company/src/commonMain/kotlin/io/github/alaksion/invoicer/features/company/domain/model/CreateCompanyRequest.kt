@@ -10,7 +10,7 @@ internal data class CreateCompanyModel(
 
 internal data class CreateCompanyAddressModel(
     val addressLine1: String,
-    val addressLine2: String,
+    val addressLine2: String?,
     val city: String,
     val state: String,
     val postalCode: String,
