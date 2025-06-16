@@ -84,16 +84,12 @@ internal class CompanyAddressStep : Screen {
                 )
             },
             bottomBar = {
-                Column(
+                PrimaryButton(
+                    label = stringResource(Res.string.create_company_continue),
+                    isEnabled = state.isButtonEnabled,
+                    onClick = callbacks.onNextClick,
                     modifier = Modifier.fillMaxWidth().padding(Spacing.medium)
-                ) {
-                    PrimaryButton(
-                        label = stringResource(Res.string.create_company_continue),
-                        isEnabled = state.isButtonEnabled,
-                        onClick = callbacks.onNextClick,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                )
             }
         ) { scaffoldPadding ->
             Column(
