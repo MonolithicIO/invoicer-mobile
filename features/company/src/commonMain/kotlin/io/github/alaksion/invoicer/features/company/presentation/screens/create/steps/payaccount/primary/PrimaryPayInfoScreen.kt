@@ -28,6 +28,7 @@ import invoicer.features.company.generated.resources.create_company_continue
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_description
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_title
 import invoicer.features.company.generated.resources.create_company_pay_info_primary_use_intermediary
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreen
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoFormCallbacks
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.intermediary.IntermediaryPayInfoScreen
@@ -60,12 +61,9 @@ internal class PrimaryPayInfoScreen : Screen {
                     val destination = if (state.value.shouldGoToIntermediary) {
                         IntermediaryPayInfoScreen()
                     } else {
-                        // TODO -> Navigate to confirmation screen
-                        null
+                        ConfirmCompanyScreen()
                     }
-                    destination?.let {
-                        navigator?.push(it)
-                    }
+                    navigator?.push(destination)
                 },
             )
         }

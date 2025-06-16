@@ -6,6 +6,8 @@ import io.github.alaksion.invoicer.features.company.data.repository.CompanyRepos
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyFormManager
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressScreenModel
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreenModel
+import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyState
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.intermediary.IntermediaryPayInfoScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.primary.PrimaryPayInfoScreenModel
@@ -57,6 +59,12 @@ val companyDiModule = module {
 
     factory {
         IntermediaryPayInfoScreenModel(
+            form = get<CreateCompanyFormManager>().getForm()
+        )
+    }
+
+    factory {
+        ConfirmCompanyScreenModel(
             form = get<CreateCompanyFormManager>().getForm()
         )
     }
