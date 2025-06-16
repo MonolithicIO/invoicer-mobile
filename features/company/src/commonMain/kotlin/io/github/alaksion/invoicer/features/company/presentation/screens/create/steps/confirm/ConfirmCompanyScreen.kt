@@ -9,11 +9,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -31,6 +33,8 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Pr
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 internal class ConfirmCompanyScreen : Screen {
@@ -38,17 +42,33 @@ internal class ConfirmCompanyScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
+        val parentNavigator = navigator?.parent
         val screenModel = koinScreenModel<ConfirmCompanyScreenModel>()
         val state = screenModel.state.collectAsState()
+        val scope = rememberCoroutineScope()
+        val snackBarState = remember { SnackbarHostState() }
 
         LaunchedEffect(Unit) { screenModel.resumeState() }
+
+        FlowCollectEffect(
+            flow = screenModel.events,
+            key = screenModel,
+        ) {
+            when (it) {
+                is CreateCompanyEvents.Success -> parentNavigator?.pop()
+
+                is CreateCompanyEvents.Error -> {
+                    scope.launch { snackBarState.showSnackbar(it.message) }
+                }
+            }
+        }
 
         StateContent(
             state = state.value,
             callbacks = remember {
                 Callbacks(
                     onBack = { navigator?.pop() },
-                    onConfirm = {},
+                    onConfirm = screenModel::createCompany,
                     onScrollEnd = screenModel::enableButton
                 )
             }
