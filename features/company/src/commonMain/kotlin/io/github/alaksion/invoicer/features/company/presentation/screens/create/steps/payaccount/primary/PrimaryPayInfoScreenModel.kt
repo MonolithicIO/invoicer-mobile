@@ -52,6 +52,10 @@ internal class PrimaryPayInfoScreenModel(
     }
 
     fun toggleIntermediary(value: Boolean) {
+        if (value.not()) {
+            form.intermediaryPayAccount = null
+        }
+
         _state.update {
             it.copy(
                 shouldGoToIntermediary = value
