@@ -2,6 +2,11 @@ package io.github.alaksion.invoicer.features.company.presentation.screens.create
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import invoicer.features.company.generated.resources.Res
+import invoicer.features.company.generated.resources.create_company_confirmation_document_label
+import invoicer.features.company.generated.resources.create_company_confirmation_info_section_label
+import invoicer.features.company.generated.resources.create_company_confirmation_name_label
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun CompanySection(
@@ -10,15 +15,15 @@ internal fun CompanySection(
     modifier: Modifier = Modifier
 ) {
     ConfirmCompanySection(
-        title = "Company Information",
+        title = stringResource(Res.string.create_company_confirmation_info_section_label),
         modifier = modifier,
     ) {
         ConfirmCompanyField(
-            label = "Name",
+            label = stringResource(Res.string.create_company_confirmation_name_label),
             value = name,
         )
         ConfirmCompanyField(
-            label = "Document",
+            label = stringResource(Res.string.create_company_confirmation_document_label),
             value = document,
         )
     }

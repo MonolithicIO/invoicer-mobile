@@ -2,6 +2,15 @@ package io.github.alaksion.invoicer.features.company.presentation.screens.create
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import invoicer.features.company.generated.resources.Res
+import invoicer.features.company.generated.resources.create_company_confirmation_address_line_2_label
+import invoicer.features.company.generated.resources.create_company_confirmation_address_line_label
+import invoicer.features.company.generated.resources.create_company_confirmation_address_section_label
+import invoicer.features.company.generated.resources.create_company_confirmation_city_label
+import invoicer.features.company.generated.resources.create_company_confirmation_country_code_label
+import invoicer.features.company.generated.resources.create_company_confirmation_postal_code_label
+import invoicer.features.company.generated.resources.create_company_confirmation_state_label
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun AddressSection(
@@ -14,31 +23,31 @@ internal fun AddressSection(
     modifier: Modifier = Modifier
 ) {
     ConfirmCompanySection(
-        title = "Address",
+        title = stringResource(Res.string.create_company_confirmation_address_section_label),
         modifier = modifier,
     ) {
         ConfirmCompanyField(
-            label = "Address Line 1",
+            label = stringResource(Res.string.create_company_confirmation_address_line_label),
             value = addressLine1,
         )
         ConfirmCompanyField(
-            label = "Address Line 2",
+            label = stringResource(Res.string.create_company_confirmation_address_line_2_label),
             value = addressLine2,
         )
         ConfirmCompanyField(
-            label = "City",
+            label = stringResource(Res.string.create_company_confirmation_city_label),
             value = city,
         )
         ConfirmCompanyField(
-            label = "State",
+            label = stringResource(Res.string.create_company_confirmation_state_label),
             value = state,
         )
         ConfirmCompanyField(
-            label = "Postal Code",
+            label = stringResource(Res.string.create_company_confirmation_postal_code_label),
             value = postalCode,
         )
         ConfirmCompanyField(
-            label = "Country Code",
+            label = stringResource(Res.string.create_company_confirmation_country_code_label),
             value = countryCode,
         )
     }

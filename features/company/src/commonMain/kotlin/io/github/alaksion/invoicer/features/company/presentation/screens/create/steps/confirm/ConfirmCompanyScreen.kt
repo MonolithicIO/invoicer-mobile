@@ -23,6 +23,8 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.create_company_confirmation_cta
 import invoicer.features.company.generated.resources.create_company_confirmation_description
+import invoicer.features.company.generated.resources.create_company_confirmation_intermediary_section_label
+import invoicer.features.company.generated.resources.create_company_confirmation_pay_info_section_label
 import invoicer.features.company.generated.resources.create_company_confirmation_title
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.AddressSection
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.CompanySection
@@ -143,7 +145,7 @@ internal class ConfirmCompanyScreen : Screen {
                     )
 
                     PaySection(
-                        title = "Payment account",
+                        title = stringResource(Res.string.create_company_confirmation_pay_info_section_label),
                         swift = state.primaryPayAccount.swift,
                         iban = state.primaryPayAccount.iban,
                         bankName = state.primaryPayAccount.bankName,
@@ -152,7 +154,7 @@ internal class ConfirmCompanyScreen : Screen {
 
                     state.intermediaryPayAccount?.let { account ->
                         PaySection(
-                            title = "Intermediary account",
+                            title = stringResource(Res.string.create_company_confirmation_intermediary_section_label),
                             swift = account.swift,
                             iban = account.iban,
                             bankName = account.bankName,

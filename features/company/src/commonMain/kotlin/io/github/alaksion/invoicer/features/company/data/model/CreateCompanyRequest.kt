@@ -14,7 +14,7 @@ internal data class CreateCompanyRequest(
 @Serializable
 internal data class CreateCompanyAddressRequest(
     val addressLine1: String,
-    val addressLine2: String,
+    val addressLine2: String?,
     val city: String,
     val state: String,
     val postalCode: String,

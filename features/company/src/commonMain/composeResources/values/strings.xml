@@ -50,6 +50,18 @@
     <string name="create_company_confirmation_title">Confirm Company</string>
     <string name="create_company_confirmation_description">Review the information below before creating your company.</string>
     <string name="create_company_confirmation_cta">Create Company</string>
+    <string name="create_company_confirmation_info_section_label">Company Information</string>
+    <string name="create_company_confirmation_name_label">Name</string>
+    <string name="create_company_confirmation_document_label">Document</string>
+    <string name="create_company_confirmation_address_section_label">Address</string>
+    <string name="create_company_confirmation_address_line_label">Address line 1</string>
+    <string name="create_company_confirmation_address_line_2_label">Address line 2</string>
+    <string name="create_company_confirmation_city_label">City</string>
+    <string name="create_company_confirmation_state_label">State</string>
+    <string name="create_company_confirmation_postal_code_label">Postal code</string>
+    <string name="create_company_confirmation_country_code_label">Country code</string>
+    <string name="create_company_confirmation_pay_info_section_label">Payment Information</string>
+    <string name="create_company_confirmation_intermediary_section_label">Intermediary Account</string>
 
 
 </resources>

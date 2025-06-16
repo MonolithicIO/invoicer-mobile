@@ -65,7 +65,9 @@ val companyDiModule = module {
 
     factory {
         ConfirmCompanyScreenModel(
-            form = get<CreateCompanyFormManager>().getForm()
+            form = get<CreateCompanyFormManager>().getForm(),
+            dispatcher = Dispatchers.Default,
+            repository = get()
         )
     }
 
