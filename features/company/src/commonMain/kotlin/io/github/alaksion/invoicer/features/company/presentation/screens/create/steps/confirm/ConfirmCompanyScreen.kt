@@ -4,10 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -34,12 +37,15 @@ internal class ConfirmCompanyScreen : Screen {
         val screenModel = koinScreenModel<ConfirmCompanyScreenModel>()
         val state = screenModel.state.collectAsState()
 
+        LaunchedEffect(Unit) { screenModel.resumeState() }
+
         StateContent(
             state = state.value,
             callbacks = remember {
                 Callbacks(
                     onBack = { navigator?.pop() },
-                    onConfirm = {}
+                    onConfirm = {},
+                    onScrollEnd = screenModel::enableButton
                 )
             }
         )
@@ -66,7 +72,9 @@ internal class ConfirmCompanyScreen : Screen {
                         .fillMaxWidth()
                         .padding(Spacing.medium),
                     label = stringResource(Res.string.create_company_confirmation_cta),
-                    onClick = callbacks.onConfirm
+                    onClick = callbacks.onConfirm,
+                    isEnabled = state.isButtonEnabled,
+                    isLoading = state.isButtonLoading
                 )
             }
         ) { scaffoldPadding ->
@@ -76,11 +84,26 @@ internal class ConfirmCompanyScreen : Screen {
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
+                val scrollState = rememberScrollState()
+
+                LaunchedEffect(scrollState.value) {
+                    if (scrollState.value >= scrollState.maxValue) {
+                        callbacks.onScrollEnd()
+                    }
+                }
+
                 ScreenTitle(
                     title = stringResource(Res.string.create_company_confirmation_title),
                     subTitle = stringResource(Res.string.create_company_confirmation_description)
                 )
                 VerticalSpacer(SpacerSize.XLarge3)
+                Column(
+                    modifier = Modifier
+                        .weight(1f)
+                        .verticalScroll(scrollState)
+                ) {
+
+                }
             }
         }
     }
@@ -88,6 +111,7 @@ internal class ConfirmCompanyScreen : Screen {
     data class Callbacks(
         val onBack: () -> Unit,
         val onConfirm: () -> Unit,
+        val onScrollEnd: () -> Unit,
     )
 
 }
