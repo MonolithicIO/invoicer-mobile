@@ -46,5 +46,10 @@
     <string name="create_company_pay_info_intermediary_title">Intermediary Account</string>
     <string name="create_company_pay_info_intermediary_description">Inform intermediary account</string>
 
+    <!-- Create company confirmation -->
+    <string name="create_company_confirmation_title">Confirm Company</string>
+    <string name="create_company_confirmation_description">Review the information below before creating your company.</string>
+    <string name="create_company_confirmation_cta">Create Company</string>
+
 
 </resources>
