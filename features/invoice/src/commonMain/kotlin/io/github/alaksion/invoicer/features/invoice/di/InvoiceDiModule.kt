@@ -1,7 +1,6 @@
 package io.github.alaksion.invoicer.features.invoice.di
 
 import features.invoice.data.repository.InvoiceRepositoryImpl
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.pickintermediary.PickIntermediaryScreenModel
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSourceImpl
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
@@ -11,7 +10,7 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.dates.InvoiceDatesScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdScreenModel
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.pickbeneficiary.PickBeneficiaryScreenModel
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.pickintermediary.PickIntermediaryScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListScreenModel
 import kotlinx.coroutines.Dispatchers
@@ -38,14 +37,6 @@ private fun Module.presentation() {
             dispatcher = Dispatchers.Default,
             manager = get(),
             dateProvider = get()
-        )
-    }
-
-    factory {
-        PickBeneficiaryScreenModel(
-            createInvoiceManager = get(),
-            dispatcher = Dispatchers.Default,
-            beneficiaryRepository = get()
         )
     }
 
