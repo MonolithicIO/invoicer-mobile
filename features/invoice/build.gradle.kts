@@ -36,9 +36,6 @@ kotlin {
             implementation(projects.foundation.utils)
             implementation(projects.foundation.watchers)
 
-            // Features
-            implementation(projects.features.intermediary.services)
-
             // Ktor
             implementation(libs.ktor.client.serialization)
             implementation(libs.ktor.client.core)
