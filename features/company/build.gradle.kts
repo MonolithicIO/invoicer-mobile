@@ -16,7 +16,6 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.material3)
             implementation(compose.components.resources)
-            implementation(compose.preview)
 
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))

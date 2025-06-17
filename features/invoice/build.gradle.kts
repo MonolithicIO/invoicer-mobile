@@ -37,7 +37,6 @@ kotlin {
             implementation(projects.foundation.watchers)
 
             // Features
-            implementation(projects.features.beneficiary.services)
             implementation(projects.features.intermediary.services)
 
             // Ktor

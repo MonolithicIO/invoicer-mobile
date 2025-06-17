@@ -35,8 +35,6 @@ kotlin {
             implementation(projects.features.home)
             implementation(projects.features.invoice)
             implementation(projects.foundation.watchers)
-            implementation(projects.features.beneficiary.services)
-            implementation(projects.features.beneficiary.presentation)
             implementation(projects.foundation.watchers)
             api(projects.foundation.analytics)
             implementation(projects.features.intermediary.services)
