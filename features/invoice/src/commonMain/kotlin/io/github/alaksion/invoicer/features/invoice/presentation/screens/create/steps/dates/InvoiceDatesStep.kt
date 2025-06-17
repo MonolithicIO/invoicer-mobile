@@ -31,7 +31,6 @@ import invoicer.features.invoice.generated.resources.invoice_create_dates_title
 import invoicer.features.invoice.generated.resources.invoice_due_date_dialog_title
 import invoicer.features.invoice.generated.resources.invoice_issue_date_dialog_title
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.dates.components.InvoiceDatePicker
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.pickbeneficiary.PickBeneficiaryScreen
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
@@ -55,7 +54,7 @@ internal class InvoiceDatesStep : Screen {
         LaunchedEffect(screenModel) {
             screenModel.events.collectLatest {
                 when (it) {
-                    InvoiceDateEvents.Continue -> navigator?.push(PickBeneficiaryScreen())
+                    InvoiceDateEvents.Continue -> Unit
                 }
             }
         }
