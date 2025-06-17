@@ -37,8 +37,6 @@ kotlin {
             implementation(projects.foundation.watchers)
             implementation(projects.foundation.watchers)
             api(projects.foundation.analytics)
-            implementation(projects.features.intermediary.services)
-            implementation(projects.features.intermediary.presentation)
             implementation(projects.foundation.watchers)
             implementation(projects.features.qrcodeSession)
             implementation(projects.features.company)

@@ -10,7 +10,6 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.dates.InvoiceDatesScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdScreenModel
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.pickintermediary.PickIntermediaryScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListScreenModel
 import kotlinx.coroutines.Dispatchers
@@ -37,14 +36,6 @@ private fun Module.presentation() {
             dispatcher = Dispatchers.Default,
             manager = get(),
             dateProvider = get()
-        )
-    }
-
-    factory {
-        PickIntermediaryScreenModel(
-            createInvoiceManager = get(),
-            dispatcher = Dispatchers.Default,
-            intermediaryRepository = get()
         )
     }
 
