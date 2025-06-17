@@ -41,12 +41,8 @@ internal object WelcomeTab : Tab {
                     ScreenRegistry.get(InvoicerScreen.Invoices.List)
                 )
             },
-            onBeneficiaryClick = {
-                navigator?.push(ScreenRegistry.get(InvoicerScreen.Beneficiary.List))
-            },
-            onIntermediaryClick = {
-                navigator?.push(ScreenRegistry.get(InvoicerScreen.Intermediary.List))
-            },
+            onBeneficiaryClick = { },
+            onIntermediaryClick = { },
             onChangeCompanyClick = {
                 navigator?.push(ScreenRegistry.get(InvoicerScreen.Company.SelectCompany))
             }
