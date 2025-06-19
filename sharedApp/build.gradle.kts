@@ -25,8 +25,7 @@ kotlin {
             implementation(projects.foundation.designSystem)
             implementation(projects.foundation.network)
             implementation(projects.foundation.validator)
-            api(projects.foundation.storage)
-            api(projects.foundation.auth)
+            implementation(projects.foundation.watchers)
             implementation(projects.foundation.network)
             implementation(projects.foundation.utils)
 
@@ -34,12 +33,14 @@ kotlin {
             implementation(projects.features.auth.presentation)
             implementation(projects.features.home)
             implementation(projects.features.invoice)
-            implementation(projects.foundation.watchers)
-            implementation(projects.foundation.watchers)
-            api(projects.foundation.analytics)
-            implementation(projects.foundation.watchers)
             implementation(projects.features.qrcodeSession)
             implementation(projects.features.company)
+            implementation(projects.features.customer.services)
+
+            // Exported
+            api(projects.foundation.analytics)
+            api(projects.foundation.storage)
+            api(projects.foundation.auth)
 
             // Voyager
             implementation(libs.bundles.voyager)
