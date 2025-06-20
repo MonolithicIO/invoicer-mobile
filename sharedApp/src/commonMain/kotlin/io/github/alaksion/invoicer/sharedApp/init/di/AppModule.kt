@@ -3,7 +3,8 @@ package io.github.alaksion.invoicer.sharedApp.init.di
 import io.github.alaksion.features.home.presentation.di.homePresentationDiModule
 import io.github.alaksion.invoicer.features.auth.presentation.di.featureAuthPresentationDiModule
 import io.github.alaksion.invoicer.features.company.di.companyDiModule
-import io.github.alaksion.invoicer.features.customer.di.customerDiModule
+import io.github.alaksion.invoicer.features.customer.di.customerServiceDiModule
+import io.github.alaksion.invoicer.features.customer.presentation.di.customerPresentationDiModule
 import io.github.alaksion.invoicer.features.invoice.di.invoiceDiModule
 import io.github.alaksion.invoicer.features.qrcodeSession.di.qrCodeSessionDi
 import io.github.alaksion.invoicer.foundation.analytics.di.analyticsDiModule
@@ -29,6 +30,7 @@ internal val appModule = module {
         watchersDiModule,
         analyticsDiModule,
         companyDiModule,
-        customerDiModule
+        customerServiceDiModule,
+        customerPresentationDiModule
     )
 }

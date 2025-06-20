@@ -23,4 +23,8 @@ sealed interface InvoicerScreen : ScreenProvider {
         data object SelectCompany : Company
         data object CreateCompany : Company
     }
+
+    sealed interface Customer : InvoicerScreen {
+        data object Create  : Customer
+    }
 }
