@@ -28,6 +28,7 @@ import invoicer.features.customer.presentation.generated.resources.customer_list
 import invoicer.features.customer.presentation.generated.resources.customer_list_subtitle
 import invoicer.features.customer.presentation.generated.resources.customer_list_title
 import io.github.alaksion.invoicer.features.customer.presentation.screens.create.CreateCustomerScreen
+import io.github.alaksion.invoicer.features.customer.presentation.screens.list.components.CustomerList
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
@@ -114,7 +115,11 @@ internal class CustomerListScreen : Screen {
                     subTitle = stringResource(Res.string.customer_list_subtitle)
                 )
                 when (state.mode) {
-                    CustomerListMode.Content -> TODO()
+
+                    CustomerListMode.Content -> CustomerList(
+                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        items = state.customers
+                    )
 
                     CustomerListMode.Error -> Feedback(
                         modifier = Modifier.weight(1f).fillMaxWidth(),

@@ -16,5 +16,8 @@
     <string name="customer_list_retry">Retry</string>
     <string name="customer_list_error_title">Something went wrong</string>
     <string name="customer_list_error_description">Check internet connection and try again</string>
+    <string name="customer_list_empty_title">No customers found</string>
+    <string name="customer_list_empty_description">Tap add icon to add customers</string>
+
 
 </resources>
