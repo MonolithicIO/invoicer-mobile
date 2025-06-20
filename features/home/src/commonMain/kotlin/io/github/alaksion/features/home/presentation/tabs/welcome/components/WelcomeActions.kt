@@ -29,6 +29,8 @@ import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 
+private const val GridCellsAmount = 3
+
 private enum class WelcomeItems(
     val icon: ImageVector,
     val text: StringResource
@@ -49,7 +51,7 @@ internal fun WelcomeActions(
     onCustomerClick: () -> Unit,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3),
+        columns = GridCells.Fixed(GridCellsAmount),
         horizontalArrangement = Arrangement.spacedBy(Spacing.small),
         verticalArrangement = Arrangement.spacedBy(Spacing.small)
     ) {

@@ -21,7 +21,7 @@ class FakeInvoiceRepository : InvoiceRepository {
         senderCompany: String?,
         recipientCompany: String?
     ): InvoiceList {
-        if (getInvoicesFails) throw Exception("Fake error")
+        if (getInvoicesFails) error("Fake error")
 
         return InvoiceList(
             items = INVOICE_LIST,

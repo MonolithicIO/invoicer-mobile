@@ -51,8 +51,7 @@ internal class CustomerListScreenModel(
                 onSuccess = { response ->
                     _state.update { currentState ->
                         currentState.copy(
-                            customers = (currentState.customers + response.items)
-                                .toPersistentList(),
+                            customers = response.items.toPersistentList(),
                             mode = CustomerListMode.Content
                         )
                     }
@@ -108,5 +107,4 @@ internal class CustomerListScreenModel(
         const val PAGE_SIZE = 20L
         const val START_PAGE = 0L
     }
-
 }

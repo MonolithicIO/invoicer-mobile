@@ -1,7 +1,9 @@
 package buildLogic.extensions
 
+import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.withType
 
 fun Project.getDetektExtension(): DetektExtension =
     extensions.findByType(DetektExtension::class.java)
@@ -15,7 +17,7 @@ fun Project.configureDetekt() {
 
         config.setFrom(listOf(configFileDir))
         parallel = true
-        this.source = files(
+        source.setFrom(
             "src/commonMain/kotlin",
             "src/commonTest/kotlin",
             "src/androidMain/kotlin",
@@ -23,5 +25,10 @@ fun Project.configureDetekt() {
             "src/iosMain/kotlin",
             "src/iosTest/kotlin",
         )
+    }
+
+    tasks.withType<Detekt> {
+        exclude("**/build/generated/**")
+        exclude("**.gradle.kts")
     }
 }

@@ -164,5 +164,4 @@ internal class PrimaryPayInfoScreen : Screen {
         val onBack: () -> Unit,
         val onContinue: () -> Unit,
     )
-
 }

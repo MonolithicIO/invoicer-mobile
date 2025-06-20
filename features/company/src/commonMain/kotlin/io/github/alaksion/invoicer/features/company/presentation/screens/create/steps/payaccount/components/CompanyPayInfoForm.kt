@@ -23,13 +23,6 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
-internal data class CompanyPayInfoFormCallbacks(
-    val onChangeIban: (String) -> Unit,
-    val onChangeSwift: (String) -> Unit,
-    val onChangeBankName: (String) -> Unit,
-    val onChangeBankAddress: (String) -> Unit,
-)
-
 @Composable
 internal fun CompanyPayInfoForm(
     iban: String,
@@ -40,7 +33,8 @@ internal fun CompanyPayInfoForm(
     modifier: Modifier = Modifier,
     extraContent: (@Composable ColumnScope.() -> Unit)? = null
 ) {
-    val (swiftRef, ibanRef, bankNameRef, bankAddressRef) = FocusRequester.createRefs()
+    val (swiftRef, ibanRef) = FocusRequester.createRefs()
+    val (bankNameRef, bankAddressRef) = FocusRequester.createRefs()
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Column(
@@ -134,3 +128,10 @@ internal fun CompanyPayInfoForm(
         extraContent?.let { it() }
     }
 }
+
+internal data class CompanyPayInfoFormCallbacks(
+    val onChangeIban: (String) -> Unit,
+    val onChangeSwift: (String) -> Unit,
+    val onChangeBankName: (String) -> Unit,
+    val onChangeBankAddress: (String) -> Unit,
+)
