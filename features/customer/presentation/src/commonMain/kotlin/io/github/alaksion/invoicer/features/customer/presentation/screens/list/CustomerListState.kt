@@ -7,10 +7,16 @@ import kotlinx.collections.immutable.persistentListOf
 internal data class CustomerListState(
     val customers: ImmutableList<CustomerListItemModel> = persistentListOf(),
     val mode: CustomerListMode = CustomerListMode.Content,
+    val nextPageLoading: Boolean = false
 )
 
 internal enum class CustomerListMode {
     Content,
     Error,
     Loading;
+}
+
+
+internal sealed interface CustomerListEvent {
+    data object NextPageFailed: CustomerListEvent
 }

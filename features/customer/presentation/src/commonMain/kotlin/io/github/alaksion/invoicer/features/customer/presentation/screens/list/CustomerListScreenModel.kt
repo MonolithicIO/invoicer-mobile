@@ -9,7 +9,9 @@ import io.github.alaksion.invoicer.foundation.network.request.launchRequest
 import io.github.alaksion.invoicer.foundation.session.Session
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -24,6 +26,9 @@ internal class CustomerListScreenModel(
 
     private val _state = MutableStateFlow(CustomerListState())
     val state = _state.asStateFlow()
+
+    private val _events = MutableSharedFlow<CustomerListEvent>()
+    val events = _events.asSharedFlow()
 
     fun loadPage() {
         screenModelScope.launch(dispatcher) {
@@ -53,6 +58,39 @@ internal class CustomerListScreenModel(
                     currentPage = response.nextPage
                 }
             )
+        }
+    }
+
+    fun nextPage() {
+        if (state.value.nextPageLoading) return
+
+        currentPage?.let { page ->
+            screenModelScope.launch(dispatcher) {
+                launchRequest {
+                    getCustomerList(page)
+                }.handle(
+                    onStart = {
+                        _state.update {
+                            it.copy(nextPageLoading = true)
+                        }
+                    },
+                    onFinish = {
+                        _state.update {
+                            it.copy(nextPageLoading = false)
+                        }
+                    },
+                    onFailure = {
+                        _events.emit(CustomerListEvent.NextPageFailed)
+                    },
+                    onSuccess = {
+                        _state.update {
+                            it.copy(
+                                customers = (it.customers + it.customers).toPersistentList()
+                            )
+                        }
+                    }
+                )
+            }
         }
     }
 
