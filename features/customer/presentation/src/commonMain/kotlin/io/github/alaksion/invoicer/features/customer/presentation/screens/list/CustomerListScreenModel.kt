@@ -43,6 +43,7 @@ internal class CustomerListScreenModel(
                     }
                 },
                 onFailure = {
+                    println(it)
                     _state.update {
                         it.copy(mode = CustomerListMode.Error)
                     }
