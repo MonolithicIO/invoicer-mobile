@@ -1,5 +1,8 @@
 package io.github.alaksion.invoicer.features.customer.presentation.screens.list
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -12,11 +15,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import io.github.alaksion.invoicer.features.customer.presentation.screens.create.CreateCustomerScreen
+import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
+import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
 
 internal class CustomerListScreen : Screen {
@@ -84,11 +90,22 @@ internal class CustomerListScreen : Screen {
                     }
                 }
             }
-        ) {
-            when (state.mode) {
-                CustomerListMode.Content -> TODO()
-                CustomerListMode.Error -> TODO()
-                CustomerListMode.Loading -> TODO()
+        ) { scaffoldPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldPadding)
+                    .padding(Spacing.medium)
+            ) {
+                ScreenTitle(
+                    title = "addw",
+                    subTitle = "awdawd"
+                )
+                when (state.mode) {
+                    CustomerListMode.Content -> TODO()
+                    CustomerListMode.Error -> TODO()
+                    CustomerListMode.Loading -> TODO()
+                }
             }
         }
     }
