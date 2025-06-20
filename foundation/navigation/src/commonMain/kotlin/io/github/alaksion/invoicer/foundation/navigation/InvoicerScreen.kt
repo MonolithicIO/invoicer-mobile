@@ -26,5 +26,6 @@ sealed interface InvoicerScreen : ScreenProvider {
 
     sealed interface Customer : InvoicerScreen {
         data object Create  : Customer
+        data object List: Customer
     }
 }
