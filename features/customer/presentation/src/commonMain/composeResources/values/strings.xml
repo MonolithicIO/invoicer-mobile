@@ -6,6 +6,7 @@
     <string name="create_customer_name_hint">Name</string>
     <string name="create_customer_email_hint">Email</string>
     <string name="create_customer_phone_hint">Phone</string>
+    <string name="create_customer_phone_support_text">Optional</string>
     <string name="create_customer_cta">Submit</string>
 
 </resources>
