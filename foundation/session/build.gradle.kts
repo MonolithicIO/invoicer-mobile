@@ -6,3 +6,12 @@ plugins {
 android {
     namespace = "io.github.alaksion.invoicer.foundation.session"
 }
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+        }
+    }
+}

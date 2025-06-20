@@ -34,6 +34,9 @@ kotlin {
             implementation(projects.foundation.analytics)
             implementation(projects.foundation.utils)
 
+            // Kotlin
+            implementation(libs.immutable.collections)
+
             // Features
             implementation(projects.features.customer.services)
         }

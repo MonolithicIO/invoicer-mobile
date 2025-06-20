@@ -43,7 +43,8 @@ val foundationAuthDiModule = module {
         SignInCommandManagerResolver(
             authRepository = get(),
             authTokenRepository = get(),
-            authEventBus = get()
+            authEventBus = get(),
+            session = get()
         )
     }
 
@@ -51,7 +52,8 @@ val foundationAuthDiModule = module {
         SignOutHandler(
             authEventBus = get(),
             authRepository = get(),
-            firebaseHelper = get()
+            firebaseHelper = get(),
+            session = get()
         )
     }
 }

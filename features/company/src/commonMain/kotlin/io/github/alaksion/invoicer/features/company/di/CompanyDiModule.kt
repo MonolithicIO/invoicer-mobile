@@ -35,7 +35,7 @@ val companyDiModule = module {
         SelectCompanyScreenModel(
             dispatcher = Dispatchers.Default,
             repository = get(),
-            session = Session
+            session = get()
         )
     }
 

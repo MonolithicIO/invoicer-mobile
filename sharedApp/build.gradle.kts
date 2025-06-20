@@ -28,6 +28,7 @@ kotlin {
             implementation(projects.foundation.watchers)
             implementation(projects.foundation.network)
             implementation(projects.foundation.utils)
+            implementation(projects.foundation.session)
 
             // Features
             implementation(projects.features.auth.presentation)

@@ -1,7 +1,9 @@
 package io.github.alaksion.invoicer.features.customer.data.repository
 
 import io.github.alaksion.invoicer.features.customer.data.model.CreateCustomerRequest
+import io.github.alaksion.invoicer.features.customer.data.model.CustomerListResponse
 import io.github.alaksion.invoicer.features.customer.domain.model.CreateCustomerModel
+import io.github.alaksion.invoicer.features.customer.domain.model.CustomerListItemModel
 import io.github.alaksion.invoicer.features.customer.domain.model.CustomerListModel
 import io.github.alaksion.invoicer.features.customer.domain.repository.CustomerRepository
 import io.github.alaksion.invoicer.foundation.network.client.HttpWrapper
@@ -40,12 +42,28 @@ internal class CustomerRepositoryImpl(
         pageSize: Long
     ): CustomerListModel {
         return withContext(dispatcher) {
-            httpWrapper.client.get(
+            val response = httpWrapper.client.get(
                 "/v1/company/$companyId/customers"
             ) {
                 parameter("page", page)
                 parameter("limit", pageSize)
-            }
-        }.body()
+            }.body<CustomerListResponse>()
+
+            CustomerListModel(
+                itemCount = response.itemCount,
+                nextPage = response.nextPage,
+                items = response.items.map { item ->
+                    CustomerListItemModel(
+                        id = item.id,
+                        name = item.name,
+                        email = item.email,
+                        phone = item.phone,
+                        companyId = item.companyId,
+                        createdAt = item.createdAt,
+                        updatedAt = item.updatedAt
+                    )
+                }
+            )
+        }
     }
 }

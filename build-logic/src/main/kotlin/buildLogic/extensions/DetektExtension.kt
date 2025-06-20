@@ -15,5 +15,13 @@ fun Project.configureDetekt() {
 
         config.setFrom(listOf(configFileDir))
         parallel = true
+        this.source = files(
+            "src/commonMain/kotlin",
+            "src/commonTest/kotlin",
+            "src/androidMain/kotlin",
+            "src/androidTest/kotlin",
+            "src/iosMain/kotlin",
+            "src/iosTest/kotlin",
+        )
     }
 }
