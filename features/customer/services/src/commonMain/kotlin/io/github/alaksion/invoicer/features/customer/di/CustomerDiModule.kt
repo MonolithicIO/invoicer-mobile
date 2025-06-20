@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
 
-val customerDiModule = module {
+val customerServiceDiModule = module {
     factory<CustomerRepository> {
         CustomerRepositoryImpl(
             httpWrapper = get(),

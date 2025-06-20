@@ -36,6 +36,7 @@ kotlin {
             implementation(projects.features.qrcodeSession)
             implementation(projects.features.company)
             implementation(projects.features.customer.services)
+            implementation(projects.features.customer.presentation)
 
             // Exported
             api(projects.foundation.analytics)
