@@ -14,8 +14,7 @@
 
     <!-- Welcome -->
     <string name="welcome_icon_invoice">Invoices</string>
-    <string name="welcome_icon_beneficiary">Beneficiaries</string>
-    <string name="welcome_icon_intermediary">Intermediaries</string>
+    <string name="welcome_icon_customer">Customers</string>
     <string name="welcome_change_company">Change</string>
 
 
