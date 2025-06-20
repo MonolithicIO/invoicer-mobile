@@ -20,7 +20,8 @@ sealed interface SignInCommand {
 internal class SignInCommandManagerResolver(
     private val authRepository: AuthRepository,
     private val authTokenRepository: AuthTokenRepository,
-    private val authEventBus: AuthEventBus
+    private val authEventBus: AuthEventBus,
+    private val session: Session
 ) : SignInCommandManager {
 
     override suspend fun resolveCommand(comand: SignInCommand) {
@@ -41,7 +42,7 @@ internal class SignInCommandManagerResolver(
             accessToken = authToken.accessToken,
             refreshToken = authToken.refreshToken
         )
-        Session.tokens = SessionTokens(
+        session.tokens = SessionTokens(
             accessToken = authToken.accessToken,
             refreshToken = authToken.refreshToken
         )

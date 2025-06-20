@@ -13,11 +13,12 @@ interface SignOutService {
 internal class SignOutHandler(
     private val authRepository: AuthRepository,
     private val authEventBus: AuthEventBus,
-    private val firebaseHelper: FirebaseHelper
+    private val firebaseHelper: FirebaseHelper,
+    private val session: Session
 ) : SignOutService {
     override suspend fun signOut() {
         authRepository.signOut()
-        Session.tokens = null
+        session.tokens = null
         firebaseHelper.signOut()
         authEventBus.publishEvent(AuthEvent.SignedOut)
     }

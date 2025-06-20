@@ -18,11 +18,13 @@ import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-internal fun HttpClientConfig<*>.setupClient() {
+internal fun HttpClientConfig<*>.setupClient(
+    session: Session
+) {
     expectSuccess = true
     contentNegotiation()
     log()
-    defaultRequest()
+    defaultRequest(session)
     responseValidation()
 }
 
@@ -64,11 +66,11 @@ private fun HttpClientConfig<*>.responseValidation() {
     }
 }
 
-private fun HttpClientConfig<*>.defaultRequest() {
+private fun HttpClientConfig<*>.defaultRequest(session: Session) {
     defaultRequest {
         host = NetworkBuildConfig.API_URL
         contentType(ContentType.Application.Json)
-        header(HttpHeaders.Authorization, "Bearer " + Session.tokens?.accessToken)
+        header(HttpHeaders.Authorization, "Bearer " + session.tokens?.accessToken)
     }
 }
 
