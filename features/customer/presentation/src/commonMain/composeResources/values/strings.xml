@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
+    <!-- Create customer-->
     <string name="create_customer_title">New customer</string>
     <string name="create_customer_subtitle">Inform customer information</string>
     <string name="create_customer_name_hint">Name</string>
@@ -8,5 +9,12 @@
     <string name="create_customer_phone_hint">Phone</string>
     <string name="create_customer_phone_support_text">Optional</string>
     <string name="create_customer_cta">Submit</string>
+
+    <!-- List customer -->
+    <string name="customer_list_title">Customers</string>
+    <string name="customer_list_subtitle">Manage customers</string>
+    <string name="customer_list_retry">Retry</string>
+    <string name="customer_list_error_title">Something went wrong</string>
+    <string name="customer_list_error_description">Check internet connection and try again</string>
 
 </resources>

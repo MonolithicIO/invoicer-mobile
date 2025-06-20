@@ -2,9 +2,11 @@ package io.github.alaksion.invoicer.features.customer.presentation.screens.list
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -19,11 +21,20 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import invoicer.features.customer.presentation.generated.resources.Res
+import invoicer.features.customer.presentation.generated.resources.customer_list_error_description
+import invoicer.features.customer.presentation.generated.resources.customer_list_error_title
+import invoicer.features.customer.presentation.generated.resources.customer_list_retry
+import invoicer.features.customer.presentation.generated.resources.customer_list_subtitle
+import invoicer.features.customer.presentation.generated.resources.customer_list_title
 import io.github.alaksion.invoicer.features.customer.presentation.screens.create.CreateCustomerScreen
+import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
+import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.Feedback
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
+import org.jetbrains.compose.resources.stringResource
 
 internal class CustomerListScreen : Screen {
 
@@ -39,7 +50,8 @@ internal class CustomerListScreen : Screen {
                 requestNextPage = screenModel::nextPage,
                 onCreateNewCustomer = {
                     navigator?.push(CreateCustomerScreen())
-                }
+                },
+                onRetry = screenModel::loadPage
             )
         }
 
@@ -98,13 +110,22 @@ internal class CustomerListScreen : Screen {
                     .padding(Spacing.medium)
             ) {
                 ScreenTitle(
-                    title = "addw",
-                    subTitle = "awdawd"
+                    title = stringResource(Res.string.customer_list_title),
+                    subTitle = stringResource(Res.string.customer_list_subtitle)
                 )
                 when (state.mode) {
                     CustomerListMode.Content -> TODO()
-                    CustomerListMode.Error -> TODO()
-                    CustomerListMode.Loading -> TODO()
+
+                    CustomerListMode.Error -> Feedback(
+                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        primaryActionText = stringResource(Res.string.customer_list_retry),
+                        onPrimaryAction = callbacks.onRetry,
+                        icon = Icons.Outlined.ErrorOutline,
+                        title = stringResource(Res.string.customer_list_error_title),
+                        description = stringResource(Res.string.customer_list_error_description),
+                    )
+
+                    CustomerListMode.Loading -> LoadingState(Modifier.weight(1f).fillMaxWidth())
                 }
             }
         }
@@ -114,6 +135,7 @@ internal class CustomerListScreen : Screen {
     data class Callbacks(
         val onBack: () -> Unit,
         val requestNextPage: () -> Unit,
-        val onCreateNewCustomer: () -> Unit
+        val onCreateNewCustomer: () -> Unit,
+        val onRetry: () -> Unit,
     )
 }
