@@ -1,9 +1,9 @@
 package io.github.alaksion.invoicer.features.customer.domain.repository
 
-import io.github.alaksion.invoicer.features.customer.domain.model.CustomerListModel
 import io.github.alaksion.invoicer.features.customer.domain.model.CreateCustomerModel
+import io.github.alaksion.invoicer.features.customer.domain.model.CustomerListModel
 
-internal interface CustomerRepository {
+interface CustomerRepository {
 
     suspend fun createCustomer(
         model: CreateCustomerModel

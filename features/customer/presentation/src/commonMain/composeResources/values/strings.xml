@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
+    <string name="create_customer_title">New customer</string>
+    <string name="create_customer_subtitle">Inform customer information</string>
+    <string name="create_customer_name_hint">Name</string>
+    <string name="create_customer_email_hint">Email</string>
+    <string name="create_customer_phone_hint">Phone</string>
+    <string name="create_customer_phone_support_text">Optional</string>
+    <string name="create_customer_cta">Submit</string>
+
 </resources>

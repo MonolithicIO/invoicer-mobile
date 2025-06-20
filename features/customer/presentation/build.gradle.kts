@@ -30,6 +30,7 @@ kotlin {
             implementation(projects.foundation.designSystem)
             implementation(projects.foundation.validator)
             implementation(projects.foundation.ui)
+            implementation(projects.foundation.session)
             implementation(projects.foundation.analytics)
             implementation(projects.foundation.utils)
 
