@@ -5,23 +5,20 @@ import androidx.compose.runtime.remember
 
 internal data class WelcomeCallbacks(
     val onInvoiceClick: () -> Unit,
-    val onBeneficiaryClick: () -> Unit,
-    val onIntermediaryClick: () -> Unit,
+    val onCustomerClick: () -> Unit,
     val onChangeCompanyClick: () -> Unit,
 )
 
 @Composable
 internal fun rememberWelcomeCallbacks(
     onInvoiceClick: () -> Unit,
-    onBeneficiaryClick: () -> Unit,
-    onIntermediaryClick: () -> Unit,
+    onCustomerClick: () -> Unit,
     onChangeCompanyClick: () -> Unit,
 ): WelcomeCallbacks {
     return remember {
         WelcomeCallbacks(
             onInvoiceClick = onInvoiceClick,
-            onBeneficiaryClick = onBeneficiaryClick,
-            onIntermediaryClick = onIntermediaryClick,
+            onCustomerClick = onCustomerClick,
             onChangeCompanyClick = onChangeCompanyClick
         )
     }

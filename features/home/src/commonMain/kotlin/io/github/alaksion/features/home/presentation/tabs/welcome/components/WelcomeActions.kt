@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -22,6 +23,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import invoicer.features.home.generated.resources.Res
 import invoicer.features.home.generated.resources.welcome_icon_customer
 import invoicer.features.home.generated.resources.welcome_icon_invoice
+import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
+import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -46,7 +49,9 @@ internal fun WelcomeActions(
     onCustomerClick: () -> Unit,
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(3)
+        columns = GridCells.Fixed(3),
+        horizontalArrangement = Arrangement.spacedBy(Spacing.small),
+        verticalArrangement = Arrangement.spacedBy(Spacing.small)
     ) {
         item(key = WelcomeItems.Invoice.name) {
             ItemCard(
@@ -80,9 +85,9 @@ private fun ItemCard(
     Card(modifier = modifier) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(Spacing.xSmall),
-            verticalArrangement = Arrangement.spacedBy(Spacing.medium),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Icon(
@@ -90,6 +95,7 @@ private fun ItemCard(
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary,
             )
+            VerticalSpacer(SpacerSize.Medium)
             Text(
                 text = text,
                 style = MaterialTheme.typography.titleSmall

@@ -41,8 +41,9 @@ internal object WelcomeTab : Tab {
                     ScreenRegistry.get(InvoicerScreen.Invoices.List)
                 )
             },
-            onBeneficiaryClick = { },
-            onIntermediaryClick = { },
+            onCustomerClick = {
+                navigator?.push(ScreenRegistry.get(InvoicerScreen.Customer.List))
+            },
             onChangeCompanyClick = {
                 navigator?.push(ScreenRegistry.get(InvoicerScreen.Company.SelectCompany))
             }
@@ -77,7 +78,7 @@ internal object WelcomeTab : Tab {
             ) {
                 WelcomeActions(
                     onInvoiceClick = callbacks.onInvoiceClick,
-                    onCustomerClick = {}
+                    onCustomerClick = callbacks.onCustomerClick
                 )
             }
         }
