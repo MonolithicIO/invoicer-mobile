@@ -85,7 +85,8 @@ internal class SelectCompanyScreen : Screen {
             onCreateCompanyClick = {
                 navigator?.push(CreateCompanyFlow())
             },
-            onRetryClick = screenModel::loadCompanies
+            onRetryClick = screenModel::loadCompanies,
+            onBack = { navigator?.pop() }
         )
     }
 
@@ -96,6 +97,7 @@ internal class SelectCompanyScreen : Screen {
         onCreateCompanyClick: () -> Unit,
         onSelectCompanyClick: (companyId: String) -> Unit,
         onRetryClick: () -> Unit,
+        onBack: () -> Unit,
     ) {
         Scaffold(
             modifier = Modifier.imePadding(),
@@ -103,7 +105,7 @@ internal class SelectCompanyScreen : Screen {
                 TopAppBar(
                     title = {},
                     navigationIcon = {
-                        CloseButton(onBackClick = {})
+                        CloseButton(onBackClick = onBack)
                     }
                 )
             },

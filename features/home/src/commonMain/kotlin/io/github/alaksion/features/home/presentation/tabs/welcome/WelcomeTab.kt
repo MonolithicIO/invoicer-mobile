@@ -1,9 +1,9 @@
 package io.github.alaksion.features.home.presentation.tabs.welcome
 
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -71,18 +71,14 @@ internal object WelcomeTab : Tab {
                     onChangeClick = callbacks.onChangeCompanyClick,
                 )
             }
-        ) {
-            LazyColumn(
-                modifier = Modifier.padding(it),
-                contentPadding = PaddingValues(Spacing.medium)
+        ) { scaffoldPadding ->
+            Column(
+                modifier = Modifier.fillMaxSize().padding(Spacing.medium).padding(scaffoldPadding)
             ) {
-                item {
-                    WelcomeActions(
-                        onBeneficiaryClick = callbacks.onBeneficiaryClick,
-                        onInvoiceClick = callbacks.onInvoiceClick,
-                        onIntermediaryClick = callbacks.onIntermediaryClick
-                    )
-                }
+                WelcomeActions(
+                    onInvoiceClick = callbacks.onInvoiceClick,
+                    onCustomerClick = {}
+                )
             }
         }
     }
