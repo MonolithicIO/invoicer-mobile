@@ -10,6 +10,7 @@ import io.github.alaksion.invoicer.features.qrcodeSession.di.qrCodeSessionDi
 import io.github.alaksion.invoicer.foundation.analytics.di.analyticsDiModule
 import io.github.alaksion.invoicer.foundation.auth.di.foundationAuthDiModule
 import io.github.alaksion.invoicer.foundation.network.di.networkDiModule
+import io.github.alaksion.invoicer.foundation.session.di.sessionDiModule
 import io.github.alaksion.invoicer.foundation.storage.di.localStorageDiModule
 import io.github.alaksion.invoicer.foundation.utils.di.utilsDiModule
 import io.github.alaksion.invoicer.foundation.validator.di.validatorDiModule
@@ -31,6 +32,7 @@ internal val appModule = module {
         analyticsDiModule,
         companyDiModule,
         customerServiceDiModule,
-        customerPresentationDiModule
+        customerPresentationDiModule,
+        sessionDiModule
     )
 }
