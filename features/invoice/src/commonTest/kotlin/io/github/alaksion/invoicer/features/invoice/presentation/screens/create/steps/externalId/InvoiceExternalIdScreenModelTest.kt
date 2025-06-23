@@ -28,7 +28,7 @@ class InvoiceExternalIdScreenModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         dateProvider = FakeDateProvider()
-        manager = CreateInvoiceForm(dateProvider)
+        manager = CreateInvoiceForm()
         viewModel = InvoiceExternalIdScreenModel(manager, dispatcher)
     }
 
@@ -39,7 +39,7 @@ class InvoiceExternalIdScreenModelTest {
 
     @Test
     fun `should initialize state with externalId from manager`() = runTest {
-        manager.externalId = "12345"
+        manager.invoiceNumber = "12345"
 
         viewModel.initState()
         advanceUntilIdle()
@@ -65,7 +65,7 @@ class InvoiceExternalIdScreenModelTest {
         assertEquals(Unit, event)
         assertEquals(
             expected = "67890",
-            actual = manager.externalId
+            actual = manager.invoiceNumber
         )
     }
 }

@@ -30,7 +30,7 @@ class InvoiceActivitiesScreenModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         dateProvider = FakeDateProvider()
-        createInvoiceManager = CreateInvoiceForm(dateProvider)
+        createInvoiceManager = CreateInvoiceForm()
         viewModel = InvoiceActivitiesScreenModel(
             dispatcher = dispatcher,
             createInvoiceManager = createInvoiceManager
