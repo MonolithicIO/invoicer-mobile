@@ -2,7 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class InvoiceExternalIdScreenModel(
-    private val manager: CreateInvoiceManager,
+    private val manager: CreateInvoiceForm,
     private val dispatcher: CoroutineDispatcher
 ) : ScreenModel {
 
@@ -25,7 +25,7 @@ internal class InvoiceExternalIdScreenModel(
     fun initState() {
         _state.update {
             it.copy(
-                externalId = manager.externalId
+                externalId = manager.invoiceNumber
             )
         }
     }
@@ -40,7 +40,7 @@ internal class InvoiceExternalIdScreenModel(
 
     fun submit() {
         if (_state.value.isButtonEnabled) screenModelScope.launch(dispatcher) {
-            manager.externalId = _state.value.externalId
+            manager.invoiceNumber = _state.value.externalId
             _events.emit(Unit)
         }
     }

@@ -1,7 +1,7 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities
 
 import io.github.alaksion.invoicer.features.invoice.presentation.fakes.FakeDateProvider
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,7 +20,7 @@ import kotlin.test.assertTrue
 @OptIn(ExperimentalCoroutinesApi::class)
 class InvoiceActivitiesScreenModelTest {
 
-    private lateinit var createInvoiceManager: CreateInvoiceManager
+    private lateinit var createInvoiceManager: CreateInvoiceForm
     private lateinit var dateProvider: FakeDateProvider
     private val dispatcher = StandardTestDispatcher()
 
@@ -30,7 +30,7 @@ class InvoiceActivitiesScreenModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         dateProvider = FakeDateProvider()
-        createInvoiceManager = CreateInvoiceManager(dateProvider)
+        createInvoiceManager = CreateInvoiceForm()
         viewModel = InvoiceActivitiesScreenModel(
             dispatcher = dispatcher,
             createInvoiceManager = createInvoiceManager

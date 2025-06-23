@@ -2,7 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,7 +17,7 @@ private val VALID_ACTIVITY_QUANTITY_RANGE = 1..100
 
 internal class InvoiceActivitiesScreenModel(
     private val dispatcher: CoroutineDispatcher,
-    private val createInvoiceManager: CreateInvoiceManager
+    private val createInvoiceManager: CreateInvoiceForm
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(InvoiceActivitiesState())

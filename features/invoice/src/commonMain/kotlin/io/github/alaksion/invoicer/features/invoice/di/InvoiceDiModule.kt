@@ -4,7 +4,8 @@ import features.invoice.data.repository.InvoiceRepositoryImpl
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSourceImpl
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceFormManager
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.company.InvoiceCompanyScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
@@ -35,7 +36,6 @@ private fun Module.presentation() {
         InvoiceDatesScreenModel(
             dispatcher = Dispatchers.Default,
             manager = get(),
-            dateProvider = get()
         )
     }
 
@@ -47,12 +47,7 @@ private fun Module.presentation() {
     }
 
     factory {
-        InvoiceConfirmationScreenModel(
-            manager = get(),
-            repository = get(),
-            dispatcher = Dispatchers.Default,
-            newInvoicePublisher = get()
-        )
+        InvoiceConfirmationScreenModel()
     }
 
     factory {
@@ -71,15 +66,14 @@ private fun Module.presentation() {
 
     factory {
         InvoiceCompanyScreenModel(
-            manager = get(),
             dispatcher = Dispatchers.Default
         )
     }
 
-    single {
-        CreateInvoiceManager(
-            dateProvider = get()
-        )
+    single { CreateInvoiceFormManager() }
+
+    factory<CreateInvoiceForm> {
+        get<CreateInvoiceFormManager>().getForm()
     }
 }
 

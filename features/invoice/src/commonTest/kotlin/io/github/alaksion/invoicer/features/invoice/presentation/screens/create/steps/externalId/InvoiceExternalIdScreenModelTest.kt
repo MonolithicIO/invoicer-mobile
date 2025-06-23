@@ -1,7 +1,7 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId
 
 import io.github.alaksion.invoicer.features.invoice.presentation.fakes.FakeDateProvider
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -18,7 +18,7 @@ import kotlin.test.assertEquals
 @OptIn(ExperimentalCoroutinesApi::class)
 class InvoiceExternalIdScreenModelTest {
 
-    private lateinit var manager: CreateInvoiceManager
+    private lateinit var manager: CreateInvoiceForm
     private lateinit var dateProvider: FakeDateProvider
     private val dispatcher = StandardTestDispatcher()
 
@@ -28,7 +28,7 @@ class InvoiceExternalIdScreenModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         dateProvider = FakeDateProvider()
-        manager = CreateInvoiceManager(dateProvider)
+        manager = CreateInvoiceForm()
         viewModel = InvoiceExternalIdScreenModel(manager, dispatcher)
     }
 
@@ -39,7 +39,7 @@ class InvoiceExternalIdScreenModelTest {
 
     @Test
     fun `should initialize state with externalId from manager`() = runTest {
-        manager.externalId = "12345"
+        manager.invoiceNumber = "12345"
 
         viewModel.initState()
         advanceUntilIdle()
@@ -65,7 +65,7 @@ class InvoiceExternalIdScreenModelTest {
         assertEquals(Unit, event)
         assertEquals(
             expected = "67890",
-            actual = manager.externalId
+            actual = manager.invoiceNumber
         )
     }
 }

@@ -2,7 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 internal class InvoiceCompanyScreenModel(
-    private val manager: CreateInvoiceManager,
     private val dispatcher: CoroutineDispatcher
 ) : ScreenModel {
     private val _state = MutableStateFlow(InvoiceCompanyState())
@@ -37,10 +36,6 @@ internal class InvoiceCompanyScreenModel(
     }
 
     fun submit() {
-        manager.senderCompanyName = state.value.senderName
-        manager.senderCompanyAddress = state.value.senderAddress
-        manager.recipientCompanyName = state.value.recipientName
-        manager.recipientCompanyAddress = state.value.recipientAddress
         screenModelScope.launch(dispatcher) {
             _events.emit(Unit)
         }
