@@ -1,7 +1,7 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.company
 
 import io.github.alaksion.invoicer.features.invoice.presentation.fakes.FakeDateProvider
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -17,7 +17,7 @@ import kotlin.test.assertEquals
 @OptIn(ExperimentalCoroutinesApi::class)
 class InvoiceCompanyScreenModelTest {
 
-    private lateinit var manager: CreateInvoiceManager
+    private lateinit var manager: CreateInvoiceForm
     private lateinit var dateProvider: FakeDateProvider
     private val dispatcher = StandardTestDispatcher()
 
@@ -27,7 +27,7 @@ class InvoiceCompanyScreenModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         dateProvider = FakeDateProvider()
-        manager = CreateInvoiceManager(dateProvider)
+        manager = CreateInvoiceForm(dateProvider)
         viewModel = InvoiceCompanyScreenModel(manager, dispatcher)
     }
 

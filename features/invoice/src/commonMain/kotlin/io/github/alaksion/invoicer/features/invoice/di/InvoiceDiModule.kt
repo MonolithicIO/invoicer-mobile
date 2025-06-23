@@ -4,7 +4,8 @@ import features.invoice.data.repository.InvoiceRepositoryImpl
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSourceImpl
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceFormManager
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.company.InvoiceCompanyScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
@@ -76,10 +77,10 @@ private fun Module.presentation() {
         )
     }
 
-    single {
-        CreateInvoiceManager(
-            dateProvider = get()
-        )
+    single { CreateInvoiceFormManager() }
+
+    factory<CreateInvoiceForm> {
+        get<CreateInvoiceFormManager>().getForm()
     }
 }
 

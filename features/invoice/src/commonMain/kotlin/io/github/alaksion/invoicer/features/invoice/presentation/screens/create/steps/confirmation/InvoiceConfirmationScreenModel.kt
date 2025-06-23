@@ -8,7 +8,7 @@ import io.github.alaksion.invoicer.foundation.watchers.NewInvoicePublisher
 import io.github.alaksion.invoicer.features.invoice.domain.model.CreateInvoiceActivityModel
 import io.github.alaksion.invoicer.features.invoice.domain.model.CreateInvoiceModel
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class InvoiceConfirmationScreenModel(
-    private val manager: CreateInvoiceManager,
+    private val manager: CreateInvoiceForm,
     private val repository: InvoiceRepository,
     private val dispatcher: CoroutineDispatcher,
     private val newInvoicePublisher: NewInvoicePublisher

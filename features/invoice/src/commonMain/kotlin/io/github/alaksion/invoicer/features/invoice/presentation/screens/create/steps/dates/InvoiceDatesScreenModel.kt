@@ -2,7 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceManager
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.foundation.utils.date.DateProvider
 import io.github.alaksion.invoicer.foundation.utils.date.toZeroHour
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,7 +18,7 @@ import kotlinx.datetime.TimeZone
 internal class InvoiceDatesScreenModel(
     private val dateProvider: DateProvider,
     private val dispatcher: CoroutineDispatcher,
-    private val manager: CreateInvoiceManager,
+    private val manager: CreateInvoiceForm,
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(
