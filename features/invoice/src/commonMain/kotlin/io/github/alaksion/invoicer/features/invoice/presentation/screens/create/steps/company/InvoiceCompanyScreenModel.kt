@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 internal class InvoiceCompanyScreenModel(
-    private val manager: CreateInvoiceForm,
     private val dispatcher: CoroutineDispatcher
 ) : ScreenModel {
     private val _state = MutableStateFlow(InvoiceCompanyState())

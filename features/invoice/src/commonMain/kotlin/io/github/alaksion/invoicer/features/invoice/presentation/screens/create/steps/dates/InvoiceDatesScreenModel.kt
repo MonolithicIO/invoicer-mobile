@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 
 internal class InvoiceDatesScreenModel(
-    private val dateProvider: DateProvider,
     private val dispatcher: CoroutineDispatcher,
     private val manager: CreateInvoiceForm,
 ) : ScreenModel {
@@ -27,8 +26,7 @@ internal class InvoiceDatesScreenModel(
     private val _events = MutableSharedFlow<InvoiceDateEvents>()
     val events = _events.asSharedFlow()
 
-    fun initState() {
-    }
+    fun initState() = Unit
 
     fun updateIssueDate(value: Instant) {
         _state.update { oldState ->

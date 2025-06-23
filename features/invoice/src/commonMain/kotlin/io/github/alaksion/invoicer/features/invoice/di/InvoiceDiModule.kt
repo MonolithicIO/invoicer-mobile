@@ -36,7 +36,6 @@ private fun Module.presentation() {
         InvoiceDatesScreenModel(
             dispatcher = Dispatchers.Default,
             manager = get(),
-            dateProvider = get()
         )
     }
 
@@ -48,12 +47,7 @@ private fun Module.presentation() {
     }
 
     factory {
-        InvoiceConfirmationScreenModel(
-            manager = get(),
-            repository = get(),
-            dispatcher = Dispatchers.Default,
-            newInvoicePublisher = get()
-        )
+        InvoiceConfirmationScreenModel()
     }
 
     factory {
@@ -72,7 +66,6 @@ private fun Module.presentation() {
 
     factory {
         InvoiceCompanyScreenModel(
-            manager = get(),
             dispatcher = Dispatchers.Default
         )
     }
