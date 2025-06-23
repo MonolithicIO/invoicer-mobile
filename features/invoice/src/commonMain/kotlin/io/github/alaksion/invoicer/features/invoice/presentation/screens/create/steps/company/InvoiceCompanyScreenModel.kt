@@ -37,10 +37,6 @@ internal class InvoiceCompanyScreenModel(
     }
 
     fun submit() {
-        manager.senderCompanyName = state.value.senderName
-        manager.senderCompanyAddress = state.value.senderAddress
-        manager.recipientCompanyName = state.value.recipientName
-        manager.recipientCompanyAddress = state.value.recipientAddress
         screenModelScope.launch(dispatcher) {
             _events.emit(Unit)
         }

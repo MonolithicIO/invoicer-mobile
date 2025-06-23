@@ -4,7 +4,6 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.foundation.utils.date.DateProvider
-import io.github.alaksion.invoicer.foundation.utils.date.toZeroHour
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +12,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
-import kotlinx.datetime.TimeZone
 
 internal class InvoiceDatesScreenModel(
     private val dateProvider: DateProvider,
@@ -30,13 +28,6 @@ internal class InvoiceDatesScreenModel(
     val events = _events.asSharedFlow()
 
     fun initState() {
-        _state.update {
-            it.copy(
-                dueDate = manager.dueDate,
-                issueDate = manager.issueDate,
-                now = dateProvider.get().toZeroHour(TimeZone.currentSystemDefault())
-            )
-        }
     }
 
     fun updateIssueDate(value: Instant) {

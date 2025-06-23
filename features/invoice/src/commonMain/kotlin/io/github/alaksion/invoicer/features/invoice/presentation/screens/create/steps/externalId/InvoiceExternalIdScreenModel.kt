@@ -25,7 +25,7 @@ internal class InvoiceExternalIdScreenModel(
     fun initState() {
         _state.update {
             it.copy(
-                externalId = manager.externalId
+                externalId = manager.invoiceNumber
             )
         }
     }
@@ -40,7 +40,7 @@ internal class InvoiceExternalIdScreenModel(
 
     fun submit() {
         if (_state.value.isButtonEnabled) screenModelScope.launch(dispatcher) {
-            manager.externalId = _state.value.externalId
+            manager.invoiceNumber = _state.value.externalId
             _events.emit(Unit)
         }
     }
