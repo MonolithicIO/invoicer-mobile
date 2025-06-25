@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="design_dialog_dismiss_default">Ok</string>
+
+    <string name="error_feedback_default_title">Something went wrong</string>
+    <string name="error_feedback_default_description">Check your connection and try again</string>
+    <string name="error_feedback_default_cta">Try again</string>
 </resources>

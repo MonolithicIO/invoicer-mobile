@@ -7,7 +7,6 @@ import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRep
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceFormManager
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreenModel
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.company.InvoiceCompanyScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.customer.InvoiceCustomerScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.dates.InvoiceDatesScreenModel
@@ -61,12 +60,6 @@ private fun Module.presentation() {
     factory {
         InvoiceDetailsScreenModel(
             invoiceRepository = get(),
-            dispatcher = Dispatchers.Default
-        )
-    }
-
-    factory {
-        InvoiceCompanyScreenModel(
             dispatcher = Dispatchers.Default
         )
     }

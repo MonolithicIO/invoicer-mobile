@@ -27,7 +27,6 @@ import invoicer.features.invoice.generated.resources.invoice_create_external_id_
 import invoicer.features.invoice.generated.resources.invoice_create_external_id_label
 import invoicer.features.invoice.generated.resources.invoice_create_external_id_placeholder
 import invoicer.features.invoice.generated.resources.invoice_create_external_id_title
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.company.InvoiceCompanyStep
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
@@ -48,7 +47,7 @@ internal class InvoiceExternalIdStep : Screen {
 
         LaunchedEffect(screenModel) {
             screenModel.events.collectLatest {
-                navigator?.push(InvoiceCompanyStep())
+
             }
         }
 
