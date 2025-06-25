@@ -7,7 +7,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
 import cafe.adriel.voyager.transitions.SlideTransition
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdStep
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.customer.InvoiceCustomerScreen
 import org.koin.mp.KoinPlatform
 
 internal class CreateInvoiceFlow : Screen {
@@ -24,7 +24,7 @@ internal class CreateInvoiceFlow : Screen {
         }
 
         Navigator(
-            screen = InvoiceExternalIdStep(),
+            screen = InvoiceCustomerScreen(),
             disposeBehavior = NavigatorDisposeBehavior(disposeSteps = false)
         ) { navigator ->
             SlideTransition(

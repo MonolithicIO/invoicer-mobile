@@ -15,9 +15,11 @@
     <string name="invoice_list_item_amount">Amount</string>
     <string name="invoice_list_new_invoice">New Invoice</string>
 
-    <!-- Invoice Company -->
-    <string name="invoice_company_title">Invoice company</string>
-    <string name="invoice_company_description">Sender and recipient information</string>
+    <!-- Invoice Customer -->
+    <string name="invoice_customer_title">Invoice customer</string>
+    <string name="invoice_customer_description">Select invoice customer</string>
+    <string name="invoice_customer_empty_state_title">No Customers Found</string>
+    <string name="invoice_customer_empty_state_description">Please add a customer to continue.</string>
 
     <!-- Create Invoice -->
     <string name="invoice_create_continue_cta">Continue</string>
@@ -27,20 +29,6 @@
     <string name="invoice_create_external_id_description">Set Invoice unique ID</string>
     <string name="invoice_create_external_id_placeholder">Invoice #123</string>
     <string name="invoice_create_external_id_label">Id</string>
-
-    <!-- Create Sender Company -->
-    <string name="invoice_create_sender_company_title">Sender Company Info</string>
-    <string name="invoice_create_sender_company_name_label">Sender name</string>
-    <string name="invoice_create_sender_company_address_label">Sender Address</string>
-    <string name="invoice_create_sender_company_name_placeholder">John\'s Pizzaria</string>
-    <string name="invoice_create_sender_company_address_placeholder">St Saint Louis 115</string>
-
-    <!-- Create Recipient Company -->
-    <string name="invoice_create_recipient_company_title">Recipient Company Info</string>
-    <string name="invoice_create_recipient_company_name_label">Recipient Name</string>
-    <string name="invoice_create_recipient_company_address_label">Recipient Address</string>
-    <string name="invoice_create_recipient_company_name_placeholder">Matts\'s Pizzaria</string>
-    <string name="invoice_create_recipient_company_address_placeholder">St Saint Louis 116</string>
 
     <!-- Create Dates -->
     <string name="invoice_create_dates_title">Invoice dates</string>
@@ -52,24 +40,6 @@
     <string name="invoice_create_dates_dialog_confirm">Confirm</string>
     <string name="invoice_create_dates_change_cta">Change</string>
     <string name="invoice_create_dates_due_date_error">Issue date must not precede due date</string>
-
-    <!-- Pick Beneficiary -->
-    <string name="invoice_create_pick_beneficiary_title">Select beneficiary</string>
-    <string name="invoice_create_pick_beneficiary_subtitle">Bank account to receive payments</string>
-    <string name="invoice_create_pick_beneficiary_retry_title">Something went wrong</string>
-    <string name="invoice_create_pick_beneficiary_retry_description">Check your connection and try again</string>
-    <string name="invoice_create_pick_beneficiary_retry_cta">Try again</string>
-    <string name="invoice_create_pick_beneficiary_add_new">New Beneficiary</string>
-    <string name="invoice_pick_beneficiary_swift_label">Swift: %1$s</string>
-
-    <!-- Pick Intermediary -->
-    <string name="invoice_create_pick_intermediary_title">Select intermediary</string>
-    <string name="invoice_create_pick_intermediary_subtitle">Bank account to intermediate payments</string>
-    <string name="invoice_create_pick_intermediary_retry_title">Something went wrong</string>
-    <string name="invoice_create_pick_intermediary_retry_description">Check your connection and try again</string>
-    <string name="invoice_create_pick_intermediary_retry_cta">Try again</string>
-    <string name="invoice_create_pick_intermediary_add_new">New Intermediary</string>
-    <string name="invoice_create_pick_intermediary_ignore">Proceed without intermediary</string>
 
     <!-- Activites -->
     <string name="invoice_activity_new_title">New activity</string>

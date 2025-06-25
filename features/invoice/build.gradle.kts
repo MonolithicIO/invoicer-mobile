@@ -29,6 +29,9 @@ kotlin {
             implementation(libs.immutable.collections)
             implementation(libs.datetime)
 
+            // Feature
+            implementation(projects.features.customer.services)
+
             // Foundation
             implementation(projects.foundation.network)
             implementation(projects.foundation.navigation)
@@ -36,6 +39,7 @@ kotlin {
             implementation(projects.foundation.ui)
             implementation(projects.foundation.utils)
             implementation(projects.foundation.watchers)
+            implementation(projects.foundation.session)
 
             // Ktor
             implementation(libs.ktor.client.serialization)

@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,6 +19,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import invoicer.foundation.design_system.generated.resources.Res
+import invoicer.foundation.design_system.generated.resources.error_feedback_default_cta
+import invoicer.foundation.design_system.generated.resources.error_feedback_default_description
+import invoicer.foundation.design_system.generated.resources.error_feedback_default_title
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.SecondaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.Spacer
@@ -24,6 +30,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.Spa
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.AppSize
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun Feedback(
@@ -84,6 +91,30 @@ fun Feedback(
             onSecondaryAction = onSecondaryAction
         )
     }
+}
+
+@Composable
+fun ErrorFeedback(
+    modifier: Modifier = Modifier,
+    primaryActionText: String = stringResource(Res.string.error_feedback_default_cta),
+    onPrimaryAction: () -> Unit,
+    icon: ImageVector = Icons.Outlined.ErrorOutline,
+    title: String = stringResource(Res.string.error_feedback_default_title),
+    description: String? = stringResource(Res.string.error_feedback_default_description),
+    secondaryActionText: String? = null,
+    onSecondaryAction: (() -> Unit)? = null,
+) {
+    Feedback(
+        modifier = modifier,
+        primaryActionText = primaryActionText,
+        onPrimaryAction = onPrimaryAction,
+        icon = icon,
+        title = title,
+        description = description,
+        secondaryActionText = secondaryActionText,
+        onSecondaryAction = onSecondaryAction
+    )
+
 }
 
 @Composable
