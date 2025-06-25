@@ -20,6 +20,7 @@ import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
 import invoicer.features.invoice.generated.resources.invoice_customer_description
 import invoicer.features.invoice.generated.resources.invoice_customer_title
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdStep
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
@@ -96,10 +97,16 @@ internal class InvoiceCustomerScreen : Screen {
                     subTitle = stringResource(Res.string.invoice_customer_description)
                 )
                 when (state.mode) {
-                    InvoiceCustomerMode.Content -> TODO()
+                    InvoiceCustomerMode.Content -> InvoiceCustomerList(
+                        modifier = Modifier.fillMaxSize(),
+                        items = state.customers,
+                        selectedId = state.selectedCustomerId,
+                        onSelect = callbacks.onSelectCustomer,
+                    )
+
                     InvoiceCustomerMode.Loading -> LoadingState(Modifier.fillMaxSize())
                     InvoiceCustomerMode.Error -> ErrorFeedback(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxSize(),
                         onPrimaryAction = callbacks.onRetry
                     )
                 }

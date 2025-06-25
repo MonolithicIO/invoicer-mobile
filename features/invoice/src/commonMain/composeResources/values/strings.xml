@@ -18,6 +18,8 @@
     <!-- Invoice Customer -->
     <string name="invoice_customer_title">Invoice customer</string>
     <string name="invoice_customer_description">Select invoice customer</string>
+    <string name="invoice_customer_empty_state_title">No Customers Found</string>
+    <string name="invoice_customer_empty_state_description">Please add a customer to continue.</string>
 
     <!-- Create Invoice -->
     <string name="invoice_create_continue_cta">Continue</string>
