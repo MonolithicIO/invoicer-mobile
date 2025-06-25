@@ -29,6 +29,9 @@ kotlin {
             implementation(libs.immutable.collections)
             implementation(libs.datetime)
 
+            // Feature
+            implementation(projects.features.customer.services)
+
             // Foundation
             implementation(projects.foundation.network)
             implementation(projects.foundation.navigation)
