@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -20,9 +21,11 @@ import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
 import invoicer.features.invoice.generated.resources.invoice_customer_description
 import invoicer.features.invoice.generated.resources.invoice_customer_title
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdStep
+import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
+import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
@@ -38,8 +41,13 @@ internal class InvoiceCustomerScreen : Screen {
             Callbacks(
                 onBack = { navigator?.pop() },
                 onSubmit = screenModel::submit,
-                onSelectCustomer = screenModel::selectCustomer
+                onSelectCustomer = screenModel::selectCustomer,
+                onRetry = { screenModel.loadCustomers(force = true) }
             )
+        }
+
+        LaunchedEffect(screenModel) {
+            screenModel.loadCustomers()
         }
 
         FlowCollectEffect(
@@ -87,6 +95,14 @@ internal class InvoiceCustomerScreen : Screen {
                     title = stringResource(Res.string.invoice_customer_title),
                     subTitle = stringResource(Res.string.invoice_customer_description)
                 )
+                when (state.mode) {
+                    InvoiceCustomerMode.Content -> TODO()
+                    InvoiceCustomerMode.Loading -> LoadingState(Modifier.fillMaxSize())
+                    InvoiceCustomerMode.Error -> ErrorFeedback(
+                        modifier = Modifier.fillMaxWidth(),
+                        onPrimaryAction = callbacks.onRetry
+                    )
+                }
             }
         }
     }
@@ -95,5 +111,6 @@ internal class InvoiceCustomerScreen : Screen {
         val onBack: () -> Unit,
         val onSubmit: () -> Unit,
         val onSelectCustomer: (String) -> Unit,
+        val onRetry: () -> Unit,
     )
 }

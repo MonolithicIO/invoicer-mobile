@@ -30,8 +30,8 @@ internal class InvoiceCustomerScreenModel(
     private val _event = MutableSharedFlow<Unit>()
     val event = _event.asSharedFlow()
 
-    fun loadCustomers() {
-        if (isInitialized) return
+    fun loadCustomers(force: Boolean = false) {
+        if (isInitialized && force.not()) return
 
         screenModelScope.launch(dispatcher) {
             launchRequest {
