@@ -42,7 +42,7 @@ internal class InvoiceCustomerScreen : Screen {
         val state by screenModel.state.collectAsState()
         val callBacks = remember {
             Callbacks(
-                onBack = { navigator?.pop() },
+                onBack = { navigator?.parent?.pop() },
                 onSubmit = screenModel::submit,
                 onSelectCustomer = screenModel::selectCustomer,
                 onRetry = { screenModel.loadCustomers(force = true) }
