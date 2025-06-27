@@ -1,11 +1,11 @@
 package io.github.alaksion.invoicer.foundation.auth.domain.services
 
-import io.github.alaksion.invoicer.foundation.watchers.AuthEvent
-import io.github.alaksion.invoicer.foundation.watchers.AuthEventBus
 import io.github.alaksion.invoicer.foundation.auth.domain.repository.AuthRepository
 import io.github.alaksion.invoicer.foundation.auth.domain.repository.AuthTokenRepository
 import io.github.alaksion.invoicer.foundation.session.Session
 import io.github.alaksion.invoicer.foundation.session.SessionTokens
+import io.github.alaksion.invoicer.foundation.watchers.AuthEvent
+import io.github.alaksion.invoicer.foundation.watchers.AuthEventBus
 
 interface SignInCommandManager {
     suspend fun resolveCommand(command: SignInCommand)
@@ -24,18 +24,27 @@ internal class SignInCommandManagerResolver(
     private val session: Session
 ) : SignInCommandManager {
 
-    override suspend fun resolveCommand(comand: SignInCommand) {
-        val authToken = when (comand) {
+    override suspend fun resolveCommand(command: SignInCommand) {
+        val authToken = when (command) {
             is SignInCommand.Credential -> authRepository.signIn(
-                email = comand.userName,
-                password = comand.password
+                email = command.userName,
+                password = command.password
             )
 
-            is SignInCommand.Google -> authRepository.googleSignIn(comand.googleSessionToken)
+            is SignInCommand.Google -> authRepository.googleSignIn(command.googleSessionToken)
 
-            is SignInCommand.RefreshSession -> authRepository.refreshSession(
-                refreshToken = authTokenRepository.getAuthTokens()?.refreshToken.orEmpty()
-            )
+            is SignInCommand.RefreshSession -> {
+                authTokenRepository.getAuthTokens()?.let { tokens ->
+                    session.tokens = SessionTokens(
+                        accessToken = tokens.accessToken,
+                        refreshToken = tokens.refreshToken
+                    )
+                }
+
+                authRepository.refreshSession(
+                    refreshToken = authTokenRepository.getAuthTokens()?.refreshToken.orEmpty()
+                )
+            }
         }
 
         authTokenRepository.storeAuthTokens(
