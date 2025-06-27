@@ -6,6 +6,7 @@ import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceList
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
 import io.github.alaksion.invoicer.foundation.network.request.handle
 import io.github.alaksion.invoicer.foundation.network.request.launchRequest
+import io.github.alaksion.invoicer.foundation.session.Session
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 internal class InvoiceListScreenModel(
     private val invoiceRepository: InvoiceRepository,
     private val dispatcher: CoroutineDispatcher,
+    private val session: Session
 ) : ScreenModel {
 
     private var page = 0
@@ -96,7 +98,8 @@ internal class InvoiceListScreenModel(
         maxIssueDate = _state.value.filter.maxIssueDate?.toString(),
         minDueDate = _state.value.filter.minDueDate?.toString(),
         maxDueDate = _state.value.filter.maxDueDate?.toString(),
-        customerId = null
+        customerId = null,
+        companyId = session.company.id
     )
 
     companion object {

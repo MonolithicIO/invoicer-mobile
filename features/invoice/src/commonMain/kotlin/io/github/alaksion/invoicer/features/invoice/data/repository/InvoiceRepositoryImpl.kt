@@ -15,6 +15,7 @@ internal class InvoiceRepositoryImpl(
     override suspend fun getInvoices(
         page: Long,
         limit: Int,
+        companyId: String,
         minIssueDate: String?,
         maxIssueDate: String?,
         minDueDate: String?,
@@ -28,7 +29,8 @@ internal class InvoiceRepositoryImpl(
             maxIssueDate = maxIssueDate,
             minDueDate = minDueDate,
             maxDueDate = maxDueDate,
-            customerId = customerId
+            customerId = customerId,
+            companyId = companyId
         ).toDomainModel()
     }
 
