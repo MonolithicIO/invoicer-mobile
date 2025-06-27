@@ -20,8 +20,7 @@ internal interface InvoiceDataSource {
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?
     ): InvoiceListResponse
 
     suspend fun createInvoice(
@@ -45,8 +44,7 @@ internal class InvoiceDataSourceImpl(
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?
     ): InvoiceListResponse {
         return withContext(dispatcher) {
             httpWrapper.client.get(urlString = "/v1/invoice") {
@@ -57,8 +55,7 @@ internal class InvoiceDataSourceImpl(
                     maxIssueDate?.let { append("maxIssueDate", it) }
                     minDueDate?.let { append("minDueDate", it) }
                     maxDueDate?.let { append("maxDueDate", it) }
-                    senderCompany?.let { append("senderCompany", it) }
-                    recipientCompany?.let { append("recipientCompany", it) }
+                    customerId?.let { append("customerId", it) }
                 }
             }.body()
         }

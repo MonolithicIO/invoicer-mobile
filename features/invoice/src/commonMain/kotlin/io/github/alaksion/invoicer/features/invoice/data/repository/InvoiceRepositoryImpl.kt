@@ -1,4 +1,4 @@
-package features.invoice.data.repository
+package io.github.alaksion.invoicer.features.invoice.data.repository
 
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.model.toDataModel
@@ -19,8 +19,7 @@ internal class InvoiceRepositoryImpl(
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?
     ): InvoiceList {
         return dataSource.getInvoices(
             page = page,
@@ -29,8 +28,7 @@ internal class InvoiceRepositoryImpl(
             maxIssueDate = maxIssueDate,
             minDueDate = minDueDate,
             maxDueDate = maxDueDate,
-            senderCompany = senderCompany,
-            recipientCompany = recipientCompany
+            customerId = customerId
         ).toDomainModel()
     }
 

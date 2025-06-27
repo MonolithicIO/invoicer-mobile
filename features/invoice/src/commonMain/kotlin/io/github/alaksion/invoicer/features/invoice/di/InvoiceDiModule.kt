@@ -1,6 +1,6 @@
 package io.github.alaksion.invoicer.features.invoice.di
 
-import features.invoice.data.repository.InvoiceRepositoryImpl
+import io.github.alaksion.invoicer.features.invoice.data.repository.InvoiceRepositoryImpl
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSourceImpl
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository

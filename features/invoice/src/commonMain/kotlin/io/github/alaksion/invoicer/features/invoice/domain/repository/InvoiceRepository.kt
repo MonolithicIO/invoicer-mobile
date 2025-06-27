@@ -12,8 +12,7 @@ interface InvoiceRepository {
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?
     ): InvoiceList
 
     suspend fun createInvoice(

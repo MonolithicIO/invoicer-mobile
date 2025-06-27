@@ -96,8 +96,7 @@ internal class InvoiceListScreenModel(
         maxIssueDate = _state.value.filter.maxIssueDate?.toString(),
         minDueDate = _state.value.filter.minDueDate?.toString(),
         maxDueDate = _state.value.filter.maxDueDate?.toString(),
-        senderCompany = _state.value.filter.senderCompany,
-        recipientCompany = _state.value.filter.recipientCompany
+        customerId = null
     )
 
     companion object {
