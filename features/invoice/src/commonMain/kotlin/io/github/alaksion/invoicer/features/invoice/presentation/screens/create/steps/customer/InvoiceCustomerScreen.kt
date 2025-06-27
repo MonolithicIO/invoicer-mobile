@@ -27,6 +27,8 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitl
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
+import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
+import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
@@ -96,6 +98,7 @@ internal class InvoiceCustomerScreen : Screen {
                     title = stringResource(Res.string.invoice_customer_title),
                     subTitle = stringResource(Res.string.invoice_customer_description)
                 )
+                VerticalSpacer(SpacerSize.XLarge3)
                 when (state.mode) {
                     InvoiceCustomerMode.Content -> InvoiceCustomerList(
                         modifier = Modifier.fillMaxSize(),
