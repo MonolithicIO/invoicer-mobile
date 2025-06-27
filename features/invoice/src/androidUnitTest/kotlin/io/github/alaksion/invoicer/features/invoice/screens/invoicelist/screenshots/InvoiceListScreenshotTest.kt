@@ -42,13 +42,13 @@ class InvoiceListScreenshotTest {
                         InvoiceListItem(
                             id = "1",
                             externalId = "ExternalId",
-                            senderCompany = "SenderCompany",
-                            recipientCompany = "Recipient company",
                             issueDate = Instant.parse("2023-10-01T00:00:00Z"),
                             dueDate = Instant.parse("2023-10-01T00:00:00Z"),
                             createdAt = Instant.parse("2023-10-01T00:00:00Z"),
                             updatedAt = Instant.parse("2023-10-01T00:00:00Z"),
                             totalAmount = 100L,
+                            customerName = "Customer Name",
+                            companyName = "Company Name",
                         ),
                     )
                 )

@@ -14,12 +14,12 @@ class FakeInvoiceRepository : InvoiceRepository {
     override suspend fun getInvoices(
         page: Long,
         limit: Int,
+        companyId: String,
         minIssueDate: String?,
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?,
     ): InvoiceList {
         if (getInvoicesFails) error("Fake error")
 
@@ -39,20 +39,20 @@ class FakeInvoiceRepository : InvoiceRepository {
         val INVOICE_1 = InvoiceListItem(
             id = "123",
             externalId = "Invoice 1",
-            senderCompany = "Company A",
-            recipientCompany = "Company B",
             issueDate = Instant.parse("2023-10-01T00:00:00Z"),
             dueDate = Instant.parse("2023-10-01T00:00:00Z"),
             createdAt = Instant.parse("2023-10-01T00:00:00Z"),
             updatedAt = Instant.parse("2023-10-01T00:00:00Z"),
-            totalAmount = 1000
+            totalAmount = 1000,
+            companyName = "company",
+            customerName = "customer",
         )
 
         val INVOICE_2 = InvoiceListItem(
             id = "456",
             externalId = "Invoice 2",
-            senderCompany = "Company C",
-            recipientCompany = "Company D",
+            companyName = "company",
+            customerName = "customer",
             issueDate = Instant.parse("2023-10-02T00:00:00Z"),
             dueDate = Instant.parse("2023-10-02T00:00:00Z"),
             createdAt = Instant.parse("2023-10-02T00:00:00Z"),
