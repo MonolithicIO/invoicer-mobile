@@ -1,14 +1,15 @@
 package io.github.alaksion.invoicer.features.invoice.domain.model
 
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 data class InvoiceDetailsModel(
     val id: String,
     val externalId: String,
     val senderCompany: InvoiceCompanyModel,
     val recipientCompany: InvoiceCompanyModel,
-    val issueDate: Instant,
-    val dueDate: Instant,
+    val issueDate: LocalDate,
+    val dueDate: LocalDate,
     val beneficiary: InvoiceBeneficiaryModel,
     val intermediary: InvoiceIntermediaryModel?,
     val createdAt: Instant,

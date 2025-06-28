@@ -6,6 +6,7 @@ import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsA
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsModel
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceIntermediaryModel
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 
@@ -15,8 +16,8 @@ internal data class InvoiceDetailsResponse(
     val externalId: String,
     val senderCompany: InvoiceDetailsCompanyResponse,
     val recipientCompany: InvoiceDetailsCompanyResponse,
-    val issueDate: Instant,
-    val dueDate: Instant,
+    val issueDate: LocalDate,
+    val dueDate: LocalDate,
     val beneficiary: InvoiceDetailsBeneficiaryResponse,
     val intermediary: InvoiceDetailsIntermediaryResponse?,
     val createdAt: Instant,

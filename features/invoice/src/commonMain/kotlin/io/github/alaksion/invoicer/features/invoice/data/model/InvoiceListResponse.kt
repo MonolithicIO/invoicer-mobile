@@ -3,6 +3,7 @@ package io.github.alaksion.invoicer.features.invoice.data.model
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceList
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceListItem
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,8 +17,8 @@ internal data class InvoiceListResponse(
 internal data class InvoiceListItemResponse(
     val id: String,
     val externalId: String,
-    val issueDate: Instant,
-    val dueDate: Instant,
+    val issueDate: LocalDate,
+    val dueDate: LocalDate,
     val createdAt: Instant,
     val updatedAt: Instant,
     val totalAmount: Long,
