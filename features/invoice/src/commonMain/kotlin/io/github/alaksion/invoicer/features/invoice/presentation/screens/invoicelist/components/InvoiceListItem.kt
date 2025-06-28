@@ -18,10 +18,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_list_item_amount
+import invoicer.features.invoice.generated.resources.invoice_list_item_customer
 import invoicer.features.invoice.generated.resources.invoice_list_item_due_date
 import invoicer.features.invoice.generated.resources.invoice_list_item_issue_date
 import invoicer.features.invoice.generated.resources.invoice_list_item_number
-import invoicer.features.invoice.generated.resources.invoice_list_item_recipient
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceListItem
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.Spacer
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
@@ -65,8 +65,8 @@ internal fun InvoiceListItem(
             }
 
             InvoiceListVerticalTopic(
-                title = stringResource(Res.string.invoice_list_item_recipient),
-                value = item.recipientCompany,
+                title = stringResource(Res.string.invoice_list_item_customer),
+                value = item.customerName,
             )
 
             InvoiceListHorizontalTopic(

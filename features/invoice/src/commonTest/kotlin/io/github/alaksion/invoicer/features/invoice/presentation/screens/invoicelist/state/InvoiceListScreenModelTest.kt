@@ -1,6 +1,7 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state
 
 import io.github.alaksion.invoicer.features.invoice.presentation.fakes.FakeInvoiceRepository
+import io.github.alaksion.invoicer.foundation.session.test.FakeSession
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -19,6 +20,7 @@ import kotlin.test.assertTrue
 class InvoiceListScreenModelTest {
 
     private lateinit var invoiceRepository: FakeInvoiceRepository
+    private lateinit var session: FakeSession
     private val dispatcher = StandardTestDispatcher()
 
     private lateinit var viewModel: InvoiceListScreenModel
@@ -27,9 +29,11 @@ class InvoiceListScreenModelTest {
     fun setUp() {
         Dispatchers.setMain(dispatcher)
         invoiceRepository = FakeInvoiceRepository()
+        session = FakeSession()
         viewModel = InvoiceListScreenModel(
             invoiceRepository = invoiceRepository,
-            dispatcher = dispatcher
+            dispatcher = dispatcher,
+            session = session
         )
     }
 

@@ -1,8 +1,8 @@
 package io.github.alaksion.invoicer.features.invoice.di
 
-import features.invoice.data.repository.InvoiceRepositoryImpl
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSourceImpl
+import io.github.alaksion.invoicer.features.invoice.data.repository.InvoiceRepositoryImpl
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceFormManager
@@ -27,7 +27,8 @@ private fun Module.presentation() {
     factory<InvoiceListScreenModel> {
         InvoiceListScreenModel(
             invoiceRepository = get(),
-            dispatcher = Dispatchers.Default
+            dispatcher = Dispatchers.Default,
+            session = get()
         )
     }
 

@@ -1,9 +1,9 @@
 package io.github.alaksion.invoicer.features.invoice.data.datasource
 
-import io.github.alaksion.invoicer.foundation.network.client.HttpWrapper
 import io.github.alaksion.invoicer.features.invoice.data.model.CreateInvoiceRequest
 import io.github.alaksion.invoicer.features.invoice.data.model.InvoiceDetailsResponse
 import io.github.alaksion.invoicer.features.invoice.data.model.InvoiceListResponse
+import io.github.alaksion.invoicer.foundation.network.client.HttpWrapper
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
@@ -16,12 +16,12 @@ internal interface InvoiceDataSource {
     suspend fun getInvoices(
         page: Long,
         limit: Int,
+        companyId: String,
         minIssueDate: String?,
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?
     ): InvoiceListResponse
 
     suspend fun createInvoice(
@@ -41,15 +41,15 @@ internal class InvoiceDataSourceImpl(
     override suspend fun getInvoices(
         page: Long,
         limit: Int,
+        companyId: String,
         minIssueDate: String?,
         maxIssueDate: String?,
         minDueDate: String?,
         maxDueDate: String?,
-        senderCompany: String?,
-        recipientCompany: String?
+        customerId: String?
     ): InvoiceListResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.get(urlString = "/v1/invoice") {
+            httpWrapper.client.get(urlString = "/v1/company/$companyId/invoices") {
                 parameters {
                     append("page", page.toString())
                     append("limit", limit.toString())
@@ -57,8 +57,7 @@ internal class InvoiceDataSourceImpl(
                     maxIssueDate?.let { append("maxIssueDate", it) }
                     minDueDate?.let { append("minDueDate", it) }
                     maxDueDate?.let { append("maxDueDate", it) }
-                    senderCompany?.let { append("senderCompany", it) }
-                    recipientCompany?.let { append("recipientCompany", it) }
+                    customerId?.let { append("customerId", it) }
                 }
             }.body()
         }

@@ -16,13 +16,13 @@ internal data class InvoiceListResponse(
 internal data class InvoiceListItemResponse(
     val id: String,
     val externalId: String,
-    val senderCompany: String,
-    val recipientCompany: String,
     val issueDate: Instant,
     val dueDate: Instant,
     val createdAt: Instant,
     val updatedAt: Instant,
-    val totalAmount: Long
+    val totalAmount: Long,
+    val companyName: String,
+    val customerName: String
 )
 
 internal fun InvoiceListResponse.toDomainModel() = InvoiceList(
@@ -30,13 +30,13 @@ internal fun InvoiceListResponse.toDomainModel() = InvoiceList(
         InvoiceListItem(
             id = it.id,
             externalId = it.externalId,
-            senderCompany = it.senderCompany,
-            recipientCompany = it.recipientCompany,
             issueDate = it.issueDate,
             dueDate = it.dueDate,
             createdAt = it.createdAt,
             updatedAt = it.updatedAt,
-            totalAmount = it.totalAmount
+            totalAmount = it.totalAmount,
+            companyName = it.companyName,
+            customerName = it.customerName,
         )
     },
     totalItemCount = totalItemCount,
