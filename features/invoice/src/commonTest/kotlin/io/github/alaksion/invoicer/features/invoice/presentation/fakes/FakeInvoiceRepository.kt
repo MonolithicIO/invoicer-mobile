@@ -6,6 +6,7 @@ import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceList
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceListItem
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 class FakeInvoiceRepository : InvoiceRepository {
 
@@ -39,8 +40,8 @@ class FakeInvoiceRepository : InvoiceRepository {
         val INVOICE_1 = InvoiceListItem(
             id = "123",
             externalId = "Invoice 1",
-            issueDate = Instant.parse("2023-10-01T00:00:00Z"),
-            dueDate = Instant.parse("2023-10-01T00:00:00Z"),
+            issueDate = LocalDate.parse("2023-10-01"),
+            dueDate = LocalDate.parse("2023-10-01"),
             createdAt = Instant.parse("2023-10-01T00:00:00Z"),
             updatedAt = Instant.parse("2023-10-01T00:00:00Z"),
             totalAmount = 1000,
@@ -53,8 +54,8 @@ class FakeInvoiceRepository : InvoiceRepository {
             externalId = "Invoice 2",
             companyName = "company",
             customerName = "customer",
-            issueDate = Instant.parse("2023-10-02T00:00:00Z"),
-            dueDate = Instant.parse("2023-10-02T00:00:00Z"),
+            issueDate = LocalDate.parse("2023-10-02"),
+            dueDate = LocalDate.parse("2023-10-02"),
             createdAt = Instant.parse("2023-10-02T00:00:00Z"),
             updatedAt = Instant.parse("2023-10-02T00:00:00Z"),
             totalAmount = 2000

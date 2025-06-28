@@ -1,6 +1,7 @@
 package io.github.alaksion.invoicer.features.invoice.domain.model
 
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 data class InvoiceList(
     val items: List<InvoiceListItem>,
@@ -11,8 +12,8 @@ data class InvoiceList(
 data class InvoiceListItem(
     val id: String,
     val externalId: String,
-    val issueDate: Instant,
-    val dueDate: Instant,
+    val issueDate: LocalDate,
+    val dueDate: LocalDate,
     val createdAt: Instant,
     val updatedAt: Instant,
     val totalAmount: Long,

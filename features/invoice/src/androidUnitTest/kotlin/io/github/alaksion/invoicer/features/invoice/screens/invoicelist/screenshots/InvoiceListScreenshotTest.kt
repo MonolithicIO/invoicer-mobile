@@ -12,6 +12,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.theme.InvoicerTheme
 import io.github.alaksion.invoicer.foundation.testUtil.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import org.junit.Rule
 import org.junit.Test
 
@@ -42,8 +43,8 @@ class InvoiceListScreenshotTest {
                         InvoiceListItem(
                             id = "1",
                             externalId = "ExternalId",
-                            issueDate = Instant.parse("2023-10-01T00:00:00Z"),
-                            dueDate = Instant.parse("2023-10-01T00:00:00Z"),
+                            issueDate = LocalDate.parse("2023-10-01"),
+                            dueDate = LocalDate.parse("2023-10-01"),
                             createdAt = Instant.parse("2023-10-01T00:00:00Z"),
                             updatedAt = Instant.parse("2023-10-01T00:00:00Z"),
                             totalAmount = 100L,
