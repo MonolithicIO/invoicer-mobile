@@ -5,15 +5,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.DatePicker
+import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -28,6 +34,7 @@ import invoicer.features.invoice.generated.resources.invoice_configuration_numbe
 import invoicer.features.invoice.generated.resources.invoice_configuration_number_placeholder
 import invoicer.features.invoice.generated.resources.invoice_configuration_title
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
+import invoicer.features.invoice.generated.resources.invoice_create_dates_change_cta
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.components.InvoiceDateField
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
@@ -37,8 +44,6 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Pr
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
-import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
-import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
 
 internal class InvoiceConfigurationScreen : Screen {
@@ -97,6 +102,12 @@ internal class InvoiceConfigurationScreen : Screen {
                 )
             }
         ) { scaffoldPadding ->
+            var isDueDatePickerVisible by remember { mutableStateOf(false) }
+            var isIssueDatePickerVisible by remember { mutableStateOf(false) }
+
+            val dueDateState = rememberDatePickerState()
+
+            val issueDateState = rememberDatePickerState()
 
             Column(
                 modifier = Modifier
@@ -130,8 +141,8 @@ internal class InvoiceConfigurationScreen : Screen {
 
                 InvoiceDateField(
                     label = stringResource(Res.string.invoice_configuration_issue_date_label),
-                    content = state.invoiceIssueDate.defaultFormat(),
-                    onChangeClick = {},
+                    content = state.issueDateFormatted,
+                    onChangeClick = { isIssueDatePickerVisible = true },
                     errorMessage = if (state.isIssueDateValid) null
                     else stringResource(Res.string.invoice_configuration_invalid_issue_date)
                 )
@@ -140,11 +151,57 @@ internal class InvoiceConfigurationScreen : Screen {
 
                 InvoiceDateField(
                     label = stringResource(Res.string.invoice_configuration_due_date_label),
-                    content = state.invoiceDueDate.defaultFormat(),
-                    onChangeClick = {},
+                    content = state.dueDateFormatted,
+                    onChangeClick = { isDueDatePickerVisible = true },
                     errorMessage = if (state.isDueDateValid) null
                     else stringResource(Res.string.invoice_configuration_invalid_due_date)
                 )
+
+                if (isIssueDatePickerVisible) {
+                    DatePickerDialog(
+                        onDismissRequest = {
+                            isIssueDatePickerVisible = false
+                        },
+                        confirmButton = {
+                            TextButton(
+                                onClick = {
+                                    isIssueDatePickerVisible = false
+                                    issueDateState.selectedDateMillis?.let {
+                                        callbacks.onInvoiceIssueDateChange(it)
+                                    }
+                                }
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.invoice_create_dates_change_cta)
+                                )
+                            }
+                        },
+                        content = { DatePicker(state = issueDateState) }
+                    )
+                }
+
+                if (isIssueDatePickerVisible) {
+                    DatePickerDialog(
+                        onDismissRequest = {
+                            isIssueDatePickerVisible = false
+                        },
+                        confirmButton = {
+                            TextButton(
+                                onClick = {
+                                    isIssueDatePickerVisible = false
+                                    issueDateState.selectedDateMillis?.let {
+                                        callbacks.onInvoiceIssueDateChange(it)
+                                    }
+                                }
+                            ) {
+                                Text(
+                                    text = stringResource(Res.string.invoice_create_dates_change_cta)
+                                )
+                            }
+                        },
+                        content = { DatePicker(state = dueDateState) }
+                    )
+                }
             }
         }
     }
@@ -153,7 +210,7 @@ internal class InvoiceConfigurationScreen : Screen {
         val onBack: () -> Unit,
         val onNext: () -> Unit,
         val onInvoiceNumberChange: (String) -> Unit,
-        val onInvoiceDueDateChange: (LocalDate) -> Unit,
-        val onInvoiceIssueDateChange: (LocalDate) -> Unit,
+        val onInvoiceDueDateChange: (Long) -> Unit,
+        val onInvoiceIssueDateChange: (Long) -> Unit,
     )
 }
