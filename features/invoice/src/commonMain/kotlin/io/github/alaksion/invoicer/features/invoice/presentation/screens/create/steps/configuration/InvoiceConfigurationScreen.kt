@@ -21,6 +21,8 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_configuration_description
 import invoicer.features.invoice.generated.resources.invoice_configuration_due_date_label
+import invoicer.features.invoice.generated.resources.invoice_configuration_invalid_due_date
+import invoicer.features.invoice.generated.resources.invoice_configuration_invalid_issue_date
 import invoicer.features.invoice.generated.resources.invoice_configuration_issue_date_label
 import invoicer.features.invoice.generated.resources.invoice_configuration_number_label
 import invoicer.features.invoice.generated.resources.invoice_configuration_number_placeholder
@@ -34,6 +36,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Pr
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.datetime.LocalDate
 import org.jetbrains.compose.resources.stringResource
 
@@ -120,20 +123,24 @@ internal class InvoiceConfigurationScreen : Screen {
                     }
                 )
 
-                VerticalSpacer(SpacerSize.Medium)
+                VerticalSpacer(SpacerSize.XLarge3)
 
                 InvoiceDateField(
                     label = stringResource(Res.string.invoice_configuration_issue_date_label),
-                    content = "",
-                    onChangeClick = {}
+                    content = state.invoiceIssueDate.defaultFormat(),
+                    onChangeClick = {},
+                    errorMessage = if (state.isIssueDateValid) null
+                    else stringResource(Res.string.invoice_configuration_invalid_issue_date)
                 )
 
-                VerticalSpacer(SpacerSize.Medium)
+                VerticalSpacer(SpacerSize.Large)
 
                 InvoiceDateField(
                     label = stringResource(Res.string.invoice_configuration_due_date_label),
-                    content = "",
-                    onChangeClick = {}
+                    content = state.invoiceDueDate.defaultFormat(),
+                    onChangeClick = {},
+                    errorMessage = if (state.isIssueDateValid) null
+                    else stringResource(Res.string.invoice_configuration_invalid_due_date)
                 )
             }
         }

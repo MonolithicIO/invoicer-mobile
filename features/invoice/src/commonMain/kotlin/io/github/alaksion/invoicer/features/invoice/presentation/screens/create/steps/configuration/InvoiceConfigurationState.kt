@@ -4,21 +4,21 @@ import kotlinx.datetime.LocalDate
 
 internal data class InvoiceConfigurationState(
     val invoiceNumber: String = "",
-    val invoiceDueDate: LocalDate? = null,
-    val invoiceIssueDate: LocalDate? = null,
-    private val today: LocalDate? = null
+    val invoiceDueDate: LocalDate = LocalDate(0, 0, 0),
+    val invoiceIssueDate: LocalDate = LocalDate(0, 0, 0),
+    private val today: LocalDate? = null,
 ) {
-    val isIssueDateValid = invoiceIssueDate?.let { issueDate ->
+    val isIssueDateValid = invoiceIssueDate.let { issueDate ->
         today?.let { currentDate ->
             issueDate >= currentDate
         } ?: false
-    } ?: false
+    }
 
-    val isDueDateValid = invoiceDueDate?.let { dueDate ->
-        invoiceIssueDate?.let { issueDate ->
+    val isDueDateValid = invoiceDueDate.let { dueDate ->
+        invoiceIssueDate.let { issueDate ->
             dueDate >= issueDate
-        } ?: false
-    } ?: false
+        }
+    }
 
     val isButtonEnabled = invoiceNumber.isNotBlank() && isDueDateValid && isIssueDateValid
 }

@@ -2,11 +2,15 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
+import io.github.alaksion.invoicer.foundation.utils.date.AppTimeZone
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.Clock
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
+import kotlinx.datetime.todayIn
 
 internal class InvoiceConfigurationScreenModel(
     private val invoiceForm: CreateInvoiceForm,
@@ -17,11 +21,14 @@ internal class InvoiceConfigurationScreenModel(
     val state = _state.asStateFlow()
 
     fun refreshState() {
+        val issueDate = invoiceForm.issueDate ?: clock.todayIn(AppTimeZone)
+        val dueDate = invoiceForm.dueDate ?: clock.todayIn(AppTimeZone).plus(DatePeriod(days = 7))
+
         _state.update {
             InvoiceConfigurationState(
                 invoiceNumber = invoiceForm.invoiceNumber,
-                invoiceDueDate = invoiceForm.dueDate,
-                invoiceIssueDate = invoiceForm.issueDate
+                invoiceDueDate = dueDate,
+                invoiceIssueDate = issueDate
             )
         }
     }
