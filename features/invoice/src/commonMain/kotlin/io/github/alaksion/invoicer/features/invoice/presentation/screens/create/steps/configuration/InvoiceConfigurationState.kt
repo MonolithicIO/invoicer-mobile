@@ -1,12 +1,12 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration
 
-import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalDate
 
 internal data class InvoiceConfigurationState(
     val invoiceNumber: String = "",
-    val invoiceDueDate: LocalDateTime? = null,
-    val invoiceIssueDate: LocalDateTime? = null,
-    private val today: LocalDateTime? = null
+    val invoiceDueDate: LocalDate? = null,
+    val invoiceIssueDate: LocalDate? = null,
+    private val today: LocalDate? = null
 ) {
     val isIssueDateValid = invoiceIssueDate?.let { issueDate ->
         today?.let { currentDate ->

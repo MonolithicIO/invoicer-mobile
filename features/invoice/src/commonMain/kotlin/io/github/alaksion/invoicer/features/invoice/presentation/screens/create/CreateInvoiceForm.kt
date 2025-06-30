@@ -1,7 +1,7 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
-import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 import org.koin.core.qualifier.named
 import org.koin.mp.KoinPlatform.getKoin
 
@@ -10,8 +10,8 @@ internal class CreateInvoiceForm {
     var invoiceNumber: String = ""
     var customerId: String = ""
     var customerName: String = ""
-    var issueDate: Instant? = null
-    var dueDate: Instant? = null
+    var issueDate: LocalDate? = null
+    var dueDate: LocalDate? = null
 
     var activities = mutableListOf<CreateInvoiceActivityUiModel>()
 }

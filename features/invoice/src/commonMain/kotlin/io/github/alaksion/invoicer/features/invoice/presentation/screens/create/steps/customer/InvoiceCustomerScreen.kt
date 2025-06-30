@@ -20,8 +20,8 @@ import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
 import invoicer.features.invoice.generated.resources.invoice_customer_description
 import invoicer.features.invoice.generated.resources.invoice_customer_title
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreen
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdStep
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
@@ -57,7 +57,7 @@ internal class InvoiceCustomerScreen : Screen {
             flow = screenModel.event,
             screenModel
         ) {
-            navigator?.push(InvoiceExternalIdStep())
+            navigator?.push(InvoiceConfigurationScreen())
         }
 
         StateContent(

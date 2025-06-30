@@ -24,22 +24,17 @@
     <!-- Create Invoice -->
     <string name="invoice_create_continue_cta">Continue</string>
 
-    <!-- External Id -->
-    <string name="invoice_create_external_id_title">Invoice ID</string>
-    <string name="invoice_create_external_id_description">Set Invoice unique ID</string>
-    <string name="invoice_create_external_id_placeholder">Invoice #123</string>
-    <string name="invoice_create_external_id_label">Id</string>
-
-    <!-- Create Dates -->
-    <string name="invoice_create_dates_title">Invoice dates</string>
-    <string name="invoice_create_dates_description">Set invoice schedule</string>
-    <string name="invoice_create_dates_issue_date_label">Issue date</string>
+    <!-- Configuration -->
+    <string name="invoice_configuration_title">Configuration</string>
+    <string name="invoice_configuration_description">Set invoice configuration</string>
+    <string name="invoice_configuration_number_placeholder">Invoice #123</string>
+    <string name="invoice_configuration_number_label">Invoice number</string>
+    <string name="invoice_configuration_issue_date_label">Issue date</string>
+    <string name="invoice_configuration_due_date_label">Due date</string>
     <string name="invoice_due_date_dialog_title">Select due date</string>
     <string name="invoice_issue_date_dialog_title">Select issue date</string>
-    <string name="invoice_create_dates_due_date_label">Due date</string>
-    <string name="invoice_create_dates_dialog_confirm">Confirm</string>
     <string name="invoice_create_dates_change_cta">Change</string>
-    <string name="invoice_create_dates_due_date_error">Issue date must not precede due date</string>
+    <string name="invoice_create_dates_dialog_confirm">Confirm</string>
 
     <!-- Activites -->
     <string name="invoice_activity_new_title">New activity</string>
