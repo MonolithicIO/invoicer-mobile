@@ -107,22 +107,6 @@ internal class InvoiceConfigurationScreen : Screen {
             var isDueDatePickerVisible by remember { mutableStateOf(false) }
             var isIssueDatePickerVisible by remember { mutableStateOf(false) }
 
-            val issueDateState = rememberDatePickerState(
-                initialSelectedDateMillis = state.invoiceIssueDate,
-                selectableDates = BlockPastSelectableDate(
-                    minDateInMillis = state.today,
-                    timeZone = TimeZone.UTC
-                )
-            )
-
-            val dueDateState = rememberDatePickerState(
-                initialSelectedDateMillis = state.invoiceDueDate,
-                selectableDates = BlockPastSelectableDate(
-                    minDateInMillis = state.invoiceIssueDate,
-                    timeZone = TimeZone.UTC
-                )
-            )
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -172,6 +156,13 @@ internal class InvoiceConfigurationScreen : Screen {
                 )
 
                 if (isIssueDatePickerVisible) {
+                    val issueDateState = rememberDatePickerState(
+                        initialSelectedDateMillis = state.invoiceIssueDate,
+                        selectableDates = BlockPastSelectableDate(
+                            minDateInMillis = state.today,
+                            timeZone = TimeZone.UTC
+                        )
+                    )
                     DatePickerDialog(
                         onDismissRequest = {
                             isIssueDatePickerVisible = false
@@ -195,6 +186,14 @@ internal class InvoiceConfigurationScreen : Screen {
                 }
 
                 if (isDueDatePickerVisible) {
+                    val dueDateState = rememberDatePickerState(
+                        initialSelectedDateMillis = state.invoiceDueDate,
+                        selectableDates = BlockPastSelectableDate(
+                            minDateInMillis = state.invoiceIssueDate,
+                            timeZone = TimeZone.UTC
+                        )
+                    )
+
                     DatePickerDialog(
                         onDismissRequest = {
                             isDueDatePickerVisible = false

@@ -8,7 +8,7 @@ import kotlinx.datetime.toLocalDateTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 class BlockPastSelectableDate(
-    private val minDateInMillis: Long = 0L,
+    private val minDateInMillis: Long,
     private val timeZone: TimeZone
 ) : SelectableDates {
 
