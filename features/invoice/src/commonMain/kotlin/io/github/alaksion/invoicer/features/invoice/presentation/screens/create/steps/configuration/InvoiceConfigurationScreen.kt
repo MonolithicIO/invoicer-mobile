@@ -28,6 +28,7 @@ import invoicer.features.invoice.generated.resources.invoice_configuration_numbe
 import invoicer.features.invoice.generated.resources.invoice_configuration_number_placeholder
 import invoicer.features.invoice.generated.resources.invoice_configuration_title
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.components.InvoiceDateField
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
@@ -53,6 +54,7 @@ internal class InvoiceConfigurationScreen : Screen {
                 onBack = { navigator?.pop() },
                 onNext = {
                     screenModel.saveConfiguration()
+                    navigator?.push(InvoiceActivitiesScreen())
                 },
                 onInvoiceNumberChange = screenModel::updateInvoiceNumber,
                 onInvoiceDueDateChange = screenModel::updateInvoiceDueDate,
