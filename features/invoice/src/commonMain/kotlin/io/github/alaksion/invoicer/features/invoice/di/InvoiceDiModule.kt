@@ -7,10 +7,9 @@ import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRep
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceFormManager
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreenModel
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.customer.InvoiceCustomerScreenModel
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.dates.InvoiceDatesScreenModel
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.externalId.InvoiceExternalIdScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListScreenModel
 import kotlinx.coroutines.Dispatchers
@@ -21,9 +20,46 @@ import org.koin.dsl.module
 val invoiceDiModule = module {
     presentation()
     data()
+
 }
 
 private fun Module.presentation() {
+    single { CreateInvoiceFormManager() }
+
+    factory<CreateInvoiceForm> {
+        get<CreateInvoiceFormManager>().getForm()
+    }
+
+    screenModels()
+}
+
+private fun Module.screenModels() {
+    factory {
+        InvoiceConfigurationScreenModel(
+            invoiceForm = get()
+        )
+    }
+
+    factory {
+        InvoiceCustomerScreenModel(
+            customerRepository = get(),
+            dispatcher = Dispatchers.Default,
+            session = get(),
+            createInvoiceForm = get()
+        )
+    }
+
+    factory {
+        InvoiceConfirmationScreenModel()
+    }
+
+    factory {
+        InvoiceDetailsScreenModel(
+            invoiceRepository = get(),
+            dispatcher = Dispatchers.Default
+        )
+    }
+
     factory<InvoiceListScreenModel> {
         InvoiceListScreenModel(
             invoiceRepository = get(),
@@ -34,49 +70,9 @@ private fun Module.presentation() {
 
 
     factory {
-        InvoiceDatesScreenModel(
-            dispatcher = Dispatchers.Default,
-            manager = get(),
-        )
-    }
-
-    factory {
         InvoiceActivitiesScreenModel(
             dispatcher = Dispatchers.Default,
             createInvoiceManager = get()
-        )
-    }
-
-    factory {
-        InvoiceConfirmationScreenModel()
-    }
-
-    factory {
-        InvoiceExternalIdScreenModel(
-            dispatcher = Dispatchers.Default,
-            manager = get()
-        )
-    }
-
-    factory {
-        InvoiceDetailsScreenModel(
-            invoiceRepository = get(),
-            dispatcher = Dispatchers.Default
-        )
-    }
-
-    single { CreateInvoiceFormManager() }
-
-    factory<CreateInvoiceForm> {
-        get<CreateInvoiceFormManager>().getForm()
-    }
-
-    factory {
-        InvoiceCustomerScreenModel(
-            customerRepository = get(),
-            dispatcher = Dispatchers.Default,
-            session = get(),
-            createInvoiceForm = get<CreateInvoiceForm>()
         )
     }
 }
