@@ -2,14 +2,10 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
-import io.github.alaksion.invoicer.foundation.utils.date.AppTimeZone
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Duration.Companion.days
 
 internal class InvoiceConfigurationScreenModel(
@@ -21,24 +17,17 @@ internal class InvoiceConfigurationScreenModel(
     val state = _state.asStateFlow()
 
     fun refreshState() {
-        val issueDate = if (invoiceForm.dueDate == 0L) {
-            clock.now().toEpochMilliseconds()
-        } else {
-            invoiceForm.dueDate
-        }
+        val today = clock.now()
 
-        val dueDate = if (invoiceForm.issueDate == 0L) {
-            clock.now().plus(7.days).toEpochMilliseconds()
-        } else {
-            invoiceForm.issueDate
-        }
+        val issueDate = invoiceForm.issueDate ?: today.toEpochMilliseconds()
+        val dueDate = invoiceForm.issueDate ?: today.plus(7.days).toEpochMilliseconds()
 
         _state.update {
             InvoiceConfigurationState(
                 invoiceNumber = invoiceForm.invoiceNumber,
                 invoiceDueDate = dueDate,
                 invoiceIssueDate = issueDate,
-                today = clock.now().toEpochMilliseconds()
+                today = today.toEpochMilliseconds()
             )
         }
     }
@@ -52,33 +41,13 @@ internal class InvoiceConfigurationScreenModel(
     fun updateInvoiceDueDate(
         invoiceDueDate: Long
     ) {
-        val correctedMillis = Instant
-            .fromEpochMilliseconds(invoiceDueDate)
-            .toLocalDateTime(AppTimeZone)
-            .toInstant(AppTimeZone)
-            .toEpochMilliseconds()
-
-        _state.update {
-            it.copy(
-                invoiceDueDate = correctedMillis,
-            )
-        }
+        _state.update { it.copy(invoiceDueDate = invoiceDueDate) }
     }
 
     fun updateIssueDate(
         issueDate: Long
     ) {
-        val correctedMillis = Instant
-            .fromEpochMilliseconds(issueDate)
-            .toLocalDateTime(AppTimeZone)
-            .toInstant(AppTimeZone)
-            .toEpochMilliseconds()
-
-        _state.update {
-            it.copy(
-                invoiceIssueDate = correctedMillis
-            )
-        }
+        _state.update { it.copy(invoiceIssueDate = issueDate) }
     }
 
     fun saveConfiguration() {

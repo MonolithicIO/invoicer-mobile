@@ -9,12 +9,12 @@ internal data class InvoiceConfigurationState(
     val invoiceNumber: String = "",
     val invoiceDueDate: Long = 0L,
     val invoiceIssueDate: Long = 0L,
-    private val today: Long? = null,
+    val today: Long = 0L,
 ) {
     val isIssueDateValid = invoiceIssueDate.let { issueDate ->
-        today?.let { currentDate ->
+        today.let { currentDate ->
             issueDate >= currentDate
-        } ?: false
+        }
     }
 
     val isDueDateValid = invoiceDueDate.let { dueDate ->

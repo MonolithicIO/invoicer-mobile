@@ -44,6 +44,8 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Pr
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.utils.date.BlockPastSelectableDate
+import kotlinx.datetime.TimeZone
 import org.jetbrains.compose.resources.stringResource
 
 internal class InvoiceConfigurationScreen : Screen {
@@ -105,9 +107,19 @@ internal class InvoiceConfigurationScreen : Screen {
             var isDueDatePickerVisible by remember { mutableStateOf(false) }
             var isIssueDatePickerVisible by remember { mutableStateOf(false) }
 
-            val dueDateState = rememberDatePickerState()
+            val dueDateState = rememberDatePickerState(
+                selectableDates = BlockPastSelectableDate(
+                    minDateInMillis = state.today,
+                    timeZone = TimeZone.UTC
+                )
+            )
 
-            val issueDateState = rememberDatePickerState()
+            val issueDateState = rememberDatePickerState(
+                selectableDates = BlockPastSelectableDate(
+                    minDateInMillis = state.invoiceIssueDate,
+                    timeZone = TimeZone.UTC
+                )
+            )
 
             Column(
                 modifier = Modifier
