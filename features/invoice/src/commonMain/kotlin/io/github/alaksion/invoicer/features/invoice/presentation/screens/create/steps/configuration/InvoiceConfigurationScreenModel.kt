@@ -5,10 +5,12 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
 
 internal class InvoiceConfigurationScreenModel(
     private val invoiceForm: CreateInvoiceForm,
+    private val clock: Clock
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(InvoiceConfigurationState())

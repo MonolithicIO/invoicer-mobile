@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,6 +22,8 @@ import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_configuration_description
 import invoicer.features.invoice.generated.resources.invoice_configuration_due_date_label
 import invoicer.features.invoice.generated.resources.invoice_configuration_issue_date_label
+import invoicer.features.invoice.generated.resources.invoice_configuration_number_label
+import invoicer.features.invoice.generated.resources.invoice_configuration_number_placeholder
 import invoicer.features.invoice.generated.resources.invoice_configuration_title
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.components.InvoiceDateField
@@ -104,7 +107,17 @@ internal class InvoiceConfigurationScreen : Screen {
                 InputField(
                     value = state.invoiceNumber,
                     onValueChange = callbacks.onInvoiceNumberChange,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    label = {
+                        Text(
+                            text = stringResource(Res.string.invoice_configuration_number_label)
+                        )
+                    },
+                    placeholder = {
+                        Text(
+                            text = stringResource(Res.string.invoice_configuration_number_placeholder)
+                        )
+                    }
                 )
 
                 VerticalSpacer(SpacerSize.Medium)
@@ -114,6 +127,8 @@ internal class InvoiceConfigurationScreen : Screen {
                     content = "",
                     onChangeClick = {}
                 )
+
+                VerticalSpacer(SpacerSize.Medium)
 
                 InvoiceDateField(
                     label = stringResource(Res.string.invoice_configuration_due_date_label),

@@ -36,7 +36,8 @@ private fun Module.presentation() {
 private fun Module.screenModels() {
     factory {
         InvoiceConfigurationScreenModel(
-            invoiceForm = get()
+            invoiceForm = get(),
+            clock = get()
         )
     }
 
