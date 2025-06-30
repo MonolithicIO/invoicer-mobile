@@ -107,14 +107,16 @@ internal class InvoiceConfigurationScreen : Screen {
             var isDueDatePickerVisible by remember { mutableStateOf(false) }
             var isIssueDatePickerVisible by remember { mutableStateOf(false) }
 
-            val dueDateState = rememberDatePickerState(
+            val issueDateState = rememberDatePickerState(
+                initialSelectedDateMillis = state.invoiceIssueDate,
                 selectableDates = BlockPastSelectableDate(
                     minDateInMillis = state.today,
                     timeZone = TimeZone.UTC
                 )
             )
 
-            val issueDateState = rememberDatePickerState(
+            val dueDateState = rememberDatePickerState(
+                initialSelectedDateMillis = state.invoiceDueDate,
                 selectableDates = BlockPastSelectableDate(
                     minDateInMillis = state.invoiceIssueDate,
                     timeZone = TimeZone.UTC
@@ -192,17 +194,17 @@ internal class InvoiceConfigurationScreen : Screen {
                     )
                 }
 
-                if (isIssueDatePickerVisible) {
+                if (isDueDatePickerVisible) {
                     DatePickerDialog(
                         onDismissRequest = {
-                            isIssueDatePickerVisible = false
+                            isDueDatePickerVisible = false
                         },
                         confirmButton = {
                             TextButton(
                                 onClick = {
-                                    isIssueDatePickerVisible = false
-                                    issueDateState.selectedDateMillis?.let {
-                                        callbacks.onInvoiceIssueDateChange(it)
+                                    isDueDatePickerVisible = false
+                                    dueDateState.selectedDateMillis?.let {
+                                        callbacks.onInvoiceDueDateChange(it)
                                     }
                                 }
                             ) {
