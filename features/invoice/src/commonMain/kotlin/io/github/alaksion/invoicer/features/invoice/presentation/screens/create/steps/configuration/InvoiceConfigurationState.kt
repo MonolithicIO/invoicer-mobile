@@ -4,8 +4,8 @@ import kotlinx.datetime.LocalDate
 
 internal data class InvoiceConfigurationState(
     val invoiceNumber: String = "",
-    val invoiceDueDate: LocalDate = LocalDate(0, 0, 0),
-    val invoiceIssueDate: LocalDate = LocalDate(0, 0, 0),
+    val invoiceDueDate: LocalDate = LocalDate(0, 1, 1),
+    val invoiceIssueDate: LocalDate = LocalDate(0, 1, 1),
     private val today: LocalDate? = null,
 ) {
     val isIssueDateValid = invoiceIssueDate.let { issueDate ->

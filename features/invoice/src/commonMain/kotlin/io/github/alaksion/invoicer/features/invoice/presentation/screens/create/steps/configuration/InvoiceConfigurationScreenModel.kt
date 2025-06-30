@@ -21,14 +21,16 @@ internal class InvoiceConfigurationScreenModel(
     val state = _state.asStateFlow()
 
     fun refreshState() {
-        val issueDate = invoiceForm.issueDate ?: clock.todayIn(AppTimeZone)
+        val today = clock.todayIn(AppTimeZone)
+        val issueDate = invoiceForm.issueDate ?: today
         val dueDate = invoiceForm.dueDate ?: clock.todayIn(AppTimeZone).plus(DatePeriod(days = 7))
 
         _state.update {
             InvoiceConfigurationState(
                 invoiceNumber = invoiceForm.invoiceNumber,
                 invoiceDueDate = dueDate,
-                invoiceIssueDate = issueDate
+                invoiceIssueDate = issueDate,
+                today = today
             )
         }
     }

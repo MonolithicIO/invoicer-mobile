@@ -90,7 +90,8 @@ internal class InvoiceConfigurationScreen : Screen {
                 PrimaryButton(
                     label = stringResource(Res.string.invoice_create_continue_cta),
                     onClick = callbacks.onNext,
-                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium)
+                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium),
+                    isEnabled = state.isButtonEnabled
                 )
             }
         ) { scaffoldPadding ->
@@ -139,7 +140,7 @@ internal class InvoiceConfigurationScreen : Screen {
                     label = stringResource(Res.string.invoice_configuration_due_date_label),
                     content = state.invoiceDueDate.defaultFormat(),
                     onChangeClick = {},
-                    errorMessage = if (state.isIssueDateValid) null
+                    errorMessage = if (state.isDueDateValid) null
                     else stringResource(Res.string.invoice_configuration_invalid_due_date)
                 )
             }
