@@ -190,7 +190,7 @@ internal class InvoiceConfigurationScreen : Screen {
                                 )
                             }
                         },
-                        content = { DatePicker(state = issueDateState) }
+                        content = { DatePicker(state = issueDateState, showModeToggle = false) }
                     )
                 }
 
@@ -213,7 +213,12 @@ internal class InvoiceConfigurationScreen : Screen {
                                 )
                             }
                         },
-                        content = { DatePicker(state = dueDateState) }
+                        content = {
+                            DatePicker(
+                                state = dueDateState,
+                                showModeToggle = false
+                            )
+                        }
                     )
                 }
             }
