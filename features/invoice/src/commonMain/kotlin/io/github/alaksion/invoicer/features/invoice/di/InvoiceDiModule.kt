@@ -53,7 +53,8 @@ private fun Module.screenModels() {
     factory {
         InvoiceConfirmationScreenModel(
             form = get(),
-            session = get()
+            session = get(),
+            invoiceRepository = get()
         )
     }
 
