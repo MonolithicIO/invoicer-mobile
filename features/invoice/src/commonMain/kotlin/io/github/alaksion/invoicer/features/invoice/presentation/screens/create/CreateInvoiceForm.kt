@@ -9,8 +9,8 @@ internal class CreateInvoiceForm {
     var invoiceNumber: String = ""
     var customerId: String = ""
     var customerName: String = ""
-    var issueDate: Long? = null
-    var dueDate: Long? = null
+    var issueDate: Long = 0
+    var dueDate: Long = 0
 
     var activities = mutableListOf<CreateInvoiceActivityUiModel>()
 }

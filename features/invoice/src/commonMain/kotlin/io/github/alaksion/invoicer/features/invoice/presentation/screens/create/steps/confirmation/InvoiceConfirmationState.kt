@@ -2,17 +2,14 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.create
 
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
 import io.github.alaksion.invoicer.foundation.utils.money.moneyFormat
+import kotlinx.datetime.LocalDate
 
 internal data class InvoiceConfirmationState(
-    val senderCompanyName: String = "",
-    val senderCompanyAddress: String = "",
-    val recipientCompanyName: String = "",
-    val recipientCompanyAddress: String = "",
-    val issueDate: String = "",
-    val dueDate: String = "",
-    val intermediaryName: String? = null,
-    val beneficiaryName: String = "",
-    val externalId: String = "",
+    val companyName: String = "",
+    val customerName: String = "",
+    val issueDate: LocalDate = LocalDate(1, 1, 1),
+    val dueDate: LocalDate = LocalDate(1, 1, 1),
+    val invoiceNumber: String = "",
     val activities: List<CreateInvoiceActivityUiModel> = listOf(),
     val isLoading: Boolean = false
 ) {

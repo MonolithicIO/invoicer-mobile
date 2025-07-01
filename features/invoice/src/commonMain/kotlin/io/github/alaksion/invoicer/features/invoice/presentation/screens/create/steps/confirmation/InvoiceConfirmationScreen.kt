@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AccountBalance
 import androidx.compose.material.icons.outlined.Alarm
 import androidx.compose.material.icons.outlined.AlarmOn
 import androidx.compose.material.icons.outlined.AttachMoney
@@ -36,14 +35,11 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.confirmation_activities_label
 import invoicer.features.invoice.generated.resources.confirmation_amount_label
-import invoicer.features.invoice.generated.resources.confirmation_beneficiary_label
+import invoicer.features.invoice.generated.resources.confirmation_company_name
+import invoicer.features.invoice.generated.resources.confirmation_customer_name
 import invoicer.features.invoice.generated.resources.confirmation_due_date_label
-import invoicer.features.invoice.generated.resources.confirmation_external_id_label
 import invoicer.features.invoice.generated.resources.confirmation_issue_date_label
-import invoicer.features.invoice.generated.resources.confirmation_recipient_company_name_address
-import invoicer.features.invoice.generated.resources.confirmation_recipient_company_name_label
-import invoicer.features.invoice.generated.resources.confirmation_sender_company_name_address
-import invoicer.features.invoice.generated.resources.confirmation_sender_company_name_label
+import invoicer.features.invoice.generated.resources.invoice_configuration_number_label
 import invoicer.features.invoice.generated.resources.invoice_create_confirmation_continue_cta
 import invoicer.features.invoice.generated.resources.invoice_create_confirmation_subtitle
 import invoicer.features.invoice.generated.resources.invoice_create_confirmation_title
@@ -56,6 +52,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Pr
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -141,58 +138,37 @@ internal class InvoiceConfirmationScreen : Screen {
                 ) {
                     item {
                         ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_external_id_label),
-                            content = state.externalId,
+                            label = stringResource(Res.string.invoice_configuration_number_label),
+                            content = state.invoiceNumber,
                             icon = Icons.Outlined.Badge
                         )
                     }
                     item {
                         ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_sender_company_name_label),
-                            content = state.senderCompanyName,
+                            label = stringResource(Res.string.confirmation_company_name),
+                            content = state.companyName,
                             icon = Icons.Outlined.Business
                         )
                     }
                     item {
                         ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_sender_company_name_address),
-                            content = state.senderCompanyAddress,
-                            icon = Icons.Outlined.Business
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_recipient_company_name_label),
-                            content = state.recipientCompanyName,
-                            icon = Icons.Outlined.Business
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_recipient_company_name_address),
-                            content = state.recipientCompanyAddress,
+                            label = stringResource(Res.string.confirmation_customer_name),
+                            content = state.customerName,
                             icon = Icons.Outlined.Business
                         )
                     }
                     item {
                         ConfirmationCard(
                             label = stringResource(Res.string.confirmation_issue_date_label),
-                            content = state.issueDate,
+                            content = state.issueDate.defaultFormat(),
                             icon = Icons.Outlined.Alarm
                         )
                     }
                     item {
                         ConfirmationCard(
                             label = stringResource(Res.string.confirmation_due_date_label),
-                            content = state.dueDate,
+                            content = state.dueDate.defaultFormat(),
                             icon = Icons.Outlined.AlarmOn
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_beneficiary_label),
-                            content = state.beneficiaryName,
-                            icon = Icons.Outlined.AccountBalance
                         )
                     }
 

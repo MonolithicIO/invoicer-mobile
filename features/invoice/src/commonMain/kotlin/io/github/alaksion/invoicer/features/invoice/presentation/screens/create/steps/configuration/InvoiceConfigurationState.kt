@@ -1,8 +1,8 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration
 
-import io.github.alaksion.invoicer.foundation.utils.date.AppTimeZone
 import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 
 internal data class InvoiceConfigurationState(
@@ -27,13 +27,13 @@ internal data class InvoiceConfigurationState(
 
     val dueDateFormatted = Instant
         .fromEpochMilliseconds(invoiceDueDate)
-        .toLocalDateTime(AppTimeZone)
+        .toLocalDateTime(TimeZone.UTC)
         .date
         .defaultFormat()
 
     val issueDateFormatted = Instant
         .fromEpochMilliseconds(invoiceIssueDate)
-        .toLocalDateTime(AppTimeZone)
+        .toLocalDateTime(TimeZone.UTC)
         .date
         .defaultFormat()
 }
