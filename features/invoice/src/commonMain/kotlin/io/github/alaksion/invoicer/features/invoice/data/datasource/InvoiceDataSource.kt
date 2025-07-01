@@ -68,7 +68,7 @@ internal class InvoiceDataSourceImpl(
     ) {
         withContext(dispatcher) {
             httpWrapper.client.post(
-                urlString = "/v1/${payload.companyId}/invoice"
+                urlString = "/v1/company/${payload.companyId}/invoice"
             ) {
                 setBody(payload)
             }
