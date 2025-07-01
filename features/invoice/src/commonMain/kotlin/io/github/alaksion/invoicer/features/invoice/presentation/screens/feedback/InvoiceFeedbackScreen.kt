@@ -15,7 +15,6 @@ import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_feedback_cta
 import invoicer.features.invoice.generated.resources.invoice_feedback_description
 import invoicer.features.invoice.generated.resources.invoice_feedback_title
-import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.InvoiceListScreen
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.Feedback
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
@@ -25,7 +24,7 @@ internal class InvoiceFeedbackScreen : Screen {
     @OptIn(InternalVoyagerApi::class)
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.current
+        val navigator = LocalNavigator.current?.parent
 
         BackHandler(true) {
             // no-op: Disable back button
@@ -33,7 +32,7 @@ internal class InvoiceFeedbackScreen : Screen {
 
         StateContent(
             onClearFlow = {
-                navigator?.popUntil { it.key == InvoiceListScreen.SCREEN_KEY }
+                navigator?.pop()
             }
         )
     }
