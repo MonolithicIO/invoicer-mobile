@@ -54,7 +54,8 @@ private fun Module.screenModels() {
         InvoiceConfirmationScreenModel(
             form = get(),
             session = get(),
-            invoiceRepository = get()
+            invoiceRepository = get(),
+            dispatcher = Dispatchers.Default
         )
     }
 
