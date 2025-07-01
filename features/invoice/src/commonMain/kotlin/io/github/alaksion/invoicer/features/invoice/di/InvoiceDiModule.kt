@@ -51,7 +51,9 @@ private fun Module.screenModels() {
     }
 
     factory {
-        InvoiceConfirmationScreenModel()
+        InvoiceConfirmationScreenModel(
+            form = get()
+        )
     }
 
     factory {

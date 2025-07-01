@@ -1,12 +1,15 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation
 
 import cafe.adriel.voyager.core.model.ScreenModel
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 
-internal class InvoiceConfirmationScreenModel : ScreenModel {
+internal class InvoiceConfirmationScreenModel(
+    private val form: CreateInvoiceForm
+) : ScreenModel {
 
     private val _state = MutableStateFlow(InvoiceConfirmationState())
     val state: StateFlow<InvoiceConfirmationState> = _state

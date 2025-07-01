@@ -62,17 +62,13 @@
     <string name="invoice_create_confirmation_title">Confirm details</string>
     <string name="invoice_create_confirmation_subtitle">Preview invoice before submitting</string>
     <string name="invoice_create_confirmation_continue_cta">Submit invoice</string>
-    <string name="confirmation_sender_company_name_label">Sender company</string>
-    <string name="confirmation_sender_company_name_address">Sender address</string>
-    <string name="confirmation_recipient_company_name_label">Sender company</string>
-    <string name="confirmation_recipient_company_name_address">Sender address</string>
+    <string name="confirmation_company_name">Company name</string>
+    <string name="confirmation_customer_name">Customer name</string>
     <string name="confirmation_issue_date_label">Issue date</string>
     <string name="confirmation_due_date_label">Due date</string>
-    <string name="confirmation_beneficiary_label">Beneficiary</string>
-    <string name="confirmation_intermediary_label">Intermediary</string>
     <string name="confirmation_amount_label">Invoice total amount</string>
     <string name="confirmation_activities_label">Activities</string>
-    <string name="confirmation_external_id_label">External ID</string>
+    <string name="confirmation_number_label">Invoice number</string>
 
     <!-- Invoice feedback -->
     <string name="invoice_feedback_title">Invoice created successfully</string>

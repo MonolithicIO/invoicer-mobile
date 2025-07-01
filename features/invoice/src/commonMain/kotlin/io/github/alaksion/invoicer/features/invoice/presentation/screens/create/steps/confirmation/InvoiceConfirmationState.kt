@@ -4,15 +4,11 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.
 import io.github.alaksion.invoicer.foundation.utils.money.moneyFormat
 
 internal data class InvoiceConfirmationState(
-    val senderCompanyName: String = "",
-    val senderCompanyAddress: String = "",
-    val recipientCompanyName: String = "",
-    val recipientCompanyAddress: String = "",
+    val companyName: String = "",
+    val customerName: String = "",
     val issueDate: String = "",
     val dueDate: String = "",
-    val intermediaryName: String? = null,
-    val beneficiaryName: String = "",
-    val externalId: String = "",
+    val invoiceNumber: String = "",
     val activities: List<CreateInvoiceActivityUiModel> = listOf(),
     val isLoading: Boolean = false
 ) {
