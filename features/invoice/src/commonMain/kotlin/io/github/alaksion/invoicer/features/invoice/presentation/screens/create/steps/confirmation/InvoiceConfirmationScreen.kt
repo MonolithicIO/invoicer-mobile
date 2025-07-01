@@ -52,6 +52,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.Pr
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -159,14 +160,14 @@ internal class InvoiceConfirmationScreen : Screen {
                     item {
                         ConfirmationCard(
                             label = stringResource(Res.string.confirmation_issue_date_label),
-                            content = state.issueDate,
+                            content = state.issueDate.defaultFormat(),
                             icon = Icons.Outlined.Alarm
                         )
                     }
                     item {
                         ConfirmationCard(
                             label = stringResource(Res.string.confirmation_due_date_label),
-                            content = state.dueDate,
+                            content = state.dueDate.defaultFormat(),
                             icon = Icons.Outlined.AlarmOn
                         )
                     }

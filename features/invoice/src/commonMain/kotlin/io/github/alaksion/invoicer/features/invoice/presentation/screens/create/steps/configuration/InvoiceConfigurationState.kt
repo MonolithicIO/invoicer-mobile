@@ -1,6 +1,5 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration
 
-import io.github.alaksion.invoicer.foundation.utils.date.AppTimeZone
 import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone

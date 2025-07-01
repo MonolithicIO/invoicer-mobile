@@ -19,8 +19,13 @@ internal class InvoiceConfigurationScreenModel(
     fun refreshState() {
         val today = clock.now()
 
-        val issueDate = invoiceForm.issueDate ?: today.toEpochMilliseconds()
-        val dueDate = invoiceForm.issueDate ?: today.plus(7.days).toEpochMilliseconds()
+        val issueDate =
+            if (invoiceForm.issueDate == 0L) today.toEpochMilliseconds()
+            else invoiceForm.issueDate
+
+        val dueDate =
+            if (invoiceForm.dueDate == 0L) today.plus(7.days).toEpochMilliseconds()
+            else invoiceForm.dueDate
 
         _state.update {
             InvoiceConfigurationState(
