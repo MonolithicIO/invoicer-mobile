@@ -4,7 +4,7 @@ import io.github.alaksion.invoicer.features.invoice.domain.model.CreateInvoiceMo
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsModel
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceList
 
-interface InvoiceRepository {
+internal interface InvoiceRepository {
     suspend fun getInvoices(
         page: Long,
         limit: Int,
@@ -21,6 +21,7 @@ interface InvoiceRepository {
     )
 
     suspend fun getInvoiceDetails(
-        id: String
+        invoiceId: String,
+        companyId: String
     ): InvoiceDetailsModel
 }

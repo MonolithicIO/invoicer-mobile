@@ -1,9 +1,13 @@
 package io.github.alaksion.invoicer.features.invoice.data.model
 
+import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsActivityModel
+import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsCompanyModel
+import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsCustomerModel
+import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsModel
+import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsPayAccountModel
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 internal data class InvoiceDetailsResponse(
@@ -21,7 +25,7 @@ internal data class InvoiceDetailsResponse(
 )
 
 @Serializable
-data class InvoiceDetailsPayAccountResponse(
+internal data class InvoiceDetailsPayAccountResponse(
     val swift: String,
     val iban: String,
     val bankName: String,
@@ -29,7 +33,7 @@ data class InvoiceDetailsPayAccountResponse(
 )
 
 @Serializable
-data class InvoiceDetailsCompanyResponse(
+internal data class InvoiceDetailsCompanyResponse(
     val name: String,
     val document: String,
     val addressLine1: String,
@@ -41,7 +45,7 @@ data class InvoiceDetailsCompanyResponse(
 )
 
 @Serializable
-data class InvoiceDetailsCustomerResponse(
+internal data class InvoiceDetailsCustomerResponse(
     val name: String,
 )
 
@@ -52,3 +56,49 @@ internal data class InvoiceDetailsActivityResponse(
     val unitPrice: Long,
     val quantity: Int
 )
+
+internal fun InvoiceDetailsResponse.toModel(): InvoiceDetailsModel {
+    return InvoiceDetailsModel(
+        id = id,
+        invoiceNumber = invoiceNumber,
+        createdAt = createdAt,
+        updatedAt = updatedAt,
+        issueDate = issueDate,
+        dueDate = dueDate,
+        activities = activities.map {
+            InvoiceDetailsActivityModel(
+                id = it.id,
+                description = it.description,
+                unitPrice = it.unitPrice,
+                quantity = it.quantity
+            )
+        },
+        primaryAccount = InvoiceDetailsPayAccountModel(
+            swift = primaryAccount.swift,
+            iban = primaryAccount.iban,
+            bankName = primaryAccount.bankName,
+            bankAddress = primaryAccount.bankAddress
+        ),
+        intermediaryAccount = intermediaryAccount?.let { intermediaryAccount ->
+            InvoiceDetailsPayAccountModel(
+                swift = intermediaryAccount.swift,
+                iban = intermediaryAccount.iban,
+                bankName = intermediaryAccount.bankName,
+                bankAddress = intermediaryAccount.bankAddress
+            )
+        },
+        company = InvoiceDetailsCompanyModel(
+            name = company.name,
+            document = company.document,
+            addressLine1 = company.addressLine1,
+            addressLine2 = company.addressLine2,
+            city = company.city,
+            zipCode = company.zipCode,
+            state = company.state,
+            countryCode = company.countryCode
+        ),
+        customer = InvoiceDetailsCustomerModel(
+            name = customer.name
+        )
+    )
+}

@@ -3,6 +3,7 @@ package io.github.alaksion.invoicer.features.invoice.data.repository
 import io.github.alaksion.invoicer.features.invoice.data.datasource.InvoiceDataSource
 import io.github.alaksion.invoicer.features.invoice.data.model.toDataModel
 import io.github.alaksion.invoicer.features.invoice.data.model.toDomainModel
+import io.github.alaksion.invoicer.features.invoice.data.model.toModel
 import io.github.alaksion.invoicer.features.invoice.domain.model.CreateInvoiceModel
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsModel
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceList
@@ -40,7 +41,13 @@ internal class InvoiceRepositoryImpl(
         )
     }
 
-    override suspend fun getInvoiceDetails(id: String): InvoiceDetailsModel {
-        return dataSource.getInvoiceDetails(invoiceId = id).toDomainModel()
+    override suspend fun getInvoiceDetails(
+        invoiceId: String,
+        companyId: String
+    ): InvoiceDetailsModel {
+        return dataSource.getInvoiceDetails(
+            invoiceId = invoiceId,
+            companyId = companyId
+        ).toModel()
     }
 }
