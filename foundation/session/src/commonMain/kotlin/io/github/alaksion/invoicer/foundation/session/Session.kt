@@ -1,13 +1,31 @@
 package io.github.alaksion.invoicer.foundation.session
 
 interface Session {
-    var tokens: SessionTokens?
-    var company: SessionCompany
+    fun getTokens(): SessionTokens?
+    fun getCompany(): SessionCompany
 }
 
-internal object SessionImpl : Session {
-    override var tokens: SessionTokens? = null
-    override var company: SessionCompany = SessionCompany("", "", false)
+interface SessionUpdater {
+    fun updateTokens(tokens: SessionTokens)
+
+    fun updateCompany(company: SessionCompany)
+}
+
+internal object SessionImpl : Session, SessionUpdater {
+    private var tokens: SessionTokens? = null
+    private var company: SessionCompany = SessionCompany("", "", false)
+
+    override fun getTokens(): SessionTokens? = tokens
+
+    override fun getCompany(): SessionCompany = company
+
+    override fun updateTokens(tokens: SessionTokens) {
+        this.tokens = tokens
+    }
+
+    override fun updateCompany(company: SessionCompany) {
+        this.company = company
+    }
 }
 
 data class SessionTokens(
