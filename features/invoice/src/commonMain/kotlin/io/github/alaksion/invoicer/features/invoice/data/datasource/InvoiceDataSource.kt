@@ -29,7 +29,8 @@ internal interface InvoiceDataSource {
     )
 
     suspend fun getInvoiceDetails(
-        invoiceId: String
+        invoiceId: String,
+        companyId: String,
     ): InvoiceDetailsResponse
 }
 
@@ -75,9 +76,12 @@ internal class InvoiceDataSourceImpl(
         }
     }
 
-    override suspend fun getInvoiceDetails(invoiceId: String): InvoiceDetailsResponse {
+    override suspend fun getInvoiceDetails(
+        invoiceId: String,
+        companyId: String,
+    ): InvoiceDetailsResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.get(urlString = "/v1/invoice/$invoiceId").body()
+            httpWrapper.client.get(urlString = "/v1/company/$companyId/invoice/$invoiceId").body()
         }
     }
 }
