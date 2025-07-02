@@ -2,8 +2,8 @@ package io.github.alaksion.invoicer.foundation.auth.domain.services
 
 import io.github.alaksion.invoicer.foundation.auth.domain.repository.AuthRepository
 import io.github.alaksion.invoicer.foundation.auth.domain.repository.AuthTokenRepository
-import io.github.alaksion.invoicer.foundation.session.Session
 import io.github.alaksion.invoicer.foundation.session.SessionTokens
+import io.github.alaksion.invoicer.foundation.session.SessionUpdater
 import io.github.alaksion.invoicer.foundation.watchers.AuthEvent
 import io.github.alaksion.invoicer.foundation.watchers.AuthEventBus
 
@@ -21,7 +21,7 @@ internal class SignInCommandManagerResolver(
     private val authRepository: AuthRepository,
     private val authTokenRepository: AuthTokenRepository,
     private val authEventBus: AuthEventBus,
-    private val session: Session
+    private val session: SessionUpdater
 ) : SignInCommandManager {
 
     override suspend fun resolveCommand(command: SignInCommand) {
@@ -35,9 +35,11 @@ internal class SignInCommandManagerResolver(
 
             is SignInCommand.RefreshSession -> {
                 authTokenRepository.getAuthTokens()?.let { tokens ->
-                    session.tokens = SessionTokens(
-                        accessToken = tokens.accessToken,
-                        refreshToken = tokens.refreshToken
+                    session.updateTokens(
+                        SessionTokens(
+                            accessToken = tokens.accessToken,
+                            refreshToken = tokens.refreshToken
+                        )
                     )
                 }
 
@@ -51,9 +53,11 @@ internal class SignInCommandManagerResolver(
             accessToken = authToken.accessToken,
             refreshToken = authToken.refreshToken
         )
-        session.tokens = SessionTokens(
-            accessToken = authToken.accessToken,
-            refreshToken = authToken.refreshToken
+        session.updateTokens(
+            SessionTokens(
+                accessToken = authToken.accessToken,
+                refreshToken = authToken.refreshToken
+            )
         )
 
         authEventBus.publishEvent(AuthEvent.SignedIn)

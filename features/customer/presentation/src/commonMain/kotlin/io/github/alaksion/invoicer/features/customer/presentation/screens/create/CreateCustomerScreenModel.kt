@@ -61,7 +61,7 @@ internal class CreateCustomerScreenModel(
                         name = state.value.name,
                         email = state.value.email,
                         phone = state.value.phone.ifBlank { null },
-                        companyId = session.company.id
+                        companyId = session.getCompany().id
                     )
                 )
             }.handle(

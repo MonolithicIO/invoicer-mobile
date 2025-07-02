@@ -97,7 +97,7 @@ internal class CustomerListScreenModel(
     private suspend fun getCustomerList(
         page: Long
     ): CustomerListModel = customerRepository.listCustomers(
-        companyId = session.company.id,
+        companyId = session.getCompany().id,
         page = page,
         pageSize = PAGE_SIZE
     )

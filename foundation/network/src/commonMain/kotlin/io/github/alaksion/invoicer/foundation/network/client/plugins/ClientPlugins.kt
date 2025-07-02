@@ -70,7 +70,7 @@ private fun HttpClientConfig<*>.defaultRequest(session: Session) {
     defaultRequest {
         host = NetworkBuildConfig.API_URL
         contentType(ContentType.Application.Json)
-        header(HttpHeaders.Authorization, "Bearer " + session.tokens?.accessToken)
+        header(HttpHeaders.Authorization, "Bearer " + session.getTokens()?.accessToken)
     }
 }
 

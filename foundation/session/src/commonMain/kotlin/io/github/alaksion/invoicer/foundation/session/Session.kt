@@ -9,6 +9,8 @@ interface SessionUpdater {
     fun updateTokens(tokens: SessionTokens)
 
     fun updateCompany(company: SessionCompany)
+
+    fun clearTokens()
 }
 
 internal object SessionImpl : Session, SessionUpdater {
@@ -25,6 +27,10 @@ internal object SessionImpl : Session, SessionUpdater {
 
     override fun updateCompany(company: SessionCompany) {
         this.company = company
+    }
+
+    override fun clearTokens() {
+        this.tokens = null
     }
 }
 
