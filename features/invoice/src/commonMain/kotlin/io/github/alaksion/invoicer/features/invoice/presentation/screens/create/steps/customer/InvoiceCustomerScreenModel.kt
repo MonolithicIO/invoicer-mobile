@@ -36,7 +36,7 @@ internal class InvoiceCustomerScreenModel(
         screenModelScope.launch(dispatcher) {
             launchRequest {
                 customerRepository.listCustomers(
-                    companyId = session.company.id,
+                    companyId = session.getCompany().id,
                     pageSize = 100,
                     page = 0
                 )

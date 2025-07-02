@@ -6,8 +6,8 @@ import io.github.alaksion.invoicer.features.company.domain.model.ListCompaniesIt
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
 import io.github.alaksion.invoicer.foundation.network.request.handle
 import io.github.alaksion.invoicer.foundation.network.request.launchRequest
-import io.github.alaksion.invoicer.foundation.session.Session
 import io.github.alaksion.invoicer.foundation.session.SessionCompany
+import io.github.alaksion.invoicer.foundation.session.SessionUpdater
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 internal class SelectCompanyScreenModel(
     private val repository: CompanyRepository,
     private val dispatcher: CoroutineDispatcher,
-    private val session: Session
+    private val session: SessionUpdater
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(SelectCompanyState())
@@ -51,10 +51,12 @@ internal class SelectCompanyScreenModel(
     fun selectCompany(companyId: String) {
         val company = state.value.companies.first { it.id == companyId }
 
-        session.company = SessionCompany(
-            id = company.id,
-            name = company.name,
-            isChangeCompanyEnabled = state.value.companies.size > 1
+        session.updateCompany(
+            SessionCompany(
+                id = company.id,
+                name = company.name,
+                isChangeCompanyEnabled = state.value.companies.size > 1
+            )
         )
         screenModelScope.launch(dispatcher) {
             _events.emit(SelectCompanyEvent.ContinueToHome)
@@ -70,10 +72,12 @@ internal class SelectCompanyScreenModel(
         }
 
         if (companies.size == 1) {
-            session.company = SessionCompany(
-                id = companies.first().id,
-                name = companies.first().name,
-                isChangeCompanyEnabled = false
+            session.updateCompany(
+                SessionCompany(
+                    id = companies.first().id,
+                    name = companies.first().name,
+                    isChangeCompanyEnabled = false
+                )
             )
             screenModelScope.launch(dispatcher) {
                 _events.emit(SelectCompanyEvent.ContinueToHome)

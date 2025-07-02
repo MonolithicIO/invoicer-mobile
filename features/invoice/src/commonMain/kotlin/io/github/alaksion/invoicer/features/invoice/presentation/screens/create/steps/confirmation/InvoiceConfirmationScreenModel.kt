@@ -35,7 +35,7 @@ internal class InvoiceConfirmationScreenModel(
     fun initState() {
         _state.update {
             it.copy(
-                companyName = session.company.name,
+                companyName = session.getCompany().name,
                 customerName = form.customerName,
                 issueDate = form.issueDate.toLocalDate(TimeZone.UTC),
                 dueDate = form.dueDate.toLocalDate(TimeZone.UTC),
@@ -50,7 +50,7 @@ internal class InvoiceConfirmationScreenModel(
             launchRequest {
                 invoiceRepository.createInvoice(
                     payload = CreateInvoiceModel(
-                        companyId = session.company.id,
+                        companyId = session.getCompany().id,
                         customerId = form.customerId,
                         issueDate = form.issueDate.toLocalDate(TimeZone.UTC),
                         dueDate = form.dueDate.toLocalDate(TimeZone.UTC),
