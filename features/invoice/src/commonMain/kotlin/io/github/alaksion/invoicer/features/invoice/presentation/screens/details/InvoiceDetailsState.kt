@@ -1,19 +1,26 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.details
 
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsActivityModel
+import io.github.alaksion.invoicer.features.invoice.presentation.model.InvoicePayAccountUiModel
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 internal data class InvoiceDetailsState(
-    val externalId: String = "",
-    val senderCompany: String = "",
-    val recipientCompany: String = "",
-    val issueDate: Instant = Instant.DISTANT_PAST,
-    val dueDate: Instant = Instant.DISTANT_PAST,
-    val beneficiary: String = "",
-    val intermediary: String? = null,
-    val createdAt: Instant = Instant.DISTANT_PAST,
-    val updatedAt: Instant = Instant.DISTANT_PAST,
+    val invoiceNumber: String = "",
+    val companyName: String = "",
+    val companyAddress: String = "",
+    val customerName: String = "",
+    val issueDate: LocalDate = LocalDate(1970, 1, 1),
+    val dueDate: LocalDate = LocalDate(1970, 1, 1),
+    val primaryAccount: InvoicePayAccountUiModel = InvoicePayAccountUiModel(
+        swift = "",
+        iban = "",
+        bankName = "",
+        bankAddress = ""
+    ),
+    val intermediaryAccount: InvoicePayAccountUiModel? = null,
     val activities: List<InvoiceDetailsActivityModel> = listOf(),
+    val createdAt: Instant = Instant.DISTANT_PAST,
     val mode: InvoiceDetailsMode = InvoiceDetailsMode.Content,
 )
 

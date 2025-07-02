@@ -2,10 +2,12 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.detail
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.alaksion.invoicer.foundation.network.request.handle
 import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRepository
+import io.github.alaksion.invoicer.features.invoice.presentation.model.toUiModel
 import io.github.alaksion.invoicer.foundation.network.RequestError
+import io.github.alaksion.invoicer.foundation.network.request.handle
 import io.github.alaksion.invoicer.foundation.network.request.launchRequest
+import io.github.alaksion.invoicer.foundation.session.Session
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,7 +19,8 @@ private const val Forbidden = 403
 
 internal class InvoiceDetailsScreenModel(
     private val invoiceRepository: InvoiceRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val session: Session
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(InvoiceDetailsState())
@@ -27,26 +30,31 @@ internal class InvoiceDetailsScreenModel(
         invoiceId: String
     ) {
         screenModelScope.launch(dispatcher) {
-            launchRequest { invoiceRepository.getInvoiceDetails(invoiceId) }
+            launchRequest {
+                invoiceRepository.getInvoiceDetails(
+                    invoiceId = invoiceId,
+                    companyId = session.getCompany().id
+                )
+            }
                 .handle(
                     onStart = {
                         _state.update {
                             it.copy(mode = InvoiceDetailsMode.Loading)
                         }
                     },
-                    onSuccess = {
-                        _state.update {
-                            it.copy(
-                                externalId = it.externalId,
-                                senderCompany = it.senderCompany,
-                                recipientCompany = it.recipientCompany,
-                                issueDate = it.issueDate,
-                                dueDate = it.dueDate,
-                                beneficiary = it.beneficiary,
-                                intermediary = it.intermediary,
-                                createdAt = it.createdAt,
-                                updatedAt = it.updatedAt,
-                                activities = it.activities,
+                    onSuccess = { response ->
+                        _state.update { oldState ->
+                            oldState.copy(
+                                invoiceNumber = response.invoiceNumber,
+                                companyName = response.company.name,
+                                companyAddress = response.company.addressLine1,
+                                customerName = response.customer.name,
+                                issueDate = response.issueDate,
+                                dueDate = response.dueDate,
+                                primaryAccount = response.primaryAccount.toUiModel(),
+                                intermediaryAccount = response.intermediaryAccount?.toUiModel(),
+                                createdAt = response.createdAt,
+                                activities = response.activities,
                                 mode = InvoiceDetailsMode.Content
                             )
                         }
