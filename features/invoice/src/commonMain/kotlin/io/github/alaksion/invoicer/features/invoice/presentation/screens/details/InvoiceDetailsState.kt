@@ -22,7 +22,11 @@ internal data class InvoiceDetailsState(
     val activities: List<InvoiceDetailsActivityModel> = listOf(),
     val createdAt: Instant = Instant.DISTANT_PAST,
     val mode: InvoiceDetailsMode = InvoiceDetailsMode.Content,
-)
+) {
+    val invoiceTotal = activities
+        .map { it.quantity * it.unitPrice }
+        .reduce { acc, value -> acc + value }
+}
 
 internal sealed interface InvoiceDetailsMode {
     data object Content : InvoiceDetailsMode
