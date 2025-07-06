@@ -25,6 +25,7 @@ internal data class InvoiceDetailsState(
 ) {
     val invoiceTotal = activities
         .map { it.quantity * it.unitPrice }
+        .ifEmpty { listOf(0L) }
         .reduce { acc, value -> acc + value }
 }
 

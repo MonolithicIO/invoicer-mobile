@@ -1,5 +1,6 @@
 package io.github.alaksion.invoicer.features.invoice.presentation.screens.details
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,12 +34,10 @@ import invoicer.features.invoice.generated.resources.invoice_details_pay_bank_na
 import invoicer.features.invoice.generated.resources.invoice_details_pay_iban
 import invoicer.features.invoice.generated.resources.invoice_details_pay_swift
 import invoicer.features.invoice.generated.resources.invoice_details_primary_pay_title
+import invoicer.features.invoice.generated.resources.invoice_details_title
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopic
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopicItem
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.AppColor
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.utils.money.moneyFormat
@@ -71,7 +70,11 @@ internal data class InvoiceDetailsScreen(
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = {},
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.invoice_details_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(onBackClick = onBackPress)
                     }
@@ -84,13 +87,9 @@ internal data class InvoiceDetailsScreen(
                     .fillMaxSize()
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
-                    .verticalScroll(scrollState)
+                    .verticalScroll(scrollState),
+                verticalArrangement = Arrangement.spacedBy(Spacing.medium)
             ) {
-                ScreenTitle(
-                    title = "Invoice Details",
-                    subTitle = null
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
                 Text(
                     text = state.invoiceTotal.moneyFormat(),
                     style = MaterialTheme.typography.titleMedium,

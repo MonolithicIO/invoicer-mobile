@@ -3,6 +3,8 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.detail
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,16 +19,18 @@ internal fun InvoiceDetailsTopic(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Spacing.medium)
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.titleSmall,
-            fontWeight = FontWeight.SemiBold
-        )
-        content()
+    Card(modifier = modifier) {
+        Column(
+            modifier = Modifier.padding(Spacing.small),
+            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold
+            )
+            content()
+        }
     }
 }
 
@@ -43,11 +47,6 @@ internal fun InvoiceDetailsTopicItem(
                 text = title,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.weight(1f)
-            )
-            Text(
-                text = content,
-                style = MaterialTheme.typography.bodyMedium
             )
         },
         trailingContent = {
