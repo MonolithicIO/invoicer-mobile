@@ -2,6 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +21,20 @@ import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import invoicer.features.invoice.generated.resources.Res
+import invoicer.features.invoice.generated.resources.invoice_details_company_name_address_label
+import invoicer.features.invoice.generated.resources.invoice_details_company_name_label
+import invoicer.features.invoice.generated.resources.invoice_details_company_title
+import invoicer.features.invoice.generated.resources.invoice_details_customer_name_label
+import invoicer.features.invoice.generated.resources.invoice_details_customer_title
+import invoicer.features.invoice.generated.resources.invoice_details_number
+import invoicer.features.invoice.generated.resources.invoice_details_pay_bank_address
+import invoicer.features.invoice.generated.resources.invoice_details_pay_bank_name
+import invoicer.features.invoice.generated.resources.invoice_details_pay_iban
+import invoicer.features.invoice.generated.resources.invoice_details_pay_swift
+import invoicer.features.invoice.generated.resources.invoice_details_primary_pay_title
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopic
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopicItem
 import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
@@ -27,6 +42,7 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.Ver
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.AppColor
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.utils.money.moneyFormat
+import org.jetbrains.compose.resources.stringResource
 
 internal data class InvoiceDetailsScreen(
     private val id: String
@@ -83,13 +99,89 @@ internal data class InvoiceDetailsScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Text(
-                    text = "Invoice Number",
+                    text = stringResource(Res.string.invoice_details_number),
                     style = MaterialTheme.typography.headlineMedium,
                 )
                 Text(
                     text = state.invoiceNumber,
                     style = MaterialTheme.typography.bodyLarge,
                 )
+
+                InvoiceDetailsTopic(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = stringResource(Res.string.invoice_details_company_title)
+                ) {
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_company_name_label),
+                        content = state.companyName
+                    )
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_company_name_address_label),
+                        content = state.companyAddress
+                    )
+                }
+
+                InvoiceDetailsTopic(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = stringResource(Res.string.invoice_details_customer_title)
+                ) {
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_customer_name_label),
+                        content = state.customerName
+                    )
+                }
+
+                InvoiceDetailsTopic(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = stringResource(Res.string.invoice_details_primary_pay_title)
+                ) {
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_pay_swift),
+                        content = state.primaryAccount.swift
+                    )
+
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_pay_iban),
+                        content = state.primaryAccount.iban
+                    )
+
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_pay_bank_name),
+                        content = state.primaryAccount.bankName
+                    )
+
+                    InvoiceDetailsTopicItem(
+                        title = stringResource(Res.string.invoice_details_pay_bank_address),
+                        content = state.primaryAccount.bankAddress
+                    )
+                }
+
+                state.intermediaryAccount?.let { intermediary ->
+                    InvoiceDetailsTopic(
+                        modifier = Modifier.fillMaxWidth(),
+                        title = stringResource(Res.string.invoice_details_primary_pay_title)
+                    ) {
+                        InvoiceDetailsTopicItem(
+                            title = stringResource(Res.string.invoice_details_pay_swift),
+                            content = intermediary.swift
+                        )
+
+                        InvoiceDetailsTopicItem(
+                            title = stringResource(Res.string.invoice_details_pay_iban),
+                            content = intermediary.iban
+                        )
+
+                        InvoiceDetailsTopicItem(
+                            title = stringResource(Res.string.invoice_details_pay_bank_name),
+                            content = intermediary.bankName
+                        )
+
+                        InvoiceDetailsTopicItem(
+                            title = stringResource(Res.string.invoice_details_pay_bank_address),
+                            content = intermediary.bankAddress
+                        )
+                    }
+                }
             }
         }
     }

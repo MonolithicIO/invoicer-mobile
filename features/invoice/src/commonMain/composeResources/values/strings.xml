@@ -74,4 +74,19 @@
     <string name="invoice_feedback_title">Invoice created successfully</string>
     <string name="invoice_feedback_description">You may now return to home</string>
     <string name="invoice_feedback_cta">Return to home</string>
+
+    <!-- Invoice details -->
+    <string name="invoice_details_title">Invoice details</string>
+    <string name="invoice_details_number">Invoice number</string>
+    <string name="invoice_details_company_title">Company</string>
+    <string name="invoice_details_company_name_label">Company name</string>
+    <string name="invoice_details_company_name_address_label">Company address</string>
+    <string name="invoice_details_customer_title">Customer</string>
+    <string name="invoice_details_customer_name_label">Customer name</string>
+    <string name="invoice_details_primary_pay_title">Payment account</string>
+    <string name="invoice_details_intermediary_pay_title">Intermediary account</string>
+    <string name="invoice_details_pay_swift">SWIFT</string>
+    <string name="invoice_details_pay_iban">IBAN</string>
+    <string name="invoice_details_pay_bank_address">Bank address</string>
+    <string name="invoice_details_pay_bank_name">Bank name</string>
 </resources>
