@@ -3,6 +3,7 @@ package io.github.alaksion.invoicer.features.company.presentation.screens.create
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
@@ -77,7 +78,9 @@ internal class CompanyInfoStep : Screen {
         state: CompanyInfoState
     ) {
         Scaffold(
-            modifier = Modifier.systemBarsPadding(),
+            modifier = Modifier
+                .systemBarsPadding()
+                .imePadding(),
             topBar = {
                 TopAppBar(
                     title = {
