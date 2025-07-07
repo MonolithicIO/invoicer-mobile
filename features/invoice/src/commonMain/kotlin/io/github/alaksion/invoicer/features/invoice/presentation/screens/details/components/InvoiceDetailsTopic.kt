@@ -10,8 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import invoicer.features.invoice.generated.resources.Res
+import invoicer.features.invoice.generated.resources.invoice_details_activity_quantity_label
 import io.github.alaksion.invoicer.foundation.designSystem.components.ListItem
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InvoiceDetailsTopic(
@@ -53,6 +56,32 @@ internal fun InvoiceDetailsTopicItem(
             Text(
                 text = content,
                 style = MaterialTheme.typography.bodyMedium
+            )
+        }
+    )
+}
+
+@Composable
+internal fun InvoiceDetailsActivityItem(
+    name: String,
+    quantity: String,
+    unitPrice: String,
+    modifier: Modifier = Modifier
+) {
+    ListItem(
+        modifier = modifier,
+        content = {
+            Column {
+                Text(text = name)
+                Text(stringResource(Res.string.invoice_details_activity_quantity_label, quantity))
+            }
+        },
+        trailingContent = {
+            Text(
+                text = unitPrice,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
             )
         }
     )

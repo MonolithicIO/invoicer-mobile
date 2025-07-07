@@ -23,6 +23,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.invoice.generated.resources.Res
+import invoicer.features.invoice.generated.resources.invoice_details_activity_title
 import invoicer.features.invoice.generated.resources.invoice_details_company_name_address_label
 import invoicer.features.invoice.generated.resources.invoice_details_company_name_label
 import invoicer.features.invoice.generated.resources.invoice_details_company_title
@@ -35,6 +36,7 @@ import invoicer.features.invoice.generated.resources.invoice_details_pay_iban
 import invoicer.features.invoice.generated.resources.invoice_details_pay_swift
 import invoicer.features.invoice.generated.resources.invoice_details_primary_pay_title
 import invoicer.features.invoice.generated.resources.invoice_details_title
+import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsActivityItem
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopic
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopicItem
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
@@ -178,6 +180,19 @@ internal data class InvoiceDetailsScreen(
                         InvoiceDetailsTopicItem(
                             title = stringResource(Res.string.invoice_details_pay_bank_address),
                             content = intermediary.bankAddress
+                        )
+                    }
+                }
+
+                InvoiceDetailsTopic(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = stringResource(Res.string.invoice_details_activity_title)
+                ) {
+                    state.activities.forEach {
+                        InvoiceDetailsActivityItem(
+                            name = it.description,
+                            quantity = it.quantity.toString(),
+                            unitPrice = it.unitPrice.moneyFormat()
                         )
                     }
                 }
