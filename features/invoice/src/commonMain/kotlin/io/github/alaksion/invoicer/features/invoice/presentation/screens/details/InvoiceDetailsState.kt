@@ -2,6 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.detail
 
 import io.github.alaksion.invoicer.features.invoice.domain.model.InvoiceDetailsActivityModel
 import io.github.alaksion.invoicer.features.invoice.presentation.model.InvoicePayAccountUiModel
+import io.github.alaksion.invoicer.foundation.utils.date.Default
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 
@@ -10,8 +11,8 @@ internal data class InvoiceDetailsState(
     val companyName: String = "",
     val companyAddress: String = "",
     val customerName: String = "",
-    val issueDate: LocalDate = LocalDate(1970, 1, 1),
-    val dueDate: LocalDate = LocalDate(1970, 1, 1),
+    val issueDate: LocalDate = LocalDate.Default,
+    val dueDate: LocalDate = LocalDate.Default,
     val primaryAccount: InvoicePayAccountUiModel = InvoicePayAccountUiModel(
         swift = "",
         iban = "",
