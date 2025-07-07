@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -13,20 +16,22 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.crate_company_info_title
 import invoicer.features.company.generated.resources.create_company_continue
-import invoicer.features.company.generated.resources.create_company_info_description
 import invoicer.features.company.generated.resources.create_company_info_document_hint
 import invoicer.features.company.generated.resources.create_company_info_document_placeholder
 import invoicer.features.company.generated.resources.create_company_info_name_hint
 import invoicer.features.company.generated.resources.create_company_info_name_placeholder
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressStep
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.CloseButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
@@ -72,9 +77,12 @@ internal class CompanyInfoStep : Screen {
         state: CompanyInfoState
     ) {
         Scaffold(
+            modifier = Modifier.systemBarsPadding(),
             topBar = {
                 TopAppBar(
-                    title = {},
+                    title = {
+                        Text(text = stringResource(Res.string.crate_company_info_title))
+                    },
                     navigationIcon = {
                         CloseButton(onBackClick = callbacks.onClose)
                     }
@@ -89,17 +97,15 @@ internal class CompanyInfoStep : Screen {
                 )
             }
         ) { scaffoldPadding ->
+            val (nameFocus, documentFocus) = FocusRequester.createRefs()
+            val keyboard = LocalSoftwareKeyboardController.current
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.crate_company_info_title),
-                    subTitle = stringResource(Res.string.create_company_info_description)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
                 InputField(
                     value = state.companyName,
                     onValueChange = callbacks.onNameChange,
@@ -107,7 +113,16 @@ internal class CompanyInfoStep : Screen {
                     placeholder = {
                         Text(text = stringResource(Res.string.create_company_info_name_placeholder))
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(nameFocus),
+                    maxLines = 1,
+                    keyboardActions = KeyboardActions(
+                        onNext = { documentFocus.requestFocus() }
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Next
+                    )
                 )
                 VerticalSpacer(SpacerSize.Medium)
                 InputField(
@@ -117,7 +132,16 @@ internal class CompanyInfoStep : Screen {
                     placeholder = {
                         Text(text = stringResource(Res.string.create_company_info_document_placeholder))
                     },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .focusRequester(nameFocus),
+                    maxLines = 1,
+                    keyboardActions = KeyboardActions(
+                        onDone = { keyboard?.hide() }
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.Done
+                    )
                 )
             }
         }
