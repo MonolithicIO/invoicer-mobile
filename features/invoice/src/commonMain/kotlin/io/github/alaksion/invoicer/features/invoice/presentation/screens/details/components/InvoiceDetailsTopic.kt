@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_details_activity_quantity_label
 import io.github.alaksion.invoicer.foundation.designSystem.components.ListItem
@@ -50,12 +51,14 @@ internal fun InvoiceDetailsTopicItem(
                 text = title,
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.SemiBold,
+                overflow = TextOverflow.Ellipsis
             )
         },
         trailingContent = {
             Text(
                 text = content,
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyMedium,
+                overflow = TextOverflow.Ellipsis
             )
         }
     )
