@@ -137,7 +137,7 @@ internal class CompanyInfoStep : Screen {
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .focusRequester(nameFocus),
+                        .focusRequester(documentFocus),
                     maxLines = 1,
                     keyboardActions = KeyboardActions(
                         onDone = { keyboard?.hide() }
