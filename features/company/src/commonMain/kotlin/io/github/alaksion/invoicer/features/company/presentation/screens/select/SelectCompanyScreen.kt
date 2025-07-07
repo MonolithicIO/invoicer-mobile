@@ -192,7 +192,7 @@ internal class SelectCompanyScreen : Screen {
                         EmptyState(
                             title = stringResource(Res.string.company_selection_no_companies_title),
                             description = stringResource(Res.string.company_selection_no_companies_description),
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.weight(1f).fillMaxWidth()
                         )
                         VerticalSpacer(height = SpacerSize.Medium)
                         PrimaryButton(
