@@ -93,7 +93,6 @@ internal fun CompanyPayInfoForm(
                 onNext = { bankAddressRef.requestFocus() }
             ),
             keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Characters,
                 autoCorrectEnabled = false,
                 imeAction = ImeAction.Next
             ),
@@ -114,7 +113,6 @@ internal fun CompanyPayInfoForm(
                 onDone = { keyboardController?.hide() }
             ),
             keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.Characters,
                 autoCorrectEnabled = false,
                 imeAction = ImeAction.Done
             ),
