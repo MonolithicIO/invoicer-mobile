@@ -8,7 +8,7 @@ import io.github.alaksion.invoicer.features.invoice.domain.repository.InvoiceRep
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 
-class FakeInvoiceRepository : InvoiceRepository {
+internal class FakeInvoiceRepository : InvoiceRepository {
 
     var getInvoicesFails = false
 
@@ -33,8 +33,12 @@ class FakeInvoiceRepository : InvoiceRepository {
 
     override suspend fun createInvoice(payload: CreateInvoiceModel) = Unit
 
-    override suspend fun getInvoiceDetails(id: String): InvoiceDetailsModel =
+    override suspend fun getInvoiceDetails(
+        invoiceId: String,
+        companyId: String
+    ): InvoiceDetailsModel {
         TODO("Not yet implemented")
+    }
 
     companion object {
         val INVOICE_1 = InvoiceListItem(
