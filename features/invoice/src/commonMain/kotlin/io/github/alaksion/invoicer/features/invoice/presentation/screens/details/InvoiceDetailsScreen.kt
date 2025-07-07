@@ -41,6 +41,7 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.details
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopicItem
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.AppColor
+import io.github.alaksion.invoicer.foundation.designSystem.tokens.FontSize
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.utils.money.moneyFormat
 import org.jetbrains.compose.resources.stringResource
@@ -95,18 +96,22 @@ internal data class InvoiceDetailsScreen(
                 Text(
                     text = state.invoiceTotal.moneyFormat(),
                     style = MaterialTheme.typography.titleMedium,
+                    fontSize = FontSize.xLarge3,
                     fontWeight = FontWeight.Bold,
                     color = AppColor.MoneyGreen,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                Text(
-                    text = stringResource(Res.string.invoice_details_number),
-                    style = MaterialTheme.typography.headlineMedium,
-                )
-                Text(
-                    text = state.invoiceNumber,
-                    style = MaterialTheme.typography.bodyLarge,
-                )
+
+                InvoiceDetailsTopic(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = stringResource(Res.string.invoice_details_number)
+                ) {
+                    Text(
+                        text = state.invoiceNumber,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                }
 
                 InvoiceDetailsTopic(
                     modifier = Modifier.fillMaxWidth(),
