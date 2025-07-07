@@ -5,11 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,18 +24,14 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.create_company_confirmation_cta
-import invoicer.features.company.generated.resources.create_company_confirmation_description
 import invoicer.features.company.generated.resources.create_company_confirmation_intermediary_section_label
 import invoicer.features.company.generated.resources.create_company_confirmation_pay_info_section_label
 import invoicer.features.company.generated.resources.create_company_confirmation_title
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.AddressSection
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.CompanySection
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.components.PaySection
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
 import kotlinx.coroutines.launch
@@ -86,7 +84,11 @@ internal class ConfirmCompanyScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = {},
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.create_company_confirmation_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(onBackClick = callbacks.onBack)
                     }
@@ -102,7 +104,8 @@ internal class ConfirmCompanyScreen : Screen {
                     isEnabled = state.isButtonEnabled,
                     isLoading = state.isButtonLoading
                 )
-            }
+            },
+            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier
@@ -118,11 +121,6 @@ internal class ConfirmCompanyScreen : Screen {
                     }
                 }
 
-                ScreenTitle(
-                    title = stringResource(Res.string.create_company_confirmation_title),
-                    subTitle = stringResource(Res.string.create_company_confirmation_description)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
                 Column(
                     modifier = Modifier
                         .weight(1f)

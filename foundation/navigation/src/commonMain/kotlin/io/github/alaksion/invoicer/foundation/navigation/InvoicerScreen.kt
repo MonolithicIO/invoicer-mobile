@@ -1,6 +1,7 @@
 package io.github.alaksion.invoicer.foundation.navigation
 
 import cafe.adriel.voyager.core.registry.ScreenProvider
+import io.github.alaksion.invoicer.foundation.navigation.args.SelectCompanyIntent
 
 sealed interface InvoicerScreen : ScreenProvider {
     sealed interface Auth : InvoicerScreen {
@@ -20,12 +21,15 @@ sealed interface InvoicerScreen : ScreenProvider {
     }
 
     sealed interface Company : InvoicerScreen {
-        data object SelectCompany : Company
+        data class SelectCompany(
+            val intent: SelectCompanyIntent
+        ) : Company
+
         data object CreateCompany : Company
     }
 
     sealed interface Customer : InvoicerScreen {
-        data object Create  : Customer
-        data object List: Customer
+        data object Create : Customer
+        data object List : Customer
     }
 }

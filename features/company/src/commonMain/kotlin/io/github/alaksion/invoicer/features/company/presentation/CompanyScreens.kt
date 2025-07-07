@@ -7,7 +7,9 @@ import io.github.alaksion.invoicer.foundation.navigation.InvoicerScreen
 
 val companyScreens = screenModule {
     register<InvoicerScreen.Company.SelectCompany> {
-        SelectCompanyScreen()
+        SelectCompanyScreen(
+            intent = it.intent
+        )
     }
 
     register<InvoicerScreen.Company.CreateCompany> {
