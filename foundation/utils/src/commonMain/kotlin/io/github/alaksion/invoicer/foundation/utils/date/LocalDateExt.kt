@@ -13,3 +13,6 @@ fun Long.toLocalDate(
         .toLocalDateTime(timeZone)
         .date
 }
+
+val LocalDate.Companion.Default: LocalDate
+    get() = LocalDate(1970, 1, 1)

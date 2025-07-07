@@ -62,7 +62,8 @@ private fun Module.screenModels() {
     factory {
         InvoiceDetailsScreenModel(
             invoiceRepository = get(),
-            dispatcher = Dispatchers.Default
+            dispatcher = Dispatchers.Default,
+            session = get()
         )
     }
 

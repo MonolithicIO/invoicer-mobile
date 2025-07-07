@@ -38,7 +38,7 @@
     <string name="invoice_configuration_invalid_issue_date">Issue date cannot be past</string>
     <string name="invoice_configuration_invalid_due_date">Due date must be after equal or past issue date</string>
 
-    <!-- Activites -->
+    <!-- Activities -->
     <string name="invoice_activity_new_title">New activity</string>
     <string name="invoice_create_activity_title">Invoice activities</string>
     <string name="invoice_create_activity_subtitle">Set invoice components</string>
@@ -74,4 +74,21 @@
     <string name="invoice_feedback_title">Invoice created successfully</string>
     <string name="invoice_feedback_description">You may now return to home</string>
     <string name="invoice_feedback_cta">Return to home</string>
+
+    <!-- Invoice details -->
+    <string name="invoice_details_title">Invoice details</string>
+    <string name="invoice_details_number">Invoice number</string>
+    <string name="invoice_details_company_title">Company</string>
+    <string name="invoice_details_company_name_label">Name</string>
+    <string name="invoice_details_company_name_address_label">Address</string>
+    <string name="invoice_details_customer_title">Customer</string>
+    <string name="invoice_details_customer_name_label">Name</string>
+    <string name="invoice_details_primary_pay_title">Payment account</string>
+    <string name="invoice_details_intermediary_pay_title">Intermediary account</string>
+    <string name="invoice_details_pay_swift">SWIFT</string>
+    <string name="invoice_details_pay_iban">IBAN</string>
+    <string name="invoice_details_pay_bank_address">Bank address</string>
+    <string name="invoice_details_pay_bank_name">Bank name</string>
+    <string name="invoice_details_activity_title">Activities</string>
+    <string name="invoice_details_activity_quantity_label">Quantity: %1$s</string>
 </resources>

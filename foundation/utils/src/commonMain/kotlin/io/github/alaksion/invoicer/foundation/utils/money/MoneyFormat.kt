@@ -4,5 +4,5 @@ private const val MoneyMultiplier = 100.0
 
 fun Long.moneyFormat(
 ): String {
-    return "$${(this / MoneyMultiplier) * MoneyMultiplier} "
+    return "$${(this / MoneyMultiplier) * MoneyMultiplier}"
 }
