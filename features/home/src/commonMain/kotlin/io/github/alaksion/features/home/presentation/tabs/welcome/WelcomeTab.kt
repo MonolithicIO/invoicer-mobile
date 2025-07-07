@@ -18,6 +18,7 @@ import io.github.alaksion.features.home.presentation.tabs.welcome.components.Wel
 import io.github.alaksion.features.home.presentation.tabs.welcome.components.WelcomeTopBar
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.navigation.InvoicerScreen
+import io.github.alaksion.invoicer.foundation.navigation.args.SelectCompanyIntent
 
 internal object WelcomeTab : Tab {
 
@@ -45,7 +46,13 @@ internal object WelcomeTab : Tab {
                 navigator?.push(ScreenRegistry.get(InvoicerScreen.Customer.List))
             },
             onChangeCompanyClick = {
-                navigator?.push(ScreenRegistry.get(InvoicerScreen.Company.SelectCompany))
+                navigator?.push(
+                    ScreenRegistry.get(
+                        InvoicerScreen.Company.SelectCompany(
+                            SelectCompanyIntent.ChangeCompany
+                        )
+                    )
+                )
             }
         )
 

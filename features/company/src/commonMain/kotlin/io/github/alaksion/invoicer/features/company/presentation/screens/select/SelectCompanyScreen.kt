@@ -50,9 +50,12 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.Spa
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.navigation.InvoicerScreen
+import io.github.alaksion.invoicer.foundation.navigation.args.SelectCompanyIntent
 import org.jetbrains.compose.resources.stringResource
 
-internal class SelectCompanyScreen : Screen {
+internal class SelectCompanyScreen(
+    private val intent: SelectCompanyIntent
+) : Screen {
 
     @OptIn(InternalVoyagerApi::class)
     @Composable
@@ -62,7 +65,9 @@ internal class SelectCompanyScreen : Screen {
         val state = screenModel.state.collectAsState()
 
         LaunchedEffect(screenModel) {
-            screenModel.loadCompanies()
+            screenModel.loadCompanies(
+                autoSelectFirst = intent == SelectCompanyIntent.StartupSelection
+            )
         }
 
         LaunchedEffect(screenModel) {
@@ -85,7 +90,9 @@ internal class SelectCompanyScreen : Screen {
             onCreateCompanyClick = {
                 navigator?.push(CreateCompanyFlow())
             },
-            onRetryClick = screenModel::loadCompanies,
+            onRetryClick = {
+                screenModel.loadCompanies(false)
+            },
             onBack = { navigator?.pop() }
         )
     }

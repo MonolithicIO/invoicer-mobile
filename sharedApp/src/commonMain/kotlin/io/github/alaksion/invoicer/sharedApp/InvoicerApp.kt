@@ -10,6 +10,7 @@ import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
 import cafe.adriel.voyager.transitions.SlideTransition
 import io.github.alaksion.invoicer.foundation.designSystem.theme.InvoicerTheme
 import io.github.alaksion.invoicer.foundation.navigation.InvoicerScreen
+import io.github.alaksion.invoicer.foundation.navigation.args.SelectCompanyIntent
 import io.github.alaksion.invoicer.foundation.watchers.AuthEvent
 import io.github.alaksion.invoicer.foundation.watchers.AuthEventBus
 import org.koin.mp.KoinPlatform
@@ -33,7 +34,11 @@ fun InvoicerApp() {
                 bus = authEventBus,
                 onSignIn = {
                     navigator.replaceAll(
-                        ScreenRegistry.get(InvoicerScreen.Company.SelectCompany)
+                        ScreenRegistry.get(
+                            InvoicerScreen.Company.SelectCompany(
+                                intent = SelectCompanyIntent.StartupSelection
+                            )
+                        )
                     )
                 },
                 onSignOff = {

@@ -29,7 +29,9 @@ internal class SelectCompanyScreenModel(
     private val _events = MutableSharedFlow<SelectCompanyEvent>()
     val events = _events.asSharedFlow()
 
-    fun loadCompanies() {
+    fun loadCompanies(
+        autoSelectFirst: Boolean
+    ) {
         screenModelScope.launch(dispatcher) {
             launchRequest {
                 repository.listCompanies(
@@ -43,7 +45,12 @@ internal class SelectCompanyScreenModel(
                 onFailure = {
                     _state.update { it.copy(mode = SelectCompanyMode.Error) }
                 },
-                onSuccess = { result -> handleCompaniesResponse(result.companies) }
+                onSuccess = { result ->
+                    handleCompaniesResponse(
+                        result.companies,
+                        shouldAutoSelectFirst = autoSelectFirst
+                    )
+                }
             )
         }
     }
@@ -63,8 +70,9 @@ internal class SelectCompanyScreenModel(
         }
     }
 
-    private fun handleCompaniesResponse(
-        companies: List<ListCompaniesItemModel>
+    private suspend fun handleCompaniesResponse(
+        companies: List<ListCompaniesItemModel>,
+        shouldAutoSelectFirst: Boolean
     ) {
         if (companies.isEmpty()) {
             _state.update { it.copy(mode = SelectCompanyMode.CreateCompany) }
@@ -79,9 +87,10 @@ internal class SelectCompanyScreenModel(
                     isChangeCompanyEnabled = false
                 )
             )
-            screenModelScope.launch(dispatcher) {
+            if (shouldAutoSelectFirst) {
                 _events.emit(SelectCompanyEvent.ContinueToHome)
             }
+
             return
         }
 
