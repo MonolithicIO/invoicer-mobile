@@ -80,7 +80,7 @@ internal class InvoiceConfirmationScreen : Screen {
         StateContent(
             state = state,
             snackbarHostState = snackbarHostState,
-            onBack = {},
+            onBack = { navigator?.pop() },
             onSubmit = screenModel::submitInvoice
         )
     }
