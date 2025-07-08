@@ -11,6 +11,8 @@
 
     <!-- Settings Item -->
     <string name="home_settings_authorization">Authorization</string>
+    <string name="home_settings_profile">Profile</string>
+    <string name="home_settings_company">Company</string>
 
     <!-- Welcome -->
     <string name="welcome_icon_invoice">Invoices</string>
