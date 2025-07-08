@@ -1,5 +1,8 @@
 package io.github.alaksion.invoicer.features.company.data.model
 
+import io.github.alaksion.invoicer.features.company.domain.model.CompanyDetailsAddressModel
+import io.github.alaksion.invoicer.features.company.domain.model.CompanyDetailsModel
+import io.github.alaksion.invoicer.features.company.domain.model.CompanyDetailsPaymentModel
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
@@ -45,4 +48,46 @@ internal data class CompanyDetailsPaymentResponse(
     val createdAt: Instant,
     val updatedAt: Instant,
     val id: String,
+)
+
+internal fun CompanyDetailsResponse.toModel(): CompanyDetailsModel = CompanyDetailsModel(
+    name = name,
+    document = document,
+    createdAt = createdAt,
+    updatedAt = updatedAt,
+    isDeleted = isDeleted,
+    userId = userId,
+    id = id,
+    address = CompanyDetailsAddressModel(
+        addressLine1 = address.addressLine1,
+        addressLine2 = address.addressLine2,
+        city = address.city,
+        state = address.state,
+        postalCode = address.postalCode,
+        countryCode = address.countryCode
+    ),
+    paymentAccount = CompanyDetailsPaymentModel(
+        iban = paymentAccount.iban,
+        swift = paymentAccount.swift,
+        bankName = paymentAccount.bankName,
+        bankAddress = paymentAccount.bankAddress,
+        type = paymentAccount.type,
+        isDeleted = paymentAccount.isDeleted,
+        createdAt = paymentAccount.createdAt,
+        updatedAt = paymentAccount.updatedAt,
+        id = paymentAccount.id
+    ),
+    intermediaryAccount = intermediaryAccount?.let {
+        CompanyDetailsPaymentModel(
+            iban = it.iban,
+            swift = it.swift,
+            bankName = it.bankName,
+            bankAddress = it.bankAddress,
+            type = it.type,
+            isDeleted = it.isDeleted,
+            createdAt = it.createdAt,
+            updatedAt = it.updatedAt,
+            id = it.id
+        )
+    },
 )

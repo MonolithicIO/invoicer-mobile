@@ -4,6 +4,8 @@ import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemot
 import io.github.alaksion.invoicer.features.company.data.model.CreateCompanyAddressRequest
 import io.github.alaksion.invoicer.features.company.data.model.CreateCompanyPaymentAccountRequest
 import io.github.alaksion.invoicer.features.company.data.model.CreateCompanyRequest
+import io.github.alaksion.invoicer.features.company.data.model.toModel
+import io.github.alaksion.invoicer.features.company.domain.model.CompanyDetailsModel
 import io.github.alaksion.invoicer.features.company.domain.model.CreateCompanyModel
 import io.github.alaksion.invoicer.features.company.domain.model.ListCompaniesItemModel
 import io.github.alaksion.invoicer.features.company.domain.model.ListCompaniesModel
@@ -64,5 +66,9 @@ internal class CompanyRepositoryImpl(
                 }
             )
         )
+    }
+
+    override suspend fun companyDetails(companyId: String): CompanyDetailsModel {
+        return dataSource.details(companyId).toModel()
     }
 }
