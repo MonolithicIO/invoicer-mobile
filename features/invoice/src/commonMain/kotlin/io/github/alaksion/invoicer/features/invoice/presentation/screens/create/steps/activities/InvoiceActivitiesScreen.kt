@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -22,6 +23,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -40,7 +42,6 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_create_activity_add_cta
-import invoicer.features.invoice.generated.resources.invoice_create_activity_subtitle
 import invoicer.features.invoice.generated.resources.invoice_create_activity_title
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
@@ -49,12 +50,9 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.components.AddActivityBottomSheet
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.model.rememberSnackMessages
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreen
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.SwipeableCard
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -138,10 +136,16 @@ internal class InvoiceActivitiesScreen : Screen {
         val scope = rememberCoroutineScope()
 
         Scaffold(
-            modifier = Modifier.imePadding(),
+            modifier = Modifier
+                .imePadding()
+                .systemBarsPadding(),
             topBar = {
                 TopAppBar(
-                    title = { },
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.invoice_create_activity_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(onBackClick = callbacks.onBack)
                     }
@@ -169,11 +173,6 @@ internal class InvoiceActivitiesScreen : Screen {
                     .padding(Spacing.medium)
                     .verticalScroll(verticalScroll)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.invoice_create_activity_title),
-                    subTitle = stringResource(Res.string.invoice_create_activity_subtitle)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f)
@@ -254,7 +253,8 @@ internal class InvoiceActivitiesScreen : Screen {
                                 showSheet = false
                                 callbacks.onAddActivity()
                             }
-                        }
+                        },
+                        modifier = Modifier.systemBarsPadding().imePadding()
                     )
                 }
             }

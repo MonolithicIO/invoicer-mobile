@@ -2,6 +2,7 @@ package io.github.alaksion.invoicer.features.invoice.presentation.screens.feedba
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.Scaffold
@@ -41,7 +42,9 @@ internal class InvoiceFeedbackScreen : Screen {
     fun StateContent(
         onClearFlow: () -> Unit
     ) {
-        Scaffold {
+        Scaffold(
+            modifier = Modifier.systemBarsPadding()
+        ) {
             Feedback(
                 modifier = Modifier
                     .fillMaxSize()

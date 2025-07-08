@@ -43,6 +43,7 @@ import org.jetbrains.compose.resources.stringResource
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddActivityBottomSheet(
+    modifier: Modifier = Modifier,
     sheetState: SheetState,
     formState: AddActivityFormState,
     onDismiss: () -> Unit,
@@ -54,7 +55,7 @@ internal fun AddActivityBottomSheet(
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         sheetState = sheetState,
-        modifier = Modifier.testTag(AddActivityBottomSheetTestTag.CONTENT)
+        modifier = modifier.testTag(AddActivityBottomSheetTestTag.CONTENT)
 
     ) {
         Column(

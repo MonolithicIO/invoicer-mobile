@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -41,16 +41,12 @@ import invoicer.features.invoice.generated.resources.confirmation_due_date_label
 import invoicer.features.invoice.generated.resources.confirmation_issue_date_label
 import invoicer.features.invoice.generated.resources.invoice_configuration_number_label
 import invoicer.features.invoice.generated.resources.invoice_create_confirmation_continue_cta
-import invoicer.features.invoice.generated.resources.invoice_create_confirmation_subtitle
 import invoicer.features.invoice.generated.resources.invoice_create_confirmation_title
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationCard
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.feedback.InvoiceFeedbackScreen
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.flow.collectLatest
@@ -84,7 +80,7 @@ internal class InvoiceConfirmationScreen : Screen {
         StateContent(
             state = state,
             snackbarHostState = snackbarHostState,
-            onBack = {},
+            onBack = { navigator?.pop() },
             onSubmit = screenModel::submitInvoice
         )
     }
@@ -98,10 +94,14 @@ internal class InvoiceConfirmationScreen : Screen {
         onBack: () -> Unit,
     ) {
         Scaffold(
-            modifier = Modifier.imePadding(),
+            modifier = Modifier.systemBarsPadding(),
             topBar = {
                 TopAppBar(
-                    title = { },
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.invoice_create_confirmation_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(onBackClick = onBack)
                     }
@@ -127,11 +127,6 @@ internal class InvoiceConfirmationScreen : Screen {
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.invoice_create_confirmation_title),
-                    subTitle = stringResource(Res.string.invoice_create_confirmation_subtitle)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
                 LazyColumn(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(Spacing.medium)

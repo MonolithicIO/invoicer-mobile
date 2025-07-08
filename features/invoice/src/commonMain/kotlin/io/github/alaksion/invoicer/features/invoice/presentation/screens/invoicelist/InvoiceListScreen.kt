@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -17,6 +18,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -38,7 +40,6 @@ import invoicer.features.invoice.generated.resources.invoice_list_error_descript
 import invoicer.features.invoice.generated.resources.invoice_list_error_retry
 import invoicer.features.invoice.generated.resources.invoice_list_error_title
 import invoicer.features.invoice.generated.resources.invoice_list_new_invoice
-import invoicer.features.invoice.generated.resources.invoice_list_subtitle
 import invoicer.features.invoice.generated.resources.invoice_list_title
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreen
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.components.InvoiceListItem
@@ -48,11 +49,10 @@ import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoice
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListScreenModel
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListState
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.invoicelist.state.rememberInvoiceListCallbacks
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.CloseButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.alaksion.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.Feedback
+import io.github.alaksion.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
@@ -133,7 +133,11 @@ internal class InvoiceListScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { },
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.invoice_list_title)
+                        )
+                    },
                     navigationIcon = { CloseButton(onBackClick = callbacks::onClose) },
                 )
             },
@@ -149,7 +153,8 @@ internal class InvoiceListScreen : Screen {
             },
             snackbarHost = {
                 SnackbarHost(snackbarHostState)
-            }
+            },
+            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier
@@ -157,12 +162,6 @@ internal class InvoiceListScreen : Screen {
                     .padding(Spacing.medium)
                     .fillMaxSize()
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.invoice_list_title),
-                    subTitle = stringResource(Res.string.invoice_list_subtitle),
-                )
-                VerticalSpacer(height = SpacerSize.XLarge)
-
                 when (state.mode) {
                     InvoiceListMode.Content -> {
                         if (state.invoices.isEmpty()) {
