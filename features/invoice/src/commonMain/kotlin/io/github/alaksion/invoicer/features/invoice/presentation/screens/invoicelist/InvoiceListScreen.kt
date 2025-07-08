@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -149,7 +150,8 @@ internal class InvoiceListScreen : Screen {
             },
             snackbarHost = {
                 SnackbarHost(snackbarHostState)
-            }
+            },
+            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier
