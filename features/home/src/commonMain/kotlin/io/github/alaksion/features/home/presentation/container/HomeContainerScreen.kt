@@ -3,6 +3,7 @@ package io.github.alaksion.features.home.presentation.container
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -16,6 +17,7 @@ internal class HomeContainerScreen : Screen {
     override fun Content() {
         TabNavigator(WelcomeTab) { navigator ->
             Scaffold(
+                modifier = Modifier.systemBarsPadding(),
                 bottomBar = {
                     HomeBottomBar(
                         selectedTab = navigator.current,
