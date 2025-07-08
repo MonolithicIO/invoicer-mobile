@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -25,7 +26,6 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.invoice.generated.resources.Res
-import invoicer.features.invoice.generated.resources.invoice_configuration_description
 import invoicer.features.invoice.generated.resources.invoice_configuration_due_date_label
 import invoicer.features.invoice.generated.resources.invoice_configuration_invalid_due_date
 import invoicer.features.invoice.generated.resources.invoice_configuration_invalid_issue_date
@@ -38,7 +38,6 @@ import invoicer.features.invoice.generated.resources.invoice_create_dates_change
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.components.InvoiceDateField
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
@@ -84,10 +83,14 @@ internal class InvoiceConfigurationScreen : Screen {
         callbacks: Callbacks
     ) {
         Scaffold(
-            modifier = Modifier.imePadding(),
+            modifier = Modifier.imePadding().systemBarsPadding(),
             topBar = {
                 TopAppBar(
-                    title = {},
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.invoice_configuration_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(
                             onBackClick = callbacks.onBack
@@ -113,12 +116,6 @@ internal class InvoiceConfigurationScreen : Screen {
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.invoice_configuration_title),
-                    subTitle = stringResource(Res.string.invoice_configuration_description)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
-
                 InputField(
                     value = state.invoiceNumber,
                     onValueChange = callbacks.onInvoiceNumberChange,

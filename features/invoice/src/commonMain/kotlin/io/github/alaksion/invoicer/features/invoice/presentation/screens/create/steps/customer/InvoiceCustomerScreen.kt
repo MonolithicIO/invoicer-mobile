@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,17 +20,13 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
-import invoicer.features.invoice.generated.resources.invoice_customer_description
 import invoicer.features.invoice.generated.resources.invoice_customer_title
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreen
 import io.github.alaksion.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
-import io.github.alaksion.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.alaksion.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
@@ -75,7 +73,11 @@ internal class InvoiceCustomerScreen : Screen {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = {},
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.invoice_customer_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(onBackClick = callbacks.onBack)
                     }
@@ -89,16 +91,12 @@ internal class InvoiceCustomerScreen : Screen {
                         .fillMaxWidth()
                         .padding(Spacing.medium)
                 )
-            }
+            },
+            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier.fillMaxSize().padding(scaffoldPadding).padding(Spacing.medium)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.invoice_customer_title),
-                    subTitle = stringResource(Res.string.invoice_customer_description)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
                 when (state.mode) {
                     InvoiceCustomerMode.Content -> InvoiceCustomerList(
                         modifier = Modifier.fillMaxSize(),
