@@ -1,5 +1,6 @@
 package io.github.alaksion.invoicer.features.company.data.datasource
 
+import io.github.alaksion.invoicer.features.company.data.model.CompanyDetailsResponse
 import io.github.alaksion.invoicer.features.company.data.model.CreateCompanyRequest
 import io.github.alaksion.invoicer.features.company.data.model.ListCompaniesResponse
 import io.github.alaksion.invoicer.foundation.network.client.HttpWrapper
@@ -20,6 +21,10 @@ internal interface CompanyRemoteDataSource {
     suspend fun createCompany(
         data: CreateCompanyRequest
     ): String
+
+    suspend fun details(
+        companyId: String
+    ): CompanyDetailsResponse
 }
 
 internal class CompanyRemoteDataSourceImpl(
@@ -46,6 +51,12 @@ internal class CompanyRemoteDataSourceImpl(
             httpWrapper.client.post("/v1/company") {
                 setBody(data)
             }.body<String>()
+        }
+    }
+
+    override suspend fun details(companyId: String): CompanyDetailsResponse {
+        return withContext(dispatcher) {
+            httpWrapper.client.get("/v1/company/$companyId").body()
         }
     }
 }
