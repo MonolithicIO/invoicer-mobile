@@ -25,6 +25,8 @@ sealed interface InvoicerScreen : ScreenProvider {
             val intent: SelectCompanyIntent
         ) : Company
 
+        data object Details : Company
+
         data object CreateCompany : Company
     }
 

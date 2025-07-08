@@ -72,7 +72,9 @@ internal object SettingsTab : Tab {
                     navigator?.push(ScreenRegistry.get(InvoicerScreen.Authorization.Home))
                 },
                 onProfileClick = {},
-                onCompanyClick = {},
+                onCompanyClick = {
+                    navigator?.push(ScreenRegistry.get(InvoicerScreen.Company.Details))
+                },
             )
         }
 
