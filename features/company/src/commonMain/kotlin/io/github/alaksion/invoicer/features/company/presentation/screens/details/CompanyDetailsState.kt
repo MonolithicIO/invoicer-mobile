@@ -1,6 +1,5 @@
 package io.github.alaksion.invoicer.features.company.presentation.screens.details
 
-import io.github.alaksion.invoicer.features.company.domain.model.CompanyDetailsPaymentModel
 import io.github.alaksion.invoicer.features.company.presentation.model.CompanyPaymentUiModel
 
 internal data class CompanyDetailsState(
@@ -13,5 +12,12 @@ internal data class CompanyDetailsState(
     val postalCode: String = "",
     val countryCode: String = "",
     val payAccount: CompanyPaymentUiModel = CompanyPaymentUiModel.Empty,
-    val intermediaryAccount: CompanyDetailsPaymentModel? = null
+    val intermediaryAccount: CompanyPaymentUiModel? = null,
+    val mode: CompanyDetailsMode = CompanyDetailsMode.Loading,
 )
+
+internal enum class CompanyDetailsMode {
+    Loading,
+    Content,
+    Error;
+}
