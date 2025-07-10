@@ -60,7 +60,13 @@ internal class CompanyDetailsScreen : Screen {
             state = state,
             callbacks = remember {
                 Callbacks(
-                    onBack = { navigator?.pop() }
+                    onBack = { navigator?.pop() },
+                    onEditIntermediaryAccount = { accountId ->
+
+                    },
+                    onEditPayAccount = { accountId ->
+
+                    },
                 )
             }
         )
@@ -127,7 +133,7 @@ internal class CompanyDetailsScreen : Screen {
                 CompanyDetailsCard(
                     modifier = Modifier.fillMaxWidth(),
                     title = stringResource(Res.string.company_details_address),
-                    onEditClick = {}
+                    onEditClick = { callbacks.onEditPayAccount(state.payAccount.id) }
                 ) {
                     CompanyDetailsRow(
                         title = stringResource(Res.string.company_details_address_line1),
@@ -184,7 +190,9 @@ internal class CompanyDetailsScreen : Screen {
                     CompanyDetailsCard(
                         modifier = Modifier.fillMaxWidth(),
                         title = stringResource(Res.string.company_details_pay_account),
-                        onEditClick = {}
+                        onEditClick = {
+                            callbacks.onEditPayAccount(intermediaryAccount.id)
+                        }
                     ) {
                         CompanyDetailsRow(
                             title = stringResource(Res.string.company_details_pay_account_swift),
@@ -209,6 +217,8 @@ internal class CompanyDetailsScreen : Screen {
     }
 
     data class Callbacks(
-        val onBack: () -> Unit
+        val onBack: () -> Unit,
+        val onEditPayAccount: (String) -> Unit,
+        val onEditIntermediaryAccount: (String) -> Unit
     )
 }
