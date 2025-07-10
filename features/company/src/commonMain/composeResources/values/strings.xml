@@ -77,6 +77,7 @@
     <string name="company_details_address_country_code">Country</string>
     <string name="company_details_edit">Edit</string>
     <string name="company_details_pay_account">Payment account</string>
+    <string name="company_details_intermediary_account">Intermediary account</string>
     <string name="company_details_pay_account_swift">SWIFT</string>
     <string name="company_details_pay_account_iban">IBAN</string>
     <string name="company_details_pay_account_bank_name">Bank Name</string>

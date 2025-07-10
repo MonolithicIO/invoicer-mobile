@@ -33,6 +33,7 @@ import invoicer.features.company.generated.resources.company_details_address_sta
 import invoicer.features.company.generated.resources.company_details_info
 import invoicer.features.company.generated.resources.company_details_info_document
 import invoicer.features.company.generated.resources.company_details_info_name
+import invoicer.features.company.generated.resources.company_details_intermediary_account
 import invoicer.features.company.generated.resources.company_details_pay_account
 import invoicer.features.company.generated.resources.company_details_pay_account_bank_address
 import invoicer.features.company.generated.resources.company_details_pay_account_bank_name
@@ -190,7 +191,7 @@ internal class CompanyDetailsScreen : Screen {
                             state.intermediaryAccount?.let { intermediaryAccount ->
                                 CompanyDetailsCard(
                                     modifier = Modifier.fillMaxWidth(),
-                                    title = stringResource(Res.string.company_details_pay_account),
+                                    title = stringResource(Res.string.company_details_intermediary_account),
                                     onEditClick = {
                                         callbacks.onEditPayAccount(intermediaryAccount.id)
                                     }
