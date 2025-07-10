@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -40,7 +41,9 @@ import invoicer.features.company.generated.resources.company_details_pay_account
 import invoicer.features.company.generated.resources.company_details_title
 import io.github.alaksion.invoicer.features.company.presentation.screens.details.components.CompanyDetailsCard
 import io.github.alaksion.invoicer.features.company.presentation.screens.details.components.CompanyDetailsRow
+import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
+import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -67,6 +70,10 @@ internal class CompanyDetailsScreen : Screen {
                     onEditPayAccount = { accountId ->
 
                     },
+                    onEditAddress = {
+
+                    },
+                    onRetry = screenModel::initState
                 )
             }
         )
@@ -94,123 +101,124 @@ internal class CompanyDetailsScreen : Screen {
                 )
             }
         ) { scaffoldPadding ->
-            Column(
+            Surface(
                 modifier = Modifier
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
                     .fillMaxSize()
-                    .verticalScroll(scroll),
-                verticalArrangement = Arrangement.spacedBy(Spacing.medium)
             ) {
-                CompanyDetailsCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.company_details_info)
-                ) {
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_info_name),
-                        content = state.name
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_info_document),
-                        content = state.document
-                    )
-                }
+                when (state.mode) {
+                    CompanyDetailsMode.Loading -> LoadingState(Modifier.fillMaxSize())
 
-                CompanyDetailsCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.company_details_info)
-                ) {
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_info_name),
-                        content = state.name
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_info_document),
-                        content = state.document
-                    )
-                }
+                    CompanyDetailsMode.Content ->
+                        Column(
+                            modifier = Modifier.fillMaxSize().verticalScroll(scroll),
+                            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                        ) {
+                            CompanyDetailsCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                title = stringResource(Res.string.company_details_info)
+                            ) {
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_info_name),
+                                    content = state.name
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_info_document),
+                                    content = state.document
+                                )
+                            }
 
-                CompanyDetailsCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.company_details_address),
-                    onEditClick = { callbacks.onEditPayAccount(state.payAccount.id) }
-                ) {
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_address_line1),
-                        content = state.addressLine1
-                    )
-                    state.addressLine2?.let {
-                        CompanyDetailsRow(
-                            title = stringResource(Res.string.company_details_address_line2),
-                            content = it
-                        )
-                    }
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_address_state),
-                        content = state.state
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_address_city),
-                        content = state.city
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_address_postal_code),
-                        content = state.postalCode
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_address_country_code),
-                        content = state.countryCode
-                    )
-                }
+                            CompanyDetailsCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                title = stringResource(Res.string.company_details_address),
+                                onEditClick = callbacks.onEditAddress
+                            ) {
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_address_line1),
+                                    content = state.addressLine1
+                                )
+                                state.addressLine2?.let {
+                                    CompanyDetailsRow(
+                                        title = stringResource(Res.string.company_details_address_line2),
+                                        content = it
+                                    )
+                                }
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_address_state),
+                                    content = state.state
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_address_city),
+                                    content = state.city
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_address_postal_code),
+                                    content = state.postalCode
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_address_country_code),
+                                    content = state.countryCode
+                                )
+                            }
 
-                CompanyDetailsCard(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.company_details_pay_account),
-                    onEditClick = {}
-                ) {
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_pay_account_swift),
-                        content = state.payAccount.swift
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_pay_account_iban),
-                        content = state.payAccount.iban
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_pay_account_bank_name),
-                        content = state.payAccount.bankName
-                    )
-                    CompanyDetailsRow(
-                        title = stringResource(Res.string.company_details_pay_account_bank_address),
-                        content = state.payAccount.bankAddress
-                    )
-                }
+                            CompanyDetailsCard(
+                                modifier = Modifier.fillMaxWidth(),
+                                title = stringResource(Res.string.company_details_pay_account),
+                                onEditClick = {
+                                    callbacks.onEditPayAccount(state.payAccount.id)
+                                }
+                            ) {
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_pay_account_swift),
+                                    content = state.payAccount.swift
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_pay_account_iban),
+                                    content = state.payAccount.iban
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_pay_account_bank_name),
+                                    content = state.payAccount.bankName
+                                )
+                                CompanyDetailsRow(
+                                    title = stringResource(Res.string.company_details_pay_account_bank_address),
+                                    content = state.payAccount.bankAddress
+                                )
+                            }
 
-                state.intermediaryAccount?.let { intermediaryAccount ->
-                    CompanyDetailsCard(
-                        modifier = Modifier.fillMaxWidth(),
-                        title = stringResource(Res.string.company_details_pay_account),
-                        onEditClick = {
-                            callbacks.onEditPayAccount(intermediaryAccount.id)
+                            state.intermediaryAccount?.let { intermediaryAccount ->
+                                CompanyDetailsCard(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    title = stringResource(Res.string.company_details_pay_account),
+                                    onEditClick = {
+                                        callbacks.onEditPayAccount(intermediaryAccount.id)
+                                    }
+                                ) {
+                                    CompanyDetailsRow(
+                                        title = stringResource(Res.string.company_details_pay_account_swift),
+                                        content = intermediaryAccount.swift
+                                    )
+                                    CompanyDetailsRow(
+                                        title = stringResource(Res.string.company_details_pay_account_swift),
+                                        content = intermediaryAccount.iban
+                                    )
+                                    CompanyDetailsRow(
+                                        title = stringResource(Res.string.company_details_pay_account_bank_name),
+                                        content = intermediaryAccount.bankName
+                                    )
+                                    CompanyDetailsRow(
+                                        title = stringResource(Res.string.company_details_pay_account_bank_address),
+                                        content = intermediaryAccount.bankAddress
+                                    )
+                                }
+                            }
                         }
-                    ) {
-                        CompanyDetailsRow(
-                            title = stringResource(Res.string.company_details_pay_account_swift),
-                            content = intermediaryAccount.swift
-                        )
-                        CompanyDetailsRow(
-                            title = stringResource(Res.string.company_details_pay_account_swift),
-                            content = intermediaryAccount.iban
-                        )
-                        CompanyDetailsRow(
-                            title = stringResource(Res.string.company_details_pay_account_bank_name),
-                            content = intermediaryAccount.bankName
-                        )
-                        CompanyDetailsRow(
-                            title = stringResource(Res.string.company_details_pay_account_bank_address),
-                            content = intermediaryAccount.bankAddress
-                        )
-                    }
+
+                    CompanyDetailsMode.Error -> ErrorFeedback(
+                        modifier = Modifier.fillMaxSize(),
+                        onPrimaryAction = callbacks.onRetry
+                    )
                 }
             }
         }
@@ -219,6 +227,8 @@ internal class CompanyDetailsScreen : Screen {
     data class Callbacks(
         val onBack: () -> Unit,
         val onEditPayAccount: (String) -> Unit,
-        val onEditIntermediaryAccount: (String) -> Unit
+        val onEditIntermediaryAccount: (String) -> Unit,
+        val onEditAddress: () -> Unit,
+        val onRetry: () -> Unit,
     )
 }
