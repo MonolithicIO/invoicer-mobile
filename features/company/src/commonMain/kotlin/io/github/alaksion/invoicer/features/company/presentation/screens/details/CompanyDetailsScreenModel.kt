@@ -29,7 +29,7 @@ internal class CompanyDetailsScreenModel(
                     companyId = session.getCompany().id
                 )
             }.handle(
-                onFinish = { _state.update { it.copy(mode = CompanyDetailsMode.Loading) } },
+                onStart = { _state.update { it.copy(mode = CompanyDetailsMode.Loading) } },
                 onFailure = { _state.update { it.copy(mode = CompanyDetailsMode.Error) } },
                 onSuccess = { response ->
                     _state.update {
