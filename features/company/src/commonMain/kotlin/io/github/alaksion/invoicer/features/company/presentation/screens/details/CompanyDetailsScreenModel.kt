@@ -51,5 +51,4 @@ internal class CompanyDetailsScreenModel(
             )
         }
     }
-
 }
