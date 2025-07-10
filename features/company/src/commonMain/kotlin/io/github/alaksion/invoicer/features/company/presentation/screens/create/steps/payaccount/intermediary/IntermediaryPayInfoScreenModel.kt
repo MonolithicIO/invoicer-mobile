@@ -14,13 +14,13 @@ internal class IntermediaryPayInfoScreenModel(
     val state = _state.asStateFlow()
 
     fun resumeState() {
-        form.intermediaryPayAccount?.let {
+        form.intermediaryPayAccount?.let { intermediaryAccount ->
             _state.update {
                 it.copy(
-                    iban = form.primaryPayAccount.iban,
-                    swift = form.primaryPayAccount.swift,
-                    bankName = form.primaryPayAccount.bankName,
-                    bankAddress = form.primaryPayAccount.bankAddress,
+                    iban = intermediaryAccount.iban,
+                    swift = intermediaryAccount.swift,
+                    bankName = intermediaryAccount.bankName,
+                    bankAddress = intermediaryAccount.bankAddress,
                 )
             }
         }

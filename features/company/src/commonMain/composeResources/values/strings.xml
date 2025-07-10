@@ -63,5 +63,25 @@
     <string name="create_company_confirmation_pay_info_section_label">Payment Information</string>
     <string name="create_company_confirmation_intermediary_section_label">Intermediary Account</string>
 
+    <!-- Company Details -->
+    <string name="company_details_title">Company Details</string>
+    <string name="company_details_info">Info</string>
+    <string name="company_details_info_name">Name</string>
+    <string name="company_details_info_document">Document</string>
+    <string name="company_details_address">Address</string>
+    <string name="company_details_address_line1">Address Line 1</string>
+    <string name="company_details_address_line2">Address Line 2</string>
+    <string name="company_details_address_state">State</string>
+    <string name="company_details_address_city">City</string>
+    <string name="company_details_address_postal_code">Postal code</string>
+    <string name="company_details_address_country_code">Country</string>
+    <string name="company_details_edit">Edit</string>
+    <string name="company_details_pay_account">Payment account</string>
+    <string name="company_details_intermediary_account">Intermediary account</string>
+    <string name="company_details_pay_account_swift">SWIFT</string>
+    <string name="company_details_pay_account_iban">IBAN</string>
+    <string name="company_details_pay_account_bank_name">Bank Name</string>
+    <string name="company_details_pay_account_bank_address">Bank Address</string>
+
 
 </resources>

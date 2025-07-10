@@ -10,6 +10,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -71,7 +72,8 @@ internal class ConfirmCompanyScreen : Screen {
                     onConfirm = screenModel::createCompany,
                     onScrollEnd = screenModel::enableButton
                 )
-            }
+            },
+            snackbarHostState = snackBarState
         )
     }
 
@@ -79,9 +81,11 @@ internal class ConfirmCompanyScreen : Screen {
     @Composable
     fun StateContent(
         state: ConfirmCompanyState,
-        callbacks: Callbacks
+        callbacks: Callbacks,
+        snackbarHostState: SnackbarHostState
     ) {
         Scaffold(
+            snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
                 TopAppBar(
                     title = {
