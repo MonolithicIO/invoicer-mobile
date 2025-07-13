@@ -84,4 +84,13 @@
     <string name="company_details_pay_account_bank_address">Bank Address</string>
 
 
+    <!-- Update pay account -->
+    <string name="update_pay_account_title">Update Payment Account</string>
+    <string name="update_intermediary_account_title">Update Payment Account</string>
+    <string name="update_pay_account_swift_code_label">Swift Code</string>
+    <string name="update_pay_account_iban_code_label">IBAN Code</string>
+    <string name="update_pay_account_bank_name_label">Bank Name</string>
+    <string name="update_pay_account_bank_address_label">Bank Address</string>
+    <string name="update_pay_account_cta">Update</string>
+
 </resources>
