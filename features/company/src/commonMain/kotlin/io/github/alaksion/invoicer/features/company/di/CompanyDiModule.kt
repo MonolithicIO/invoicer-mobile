@@ -2,8 +2,12 @@ package io.github.alaksion.invoicer.features.company.di
 
 import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemoteDataSource
 import io.github.alaksion.invoicer.features.company.data.datasource.CompanyRemoteDataSourceImpl
+import io.github.alaksion.invoicer.features.company.data.datasource.PayAccountRemoteDataSource
+import io.github.alaksion.invoicer.features.company.data.datasource.PayAccountRemoteDataSourceImpl
 import io.github.alaksion.invoicer.features.company.data.repository.CompanyRepositoryImpl
+import io.github.alaksion.invoicer.features.company.data.repository.PayAccountRepositoryImpl
 import io.github.alaksion.invoicer.features.company.domain.repository.CompanyRepository
+import io.github.alaksion.invoicer.features.company.domain.repository.PayAccountRepository
 import io.github.alaksion.invoicer.features.company.presentation.model.CreateCompanyFormManager
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreenModel
@@ -79,6 +83,19 @@ val companyDiModule = module {
             dispatcher = Dispatchers.Default,
             repository = get(),
             session = get()
+        )
+    }
+
+    factory<PayAccountRemoteDataSource> {
+        PayAccountRemoteDataSourceImpl(
+            httpWrapper = get(),
+            dispatcher = Dispatchers.IO
+        )
+    }
+
+    factory<PayAccountRepository> {
+        PayAccountRepositoryImpl(
+            dataSource = get()
         )
     }
 }
