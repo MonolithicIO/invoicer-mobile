@@ -16,6 +16,7 @@ import io.github.alaksion.invoicer.features.company.presentation.screens.create.
 import io.github.alaksion.invoicer.features.company.presentation.screens.create.steps.payaccount.primary.PrimaryPayInfoScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.details.CompanyDetailsScreenModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
+import io.github.alaksion.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreenModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
@@ -96,6 +97,13 @@ val companyDiModule = module {
     factory<PayAccountRepository> {
         PayAccountRepositoryImpl(
             dataSource = get()
+        )
+    }
+
+    factory {
+        UpdatePayAccountScreenModel(
+            repository = get(),
+            dispatcher = Dispatchers.Default
         )
     }
 }

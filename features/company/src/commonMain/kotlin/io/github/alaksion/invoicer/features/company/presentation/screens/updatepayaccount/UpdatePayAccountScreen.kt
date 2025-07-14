@@ -1,5 +1,6 @@
 package io.github.alaksion.invoicer.features.company.presentation.screens.updatepayaccount
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -96,7 +97,11 @@ internal data class UpdatePayAccountScreen(
             modifier = Modifier.imePadding().systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
-                modifier = Modifier.fillMaxSize().padding(scaffoldPadding).padding(Spacing.medium)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(scaffoldPadding)
+                    .padding(Spacing.medium),
+                verticalArrangement = Arrangement.spacedBy(Spacing.medium)
             ) {
                 val (swiftFocus, ibanFocus, bankAddressFocus, bankNameFocus) = FocusRequester.createRefs()
 
