@@ -14,6 +14,8 @@ internal data class UpdatePayAccountState(
                 iban.isNotBlank() &&
                 bankAddress.isNotBlank() &&
                 bankName.isNotBlank()
+
+    val isDeleteButtonVisible = accountType == UpdatePayAccountScreenArgs.AccountType.Intermediary
 }
 
 internal sealed interface UpdatePayAccountEvent {

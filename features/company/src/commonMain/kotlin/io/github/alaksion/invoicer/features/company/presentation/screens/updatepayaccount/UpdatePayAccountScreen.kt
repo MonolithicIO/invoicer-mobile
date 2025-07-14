@@ -9,7 +9,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -64,7 +69,8 @@ internal data class UpdatePayAccountScreen(
                     onBankAddressChange = screenModel::updateBankAddress,
                     onBankNameChange = screenModel::updateBankName,
                     onUpdatePayAccount = {},
-                    onBackPressed = { navigator?.pop() }
+                    onBackPressed = { navigator?.pop() },
+                    onDelete = {}
                 )
             }
         )
@@ -83,7 +89,20 @@ internal data class UpdatePayAccountScreen(
             topBar = {
                 TopAppBar(
                     title = { Text(text = state.accountType.getText()) },
-                    navigationIcon = { BackButton(onBackClick = callbacks.onBackPressed) }
+                    navigationIcon = { BackButton(onBackClick = callbacks.onBackPressed) },
+                    actions = {
+                        if (state.isDeleteButtonVisible) {
+                            IconButton(
+                                onClick = callbacks.onDelete
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+                    }
                 )
             },
             bottomBar = {
@@ -195,6 +214,7 @@ internal data class UpdatePayAccountScreen(
         val onBankNameChange: (String) -> Unit,
         val onUpdatePayAccount: () -> Unit,
         val onBackPressed: () -> Unit,
+        val onDelete: () -> Unit,
     )
 }
 
