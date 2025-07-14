@@ -88,4 +88,30 @@ internal class UpdatePayAccountScreenModel(
             )
         }
     }
+
+    fun deletePayAccount(
+        payAccountId: String,
+    ) {
+        screenModelScope.launch(dispatcher) {
+            launchRequest {
+                repository.deletePayAccount(
+                    companyId = session.getCompany().id,
+                    payAccountId = payAccountId
+                )
+            }.handle(
+                onStart = {
+                    _state.update { it.copy(isButtonLoading = true) }
+                },
+                onFinish = {
+                    _state.update { it.copy(isButtonLoading = false) }
+                },
+                onSuccess = {
+                    _events.emit(UpdatePayAccountEvent.DeleteSuccess)
+                },
+                onFailure = {
+                    _events.emit(UpdatePayAccountEvent.Failure(it.message.orEmpty()))
+                }
+            )
+        }
+    }
 }

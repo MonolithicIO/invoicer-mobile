@@ -21,4 +21,5 @@ internal data class UpdatePayAccountState(
 internal sealed interface UpdatePayAccountEvent {
     data class Failure(val message: String) : UpdatePayAccountEvent
     data object Success : UpdatePayAccountEvent
+    data object DeleteSuccess : UpdatePayAccountEvent
 }

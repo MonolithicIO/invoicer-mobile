@@ -23,8 +23,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -41,6 +43,7 @@ import invoicer.features.company.generated.resources.update_pay_account_cta
 import invoicer.features.company.generated.resources.update_pay_account_iban_code_label
 import invoicer.features.company.generated.resources.update_pay_account_swift_code_label
 import invoicer.features.company.generated.resources.update_pay_account_title
+import io.github.alaksion.invoicer.features.company.presentation.screens.updatepayaccount.components.DeletePayAccountModal
 import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
@@ -61,6 +64,7 @@ internal data class UpdatePayAccountScreen(
         val state by screenModel.state.collectAsState()
         val scope = rememberCoroutineScope()
         val snackBarHost = remember { SnackbarHostState() }
+        var showDeleteDialog by remember { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
             screenModel.initState(args)
@@ -75,7 +79,7 @@ internal data class UpdatePayAccountScreen(
                     snackBarHost.showSnackbar(message = event.message)
                 }
 
-                UpdatePayAccountEvent.Success -> {
+                UpdatePayAccountEvent.Success, UpdatePayAccountEvent.DeleteSuccess -> {
                     navigator?.pop()
                 }
             }
@@ -91,9 +95,15 @@ internal data class UpdatePayAccountScreen(
                     onBankNameChange = screenModel::updateBankName,
                     onUpdatePayAccount = { screenModel.updatePayAccount(args.payAccountId) },
                     onBackPressed = { navigator?.pop() },
-                    onDelete = {}
+                    onDelete = { showDeleteDialog = true }
                 )
             }
+        )
+
+        DeletePayAccountModal(
+            onDismissRequest = { showDeleteDialog = false },
+            onConfirm = { screenModel.deletePayAccount(args.payAccountId) },
+            isVisible = showDeleteDialog
         )
 
     }

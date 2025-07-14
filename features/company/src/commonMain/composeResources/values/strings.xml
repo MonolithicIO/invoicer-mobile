@@ -92,5 +92,9 @@
     <string name="update_pay_account_bank_name_label">Bank Name</string>
     <string name="update_pay_account_bank_address_label">Bank Address</string>
     <string name="update_pay_account_cta">Update</string>
+    <string name="delete_pay_account_title">Delete Payment Account</string>
+    <string name="delete_pay_account_description">Are you sure you want to delete this payment account? This action cannot be undone.</string>
+    <string name="delete_pay_account_confirm">Delete</string>
+    <string name="delete_pay_account_cancel">Cancel</string>
 
 </resources>
