@@ -16,6 +16,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -23,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
@@ -43,6 +45,8 @@ import io.github.alaksion.invoicer.foundation.designSystem.components.InputField
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.PrimaryButton
 import io.github.alaksion.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.alaksion.invoicer.foundation.ui.FlowCollectEffect
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource
 
@@ -55,9 +59,26 @@ internal data class UpdatePayAccountScreen(
         val screenModel = koinScreenModel<UpdatePayAccountScreenModel>()
         val navigator = LocalNavigator.current
         val state by screenModel.state.collectAsState()
+        val scope = rememberCoroutineScope()
+        val snackBarHost = remember { SnackbarHostState() }
 
         LaunchedEffect(Unit) {
             screenModel.initState(args)
+        }
+
+        FlowCollectEffect(
+            flow = screenModel.event,
+            key = Unit
+        ) { event ->
+            when (event) {
+                is UpdatePayAccountEvent.Failure -> scope.launch {
+                    snackBarHost.showSnackbar(message = event.message)
+                }
+
+                UpdatePayAccountEvent.Success -> {
+                    navigator?.pop()
+                }
+            }
         }
 
         StateContent(
@@ -68,7 +89,7 @@ internal data class UpdatePayAccountScreen(
                     onIbanChange = screenModel::updateIban,
                     onBankAddressChange = screenModel::updateBankAddress,
                     onBankNameChange = screenModel::updateBankName,
-                    onUpdatePayAccount = {},
+                    onUpdatePayAccount = { screenModel.updatePayAccount(args.payAccountId) },
                     onBackPressed = { navigator?.pop() },
                     onDelete = {}
                 )
@@ -108,9 +129,13 @@ internal data class UpdatePayAccountScreen(
             bottomBar = {
                 PrimaryButton(
                     label = stringResource(Res.string.update_pay_account_cta),
-                    onClick = callbacks.onUpdatePayAccount,
+                    onClick = {
+                        keyboard?.hide()
+                        callbacks.onUpdatePayAccount()
+                    },
                     isEnabled = state.isButtonEnabled,
-                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium)
+                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium),
+                    isLoading = state.isButtonLoading
                 )
             },
             modifier = Modifier.imePadding().systemBarsPadding()

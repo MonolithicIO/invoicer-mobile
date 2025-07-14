@@ -7,7 +7,7 @@ internal data class UpdatePayAccountState(
     val bankName: String = "",
     val accountType: UpdatePayAccountScreenArgs.AccountType =
         UpdatePayAccountScreenArgs.AccountType.Primary,
-    val mode: UpdatePayAccountMode = UpdatePayAccountMode.Content,
+    val isButtonLoading: Boolean = false,
 ) {
     val isButtonEnabled =
         swift.isNotBlank() &&
@@ -20,10 +20,5 @@ internal data class UpdatePayAccountState(
 
 internal sealed interface UpdatePayAccountEvent {
     data class Failure(val message: String) : UpdatePayAccountEvent
-}
-
-internal enum class UpdatePayAccountMode {
-    Content,
-    Loading,
-    Error;
+    data object Success : UpdatePayAccountEvent
 }
