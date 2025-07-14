@@ -40,8 +40,11 @@ import invoicer.features.company.generated.resources.company_details_pay_account
 import invoicer.features.company.generated.resources.company_details_pay_account_iban
 import invoicer.features.company.generated.resources.company_details_pay_account_swift
 import invoicer.features.company.generated.resources.company_details_title
+import io.github.alaksion.invoicer.features.company.presentation.model.CompanyPaymentUiModel
 import io.github.alaksion.invoicer.features.company.presentation.screens.details.components.CompanyDetailsCard
 import io.github.alaksion.invoicer.features.company.presentation.screens.details.components.CompanyDetailsRow
+import io.github.alaksion.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreen
+import io.github.alaksion.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreenArgs
 import io.github.alaksion.invoicer.foundation.designSystem.components.LoadingState
 import io.github.alaksion.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.alaksion.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
@@ -65,15 +68,35 @@ internal class CompanyDetailsScreen : Screen {
             callbacks = remember {
                 Callbacks(
                     onBack = { navigator?.pop() },
-                    onEditIntermediaryAccount = { accountId ->
-
+                    onEditIntermediaryAccount = { account ->
+                        navigator?.push(
+                            UpdatePayAccountScreen(
+                                args = UpdatePayAccountScreenArgs(
+                                    payAccountId = account.id,
+                                    swift = account.swift,
+                                    iban = account.iban,
+                                    bankAddress = account.bankAddress,
+                                    bankName = account.bankName,
+                                    accountType = UpdatePayAccountScreenArgs.AccountType.Intermediary
+                                )
+                            )
+                        )
                     },
-                    onEditPayAccount = { accountId ->
-
+                    onEditPayAccount = { account ->
+                        navigator?.push(
+                            UpdatePayAccountScreen(
+                                args = UpdatePayAccountScreenArgs(
+                                    payAccountId = account.id,
+                                    swift = account.swift,
+                                    iban = account.iban,
+                                    bankAddress = account.bankAddress,
+                                    bankName = account.bankName,
+                                    accountType = UpdatePayAccountScreenArgs.AccountType.Primary
+                                )
+                            )
+                        )
                     },
-                    onEditAddress = {
-
-                    },
+                    onEditAddress = { },
                     onRetry = screenModel::initState
                 )
             }
@@ -167,7 +190,7 @@ internal class CompanyDetailsScreen : Screen {
                                 modifier = Modifier.fillMaxWidth(),
                                 title = stringResource(Res.string.company_details_pay_account),
                                 onEditClick = {
-                                    callbacks.onEditPayAccount(state.payAccount.id)
+                                    callbacks.onEditPayAccount(state.payAccount)
                                 }
                             ) {
                                 CompanyDetailsRow(
@@ -193,7 +216,7 @@ internal class CompanyDetailsScreen : Screen {
                                     modifier = Modifier.fillMaxWidth(),
                                     title = stringResource(Res.string.company_details_intermediary_account),
                                     onEditClick = {
-                                        callbacks.onEditPayAccount(intermediaryAccount.id)
+                                        callbacks.onEditIntermediaryAccount(intermediaryAccount)
                                     }
                                 ) {
                                     CompanyDetailsRow(
@@ -227,8 +250,8 @@ internal class CompanyDetailsScreen : Screen {
 
     data class Callbacks(
         val onBack: () -> Unit,
-        val onEditPayAccount: (String) -> Unit,
-        val onEditIntermediaryAccount: (String) -> Unit,
+        val onEditPayAccount: (CompanyPaymentUiModel) -> Unit,
+        val onEditIntermediaryAccount: (CompanyPaymentUiModel) -> Unit,
         val onEditAddress: () -> Unit,
         val onRetry: () -> Unit,
     )
