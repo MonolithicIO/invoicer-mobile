@@ -103,7 +103,8 @@ val companyDiModule = module {
     factory {
         UpdatePayAccountScreenModel(
             repository = get(),
-            dispatcher = Dispatchers.Default
+            dispatcher = Dispatchers.Default,
+            session = get()
         )
     }
 }
