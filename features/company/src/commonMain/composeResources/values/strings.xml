@@ -85,8 +85,8 @@
 
 
     <!-- Update pay account -->
-    <string name="update_pay_account_title">Update Payment Account</string>
-    <string name="update_intermediary_account_title">Update Payment Account</string>
+    <string name="update_pay_account_title">Payment Account</string>
+    <string name="update_intermediary_account_title">Intermediary Account</string>
     <string name="update_pay_account_swift_code_label">Swift Code</string>
     <string name="update_pay_account_iban_code_label">IBAN Code</string>
     <string name="update_pay_account_bank_name_label">Bank Name</string>

@@ -216,7 +216,7 @@ internal class CompanyDetailsScreen : Screen {
                                     modifier = Modifier.fillMaxWidth(),
                                     title = stringResource(Res.string.company_details_intermediary_account),
                                     onEditClick = {
-                                        callbacks.onEditPayAccount(intermediaryAccount)
+                                        callbacks.onEditIntermediaryAccount(intermediaryAccount)
                                     }
                                 ) {
                                     CompanyDetailsRow(

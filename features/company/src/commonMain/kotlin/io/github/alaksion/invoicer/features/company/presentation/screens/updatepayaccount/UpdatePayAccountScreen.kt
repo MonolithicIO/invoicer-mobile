@@ -102,7 +102,10 @@ internal data class UpdatePayAccountScreen(
 
         DeletePayAccountModal(
             onDismissRequest = { showDeleteDialog = false },
-            onConfirm = { screenModel.deletePayAccount(args.payAccountId) },
+            onConfirm = {
+                showDeleteDialog = false
+                screenModel.deletePayAccount(args.payAccountId)
+            },
             isVisible = showDeleteDialog
         )
 
