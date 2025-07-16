@@ -1,12 +1,10 @@
-import org.gradle.kotlin.dsl.commonMainApi
-
 plugins {
     id("invoicer.multiplatform.library")
     id("invoicer.compose")
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.sharedApp"
+    namespace = "io.github.monolithic.invoicer.sharedApp"
 }
 
 kotlin {

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.utils"
+    namespace = "io.github.monolithic.invoicer.foundation.utils"
 
     buildFeatures {
         buildConfig = true

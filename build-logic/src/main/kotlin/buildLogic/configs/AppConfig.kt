@@ -9,7 +9,7 @@ internal object AppConfig {
     const val targetSdk = 35
     const val versionCode = 1
     const val versionName = "1.0"
-    const val appId = "io.github.alaksion.invoicer"
+    const val appId = "io.github.monolithic.invoicer"
 
     val javaVersion = JavaVersion.VERSION_11
     val jvmTargetMp = JvmTarget.JVM_11
