@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.features.qrcodeSession"
+    namespace = "io.github.monolithic.invoicer.features.qrcodeSession"
 }
 
 kotlin {

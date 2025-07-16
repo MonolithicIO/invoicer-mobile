@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.designSystem"
+    namespace = "io.github.monolithic.invoicer.foundation.designSystem"
 }
 
 kotlin {

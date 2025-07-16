@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.analytics"
+    namespace = "io.github.monolithic.invoicer.foundation.analytics"
 }
 
 kotlin {

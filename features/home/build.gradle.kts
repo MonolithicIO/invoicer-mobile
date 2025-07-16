@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.features.home.presentation"
+    namespace = "io.github.monolithic.features.home.presentation"
 }
 
 kotlin {

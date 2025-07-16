@@ -32,7 +32,7 @@ kover {
 
     reports {
         excludesAnnotatedBy = setOf(
-            "io.github.alaksion.invoicer.foundation.utils.notations.IgnoreCoverage",
+            "io.github.monolithic.invoicer.foundation.utils.notations.IgnoreCoverage",
         )
     }
 }

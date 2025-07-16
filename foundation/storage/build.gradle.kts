@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.storage"
+    namespace = "io.github.monolithic.invoicer.foundation.storage"
 }
 
 kotlin {

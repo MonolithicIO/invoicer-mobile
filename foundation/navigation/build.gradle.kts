@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.navigation"
+    namespace = "io.github.monolithic.invoicer.foundation.navigation"
 }
 
 kotlin {

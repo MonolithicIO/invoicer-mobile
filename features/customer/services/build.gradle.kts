@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.features.customer.services"
+    namespace = "io.github.monolithic.invoicer.features.customer.services"
 }
 
 kotlin {

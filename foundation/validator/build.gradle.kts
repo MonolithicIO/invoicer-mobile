@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.validator"
+    namespace = "io.github.monolithic.invoicer.foundation.validator"
 }
 
 kotlin {

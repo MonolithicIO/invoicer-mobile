@@ -12,11 +12,11 @@ val properties = Properties()
 properties.load(rootProject.file("local.properties").inputStream())
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.auth"
+    namespace = "io.github.monolithic.invoicer.foundation.auth"
 }
 
 buildkonfig {
-    packageName = "io.github.alaksion.invoicer.foundation.auth"
+    packageName = "io.github.monolithic.invoicer.foundation.auth"
     objectName = "AuthBuildConfig"
     defaultConfigs {
         buildConfigField(

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.session"
+    namespace = "io.github.monolithic.invoicer.foundation.session"
 }
 
 kotlin {

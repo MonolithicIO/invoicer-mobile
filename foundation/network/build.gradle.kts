@@ -11,11 +11,11 @@ val properties = Properties()
 properties.load(rootProject.file("local.properties").inputStream())
 
 android {
-    namespace = "io.github.alaksion.invoicer.foundation.network"
+    namespace = "io.github.monolithic.invoicer.foundation.network"
 }
 
 buildkonfig {
-    packageName = "io.github.alaksion.invoicer.foundation.network"
+    packageName = "io.github.monolithic.invoicer.foundation.network"
     objectName = "NetworkBuildConfig"
     defaultConfigs {
         buildConfigField(
