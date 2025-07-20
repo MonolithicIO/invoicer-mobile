@@ -16,6 +16,7 @@ import io.github.monolithic.invoicer.features.company.presentation.screens.creat
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.primary.PrimaryPayInfoScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.details.CompanyDetailsScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
+import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.UpdateAddressScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreenModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -103,6 +104,14 @@ val companyDiModule = module {
     factory {
         UpdatePayAccountScreenModel(
             repository = get(),
+            dispatcher = Dispatchers.Default,
+            session = get()
+        )
+    }
+
+    factory {
+        UpdateAddressScreenModel(
+            companyRepository = get(),
             dispatcher = Dispatchers.Default,
             session = get()
         )
