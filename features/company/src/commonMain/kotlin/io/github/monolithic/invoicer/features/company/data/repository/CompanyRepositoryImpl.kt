@@ -4,11 +4,13 @@ import io.github.monolithic.invoicer.features.company.data.datasource.CompanyRem
 import io.github.monolithic.invoicer.features.company.data.model.CreateCompanyAddressRequest
 import io.github.monolithic.invoicer.features.company.data.model.CreateCompanyPaymentAccountRequest
 import io.github.monolithic.invoicer.features.company.data.model.CreateCompanyRequest
+import io.github.monolithic.invoicer.features.company.data.model.UpdateAddressRequest
 import io.github.monolithic.invoicer.features.company.data.model.toModel
 import io.github.monolithic.invoicer.features.company.domain.model.CompanyDetailsModel
 import io.github.monolithic.invoicer.features.company.domain.model.CreateCompanyModel
 import io.github.monolithic.invoicer.features.company.domain.model.ListCompaniesItemModel
 import io.github.monolithic.invoicer.features.company.domain.model.ListCompaniesModel
+import io.github.monolithic.invoicer.features.company.domain.model.UpdateAddressModel
 import io.github.monolithic.invoicer.features.company.domain.repository.CompanyRepository
 
 internal class CompanyRepositoryImpl(
@@ -70,5 +72,18 @@ internal class CompanyRepositoryImpl(
 
     override suspend fun companyDetails(companyId: String): CompanyDetailsModel {
         return dataSource.details(companyId).toModel()
+    }
+
+    override suspend fun updateAddress(companyId: String, model: UpdateAddressModel) {
+        return dataSource.updateAddres(
+            companyId = companyId,
+            request = UpdateAddressRequest(
+                addressLine = model.addressLine,
+                addressLine2 = model.addressLine2,
+                city = model.city,
+                state = model.state,
+                postalCode = model.postalCode
+            )
+        )
     }
 }

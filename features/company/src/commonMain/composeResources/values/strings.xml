@@ -97,4 +97,14 @@
     <string name="delete_pay_account_confirm">Delete</string>
     <string name="delete_pay_account_cancel">Cancel</string>
 
+    <!-- Update address -->
+    <string name="update_address_title">Update Address</string>
+    <string name="update_address_address_line_1_label">Address line</string>
+    <string name="update_address_address_line_2_label">Address line 2</string>
+    <string name="update_address_address_line_2_help_text">Optional</string>
+    <string name="update_address_city_label">City</string>
+    <string name="update_address_state_label">State</string>
+    <string name="update_address_postal_code_label">Postal Code</string>
+    <string name="update_address_cta">Submit</string>
+
 </resources>
