@@ -43,6 +43,7 @@ import invoicer.features.company.generated.resources.company_details_title
 import io.github.monolithic.invoicer.features.company.presentation.model.CompanyPaymentUiModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.details.components.CompanyDetailsCard
 import io.github.monolithic.invoicer.features.company.presentation.screens.details.components.CompanyDetailsRow
+import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.UpdateAddressScreen
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreen
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreenArgs
 import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
@@ -96,7 +97,19 @@ internal class CompanyDetailsScreen : Screen {
                             )
                         )
                     },
-                    onEditAddress = { },
+                    onEditAddress = {
+                        navigator?.push(
+                            UpdateAddressScreen(
+                                args = UpdateAddressScreen.Args(
+                                    addressLine = state.addressLine1,
+                                    addressLine2 = state.addressLine2,
+                                    city = state.city,
+                                    state = state.state,
+                                    postalCode = state.postalCode,
+                                )
+                            )
+                        )
+                    },
                     onRetry = screenModel::initState
                 )
             }
