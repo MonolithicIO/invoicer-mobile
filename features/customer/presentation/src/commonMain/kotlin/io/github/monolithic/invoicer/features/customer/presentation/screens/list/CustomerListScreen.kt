@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.ErrorOutline
@@ -11,6 +12,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,12 +27,10 @@ import invoicer.features.customer.presentation.generated.resources.Res
 import invoicer.features.customer.presentation.generated.resources.customer_list_error_description
 import invoicer.features.customer.presentation.generated.resources.customer_list_error_title
 import invoicer.features.customer.presentation.generated.resources.customer_list_retry
-import invoicer.features.customer.presentation.generated.resources.customer_list_subtitle
 import invoicer.features.customer.presentation.generated.resources.customer_list_title
 import io.github.monolithic.invoicer.features.customer.presentation.screens.create.CreateCustomerScreen
 import io.github.monolithic.invoicer.features.customer.presentation.screens.list.components.CustomerList
 import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.components.ScreenTitle
 import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
@@ -83,9 +83,14 @@ internal class CustomerListScreen : Screen {
         callbacks: Callbacks
     ) {
         Scaffold(
+            modifier = Modifier.systemBarsPadding(),
             topBar = {
                 TopAppBar(
-                    title = {},
+                    title = {
+                        Text(
+                            text = stringResource(Res.string.customer_list_title)
+                        )
+                    },
                     navigationIcon = {
                         BackButton(onBackClick = callbacks.onBack)
                     }
@@ -110,10 +115,6 @@ internal class CustomerListScreen : Screen {
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.customer_list_title),
-                    subTitle = stringResource(Res.string.customer_list_subtitle)
-                )
                 when (state.mode) {
 
                     CustomerListMode.Content -> CustomerList(
