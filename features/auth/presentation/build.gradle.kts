@@ -33,6 +33,7 @@ kotlin {
             implementation(projects.foundation.auth)
             implementation(projects.foundation.analytics)
             implementation(projects.foundation.utils)
+            implementation(projects.foundation.watchers)
         }
 
         commonTest.dependencies {
