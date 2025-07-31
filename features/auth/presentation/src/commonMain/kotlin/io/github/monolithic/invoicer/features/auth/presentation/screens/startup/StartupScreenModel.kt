@@ -2,40 +2,16 @@ package io.github.monolithic.invoicer.features.auth.presentation.screens.startup
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommand
-import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManager
-import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutService
-import io.github.monolithic.invoicer.foundation.network.request.handle
-import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.utils.logger.InvoicerLogger
+import io.github.monolithic.invoicer.foundation.auth.domain.services.ResumeSessionService
 import kotlinx.coroutines.launch
 
 internal class StartupScreenModel(
-    private val signInCommandManager: SignInCommandManager,
-    private val signOutService: SignOutService,
-    private val logger: InvoicerLogger
+    private val resumeSessionService: ResumeSessionService,
 ) : ScreenModel {
 
     fun startApp() {
         screenModelScope.launch {
-            launchRequest {
-                signInCommandManager.resolveCommand(
-                    SignInCommand.RefreshSession
-                )
-            }.handle(
-                onFailure = {
-                    logger.logError(
-                        message = "Failed to refresh token on init",
-                        key = TAG,
-                        throwable = it
-                    )
-                    signOutService.signOut()
-                },
-            )
+            resumeSessionService.resumeSession()
         }
-    }
-
-    companion object {
-        private const val TAG = "MainViewModel - Refresh"
     }
 }

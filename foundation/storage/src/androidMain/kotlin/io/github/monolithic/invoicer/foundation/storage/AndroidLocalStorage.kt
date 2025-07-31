@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.foundation.storage
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.edit
 
@@ -11,11 +12,11 @@ internal class AndroidLocalStorage(
         context.getSharedPreferences("invoicer", Context.MODE_PRIVATE)
     }
 
+    @SuppressLint("UseKtx")
+    // edit {} does not work
     override fun setString(value: String, key: String) {
-        preferences
-            .edit {
-                putString(key, value)
-            }
+        preferences.edit().putString(key, value).apply()
+
     }
 
     override fun getString(key: String): String? {

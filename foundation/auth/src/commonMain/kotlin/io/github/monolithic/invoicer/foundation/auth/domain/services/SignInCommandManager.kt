@@ -14,7 +14,6 @@ interface SignInCommandManager {
 sealed interface SignInCommand {
     data class Google(val googleSessionToken: String) : SignInCommand
     data class Credential(val userName: String, val password: String) : SignInCommand
-    data object RefreshSession : SignInCommand
 }
 
 internal class SignInCommandManagerResolver(
@@ -32,21 +31,6 @@ internal class SignInCommandManagerResolver(
             )
 
             is SignInCommand.Google -> authRepository.googleSignIn(command.googleSessionToken)
-
-            is SignInCommand.RefreshSession -> {
-                authTokenRepository.getAuthTokens()?.let { tokens ->
-                    session.updateTokens(
-                        SessionTokens(
-                            accessToken = tokens.accessToken,
-                            refreshToken = tokens.refreshToken
-                        )
-                    )
-                }
-
-                authRepository.refreshSession(
-                    refreshToken = authTokenRepository.getAuthTokens()?.refreshToken.orEmpty()
-                )
-            }
         }
 
         authTokenRepository.storeAuthTokens(

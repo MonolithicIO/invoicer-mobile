@@ -40,9 +40,7 @@ private fun Module.viewModelBindings() {
 
     factory<StartupScreenModel> {
         StartupScreenModel(
-            signInCommandManager = get(),
-            signOutService = get(),
-            logger = get()
+            resumeSessionService = get()
         )
     }
 
