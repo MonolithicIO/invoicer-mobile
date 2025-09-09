@@ -49,7 +49,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.components.feedback
 import io.github.monolithic.invoicer.foundation.designSystem.components.screenstate.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import org.jetbrains.compose.resources.stringResource

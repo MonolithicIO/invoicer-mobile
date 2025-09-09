@@ -23,7 +23,7 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feed
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.Feedback
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 internal class SignUpFeedbackScreen : Screen {

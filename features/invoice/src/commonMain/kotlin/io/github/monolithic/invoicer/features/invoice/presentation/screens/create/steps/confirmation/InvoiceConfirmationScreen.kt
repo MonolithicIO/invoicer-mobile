@@ -47,7 +47,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback.InvoiceFeedbackScreen
 import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

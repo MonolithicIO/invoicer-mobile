@@ -28,9 +28,9 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_up_pass
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthResult
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.HorizontalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.AppColor
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.AppSize
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.AppColor
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.AppSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

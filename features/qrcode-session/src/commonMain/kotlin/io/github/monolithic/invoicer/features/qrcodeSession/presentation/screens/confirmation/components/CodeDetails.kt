@@ -16,7 +16,7 @@ import invoicer.features.qrcode_session.generated.resources.qr_code_details_auth
 import invoicer.features.qrcode_session.generated.resources.qr_code_details_expiration
 import invoicer.features.qrcode_session.generated.resources.qr_code_details_ip
 import invoicer.features.qrcode_session.generated.resources.qr_code_details_requested_at
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

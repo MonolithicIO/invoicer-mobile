@@ -55,7 +55,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.Spacer
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

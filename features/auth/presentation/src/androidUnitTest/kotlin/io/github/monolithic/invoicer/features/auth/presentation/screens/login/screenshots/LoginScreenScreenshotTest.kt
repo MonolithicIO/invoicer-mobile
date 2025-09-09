@@ -6,7 +6,7 @@ import app.cash.paparazzi.Paparazzi
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenCallbacks
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
-import io.github.monolithic.invoicer.foundation.designSystem.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.testUtil.MultiplatformSnapshot
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.junit.Rule
