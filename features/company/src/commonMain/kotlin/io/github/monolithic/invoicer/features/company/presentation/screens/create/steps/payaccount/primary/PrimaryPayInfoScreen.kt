@@ -33,11 +33,11 @@ import io.github.monolithic.invoicer.features.company.presentation.screens.creat
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoForm
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.components.CompanyPayInfoFormCallbacks
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.intermediary.IntermediaryPayInfoScreen
-import io.github.monolithic.invoicer.foundation.designSystem.components.ScreenTitle
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ScreenTitle
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 

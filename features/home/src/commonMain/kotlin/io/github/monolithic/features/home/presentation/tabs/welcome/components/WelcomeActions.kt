@@ -23,8 +23,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import invoicer.features.home.generated.resources.Res
 import invoicer.features.home.generated.resources.welcome_icon_customer
 import invoicer.features.home.generated.resources.welcome_icon_invoice
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource

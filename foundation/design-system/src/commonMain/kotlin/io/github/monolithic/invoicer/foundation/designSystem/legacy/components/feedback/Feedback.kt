@@ -23,11 +23,11 @@ import invoicer.foundation.design_system.generated.resources.Res
 import invoicer.foundation.design_system.generated.resources.error_feedback_default_cta
 import invoicer.foundation.design_system.generated.resources.error_feedback_default_description
 import invoicer.foundation.design_system.generated.resources.error_feedback_default_title
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.SecondaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.SecondaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.AppSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource

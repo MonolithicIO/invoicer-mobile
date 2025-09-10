@@ -1,10 +1,10 @@
 package io.github.monolithic.invoicer.foundation.designSystem.components
 
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.InvoicerButtonSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.SecondaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.configs.InvoicerPaparazziConfig
 import io.github.monolithic.invoicer.foundation.designSystem.configs.invoicerSnapshot
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.InvoicerButtonSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.SecondaryButton
 import org.junit.Rule
 import kotlin.test.Test
 

@@ -25,9 +25,9 @@ import invoicer.features.qrcode_session.generated.resources.qr_code_details_erro
 import invoicer.features.qrcode_session.generated.resources.qr_code_details_error_title
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.confirmation.components.CodeDetails
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.success.AuthorizationSuccessScreen
-import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.Feedback
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.ui.events.EventEffect
 import org.jetbrains.compose.resources.stringResource

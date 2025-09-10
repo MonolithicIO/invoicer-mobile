@@ -8,7 +8,7 @@ import invoicer.features.home.generated.resources.home_settings_sign_out_confirm
 import invoicer.features.home.generated.resources.home_settings_sign_out_negative
 import invoicer.features.home.generated.resources.home_settings_sign_out_positive
 import invoicer.features.home.generated.resources.home_settings_sing_out_title
-import io.github.monolithic.invoicer.foundation.designSystem.components.dialog.DefaultInvoicerDialog
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.dialog.DefaultInvoicerDialog
 import org.jetbrains.compose.resources.stringResource
 
 

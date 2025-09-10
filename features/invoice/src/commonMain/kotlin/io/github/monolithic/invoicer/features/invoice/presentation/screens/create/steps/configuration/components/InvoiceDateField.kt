@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.font.FontWeight
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_create_dates_change_cta
-import io.github.monolithic.invoicer.foundation.designSystem.components.ListItem
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ListItem
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

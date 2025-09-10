@@ -22,7 +22,7 @@ import invoicer.features.auth.presentation.generated.resources.Res
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_label
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_placeholder
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_password_label
-import io.github.monolithic.invoicer.foundation.designSystem.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

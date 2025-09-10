@@ -28,8 +28,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.HorizontalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.HorizontalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 
 @Composable
 fun PrimaryButton(

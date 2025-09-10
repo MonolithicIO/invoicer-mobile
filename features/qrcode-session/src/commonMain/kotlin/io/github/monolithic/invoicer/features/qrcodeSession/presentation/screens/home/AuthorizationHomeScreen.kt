@@ -16,7 +16,7 @@ import invoicer.features.qrcode_session.generated.resources.Res
 import invoicer.features.qrcode_session.generated.resources.qrcode_session_home_authorize_cta
 import invoicer.features.qrcode_session.generated.resources.qrcode_session_home_title
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.scan.AuthorizationScanScreen
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 

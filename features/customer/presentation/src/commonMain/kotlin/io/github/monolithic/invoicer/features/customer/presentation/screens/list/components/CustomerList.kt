@@ -12,8 +12,8 @@ import invoicer.features.customer.presentation.generated.resources.Res
 import invoicer.features.customer.presentation.generated.resources.customer_list_empty_description
 import invoicer.features.customer.presentation.generated.resources.customer_list_empty_title
 import io.github.monolithic.invoicer.features.customer.domain.model.CustomerListItemModel
-import io.github.monolithic.invoicer.foundation.designSystem.components.ListItem
-import io.github.monolithic.invoicer.foundation.designSystem.components.screenstate.EmptyState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ListItem
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource

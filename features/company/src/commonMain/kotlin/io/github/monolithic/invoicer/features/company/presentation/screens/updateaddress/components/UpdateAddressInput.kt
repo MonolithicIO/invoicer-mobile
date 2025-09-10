@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
-import io.github.monolithic.invoicer.foundation.designSystem.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
 
 @Composable
 internal fun UpdateAddressInput(

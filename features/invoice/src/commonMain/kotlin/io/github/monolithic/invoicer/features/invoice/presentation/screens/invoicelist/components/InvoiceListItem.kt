@@ -23,9 +23,9 @@ import invoicer.features.invoice.generated.resources.invoice_list_item_due_date
 import invoicer.features.invoice.generated.resources.invoice_list_item_issue_date
 import invoicer.features.invoice.generated.resources.invoice_list_item_number
 import io.github.monolithic.invoicer.features.invoice.domain.model.InvoiceListItem
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
