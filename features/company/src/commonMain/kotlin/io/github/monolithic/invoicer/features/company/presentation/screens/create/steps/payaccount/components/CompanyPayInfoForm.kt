@@ -19,8 +19,8 @@ import invoicer.features.company.generated.resources.create_company_pay_info_ban
 import invoicer.features.company.generated.resources.create_company_pay_info_bank_name_label
 import invoicer.features.company.generated.resources.create_company_pay_info_iban_code_label
 import invoicer.features.company.generated.resources.create_company_pay_info_swift_code_label
-import io.github.monolithic.invoicer.foundation.designSystem.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

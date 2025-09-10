@@ -40,10 +40,10 @@ import invoicer.features.invoice.generated.resources.invoice_details_title
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsActivityItem
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopic
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopicItem
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.AppColor
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.FontSize
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.AppColor
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.FontSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import org.jetbrains.compose.resources.stringResource
 

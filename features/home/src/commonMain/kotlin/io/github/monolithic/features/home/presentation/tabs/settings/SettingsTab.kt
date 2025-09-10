@@ -39,7 +39,7 @@ import invoicer.features.home.generated.resources.home_settings_profile
 import invoicer.features.home.generated.resources.home_settings_sign_out
 import io.github.monolithic.features.home.presentation.tabs.settings.components.SettingsItem
 import io.github.monolithic.features.home.presentation.tabs.settings.components.SignOutDialog
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import org.jetbrains.compose.resources.stringResource
 

@@ -7,7 +7,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
-import io.github.monolithic.invoicer.foundation.designSystem.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.testUtil.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule

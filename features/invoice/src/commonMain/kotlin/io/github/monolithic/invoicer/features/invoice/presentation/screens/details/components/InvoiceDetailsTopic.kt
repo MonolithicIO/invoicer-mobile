@@ -13,8 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_details_activity_quantity_label
-import io.github.monolithic.invoicer.foundation.designSystem.components.ListItem
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ListItem
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

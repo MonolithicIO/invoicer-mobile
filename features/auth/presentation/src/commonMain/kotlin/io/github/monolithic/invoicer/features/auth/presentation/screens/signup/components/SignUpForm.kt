@@ -8,8 +8,8 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 
 @Composable
 internal fun SignUpForm(

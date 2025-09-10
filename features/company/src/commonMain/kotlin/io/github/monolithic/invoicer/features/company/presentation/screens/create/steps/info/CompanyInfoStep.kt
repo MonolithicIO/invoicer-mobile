@@ -32,12 +32,12 @@ import invoicer.features.company.generated.resources.create_company_info_documen
 import invoicer.features.company.generated.resources.create_company_info_name_hint
 import invoicer.features.company.generated.resources.create_company_info_name_placeholder
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressStep
-import io.github.monolithic.invoicer.foundation.designSystem.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.CloseButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.CloseButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 

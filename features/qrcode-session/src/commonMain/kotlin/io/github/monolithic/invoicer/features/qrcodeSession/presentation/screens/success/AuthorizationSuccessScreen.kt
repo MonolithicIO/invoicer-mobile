@@ -14,7 +14,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.home.AuthorizationHomeScreen
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 
 internal class AuthorizationSuccessScreen : Screen {
 

@@ -16,9 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import invoicer.features.company.generated.resources.Res
 import invoicer.features.company.generated.resources.company_details_edit
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.HorizontalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.HorizontalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

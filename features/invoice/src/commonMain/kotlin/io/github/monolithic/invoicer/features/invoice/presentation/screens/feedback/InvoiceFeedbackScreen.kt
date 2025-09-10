@@ -16,8 +16,8 @@ import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_feedback_cta
 import invoicer.features.invoice.generated.resources.invoice_feedback_description
 import invoicer.features.invoice.generated.resources.invoice_feedback_title
-import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.Feedback
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 internal class InvoiceFeedbackScreen : Screen {

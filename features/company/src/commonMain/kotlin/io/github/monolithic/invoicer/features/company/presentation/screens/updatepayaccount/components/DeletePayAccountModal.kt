@@ -8,7 +8,7 @@ import invoicer.features.company.generated.resources.delete_pay_account_cancel
 import invoicer.features.company.generated.resources.delete_pay_account_confirm
 import invoicer.features.company.generated.resources.delete_pay_account_description
 import invoicer.features.company.generated.resources.delete_pay_account_title
-import io.github.monolithic.invoicer.foundation.designSystem.components.dialog.DefaultInvoicerDialog
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.dialog.DefaultInvoicerDialog
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

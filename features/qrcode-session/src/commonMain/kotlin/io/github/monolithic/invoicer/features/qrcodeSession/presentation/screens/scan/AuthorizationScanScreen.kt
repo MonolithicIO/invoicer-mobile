@@ -26,8 +26,8 @@ import invoicer.features.qrcode_session.generated.resources.qrcode_scan_in_progr
 import invoicer.features.qrcode_session.generated.resources.qrcode_scan_title
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.confirmation.AuthorizationConfirmationScreen
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.scan.components.QrCodeCameraView
-import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.ui.events.EventEffect
 import io.github.monolithic.invoicer.foundation.utils.permissions.PermissionType
 import io.github.monolithic.invoicer.foundation.utils.permissions.checkPermission

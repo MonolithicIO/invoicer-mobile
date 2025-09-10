@@ -33,8 +33,8 @@ import invoicer.features.invoice.generated.resources.invoice_create_activity_for
 import invoicer.features.invoice.generated.resources.invoice_create_activity_form_quantity_placeholder
 import invoicer.features.invoice.generated.resources.invoice_create_activity_form_quantity_support
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.AddActivityFormState
-import io.github.monolithic.invoicer.foundation.designSystem.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)

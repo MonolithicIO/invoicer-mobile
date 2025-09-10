@@ -34,9 +34,9 @@ import invoicer.features.company.generated.resources.update_address_state_label
 import invoicer.features.company.generated.resources.update_address_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.components.UpdateAddressInput
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.components.UpdateAddressInputIme
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable

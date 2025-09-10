@@ -19,8 +19,8 @@ import invoicer.features.invoice.generated.resources.Res
 import invoicer.features.invoice.generated.resources.invoice_create_activity_list_quantity
 import invoicer.features.invoice.generated.resources.invoice_create_activity_list_total_price
 import invoicer.features.invoice.generated.resources.invoice_create_activity_list_unitprice
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.AppColor
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.AppColor
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import org.jetbrains.compose.resources.stringResource
 

@@ -50,10 +50,10 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components.AddActivityBottomSheet
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.rememberSnackMessages
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreen
-import io.github.monolithic.invoicer.foundation.designSystem.components.SwipeableCard
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.SwipeableCard
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource

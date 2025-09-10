@@ -23,11 +23,11 @@ import invoicer.features.invoice.generated.resources.invoice_create_continue_cta
 import invoicer.features.invoice.generated.resources.invoice_customer_title
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
-import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.ErrorFeedback
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 

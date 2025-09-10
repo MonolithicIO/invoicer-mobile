@@ -30,10 +30,10 @@ import invoicer.features.customer.presentation.generated.resources.customer_list
 import invoicer.features.customer.presentation.generated.resources.customer_list_title
 import io.github.monolithic.invoicer.features.customer.presentation.screens.create.CreateCustomerScreen
 import io.github.monolithic.invoicer.features.customer.presentation.screens.list.components.CustomerList
-import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.Feedback
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 

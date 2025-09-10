@@ -29,6 +29,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component1
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component2
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component3
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component4
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
@@ -44,10 +48,10 @@ import invoicer.features.company.generated.resources.update_pay_account_iban_cod
 import invoicer.features.company.generated.resources.update_pay_account_swift_code_label
 import invoicer.features.company.generated.resources.update_pay_account_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.components.DeletePayAccountModal
-import io.github.monolithic.invoicer.foundation.designSystem.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable

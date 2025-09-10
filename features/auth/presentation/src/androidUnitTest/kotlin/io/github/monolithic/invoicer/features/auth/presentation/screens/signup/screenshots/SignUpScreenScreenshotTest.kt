@@ -7,7 +7,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.S
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthResult
-import io.github.monolithic.invoicer.foundation.designSystem.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.testUtil.MultiplatformSnapshot
 import org.junit.Rule
 import org.junit.Test

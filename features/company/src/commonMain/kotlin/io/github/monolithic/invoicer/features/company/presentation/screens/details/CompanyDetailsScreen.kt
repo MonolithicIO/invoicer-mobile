@@ -46,10 +46,10 @@ import io.github.monolithic.invoicer.features.company.presentation.screens.detai
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.UpdateAddressScreen
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreen
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreenArgs
-import io.github.monolithic.invoicer.foundation.designSystem.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.components.feedback.ErrorFeedback
-import io.github.monolithic.invoicer.foundation.designSystem.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.ErrorFeedback
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 internal class CompanyDetailsScreen : Screen {
