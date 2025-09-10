@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import io.github.monolithic.invoicer.foundation.designSystem.components.ListItem
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ListItem
 
 @Composable
 internal fun SettingsItem(
