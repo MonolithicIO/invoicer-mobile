@@ -12,20 +12,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkTypography
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
 
-enum class InkTextStyle {
-    Heading1,
-    Heading2,
-    Heading3,
-    Heading4,
-    Heading5,
-    Heading6,
-    BodyXlarge,
-    BodyLarge,
-    BodyMedium,
-    BodySmall,
-    BodyXSmall,
-}
-
 @Composable
 fun InkText(
     text: String,
@@ -99,4 +85,18 @@ private fun typographyFromStyle(style: InkTextStyle): TextStyle {
         InkTextStyle.BodySmall -> localTypography.bodySmall
         InkTextStyle.BodyXSmall -> localTypography.bodyXSmall
     }
+}
+
+enum class InkTextStyle {
+    Heading1,
+    Heading2,
+    Heading3,
+    Heading4,
+    Heading5,
+    Heading6,
+    BodyXlarge,
+    BodyLarge,
+    BodyMedium,
+    BodySmall,
+    BodyXSmall,
 }

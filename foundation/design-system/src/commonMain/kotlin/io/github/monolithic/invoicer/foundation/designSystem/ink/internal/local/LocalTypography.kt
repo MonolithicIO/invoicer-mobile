@@ -5,5 +5,8 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.
 
 internal val LocalInkTypography =
     staticCompositionLocalOf<InkTypography> {
-        error("No typography provided through composition local. Check your theme initialization for missing assignments")
+        error(
+            "No typography provided through " +
+                    "composition local. Check your theme initialization for missing assignments"
+        )
     }
