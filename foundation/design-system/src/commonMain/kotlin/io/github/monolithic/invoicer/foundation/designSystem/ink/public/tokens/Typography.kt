@@ -1,11 +1,13 @@
-package io.github.monolithic.invoicer.foundation.designSystem.ink.tokens
+package io.github.monolithic.invoicer.foundation.designSystem.ink.public.tokens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import invoicer.foundation.design_system.generated.resources.Res
 import invoicer.foundation.design_system.generated.resources.Urbanist_BlackItalic
 import invoicer.foundation.design_system.generated.resources.Urbanist_Bold
@@ -28,8 +30,92 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.resources.Font
 
+internal object InkTypeFaces {
+
+    object Headline {
+        val h1
+            @Composable
+            get() = TextStyle(
+                fontSize = 48.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val h2
+            @Composable
+            get() = TextStyle(
+                fontSize = 40.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val h3
+            @Composable
+            get() = TextStyle(
+                fontSize = 32.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val h4
+            @Composable
+            get() = TextStyle(
+                fontSize = 24.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val h5
+            @Composable
+            get() = TextStyle(
+                fontSize = 20.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val h6
+            @Composable
+            get() = TextStyle(
+                fontSize = 18.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+    }
+
+    object Body {
+        val xLarge
+            @Composable
+            get() = TextStyle(
+                fontSize = 18.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val large
+            @Composable
+            get() = TextStyle(
+                fontSize = 16.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val medium
+            @Composable
+            get() = TextStyle(
+                fontSize = 14.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val small
+            @Composable
+            get() = TextStyle(
+                fontSize = 12.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+
+        val xSmall
+            @Composable
+            get() = TextStyle(
+                fontSize = 10.sp,
+                fontFamily = rememberUrbanistFontFamily(),
+            )
+    }
+}
+
 @Composable
-internal fun rememberUrbanistFontFamily(): FontFamily {
+private fun rememberUrbanistFontFamily(): FontFamily {
     val normal = urbanistNormal()
     val italic = urbanistItalic()
 

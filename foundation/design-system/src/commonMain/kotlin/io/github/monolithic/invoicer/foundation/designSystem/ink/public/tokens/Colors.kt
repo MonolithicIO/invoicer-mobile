@@ -1,6 +1,7 @@
-package io.github.monolithic.invoicer.foundation.designSystem.ink.tokens
+package io.github.monolithic.invoicer.foundation.designSystem.ink.public.tokens
 
 import androidx.compose.ui.graphics.Color
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
 
 
 internal object InkColors {
@@ -113,5 +114,3 @@ internal object InkColors {
         val grey = InkColor(Color(0xff757575))
     }
 }
-
-value class InkColor(val value: Color)

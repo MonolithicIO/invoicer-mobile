@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.designSystem.ink.components
+package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components
 
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
@@ -8,9 +8,9 @@ import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import io.github.monolithic.invoicer.foundation.designSystem.ink.theme.local.LocalInkColorScheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.theme.local.LocalInkTypography
-import io.github.monolithic.invoicer.foundation.designSystem.ink.tokens.InkColor
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkColorScheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkTypography
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
 
 enum class InkTextStyle {
     Heading1,
