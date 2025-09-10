@@ -5,7 +5,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.tokens.rememberUrbanistFontFamily
 
-internal object InkTextStyle {
+internal object InkTypeFaces {
 
     object Headline {
         val h1
@@ -87,6 +87,33 @@ internal object InkTextStyle {
                 fontFamily = rememberUrbanistFontFamily(),
             )
     }
-
-
 }
+
+data class InkTypography(
+    val h1: TextStyle,
+    val h2: TextStyle,
+    val h3: TextStyle,
+    val h4: TextStyle,
+    val h5: TextStyle,
+    val h6: TextStyle,
+    val bodyXLarge: TextStyle,
+    val bodyLarge: TextStyle,
+    val bodyMedium: TextStyle,
+    val bodySmall: TextStyle,
+    val bodyXSmall: TextStyle,
+)
+
+@Composable
+internal fun inkTypography() = InkTypography(
+    h1 = InkTypeFaces.Headline.h1,
+    h2 = InkTypeFaces.Headline.h2,
+    h3 = InkTypeFaces.Headline.h3,
+    h4 = InkTypeFaces.Headline.h4,
+    h5 = InkTypeFaces.Headline.h5,
+    h6 = InkTypeFaces.Headline.h6,
+    bodyXLarge = InkTypeFaces.Body.xLarge,
+    bodyLarge = InkTypeFaces.Body.large,
+    bodyMedium = InkTypeFaces.Body.medium,
+    bodySmall = InkTypeFaces.Body.small,
+    bodyXSmall = InkTypeFaces.Body.xSmall,
+)
