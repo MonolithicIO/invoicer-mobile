@@ -9,7 +9,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 @Composable
 fun InkCircularIndicator(
     modifier: Modifier = Modifier,
-    color: InkColor = InkTheme.colorScheme.brand
+    color: InkColor = InkTheme.colorScheme.primary
 ) {
     CircularProgressIndicator(
         color = color.value,

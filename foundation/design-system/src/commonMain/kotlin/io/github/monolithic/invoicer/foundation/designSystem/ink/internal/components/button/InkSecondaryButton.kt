@@ -15,12 +15,12 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 
 @Composable
 fun InkSecondaryButton(
-    onClick: () -> Unit,
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    loading: Boolean,
+    loading: Boolean = false,
     size: InkButtonSize = InkButtonSize.Regular,
+    onClick: () -> Unit,
 ) {
     InkBasicButton(
         onClick = onClick,
