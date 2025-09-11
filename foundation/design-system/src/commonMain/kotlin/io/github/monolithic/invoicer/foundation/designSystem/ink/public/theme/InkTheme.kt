@@ -30,14 +30,26 @@ fun InkTheme(
 private fun lightInkColorScheme(): InkColorScheme {
     return InkColorScheme(
         background = InkColors.BlackWhite.white,
-        onBackground = InkColors.GreyScale.grey900
+        onBackground = InkColors.GreyScale.grey900,
+        primary = InkColors.Main.primary,
+        onPrimary = InkColors.BlackWhite.white,
+        disabled = InkColors.AlertStatus.lightDisabled,
+        onDisabled = InkColors.GreyScale.grey500,
+        surface = InkColors.Background.backgroundPrimary,
+        onSurface = InkColors.Main.primary,
     )
 }
 
 private fun darkInkColorScheme(): InkColorScheme {
     return InkColorScheme(
         background = InkColors.Dark.dark1,
-        onBackground = InkColors.BlackWhite.white
+        onBackground = InkColors.BlackWhite.white,
+        primary = InkColors.Main.primary,
+        onPrimary = InkColors.BlackWhite.white,
+        disabled = InkColors.AlertStatus.darkDisabled,
+        onDisabled = InkColors.GreyScale.grey200,
+        surface = InkColors.Dark.dark5,
+        onSurface = InkColors.BlackWhite.white
     )
 }
 
