@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkColorScheme
@@ -18,6 +19,7 @@ fun InkText(
     modifier: Modifier = Modifier,
     style: InkTextStyle = InkTextStyle.BodyMedium,
     color: InkColor = LocalInkColorScheme.current.onBackground,
+    weight: FontWeight = FontWeight.Normal,
     textAlign: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
     softWrap: Boolean = true,
@@ -28,7 +30,8 @@ fun InkText(
     BasicText(
         style = typographyFromStyle(style).merge(
             textAlign = textAlign ?: TextAlign.Unspecified,
-            color = color.value
+            color = color.value,
+            fontWeight = weight
         ),
         text = text,
         modifier = modifier,
@@ -47,6 +50,7 @@ fun InkText(
     style: InkTextStyle = InkTextStyle.BodyMedium,
     textAlign: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
+    weight: FontWeight = FontWeight.Normal,
     softWrap: Boolean = true,
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
@@ -56,7 +60,8 @@ fun InkText(
     BasicText(
         style = typographyFromStyle(style).merge(
             textAlign = textAlign ?: TextAlign.Unspecified,
-            color = color.value
+            color = color.value,
+            fontWeight = weight
         ),
         text = text,
         modifier = modifier,
