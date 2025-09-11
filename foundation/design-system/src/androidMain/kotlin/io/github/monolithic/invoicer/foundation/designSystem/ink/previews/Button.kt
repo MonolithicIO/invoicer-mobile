@@ -17,7 +17,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.In
 @Composable
 @Preview
 private fun PrimaryPreview() {
-    InkTheme(true) {
+    InkTheme(false) {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background.value)
@@ -27,14 +27,14 @@ private fun PrimaryPreview() {
         ) {
             InkPrimaryButton(
                 text = "awdwa",
-                loading = true
+                loading = false
             ) {
 
             }
 
             InkSecondaryButton(
                 text = "awdwa",
-                loading = true
+                loading = false
             ) {
 
             }

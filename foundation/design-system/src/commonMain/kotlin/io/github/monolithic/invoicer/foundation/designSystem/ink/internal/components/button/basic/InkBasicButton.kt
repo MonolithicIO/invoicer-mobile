@@ -31,7 +31,7 @@ internal fun InkBasicButton(
     Surface(
         onClick = onClick,
         modifier = modifier,
-        shape = LocalInkShape.current.regular,
+        shape = LocalInkShape.current.small,
         color = backgroundColor.value,
         contentColor = contentColor.value,
         border = borderStroke,
