@@ -58,7 +58,7 @@ private fun darkInkColorScheme(): InkColorScheme {
         borderStroke = InkColors.Dark.dark5,
         surfaceVariant = InkColors.Dark.dark4,
         onSurfaceVariant = InkColors.BlackWhite.white,
-        onBackgroundVariant = InkColors.GreyScale.grey700
+        onBackgroundVariant = InkColors.GreyScale.grey200
     )
 }
 

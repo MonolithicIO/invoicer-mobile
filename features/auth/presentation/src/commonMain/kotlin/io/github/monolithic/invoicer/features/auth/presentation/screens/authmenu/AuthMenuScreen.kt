@@ -28,14 +28,13 @@ import invoicer.features.auth.presentation.generated.resources.auth_menu_google_
 import invoicer.features.auth.presentation.generated.resources.auth_menu_sign_in
 import invoicer.features.auth.presentation.generated.resources.auth_menu_sign_up
 import invoicer.features.auth.presentation.generated.resources.auth_menu_title
-import invoicer.features.auth.presentation.generated.resources.auth_menu_twitter_button
 import invoicer.features.auth.presentation.generated.resources.ic_apple_dark
 import invoicer.features.auth.presentation.generated.resources.ic_apple_light
 import invoicer.features.auth.presentation.generated.resources.ic_facebook
 import invoicer.features.auth.presentation.generated.resources.ic_google
+import invoicer.features.auth.presentation.generated.resources.ic_logo
 import invoicer.features.auth.presentation.generated.resources.ic_twitter_dark
 import invoicer.features.auth.presentation.generated.resources.ic_twitter_light
-import invoicer.features.auth.presentation.generated.resources.logo
 import io.github.monolithic.invoicer.foundation.auth.presentation.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCircularIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
@@ -102,12 +101,13 @@ internal class AuthMenuScreen : Screen {
                     verticalArrangement = Arrangement.Center
                 ) {
                     Image(
-                        painter = painterResource(Res.drawable.logo),
+                        painter = painterResource(Res.drawable.ic_logo),
                         contentDescription = null,
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                             .size(80.dp)
                     )
+                    VerticalSpacer(SpacerSize.XLarge3)
                     InkText(
                         text = stringResource(Res.string.auth_menu_title),
                         style = InkTextStyle.Heading3,
@@ -134,7 +134,7 @@ internal class AuthMenuScreen : Screen {
                             text = stringResource(Res.string.auth_menu_google_button),
                             contentDescription = null,
                             iconPainter = painterResource(Res.drawable.ic_google),
-                            onClick = actions.launchGoogleSignIn
+                            onClick = actions.launchGoogleSignIn,
                         )
                         InkSocialButton(
                             modifier = Modifier.fillMaxWidth(),
@@ -148,13 +148,6 @@ internal class AuthMenuScreen : Screen {
                             text = stringResource(Res.string.auth_menu_facebook_button),
                             contentDescription = null,
                             iconPainter = painterResource(Res.drawable.ic_facebook),
-                            onClick = {}
-                        )
-                        InkSocialButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = stringResource(Res.string.auth_menu_twitter_button),
-                            contentDescription = null,
-                            iconPainter = twitterIcon(),
                             onClick = {}
                         )
                         InkPrimaryButton(
