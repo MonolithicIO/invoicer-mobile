@@ -1,18 +1,14 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.login
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
@@ -27,7 +23,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -40,18 +35,14 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_in_desc
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont_have_account_prefix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont_have_account_suffix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_error
-import invoicer.features.auth.presentation.generated.resources.auth_sign_in_google_button
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_submit_button
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_text_divider
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_title
-import invoicer.foundation.design_system.generated.resources.google
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
-import io.github.monolithic.invoicer.foundation.auth.presentation.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ScreenTitle
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.TextDivider
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.SecondaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
@@ -59,9 +50,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spaci
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import invoicer.foundation.design_system.generated.resources.Res as DsRes
 
 internal class LoginScreen : Screen {
 
@@ -74,12 +63,6 @@ internal class LoginScreen : Screen {
         val snackBarHost = remember { SnackbarHostState() }
         val genericErrorMessage = stringResource(Res.string.auth_sign_in_error)
         val keyboard = LocalSoftwareKeyboardController.current
-
-        val googleLauncher = rememberGoogleLauncher(
-            onSuccess = viewModel::handleGoogleSuccess,
-            onFailure = viewModel::handleGoogleError,
-            onCancel = viewModel::cancelGoogleSignIn
-        )
 
         StateContent(
             state = state,
@@ -95,7 +78,6 @@ internal class LoginScreen : Screen {
                 onSignUpClick = {
                     navigator?.pushToFront(SignUpScreen())
                 },
-                onLaunchGoogle = viewModel::launchGoogleLogin
             ),
             snackbarHostState = snackBarHost
         )
@@ -116,8 +98,6 @@ internal class LoginScreen : Screen {
                             message = genericErrorMessage
                         )
                     }
-
-                    LoginScreenEvents.LaunchGoogleLogin -> scope.launch { googleLauncher.launch() }
                 }
             }
         }
@@ -177,25 +157,6 @@ internal class LoginScreen : Screen {
                 TextDivider(
                     modifier = Modifier.fillMaxWidth(),
                     text = stringResource(Res.string.auth_sign_in_text_divider)
-                )
-                VerticalSpacer(height = SpacerSize.Medium)
-                SecondaryButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    label = stringResource(Res.string.auth_sign_in_google_button),
-                    onClick = callBacks.onLaunchGoogle,
-                    leadingIcon = {
-                        Icon(
-                            painter = painterResource(DsRes.drawable.google),
-                            contentDescription = null,
-                            tint = Color.Unspecified,
-                            modifier = Modifier
-                                .size(32.dp)
-                                .background(Color.White, CircleShape)
-                                .padding(2.dp)
-                        )
-                    },
-                    isLoading = state.isGoogleLoading,
-                    isEnabled = state.googleEnabled
                 )
                 VerticalSpacer(height = SpacerSize.Medium)
                 Spacer(1f)

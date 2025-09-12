@@ -44,18 +44,6 @@ internal class LoginScreenModel(
         if (_state.value.buttonEnabled) handleSignInRequest()
     }
 
-    fun launchGoogleLogin() {
-        screenModelScope.launch(dispatcher) {
-            analyticsTracker.track(LoginAnalytics.GoogleLoginStarted)
-            _state.update {
-                it.copy(
-                    isGoogleLoading = true
-                )
-            }
-            _events.emit(LoginScreenEvents.LaunchGoogleLogin)
-        }
-    }
-
     private fun handleSignInRequest() {
         screenModelScope.launch {
             launchRequest {
@@ -95,52 +83,4 @@ internal class LoginScreenModel(
         _events.emit(message)
     }
 
-    fun cancelGoogleSignIn() {
-        analyticsTracker.track(LoginAnalytics.GoogleLoginFailure)
-        _state.update {
-            it.copy(
-                isGoogleLoading = false
-            )
-        }
-    }
-
-    fun handleGoogleError(error: Throwable) {
-        screenModelScope.launch(dispatcher) {
-            analyticsTracker.track(LoginAnalytics.GoogleLoginFailure)
-            _events.emit(
-                LoginScreenEvents.Failure(
-                    message = error.message.orEmpty()
-                )
-            )
-        }
-    }
-
-    fun handleGoogleSuccess(token: String) {
-        screenModelScope.launch(dispatcher) {
-            launchRequest {
-                signInCommander.resolveCommand(
-                    SignInCommand.Google(token)
-                )
-            }.handle(
-                onSuccess = {
-                    analyticsTracker.track(LoginAnalytics.GoogleLoginSuccess)
-                },
-                onFinish = {
-                    _state.update {
-                        it.copy(
-                            isGoogleLoading = false
-                        )
-                    }
-                },
-                onFailure = { result ->
-                    analyticsTracker.track(LoginAnalytics.GoogleLoginFailure)
-                    _events.emit(
-                        LoginScreenEvents.Failure(
-                            message = result.message.orEmpty()
-                        )
-                    )
-                }
-            )
-        }
-    }
 }
