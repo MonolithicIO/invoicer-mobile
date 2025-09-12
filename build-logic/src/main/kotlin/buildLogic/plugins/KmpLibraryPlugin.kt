@@ -67,7 +67,7 @@ class KmpLibraryPlugin : Plugin<Project> {
                 compilations.all {
                     compileTaskProvider.configure {
                         compilerOptions {
-                            jvmTarget.set(AppConfig.jvmTargetMp)
+                            jvmTarget.set(AppConfig.jvmTarget)
                         }
                     }
                 }

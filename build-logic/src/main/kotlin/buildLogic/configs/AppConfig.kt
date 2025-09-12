@@ -4,7 +4,7 @@ import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 internal object AppConfig {
-    const val compileSdk = 35
+    const val compileSdk = 36
     const val minSdk = 29
     const val targetSdk = 35
     const val versionCode = 1
@@ -12,6 +12,5 @@ internal object AppConfig {
     const val appId = "io.github.monolithic.invoicer"
 
     val javaVersion = JavaVersion.VERSION_11
-    val jvmTargetMp = JvmTarget.JVM_11
-    const val jvmTarget = "11"
+    val jvmTarget = JvmTarget.JVM_11
 }

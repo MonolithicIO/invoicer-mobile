@@ -61,8 +61,8 @@ class AppPlugin : Plugin<Project> {
 
     private fun configureKotlin(target: Project) {
         target.tasks.withType<KotlinCompile>().configureEach {
-            kotlinOptions {
-                jvmTarget = AppConfig.jvmTarget
+            this.compilerOptions {
+                jvmTarget.set(AppConfig.jvmTarget)
             }
         }
     }
