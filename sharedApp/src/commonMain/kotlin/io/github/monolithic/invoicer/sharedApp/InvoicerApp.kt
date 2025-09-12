@@ -8,7 +8,7 @@ import cafe.adriel.voyager.core.registry.ScreenRegistry
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.NavigatorDisposeBehavior
 import cafe.adriel.voyager.transitions.SlideTransition
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import io.github.monolithic.invoicer.foundation.watchers.AuthEvent
@@ -20,7 +20,7 @@ import org.koin.mp.KoinPlatform
 fun InvoicerApp() {
     val authEventBus: AuthEventBus = remember { KoinPlatform.getKoin().get() }
 
-    InvoicerTheme {
+    InkTheme {
         Navigator(
             screen = ScreenRegistry.get(InvoicerScreen.Auth.Startup),
             disposeBehavior = NavigatorDisposeBehavior(disposeSteps = false)
