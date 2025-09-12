@@ -24,13 +24,11 @@ internal data class LoginScreenCallbacks(
     val toggleCensorship: () -> Unit,
     val onBack: () -> Unit,
     val onSignUpClick: () -> Unit,
-    val onLaunchGoogle: () -> Unit
 )
 
 internal sealed interface LoginScreenEvents {
     data object GenericFailure : LoginScreenEvents
     data class Failure(val message: String) : LoginScreenEvents
-    data object LaunchGoogleLogin : LoginScreenEvents
 }
 
 @Composable
@@ -41,7 +39,6 @@ internal fun rememberLoginCallbacks(
     onSubmit: () -> Unit,
     onBack: () -> Unit,
     onSignUpClick: () -> Unit,
-    onLaunchGoogle: () -> Unit
 ) = remember {
     LoginScreenCallbacks(
         onEmailChanged = onEmailChanged,
@@ -50,6 +47,5 @@ internal fun rememberLoginCallbacks(
         toggleCensorship = onToggleCensorship,
         onBack = onBack,
         onSignUpClick = onSignUpClick,
-        onLaunchGoogle = onLaunchGoogle
     )
 }

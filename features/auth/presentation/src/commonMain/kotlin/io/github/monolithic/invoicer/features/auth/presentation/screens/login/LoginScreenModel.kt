@@ -8,7 +8,6 @@ import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInComma
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 
 internal class LoginScreenModel(
     private val signInCommander: SignInCommandManager,
-    private val dispatcher: CoroutineDispatcher,
     private val analyticsTracker: AnalyticsTracker
 ) : ScreenModel {
 
@@ -42,18 +40,6 @@ internal class LoginScreenModel(
 
     fun submitIdentityLogin() {
         if (_state.value.buttonEnabled) handleSignInRequest()
-    }
-
-    fun launchGoogleLogin() {
-        screenModelScope.launch(dispatcher) {
-            analyticsTracker.track(LoginAnalytics.GoogleLoginStarted)
-            _state.update {
-                it.copy(
-                    isGoogleLoading = true
-                )
-            }
-            _events.emit(LoginScreenEvents.LaunchGoogleLogin)
-        }
     }
 
     private fun handleSignInRequest() {
@@ -95,52 +81,4 @@ internal class LoginScreenModel(
         _events.emit(message)
     }
 
-    fun cancelGoogleSignIn() {
-        analyticsTracker.track(LoginAnalytics.GoogleLoginFailure)
-        _state.update {
-            it.copy(
-                isGoogleLoading = false
-            )
-        }
-    }
-
-    fun handleGoogleError(error: Throwable) {
-        screenModelScope.launch(dispatcher) {
-            analyticsTracker.track(LoginAnalytics.GoogleLoginFailure)
-            _events.emit(
-                LoginScreenEvents.Failure(
-                    message = error.message.orEmpty()
-                )
-            )
-        }
-    }
-
-    fun handleGoogleSuccess(token: String) {
-        screenModelScope.launch(dispatcher) {
-            launchRequest {
-                signInCommander.resolveCommand(
-                    SignInCommand.Google(token)
-                )
-            }.handle(
-                onSuccess = {
-                    analyticsTracker.track(LoginAnalytics.GoogleLoginSuccess)
-                },
-                onFinish = {
-                    _state.update {
-                        it.copy(
-                            isGoogleLoading = false
-                        )
-                    }
-                },
-                onFailure = { result ->
-                    analyticsTracker.track(LoginAnalytics.GoogleLoginFailure)
-                    _events.emit(
-                        LoginScreenEvents.Failure(
-                            message = result.message.orEmpty()
-                        )
-                    )
-                }
-            )
-        }
-    }
 }

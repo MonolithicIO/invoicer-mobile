@@ -23,7 +23,8 @@ fun InkTheme(
     InternalInkTheme(
         colorScheme = colorScheme,
         typography = typography,
-        content = content
+        content = content,
+        isDarkTheme = isDarkTheme
     )
 }
 
@@ -40,6 +41,7 @@ private fun lightInkColorScheme(): InkColorScheme {
         borderStroke = InkColors.GreyScale.grey200,
         surfaceVariant = InkColors.BlackWhite.white,
         onSurfaceVariant = InkColors.GreyScale.grey900,
+        onBackgroundVariant = InkColors.GreyScale.grey700
     )
 }
 
@@ -56,6 +58,7 @@ private fun darkInkColorScheme(): InkColorScheme {
         borderStroke = InkColors.Dark.dark5,
         surfaceVariant = InkColors.Dark.dark4,
         onSurfaceVariant = InkColors.BlackWhite.white,
+        onBackgroundVariant = InkColors.GreyScale.grey200
     )
 }
 

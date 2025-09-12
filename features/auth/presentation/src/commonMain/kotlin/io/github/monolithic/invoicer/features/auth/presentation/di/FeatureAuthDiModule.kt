@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.features.auth.presentation.di
 
+import io.github.monolithic.invoicer.features.auth.presentation.screens.authmenu.AuthMenuScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.startup.StartupScreenModel
@@ -28,7 +29,6 @@ private fun Module.viewModelBindings() {
 
     factory {
         LoginScreenModel(
-            dispatcher = Dispatchers.Default,
             signInCommander = get(),
             analyticsTracker = get()
         )
@@ -45,4 +45,12 @@ private fun Module.viewModelBindings() {
     }
 
     factory<EmailValidator> { EmailValidatorImpl() }
+
+    factory {
+        AuthMenuScreenModel(
+            signInCommander = get(),
+            dispatcher = Dispatchers.Default,
+            analyticsTracker = get()
+        )
+    }
 }

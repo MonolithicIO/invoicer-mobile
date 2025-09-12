@@ -6,6 +6,7 @@ import kotlin.jvm.JvmInline
 data class InkColorScheme(
     val background: InkColor,
     val onBackground: InkColor,
+    val onBackgroundVariant: InkColor,
     val primary: InkColor,
     val onPrimary: InkColor,
     val disabled: InkColor,

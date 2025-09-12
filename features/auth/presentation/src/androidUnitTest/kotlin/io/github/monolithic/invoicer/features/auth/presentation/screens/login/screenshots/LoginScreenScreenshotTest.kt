@@ -95,7 +95,6 @@ class LoginScreenScreenshotTest {
                         toggleCensorship = { },
                         onBack = { },
                         onSignUpClick = { },
-                        onLaunchGoogle = { }
                     ),
                 )
             }
