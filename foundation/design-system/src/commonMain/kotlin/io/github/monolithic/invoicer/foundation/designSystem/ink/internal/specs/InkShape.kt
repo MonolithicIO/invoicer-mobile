@@ -8,4 +8,5 @@ data object InkShape {
     val regular: Shape = RoundedCornerShape(14.dp)
     val small: Shape = RoundedCornerShape(8.dp)
     val large: Shape = RoundedCornerShape(20.dp)
+    val pill: Shape = RoundedCornerShape(100)
 }
