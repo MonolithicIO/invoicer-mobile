@@ -15,13 +15,16 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(libs.immutable.collections)
-            implementation(compose.preview)
-            implementation(compose.uiTooling)
             api(compose.materialIconsExtended)
         }
 
         commonTest.dependencies {
             implementation(kotlin("test"))
+        }
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(compose.uiTooling)
         }
 
         androidUnitTest.dependencies {

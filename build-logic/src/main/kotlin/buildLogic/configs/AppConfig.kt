@@ -4,7 +4,7 @@ import org.gradle.api.JavaVersion
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 internal object AppConfig {
-    const val compileSdk = 35
+    const val compileSdk = 36
     const val minSdk = 29
     const val targetSdk = 35
     const val versionCode = 1
