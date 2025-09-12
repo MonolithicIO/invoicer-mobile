@@ -29,7 +29,6 @@ private fun Module.viewModelBindings() {
 
     factory {
         LoginScreenModel(
-            dispatcher = Dispatchers.Default,
             signInCommander = get(),
             analyticsTracker = get()
         )

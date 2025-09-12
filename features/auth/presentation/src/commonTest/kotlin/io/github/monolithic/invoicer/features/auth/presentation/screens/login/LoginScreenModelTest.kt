@@ -32,7 +32,7 @@ class LoginScreenModelTest {
         Dispatchers.setMain(dispatcher)
         signInCommander = FakeSignInCommander()
         analyticsTracker = FakeAnalyticsTracker()
-        viewModel = LoginScreenModel(signInCommander, dispatcher, analyticsTracker)
+        viewModel = LoginScreenModel(signInCommander, analyticsTracker)
     }
 
     @AfterTest
