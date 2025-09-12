@@ -72,20 +72,6 @@ class LoginScreenModelTest {
         assertIs<SignInCommand.Credential>(signInCommander.signInCommand)
     }
 
-    @Test
-    fun `launch google login sends event`() = runTest {
-        viewModel.launchGoogleLogin()
-
-        assertEquals(
-            expected = LoginScreenEvents.LaunchGoogleLogin,
-            actual = viewModel.events.first()
-        )
-        assertEquals(true, viewModel.state.value.isGoogleLoading)
-        assertEquals(
-            expected = LoginAnalytics.GoogleLoginStarted,
-            actual = analyticsTracker.lastEvent
-        )
-    }
 
     @Test
     fun `handle signin request fails with http error`() = runTest {
@@ -126,15 +112,5 @@ class LoginScreenModelTest {
         viewModel.submitIdentityLogin()
 
         assertIs<LoginScreenEvents.GenericFailure>(viewModel.events.first())
-    }
-
-    @Test
-    fun `cancelGoogleSignIn updates state and tracks analytics`() {
-        viewModel.cancelGoogleSignIn()
-        assertEquals(false, viewModel.state.value.isGoogleLoading)
-        assertEquals(
-            expected = LoginAnalytics.GoogleLoginFailure,
-            actual = analyticsTracker.lastEvent
-        )
     }
 }

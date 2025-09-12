@@ -8,7 +8,6 @@ import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInComma
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.launch
 
 internal class LoginScreenModel(
     private val signInCommander: SignInCommandManager,
-    private val dispatcher: CoroutineDispatcher,
     private val analyticsTracker: AnalyticsTracker
 ) : ScreenModel {
 

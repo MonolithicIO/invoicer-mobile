@@ -193,14 +193,3 @@ private fun appleIcon(): Painter {
         painterResource(Res.drawable.ic_apple_light)
     }
 }
-
-@Composable
-private fun twitterIcon(): Painter {
-    val isDarkTheme = InkTheme.isDark
-
-    return if (isDarkTheme) {
-        painterResource(Res.drawable.ic_twitter_dark)
-    } else {
-        painterResource(Res.drawable.ic_twitter_light)
-    }
-}
