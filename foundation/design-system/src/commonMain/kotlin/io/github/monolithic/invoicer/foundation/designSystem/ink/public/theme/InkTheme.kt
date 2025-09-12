@@ -37,6 +37,9 @@ private fun lightInkColorScheme(): InkColorScheme {
         onDisabled = InkColors.GreyScale.grey500,
         surface = InkColors.Background.backgroundPrimary,
         onSurface = InkColors.Main.primary,
+        borderStroke = InkColors.GreyScale.grey200,
+        surfaceVariant = InkColors.BlackWhite.white,
+        onSurfaceVariant = InkColors.GreyScale.grey900,
     )
 }
 
@@ -49,7 +52,10 @@ private fun darkInkColorScheme(): InkColorScheme {
         disabled = InkColors.AlertStatus.darkDisabled,
         onDisabled = InkColors.GreyScale.grey200,
         surface = InkColors.Dark.dark5,
-        onSurface = InkColors.BlackWhite.white
+        onSurface = InkColors.BlackWhite.white,
+        borderStroke = InkColors.Dark.dark5,
+        surfaceVariant = InkColors.Dark.dark4,
+        onSurfaceVariant = InkColors.BlackWhite.white,
     )
 }
 

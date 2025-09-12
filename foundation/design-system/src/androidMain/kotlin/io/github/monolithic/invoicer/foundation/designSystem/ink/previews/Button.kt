@@ -9,15 +9,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import invoicer.foundation.design_system.generated.resources.Res
+import invoicer.foundation.design_system.generated.resources.google
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSecondaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSocialButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 @Preview
 private fun PrimaryPreview() {
-    InkTheme(false) {
+    InkTheme {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background.value)
@@ -38,6 +42,11 @@ private fun PrimaryPreview() {
             ) {
 
             }
+
+            InkSocialButton(
+                text = "Continue with Google",
+                iconPainter = painterResource(Res.drawable.google),
+            ) { }
         }
 
     }

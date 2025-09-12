@@ -12,18 +12,9 @@ data class InkColorScheme(
     val onDisabled: InkColor,
     val surface: InkColor,
     val onSurface: InkColor,
-)
-data class InkButtonsColorScheme(
-    val primaryBackground: InkColor,
-    val primaryContent: InkColor,
-    val primaryDisabledBackground: InkColor,
-    val primaryDisabledContent: InkColor,
-    val primaryLoadingIndicator: InkColor,
-    val secondaryBackground: InkColor,
-    val secondaryContent: InkColor,
-    val secondaryDisabledBackground: InkColor,
-    val secondaryDisabledContent: InkColor,
-    val secondaryLoadingIndicator: InkColor,
+    val surfaceVariant: InkColor,
+    val onSurfaceVariant: InkColor,
+    val borderStroke: InkColor
 )
 
 @JvmInline
