@@ -12,6 +12,5 @@ internal object AppConfig {
     const val appId = "io.github.monolithic.invoicer"
 
     val javaVersion = JavaVersion.VERSION_11
-    val jvmTargetMp = JvmTarget.JVM_11
-    const val jvmTarget = "11"
+    val jvmTarget = JvmTarget.JVM_11
 }
