@@ -14,6 +14,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
+// TODO: Replace with proper component later, way too complex to write my own right now.
 @Composable
 fun InkOutlinedInput(
     value: String,
@@ -25,7 +26,7 @@ fun InkOutlinedInput(
     placeholder: String? = null,
     leadingContent: @Composable (() -> Unit)? = null,
     trailingContent: @Composable (() -> Unit)? = null,
-    supportingText: @Composable (() -> Unit)? = null,
+    supportingText: String? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -55,7 +56,14 @@ fun InkOutlinedInput(
         textStyle = InkTheme.typography.bodyXLarge.copy(fontWeight = FontWeight.Medium),
         trailingIcon = trailingContent,
         leadingIcon = leadingContent,
-        supportingText = supportingText,
+        supportingText = if (supportingText != null) {
+            {
+                InkSupportText(
+                    text = supportingText,
+                    isError = isError
+                )
+            }
+        } else null,
         enabled = enabled,
         readOnly = readOnly,
         placeholder = if (placeholder != null) {
@@ -79,9 +87,25 @@ fun InkOutlinedInput(
     )
 }
 
+@Composable
+private fun InkSupportText(
+    text: String,
+    modifier: Modifier = Modifier,
+    isError: Boolean
+) {
+    InkText(
+        text = text,
+        style = InkTextStyle.BodyXlarge,
+        weight = FontWeight.Normal,
+        color = if (isError) InkTheme.colorScheme.error else InkTheme.colorScheme.onBackground.copy(
+            0.5f
+        ),
+        modifier = modifier
+    )
+}
+
 
 private object InkOutlinedInputDefaults {
-
     val colors: TextFieldColors
         @Composable
         get() {
@@ -119,9 +143,9 @@ private object InkOutlinedInputDefaults {
                 unfocusedPlaceholderColor = InkTheme.colorScheme.disabled.value,
                 disabledPlaceholderColor = InkTheme.colorScheme.disabled.value,
                 errorPlaceholderColor = InkTheme.colorScheme.error.value,
-                focusedSupportingTextColor = InkTheme.colorScheme.disabled.value,
-                unfocusedSupportingTextColor = InkTheme.colorScheme.disabled.value,
-                disabledSupportingTextColor = InkTheme.colorScheme.disabled.value,
+                focusedSupportingTextColor = InkTheme.colorScheme.onBackground.copy(0.9f).value,
+                unfocusedSupportingTextColor = InkTheme.colorScheme.onBackground.copy(0.9f).value,
+                disabledSupportingTextColor = InkTheme.colorScheme.onBackground.copy(0.9f).value,
                 errorSupportingTextColor = InkTheme.colorScheme.error.value,
                 focusedPrefixColor = InkTheme.colorScheme.none.value,
                 unfocusedPrefixColor = InkTheme.colorScheme.none.value,
@@ -134,6 +158,4 @@ private object InkOutlinedInputDefaults {
                 errorTextColor = InkTheme.colorScheme.error.value
             )
         }
-
-
 }

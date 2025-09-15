@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,14 +48,16 @@ private fun OutlinedInputPreview() {
                 modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = { text = it },
-                isError = true
+                isError = true,
+                supportingText = "123"
             )
 
             InkOutlinedInput(
                 modifier = Modifier.fillMaxWidth(),
                 value = "addwadwadaw",
                 onValueChange = { text = it },
-                enabled = false
+                enabled = false,
+                supportingText = "123"
             )
         }
     }
