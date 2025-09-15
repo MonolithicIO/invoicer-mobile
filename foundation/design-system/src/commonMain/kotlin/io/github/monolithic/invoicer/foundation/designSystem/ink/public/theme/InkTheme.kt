@@ -41,7 +41,11 @@ private fun lightInkColorScheme(): InkColorScheme {
         borderStroke = InkColors.GreyScale.grey200,
         surfaceVariant = InkColors.BlackWhite.white,
         onSurfaceVariant = InkColors.GreyScale.grey900,
-        onBackgroundVariant = InkColors.GreyScale.grey700
+        onBackgroundVariant = InkColors.GreyScale.grey700,
+        textSurface = InkColors.GreyScale.grey100,
+        textSurfaceLight = InkColors.GreyScale.grey50,
+        error = InkColors.AlertStatus.error,
+        errorBackground = InkColors.Background.red,
     )
 }
 
@@ -58,7 +62,11 @@ private fun darkInkColorScheme(): InkColorScheme {
         borderStroke = InkColors.Dark.dark5,
         surfaceVariant = InkColors.Dark.dark4,
         onSurfaceVariant = InkColors.BlackWhite.white,
-        onBackgroundVariant = InkColors.GreyScale.grey200
+        onBackgroundVariant = InkColors.GreyScale.grey200,
+        textSurface = InkColors.Dark.dark4,
+        textSurfaceLight = InkColors.Dark.dark4,
+        error = InkColors.AlertStatus.error,
+        errorBackground = InkColors.Background.red
     )
 }
 
