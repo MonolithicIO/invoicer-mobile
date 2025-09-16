@@ -219,6 +219,6 @@ private fun Placeholder(
     )
 }
 
-internal object InkOutlinedInputDefaults {
+private object InkOutlinedInputDefaults {
     val BorderWidth = 2.dp
 }
