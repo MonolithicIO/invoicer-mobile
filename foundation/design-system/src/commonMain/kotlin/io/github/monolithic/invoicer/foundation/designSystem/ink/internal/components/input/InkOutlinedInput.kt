@@ -112,7 +112,21 @@ internal object InkOutlinedInputDefaults {
         get() {
             return InkInputColors(
                 textColor = InkTheme.colorScheme.onSurface,
-                cursorColor = InkTheme.colorScheme.primary
+                cursorColor = InkTheme.colorScheme.onSurface,
+                focusedBackground = InkTheme.colorScheme.surfaceDark,
+                focusedIndicator = InkTheme.colorScheme.surfaceDark,
+                unfocusedBackground = InkTheme.colorScheme.surfaceLight,
+                unfocusedIndicator = InkTheme.colorScheme.onSurfaceVariant,
+                disabledIndicator = InkTheme.colorScheme.disabled,
+                disabledBackground = InkTheme.colorScheme.disabled,
+                disabledText = InkTheme.colorScheme.onDisabled,
+                errorText = InkTheme.colorScheme.error,
+                errorIndicator = InkTheme.colorScheme.error,
+                errorLabel = InkTheme.colorScheme.error,
+                errorCursor = InkTheme.colorScheme.error,
+                errorBackground = InkTheme.colorScheme.errorBackground,
+                placeholderColor = InkTheme.colorScheme.disabled,
+                labelColor = InkTheme.colorScheme.onSurface,
             )
         }
 }

@@ -15,7 +15,11 @@ data class InkColorScheme(
     val onSurface: InkColor,
     val surfaceVariant: InkColor,
     val onSurfaceVariant: InkColor,
-    val borderStroke: InkColor
+    val borderStroke: InkColor,
+    val error: InkColor,
+    val errorBackground: InkColor,
+    val surfaceLight: InkColor,
+    val surfaceDark: InkColor
 )
 
 @JvmInline
