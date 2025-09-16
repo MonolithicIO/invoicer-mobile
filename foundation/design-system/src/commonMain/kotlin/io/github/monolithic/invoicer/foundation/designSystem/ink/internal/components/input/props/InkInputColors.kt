@@ -13,6 +13,7 @@ internal data class InkInputColors(
     val disabledIndicator: Color,
     val disabledBackground: Color,
     val disabledText: Color,
+    val disabledLabel: Color,
     // Error
     val errorIndicator: Color,
     val errorBackground: Color,
