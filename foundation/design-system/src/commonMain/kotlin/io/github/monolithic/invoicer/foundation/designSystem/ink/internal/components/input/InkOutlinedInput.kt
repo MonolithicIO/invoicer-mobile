@@ -89,10 +89,10 @@ fun InkOutlinedInput(
                         Modifier
                     }
                 )
-                .defaultErrorSemantics(
-                    isError = isError,
-                    defaultErrorMessage = InkOutlinedInputDefaults.DEFAULT_ERROR_MESSAGE
-                )
+//                .defaultErrorSemantics(
+//                    isError = isError,
+//                    defaultErrorMessage = InkOutlinedInputDefaults.DEFAULT_ERROR_MESSAGE
+//                )
                 .defaultMinSize(
                     minWidth = InkOutlinedInputDefaults.MinWidth,
                     minHeight = InkOutlinedInputDefaults.MinHeight
