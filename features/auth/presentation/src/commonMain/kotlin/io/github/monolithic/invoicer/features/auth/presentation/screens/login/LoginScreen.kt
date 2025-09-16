@@ -10,7 +10,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -31,21 +30,20 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.auth.presentation.generated.resources.Res
-import invoicer.features.auth.presentation.generated.resources.auth_sign_in_description
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont_have_account_prefix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont_have_account_suffix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_error
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_submit_button
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_text_divider
-import invoicer.features.auth.presentation.generated.resources.auth_sign_in_title
+import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ScreenTitle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.TextDivider
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import kotlinx.coroutines.flow.collectLatest
@@ -110,8 +108,7 @@ internal class LoginScreen : Screen {
         snackbarHostState: SnackbarHostState,
         callBacks: LoginScreenCallbacks
     ) {
-        Scaffold(
-            modifier = Modifier.imePadding(),
+        InkScaffold(
             topBar = {
                 TopAppBar(
                     title = {
@@ -119,7 +116,7 @@ internal class LoginScreen : Screen {
                     },
                 )
             },
-            snackbarHost = {
+            snackBarHost = {
                 SnackbarHost(snackbarHostState)
             }
         ) {
@@ -128,14 +125,11 @@ internal class LoginScreen : Screen {
                 modifier = Modifier
                     .padding(it)
                     .padding(Spacing.medium)
+                    .imePadding()
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
-                VerticalSpacer(height = SpacerSize.XLarge3)
-                ScreenTitle(
-                    title = stringResource(Res.string.auth_sign_in_title),
-                    subTitle = stringResource(Res.string.auth_sign_in_description)
-                )
+                LoginHeader()
                 VerticalSpacer(height = SpacerSize.XLarge3)
                 SignInForm(
                     state = state,

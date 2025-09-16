@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.auth.presentation.generated.resources.Res
 import invoicer.features.auth.presentation.generated.resources.auth_menu_apple_button
 import invoicer.features.auth.presentation.generated.resources.auth_menu_description
@@ -33,8 +34,7 @@ import invoicer.features.auth.presentation.generated.resources.ic_apple_light
 import invoicer.features.auth.presentation.generated.resources.ic_facebook
 import invoicer.features.auth.presentation.generated.resources.ic_google
 import invoicer.features.auth.presentation.generated.resources.ic_logo
-import invoicer.features.auth.presentation.generated.resources.ic_twitter_dark
-import invoicer.features.auth.presentation.generated.resources.ic_twitter_light
+import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.foundation.auth.presentation.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCircularIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
@@ -46,6 +46,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -57,6 +58,7 @@ internal class AuthMenuScreen : Screen {
         val screenModel = koinScreenModel<AuthMenuScreenModel>()
         val scope = rememberCoroutineScope()
         val state by screenModel.state.collectAsState()
+        val navigator = LocalNavigator.current
 
         val googleLauncher = rememberGoogleLauncher(
             onSuccess = screenModel::handleGoogleSuccess,
@@ -82,7 +84,8 @@ internal class AuthMenuScreen : Screen {
         AuthMenuScreenContent(
             state = state,
             actions = Actions(
-                launchGoogleSignIn = screenModel::launchGoogleLogin
+                launchGoogleSignIn = screenModel::launchGoogleLogin,
+                onSignInTap = { navigator?.pushToFront(LoginScreen()) }
             )
         )
     }
@@ -158,7 +161,7 @@ internal class AuthMenuScreen : Screen {
                         InkSecondaryButton(
                             modifier = Modifier.fillMaxWidth(),
                             text = stringResource(Res.string.auth_menu_sign_in),
-                            onClick = {}
+                            onClick = actions.onSignInTap
                         )
                     }
                 }
@@ -179,6 +182,7 @@ internal class AuthMenuScreen : Screen {
 
     data class Actions(
         val launchGoogleSignIn: () -> Unit,
+        val onSignInTap: () -> Unit,
     )
 
 }
