@@ -24,7 +24,7 @@ private fun PrimaryPreview() {
     InkTheme {
         Column(
             modifier = Modifier
-                .background(InkTheme.colorScheme.background.value)
+                .background(InkTheme.colorScheme.background)
                 .fillMaxSize()
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)

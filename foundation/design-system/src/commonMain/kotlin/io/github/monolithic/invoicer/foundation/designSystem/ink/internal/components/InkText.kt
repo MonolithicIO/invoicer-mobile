@@ -3,6 +3,7 @@ package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compo
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.TextStyle
@@ -11,14 +12,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkColorScheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkTypography
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
 
 @Composable
 fun InkText(
     text: String,
     modifier: Modifier = Modifier,
     style: InkTextStyle = InkTextStyle.BodyMedium,
-    color: InkColor = LocalInkColorScheme.current.onBackground,
+    color: Color = LocalInkColorScheme.current.onBackground,
     weight: FontWeight = FontWeight.Normal,
     textAlign: TextAlign? = null,
     overflow: TextOverflow = TextOverflow.Clip,
@@ -30,7 +30,7 @@ fun InkText(
     BasicText(
         style = typographyFromStyle(style).merge(
             textAlign = textAlign ?: TextAlign.Unspecified,
-            color = color.value,
+            color = color,
             fontWeight = weight
         ),
         text = text,
@@ -55,12 +55,12 @@ fun InkText(
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
     onTextLayout: ((TextLayoutResult) -> Unit)? = null,
-    color: InkColor = LocalInkColorScheme.current.onBackground,
+    color: Color = LocalInkColorScheme.current.onBackground,
 ) {
     BasicText(
         style = typographyFromStyle(style).merge(
             textAlign = textAlign ?: TextAlign.Unspecified,
-            color = color.value,
+            color = color,
             fontWeight = weight
         ),
         text = text,

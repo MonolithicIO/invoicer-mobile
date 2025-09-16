@@ -3,16 +3,16 @@ package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compo
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
+import androidx.compose.ui.graphics.Color
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 @Composable
 fun InkCircularIndicator(
     modifier: Modifier = Modifier,
-    color: InkColor = InkTheme.colorScheme.primary
+    color: Color = InkTheme.colorScheme.primary
 ) {
     CircularProgressIndicator(
-        color = color.value,
+        color = color,
         modifier = modifier
     )
 }

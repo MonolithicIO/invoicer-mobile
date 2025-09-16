@@ -3,6 +3,7 @@ package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compo
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCircularIndicator
@@ -10,7 +11,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.basic.InkBasicButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.props.InkButtonSize
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 @Composable
@@ -51,7 +51,7 @@ fun InkSecondaryButton(
 internal object InkSecondaryButtonDefaults {
 
     @Composable
-    fun getBackgroundColor(isEnabled: Boolean): InkColor {
+    fun getBackgroundColor(isEnabled: Boolean): Color {
         return if (isEnabled) {
             InkTheme.colorScheme.surface
         } else {
@@ -60,7 +60,7 @@ internal object InkSecondaryButtonDefaults {
     }
 
     @Composable
-    fun getContentColor(isEnabled: Boolean): InkColor {
+    fun getContentColor(isEnabled: Boolean): Color {
         return if (isEnabled) {
             InkTheme.colorScheme.onSurface
         } else {

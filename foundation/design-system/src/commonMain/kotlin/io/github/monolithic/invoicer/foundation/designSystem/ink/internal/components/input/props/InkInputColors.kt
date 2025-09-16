@@ -1,27 +1,27 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props
 
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
+import androidx.compose.ui.graphics.Color
 
 internal data class InkInputColors(
     // Focused
-    val focusedIndicator: InkColor,
-    val focusedBackground: InkColor,
+    val focusedIndicator: Color,
+    val focusedBackground: Color,
     // Unfocused
-    val unfocusedIndicator: InkColor,
-    val unfocusedBackground: InkColor,
+    val unfocusedIndicator: Color,
+    val unfocusedBackground: Color,
     // Disabled
-    val disabledIndicator: InkColor,
-    val disabledBackground: InkColor,
-    val disabledText: InkColor,
+    val disabledIndicator: Color,
+    val disabledBackground: Color,
+    val disabledText: Color,
     // Error
-    val errorIndicator: InkColor,
-    val errorBackground: InkColor,
-    val errorText: InkColor,
-    val errorCursor: InkColor,
-    val errorLabel: InkColor,
+    val errorIndicator: Color,
+    val errorBackground: Color,
+    val errorText: Color,
+    val errorCursor: Color,
+    val errorLabel: Color,
     // Common
-    val placeholderColor: InkColor,
-    val labelColor: InkColor,
-    val textColor: InkColor,
-    val cursorColor: InkColor
+    val placeholderColor: Color,
+    val labelColor: Color,
+    val textColor: Color,
+    val cursorColor: Color
 )

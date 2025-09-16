@@ -1,24 +1,34 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input
 
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.border
+import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputColors
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.defaultErrorSemantics
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.textFieldBackground
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 @Composable
@@ -26,7 +36,7 @@ fun InkOutlinedInput(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    isEnabled: Boolean = true,
     readOnly: Boolean = false,
     label: String? = null,
     placeholder: String? = null,
@@ -41,9 +51,9 @@ fun InkOutlinedInput(
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     interactionSource: MutableInteractionSource? = null,
-    shape: Shape = InkOutlinedInputDefaults.shape,
 ) {
     val colors = InkOutlinedInputDefaults.colors
+    val internalInteractionSource = interactionSource ?: remember { MutableInteractionSource() }
 
     BasicTextField(
         value = value,
@@ -66,32 +76,80 @@ fun InkOutlinedInput(
                     minHeight = InkOutlinedInputDefaults.MinHeight
                 ),
         onValueChange = onValueChange,
-        enabled = enabled,
+        enabled = isEnabled,
         readOnly = readOnly,
         textStyle = InkTheme.typography.bodyXLarge,
-        cursorBrush = SolidColor(colors.cursorColor.value),
+        cursorBrush = SolidColor(colors.cursorColor),
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        interactionSource = interactionSource,
+        interactionSource = internalInteractionSource,
         singleLine = singleLine,
         maxLines = maxLines,
         minLines = minLines,
         decorationBox =
             @Composable { innerTextField ->
-                Box(
-                    contentAlignment = Alignment.CenterStart,
-                    modifier = Modifier
-                        .padding(InkTheme.spacing.medium)
-                        .border(
-                            width = InkOutlinedInputDefaults.BorderWidth,
-                            color = InkTheme.colorScheme.borderStroke.value
-                        )
+                InkOutlinedInputContainer(
+                    interactionSource = internalInteractionSource,
+                    isError = isError,
+                    isEnabled = isEnabled,
+                    shape = InkTheme.shape.small,
+                    label = label
                 ) {
                     innerTextField()
                 }
             }
     )
+}
+
+@Composable
+private fun InkOutlinedInputContainer(
+    isError: Boolean,
+    isEnabled: Boolean,
+    interactionSource: InteractionSource,
+    shape: Shape,
+    label: String?,
+    textFieldSlot: @Composable () -> Unit
+) {
+    val hasFocus by interactionSource.collectIsFocusedAsState()
+
+    val backgroundColor =
+        InkOutlinedInputDefaults.backgroundColor(
+            isError = isError,
+            isFocused = hasFocus,
+            isEnabled = isEnabled
+        )
+
+    val borderColor by InkOutlinedInputDefaults.borderColor(
+        isError = isError,
+        isFocused = hasFocus,
+        isEnabled = isEnabled
+    )
+
+    val textColor by InkOutlinedInputDefaults.textColor(isError = isError, isEnabled = isEnabled)
+
+    Column(
+        modifier = Modifier
+            .padding(InkTheme.spacing.medium)
+            .border(
+                width = InkOutlinedInputDefaults.BorderWidth,
+                color = borderColor,
+                shape = shape
+            ).textFieldBackground(
+                color = backgroundColor::value,
+                shape = shape
+            )
+    ) {
+        label?.let {
+            InkText(
+                text = label,
+                style = InkTextStyle.BodyXlarge,
+                weight = FontWeight.SemiBold,
+                color = textColor,
+            )
+        }
+        textFieldSlot()
+    }
 }
 
 internal object InkOutlinedInputDefaults {
@@ -129,4 +187,48 @@ internal object InkOutlinedInputDefaults {
                 labelColor = InkTheme.colorScheme.onSurface,
             )
         }
+
+    @Composable
+    fun backgroundColor(isError: Boolean, isFocused: Boolean, isEnabled: Boolean): State<Color> {
+        val colors = colors
+        val newColor = when {
+            !isEnabled -> colors.disabledBackground
+            isError -> colors.errorBackground
+            isFocused -> colors.focusedBackground
+            else -> colors.unfocusedBackground
+        }
+
+        return animateColorAsState(
+            targetValue = newColor,
+        )
+    }
+
+    @Composable
+    fun borderColor(isError: Boolean, isFocused: Boolean, isEnabled: Boolean): State<Color> {
+        val colors = colors
+        val newColor = when {
+            !isEnabled -> colors.disabledIndicator
+            isError -> colors.errorIndicator
+            isFocused -> colors.focusedIndicator
+            else -> colors.unfocusedIndicator
+        }
+
+        return animateColorAsState(
+            targetValue = newColor,
+        )
+    }
+
+    @Composable
+    fun textColor(isError: Boolean, isEnabled: Boolean): State<Color> {
+        val colors = colors
+        val newColor = when {
+            !isEnabled -> colors.disabledText
+            isError -> colors.errorText
+            else -> colors.textColor
+        }
+
+        return animateColorAsState(
+            targetValue = newColor,
+        )
+    }
 }
