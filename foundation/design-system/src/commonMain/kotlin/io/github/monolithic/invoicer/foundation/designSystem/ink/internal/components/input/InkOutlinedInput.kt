@@ -6,8 +6,10 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -24,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
@@ -34,7 +35,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputColors
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.defaultErrorSemantics
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.textFieldBackground
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
@@ -47,8 +47,8 @@ fun InkOutlinedInput(
     readOnly: Boolean = false,
     label: String? = null,
     placeholder: String? = null,
-    leadingIcon: Painter? = null,
-    trailingIcon: Painter? = null,
+    leadingContent: (@Composable () -> Unit)? = null,
+    trailingContent: (@Composable () -> Unit)? = null,
     supportingText: String? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -116,15 +116,25 @@ fun InkOutlinedInput(
                     isError = isError,
                     isEnabled = isEnabled,
                     shape = InkTheme.shape.small,
-                    label = label
+                    label = label,
+                    leadingContent = leadingContent,
+                    trailingContent = trailingContent,
                 ) {
-                    if (value.isBlank() && placeholder != null) {
-                        Placeholder(
-                            text = placeholder,
-                            isError = isError
-                        )
-                    } else {
-                        innerTextField()
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
+                    ) {
+                        leadingContent?.let { it() }
+                        if (value.isBlank() && placeholder != null) {
+                            Placeholder(
+                                text = placeholder,
+                                isError = isError
+                            )
+                        } else {
+                            innerTextField()
+                        }
+                        trailingContent?.let { it() }
                     }
                 }
             }
@@ -139,6 +149,8 @@ private fun InkOutlinedInputContainer(
     interactionSource: InteractionSource,
     shape: Shape,
     label: String?,
+    leadingContent: @Composable (() -> Unit)?,
+    trailingContent: @Composable (() -> Unit)?,
     textFieldSlot: @Composable () -> Unit
 ) {
     val hasFocus by interactionSource.collectIsFocusedAsState()
