@@ -20,14 +20,18 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+
+private val DefaultSize = 24.dp
 
 @Composable
 fun InkIcon(
     painter: Painter,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    tint: Color = Color.Unspecified
+    tint: Color = Color.Unspecified,
+    size: Dp = DefaultSize,
 ) {
     val colorFilter =
         remember(tint) { if (tint == Color.Unspecified) null else ColorFilter.tint(tint) }
@@ -42,6 +46,7 @@ fun InkIcon(
         }
     Box(
         modifier
+            .size(size)
             .toolingGraphicsLayer()
             .defaultSizeFor(painter)
             .paint(painter, colorFilter = colorFilter, contentScale = ContentScale.Fit)

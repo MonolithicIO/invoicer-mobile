@@ -3,10 +3,9 @@ package io.github.monolithic.invoicer.features.auth.presentation.screens.login.c
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -20,6 +19,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import invoicer.features.auth.presentation.generated.resources.Res
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_label
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_placeholder
@@ -29,11 +29,15 @@ import invoicer.features.auth.presentation.generated.resources.ic_lock
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_off
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+
+private val IconSize = 24.dp
 
 @Composable
 internal fun SignInForm(
@@ -108,22 +112,20 @@ internal fun LoginPasswordField(
         onValueChange = onChange,
         modifier = modifier,
         leadingContent = {
-            Icon(
+            InkIcon(
                 painter = painterResource(Res.drawable.ic_lock),
                 contentDescription = null,
                 tint = InkTheme.colorScheme.onSurfaceVariant
             )
         },
         trailingContent = {
-            IconButton(onClick = toggleCensorship) {
-                Icon(
-                    painter = painterResource(
-                        resource = trailingIcon
-                    ),
-                    contentDescription = null,
-                    tint = InkTheme.colorScheme.onSurfaceVariant
-                )
-            }
+            InkIconButton(
+                onClick = toggleCensorship,
+                icon = painterResource(
+                    resource = trailingIcon
+                ),
+                iconTint = InkTheme.colorScheme.onSurfaceVariant
+            )
         },
         visualTransformation = transformation,
         label = stringResource(Res.string.auth_sign_up_password_label),
@@ -155,7 +157,7 @@ internal fun LoginEmailField(
         label = stringResource(Res.string.auth_sign_up_email_label),
         placeholder = stringResource(Res.string.auth_sign_up_email_placeholder),
         leadingContent = {
-            Icon(
+            InkIcon(
                 painter = painterResource(Res.drawable.ic_email),
                 contentDescription = null,
                 tint = InkTheme.colorScheme.onSurfaceVariant

@@ -14,10 +14,10 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 @Composable
 fun InkIconButton(
     onClick: () -> Unit,
+    icon: Painter,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
-    icon: Painter,
     iconTint: Color = InkTheme.colorScheme.onSurfaceVariant,
 ) {
     val colors = BasicInkIconButtonDefaults.colors
