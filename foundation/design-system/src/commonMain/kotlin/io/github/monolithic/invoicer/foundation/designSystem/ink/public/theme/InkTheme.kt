@@ -66,7 +66,7 @@ private fun darkInkColorScheme(): InkColorScheme {
         error = InkColors.AlertStatus.error,
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.Dark.dark4,
-        surfaceDark = InkColors.Dark.dark3,
+        surfaceDark = InkColors.Dark.dark4,
     )
 }
 

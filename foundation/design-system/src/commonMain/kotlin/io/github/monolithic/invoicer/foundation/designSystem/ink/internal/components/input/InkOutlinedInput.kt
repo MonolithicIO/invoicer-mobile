@@ -60,6 +60,7 @@ fun InkOutlinedInput(
     val baseTextStyle = InkTheme.typography.bodyXLarge.copy(fontWeight = FontWeight.SemiBold)
     val colors = InkInputDefaults.colors
     val internalInteractionSource = interactionSource ?: remember { MutableInteractionSource() }
+    val hasFocus by internalInteractionSource.collectIsFocusedAsState()
 
     val themedTextStyle by derivedStateOf {
         val textColor = when {
@@ -123,7 +124,7 @@ fun InkOutlinedInput(
                         horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
                     ) {
                         leadingContent?.let { it() }
-                        if (value.isBlank() && placeholder != null) {
+                        if (value.isBlank() && placeholder != null && hasFocus.not()) {
                             Placeholder(
                                 text = placeholder,
                                 isError = isError
