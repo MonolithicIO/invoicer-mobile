@@ -1,24 +1,22 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs
 
 import androidx.compose.ui.graphics.Color
-import kotlin.jvm.JvmInline
 
 data class InkColorScheme(
-    val background: InkColor,
-    val onBackground: InkColor,
-    val onBackgroundVariant: InkColor,
-    val primary: InkColor,
-    val onPrimary: InkColor,
-    val disabled: InkColor,
-    val onDisabled: InkColor,
-    val surface: InkColor,
-    val onSurface: InkColor,
-    val surfaceVariant: InkColor,
-    val onSurfaceVariant: InkColor,
-    val borderStroke: InkColor
+    val background: Color,
+    val onBackground: Color,
+    val onBackgroundVariant: Color,
+    val primary: Color,
+    val onPrimary: Color,
+    val disabled: Color,
+    val onDisabled: Color,
+    val surface: Color,
+    val onSurface: Color,
+    val surfaceVariant: Color,
+    val onSurfaceVariant: Color,
+    val borderStroke: Color,
+    val error: Color,
+    val errorBackground: Color,
+    val surfaceLight: Color,
+    val surfaceDark: Color
 )
-
-@JvmInline
-value class InkColor(val value: Color) {
-    fun copy(alpha: Float) = InkColor(value.copy(alpha = alpha))
-}

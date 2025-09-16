@@ -33,7 +33,7 @@ fun InkSocialButton(
         contentColor = InkTheme.colorScheme.onSurfaceVariant,
         borderStroke = BorderStroke(
             width = 1.dp,
-            color = InkTheme.colorScheme.borderStroke.value
+            color = InkTheme.colorScheme.borderStroke
         ),
     ) {
         Icon(

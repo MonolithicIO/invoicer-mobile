@@ -11,10 +11,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.props.InkButtonSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.local.LocalInkShape
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkColor
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 
@@ -23,8 +23,8 @@ internal fun InkBasicButton(
     onClick: () -> Unit,
     enabled: Boolean = true,
     size: InkButtonSize = InkButtonSize.Regular,
-    backgroundColor: InkColor,
-    contentColor: InkColor,
+    backgroundColor: Color,
+    contentColor: Color,
     borderStroke: BorderStroke? = null,
     modifier: Modifier = Modifier,
     shape: Shape = LocalInkShape.current.small,
@@ -34,8 +34,8 @@ internal fun InkBasicButton(
         onClick = onClick,
         modifier = modifier,
         shape = shape,
-        color = backgroundColor.value,
-        contentColor = contentColor.value,
+        color = backgroundColor,
+        contentColor = contentColor,
         border = borderStroke,
         enabled = enabled
     ) {
