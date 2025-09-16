@@ -1,7 +1,5 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -17,13 +15,11 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.semantics.semantics
@@ -34,7 +30,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputColors
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputErrorText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputLabel
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.textFieldBackground
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
@@ -49,7 +47,7 @@ fun InkOutlinedInput(
     placeholder: String? = null,
     leadingContent: (@Composable () -> Unit)? = null,
     trailingContent: (@Composable () -> Unit)? = null,
-    supportingText: String? = null,
+    errorText: String? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -60,7 +58,7 @@ fun InkOutlinedInput(
     interactionSource: MutableInteractionSource? = null,
 ) {
     val baseTextStyle = InkTheme.typography.bodyXLarge.copy(fontWeight = FontWeight.SemiBold)
-    val colors = InkOutlinedInputDefaults.colors
+    val colors = InkInputDefaults.colors
     val internalInteractionSource = interactionSource ?: remember { MutableInteractionSource() }
 
     val themedTextStyle by derivedStateOf {
@@ -94,8 +92,8 @@ fun InkOutlinedInput(
 //                    defaultErrorMessage = InkOutlinedInputDefaults.DEFAULT_ERROR_MESSAGE
 //                )
                 .defaultMinSize(
-                    minWidth = InkOutlinedInputDefaults.MinWidth,
-                    minHeight = InkOutlinedInputDefaults.MinHeight
+                    minWidth = InkInputDefaults.MinWidth,
+                    minHeight = InkInputDefaults.MinHeight
                 ),
         onValueChange = onValueChange,
         enabled = isEnabled,
@@ -117,8 +115,7 @@ fun InkOutlinedInput(
                     isEnabled = isEnabled,
                     shape = InkTheme.shape.small,
                     label = label,
-                    leadingContent = leadingContent,
-                    trailingContent = trailingContent,
+                    errorText = errorText
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -149,37 +146,33 @@ private fun InkOutlinedInputContainer(
     interactionSource: InteractionSource,
     shape: Shape,
     label: String?,
-    leadingContent: @Composable (() -> Unit)?,
-    trailingContent: @Composable (() -> Unit)?,
+    errorText: String?,
     textFieldSlot: @Composable () -> Unit
 ) {
     val hasFocus by interactionSource.collectIsFocusedAsState()
 
     val backgroundColor =
-        InkOutlinedInputDefaults.backgroundColor(
+        InkInputDefaults.backgroundColor(
             isFocused = hasFocus,
             isEnabled = isEnabled
         )
 
-    val borderColor by InkOutlinedInputDefaults.borderColor(
+    val borderColor by InkInputDefaults.borderColor(
         isError = isError,
         isFocused = hasFocus,
         isEnabled = isEnabled
     )
 
-    val labelColor by InkOutlinedInputDefaults.labelColor(isError = isError, isEnabled = isEnabled)
+    val labelColor by InkInputDefaults.labelColor(isError = isError, isEnabled = isEnabled)
 
     Column(
         modifier = modifier.fillMaxWidth()
 
     ) {
         label?.let {
-            InkText(
+            InkInputLabel(
                 text = label,
-                style = InkTextStyle.BodyXlarge,
-                weight = FontWeight.SemiBold,
                 color = labelColor,
-                maxLines = 1
             )
             VerticalSpacer(SpacerSize.XSmall)
         }
@@ -200,6 +193,13 @@ private fun InkOutlinedInputContainer(
         ) {
             textFieldSlot()
         }
+
+        if (isError && errorText != null) {
+            VerticalSpacer(SpacerSize.XSmall)
+            InkInputErrorText(
+                supportText = errorText,
+            )
+        }
     }
 }
 
@@ -213,97 +213,11 @@ private fun Placeholder(
         text = text,
         modifier = modifier,
         style = InkTextStyle.BodyMedium,
-        color = InkOutlinedInputDefaults.placeholderColor(isError = isError),
+        color = InkInputDefaults.placeholderColor(isError = isError),
         maxLines = 1
     )
 }
 
 internal object InkOutlinedInputDefaults {
-
     val BorderWidth = 2.dp
-    val MinHeight = 65.dp
-    val MinWidth = 280.dp
-    const val DEFAULT_ERROR_MESSAGE = "Error"
-    const val TextFieldAnimationDuration = 150
-
-    val shape: Shape
-        @Composable
-        get() {
-            return InkTheme.shape.small
-        }
-
-    val colors: InkInputColors
-        @Composable
-        get() {
-            return InkInputColors(
-                textColor = InkTheme.colorScheme.onSurfaceVariant,
-                cursorColor = InkTheme.colorScheme.onSurfaceVariant,
-                focusedBackground = InkTheme.colorScheme.surfaceDark,
-                focusedIndicator = InkTheme.colorScheme.surfaceDark,
-                unfocusedBackground = InkTheme.colorScheme.surfaceLight,
-                unfocusedIndicator = InkTheme.colorScheme.surfaceLight,
-                disabledIndicator = InkTheme.colorScheme.disabled,
-                disabledBackground = InkTheme.colorScheme.disabled,
-                disabledText = InkTheme.colorScheme.onDisabled,
-                disabledLabel = InkTheme.colorScheme.onDisabled,
-                errorText = InkTheme.colorScheme.error,
-                errorIndicator = InkTheme.colorScheme.error,
-                errorLabel = InkTheme.colorScheme.error,
-                errorCursor = InkTheme.colorScheme.error,
-                errorPlaceholder = InkTheme.colorScheme.error,
-                placeholderColor = InkTheme.colorScheme.onDisabled,
-                labelColor = InkTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-
-    @Composable
-    fun backgroundColor(isFocused: Boolean, isEnabled: Boolean): State<Color> {
-        val colors = colors
-        val newColor = when {
-            !isEnabled -> colors.disabledBackground
-            isFocused -> colors.focusedBackground
-            else -> colors.unfocusedBackground
-        }
-
-        return animateColorAsState(
-            targetValue = newColor,
-            animationSpec = tween(durationMillis = TextFieldAnimationDuration)
-        )
-    }
-
-    @Composable
-    fun borderColor(isError: Boolean, isFocused: Boolean, isEnabled: Boolean): State<Color> {
-        val colors = colors
-        val newColor = when {
-            !isEnabled -> colors.disabledIndicator
-            isError -> colors.errorIndicator
-            isFocused -> colors.focusedIndicator
-            else -> colors.unfocusedIndicator
-        }
-
-        return animateColorAsState(
-            targetValue = newColor,
-            animationSpec = tween(durationMillis = TextFieldAnimationDuration)
-        )
-    }
-
-    @Composable
-    fun labelColor(isError: Boolean, isEnabled: Boolean): State<Color> {
-        val colors = colors
-        val newColor = when {
-            !isEnabled -> colors.disabledLabel
-            isError -> colors.errorLabel
-            else -> colors.labelColor
-        }
-
-        return animateColorAsState(
-            targetValue = newColor,
-            animationSpec = tween(durationMillis = TextFieldAnimationDuration)
-        )
-    }
-
-    @Composable
-    fun placeholderColor(isError: Boolean): Color {
-        return if (isError) colors.errorPlaceholder else colors.placeholderColor
-    }
 }
