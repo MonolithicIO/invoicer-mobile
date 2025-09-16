@@ -4,10 +4,9 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,12 +25,12 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputErrorText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputLabel
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputLayout
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputPlaceHolder
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.textFieldBackground
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
@@ -110,6 +109,9 @@ fun InkOutlinedInput(
         minLines = minLines,
         decorationBox =
             @Composable { innerTextField ->
+                val showPlaceHolder by derivedStateOf {
+                    value.isEmpty() && placeholder != null && hasFocus.not()
+                }
                 InkOutlinedInputContainer(
                     interactionSource = internalInteractionSource,
                     isError = isError,
@@ -118,22 +120,16 @@ fun InkOutlinedInput(
                     label = label,
                     errorText = errorText
                 ) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
-                    ) {
-                        leadingContent?.let { it() }
-                        if (value.isBlank() && placeholder != null && hasFocus.not()) {
-                            Placeholder(
-                                text = placeholder,
-                                isError = isError
-                            )
-                        } else {
-                            innerTextField()
-                        }
-                        trailingContent?.let { it() }
-                    }
+                    InkInputLayout(
+                        isSingleLine = maxLines == 1,
+                        paddingValues = PaddingValues(),
+                        leading = leadingContent,
+                        trailing = trailingContent,
+                        textField = if (showPlaceHolder) null else innerTextField,
+                        placeholder = if (showPlaceHolder) {
+                            { InkInputPlaceHolder(text = placeholder.orEmpty(), isError = isError) }
+                        } else null
+                    )
                 }
             }
     )
@@ -189,7 +185,7 @@ private fun InkOutlinedInputContainer(
                     color = backgroundColor::value,
                     shape = shape
                 )
-                .padding(InkTheme.spacing.medium),
+                .padding(horizontal = InkTheme.spacing.medium),
             contentAlignment = Alignment.CenterStart
         ) {
             textFieldSlot()
@@ -204,20 +200,6 @@ private fun InkOutlinedInputContainer(
     }
 }
 
-@Composable
-private fun Placeholder(
-    isError: Boolean,
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    InkText(
-        text = text,
-        modifier = modifier,
-        style = InkTextStyle.BodyMedium,
-        color = InkInputDefaults.placeholderColor(isError = isError),
-        maxLines = 1
-    )
-}
 
 private object InkOutlinedInputDefaults {
     val BorderWidth = 2.dp
