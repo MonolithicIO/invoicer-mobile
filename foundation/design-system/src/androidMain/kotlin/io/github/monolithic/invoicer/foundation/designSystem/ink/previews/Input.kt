@@ -23,7 +23,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.In
 private fun InkOutlinedInputPreview() {
     var text by remember { mutableStateOf("") }
 
-    InkTheme {
+    InkTheme(false) {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background)

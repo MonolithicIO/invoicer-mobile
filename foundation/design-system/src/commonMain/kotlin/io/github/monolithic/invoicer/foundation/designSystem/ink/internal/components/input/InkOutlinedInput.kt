@@ -31,7 +31,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputColors
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.defaultErrorSemantics
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.modifier.textFieldBackground
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
@@ -86,10 +89,10 @@ fun InkOutlinedInput(
                         Modifier
                     }
                 )
-//                .defaultErrorSemantics(
-//                    isError = isError,
-//                    defaultErrorMessage = InkOutlinedInputDefaults.DEFAULT_ERROR_MESSAGE
-//                )
+                .defaultErrorSemantics(
+                    isError = isError,
+                    defaultErrorMessage = InkOutlinedInputDefaults.DEFAULT_ERROR_MESSAGE
+                )
                 .defaultMinSize(
                     minWidth = InkOutlinedInputDefaults.MinWidth,
                     minHeight = InkOutlinedInputDefaults.MinHeight
@@ -142,7 +145,6 @@ private fun InkOutlinedInputContainer(
 
     val backgroundColor =
         InkOutlinedInputDefaults.backgroundColor(
-            isError = isError,
             isFocused = hasFocus,
             isEnabled = isEnabled
         )
@@ -167,6 +169,7 @@ private fun InkOutlinedInputContainer(
                 color = labelColor,
                 maxLines = 1
             )
+            VerticalSpacer(SpacerSize.XSmall)
         }
         Box(
             modifier = Modifier
@@ -235,7 +238,6 @@ internal object InkOutlinedInputDefaults {
                 errorIndicator = InkTheme.colorScheme.error,
                 errorLabel = InkTheme.colorScheme.error,
                 errorCursor = InkTheme.colorScheme.error,
-                errorBackground = InkTheme.colorScheme.errorBackground,
                 errorPlaceholder = InkTheme.colorScheme.error,
                 placeholderColor = InkTheme.colorScheme.onDisabled,
                 labelColor = InkTheme.colorScheme.onSurfaceVariant,
@@ -243,11 +245,10 @@ internal object InkOutlinedInputDefaults {
         }
 
     @Composable
-    fun backgroundColor(isError: Boolean, isFocused: Boolean, isEnabled: Boolean): State<Color> {
+    fun backgroundColor(isFocused: Boolean, isEnabled: Boolean): State<Color> {
         val colors = colors
         val newColor = when {
             !isEnabled -> colors.disabledBackground
-            isError -> colors.errorBackground
             isFocused -> colors.focusedBackground
             else -> colors.unfocusedBackground
         }

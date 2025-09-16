@@ -16,7 +16,6 @@ internal data class InkInputColors(
     val disabledLabel: Color,
     // Error
     val errorIndicator: Color,
-    val errorBackground: Color,
     val errorText: Color,
     val errorCursor: Color,
     val errorLabel: Color,
