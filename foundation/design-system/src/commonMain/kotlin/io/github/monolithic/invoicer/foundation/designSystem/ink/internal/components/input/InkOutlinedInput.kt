@@ -115,7 +115,14 @@ fun InkOutlinedInput(
                     shape = InkTheme.shape.small,
                     label = label
                 ) {
-                    innerTextField()
+                    if (value.isBlank() && placeholder != null) {
+                        Placeholder(
+                            text = placeholder,
+                            isError = isError
+                        )
+                    } else {
+                        innerTextField()
+                    }
                 }
             }
     )
@@ -158,6 +165,7 @@ private fun InkOutlinedInputContainer(
                 style = InkTextStyle.BodyXlarge,
                 weight = FontWeight.SemiBold,
                 color = labelColor,
+                maxLines = 1
             )
         }
         Box(
@@ -178,6 +186,21 @@ private fun InkOutlinedInputContainer(
             textFieldSlot()
         }
     }
+}
+
+@Composable
+private fun Placeholder(
+    isError: Boolean,
+    text: String,
+    modifier: Modifier = Modifier
+) {
+    InkText(
+        text = text,
+        modifier = modifier,
+        style = InkTextStyle.BodyMedium,
+        color = InkOutlinedInputDefaults.placeholderColor(isError = isError),
+        maxLines = 1
+    )
 }
 
 internal object InkOutlinedInputDefaults {
@@ -213,7 +236,8 @@ internal object InkOutlinedInputDefaults {
                 errorLabel = InkTheme.colorScheme.error,
                 errorCursor = InkTheme.colorScheme.error,
                 errorBackground = InkTheme.colorScheme.errorBackground,
-                placeholderColor = InkTheme.colorScheme.disabled,
+                errorPlaceholder = InkTheme.colorScheme.error,
+                placeholderColor = InkTheme.colorScheme.onDisabled,
                 labelColor = InkTheme.colorScheme.onSurfaceVariant,
             )
         }
@@ -263,5 +287,10 @@ internal object InkOutlinedInputDefaults {
             targetValue = newColor,
             animationSpec = tween(durationMillis = TextFieldAnimationDuration)
         )
+    }
+
+    @Composable
+    fun placeholderColor(isError: Boolean): Color {
+        return if (isError) colors.errorPlaceholder else colors.placeholderColor
     }
 }
