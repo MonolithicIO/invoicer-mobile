@@ -20,9 +20,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import invoicer.features.auth.presentation.generated.resources.Res
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_label
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_placeholder
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_password_label
+import invoicer.features.auth.presentation.generated.resources.auth_sign_in_email_label
+import invoicer.features.auth.presentation.generated.resources.auth_sign_in_password_label
 import invoicer.features.auth.presentation.generated.resources.ic_email
 import invoicer.features.auth.presentation.generated.resources.ic_lock
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_off
@@ -127,7 +126,7 @@ internal fun LoginPasswordField(
             )
         },
         visualTransformation = transformation,
-        label = stringResource(Res.string.auth_sign_up_password_label),
+        label = stringResource(Res.string.auth_sign_in_password_label),
         maxLines = 1,
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,
@@ -138,7 +137,7 @@ internal fun LoginPasswordField(
             onNext = { onImeAction() }
         ),
         isEnabled = enabled,
-        placeholder = stringResource(Res.string.auth_sign_up_password_label)
+        placeholder = stringResource(Res.string.auth_sign_in_password_label)
     )
 }
 
@@ -154,8 +153,8 @@ internal fun LoginEmailField(
         value = value,
         onValueChange = onChange,
         modifier = modifier,
-        label = stringResource(Res.string.auth_sign_up_email_label),
-        placeholder = stringResource(Res.string.auth_sign_up_email_placeholder),
+        label = stringResource(Res.string.auth_sign_in_email_label),
+        placeholder = stringResource(Res.string.auth_sign_in_email_label),
         leadingContent = {
             InkIcon(
                 painter = painterResource(Res.drawable.ic_email),

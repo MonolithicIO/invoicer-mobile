@@ -37,6 +37,8 @@
     <string name="auth_sign_in_google_button">Continue with Google</string>
     <string name="auth_sign_in_dont_have_account_prefix">Don\'t have an account?</string>
     <string name="auth_sign_in_dont_have_account_suffix">Sign up</string>
+    <string name="auth_sign_in_email_label">Email</string>
+    <string name="auth_sign_in_password_label">Password</string>
     <!-- Auth menu -->
     <string name="auth_menu_title">Let's Get Started</string>
     <string name="auth_menu_description">Let's dive in into your account</string>

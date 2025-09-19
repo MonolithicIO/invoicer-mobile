@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasurePolicy
@@ -43,7 +45,7 @@ internal fun InkInputLayout(
     val layoutDirection = LocalLayoutDirection.current
 
     Layout(
-        modifier = modifier,
+        modifier = modifier.background(Color.Yellow),
         measurePolicy = InkInputMeasurePolicy(
             singleLine = isSingleLine,
             paddingValues = paddingValues
@@ -120,7 +122,8 @@ internal fun InkInputLayout(
                 Box(
                     modifier = Modifier
                         .layoutId(InkInputLayoutDefaults.LabelId)
-                        .wrapContentHeight(),
+                        .wrapContentHeight()
+                        .background(Color.Blue),
                 ) {
                     it()
                 }
@@ -180,7 +183,7 @@ private class InkInputMeasurePolicy(
                 )
                 .copy(minHeight = 0)
 
-        val labelConstraints = constraints.offset(
+        val labelConstraints = looseConstraints.offset(
             vertical = -(paddingValues.calculateTopPadding().value * density).roundToInt()
         )
         val label =
