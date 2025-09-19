@@ -28,7 +28,6 @@ import invoicer.features.auth.presentation.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
@@ -117,9 +116,7 @@ internal fun LoginPasswordField(
         trailingContent = {
             InkIconButton(
                 onClick = toggleCensorship,
-                icon = painterResource(resource = trailingIcon),
-                colors = InkIconButtonDefaults.colors
-                    .copy(containerColor = InkTheme.colorScheme.surfaceLight)
+                icon = painterResource(resource = trailingIcon)
             )
         },
         visualTransformation = transformation,

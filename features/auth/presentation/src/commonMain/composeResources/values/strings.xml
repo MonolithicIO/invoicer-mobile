@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Sign Up -->
-    <string name="auth_sign_up_title">Sign up</string>
-    <string name="auth_sign_up_description">Create an account to continue!</string>
-    <string name="auth_sign_up_submit_button">Create account</string>
+    <string name="auth_sign_up_title">Join Invoicer today 💰</string>
+    <string name="auth_sign_up_description">Get started and manage your invoices.</string>
+    <string name="auth_sign_up_submit_button">Sign up</string>
     <string name="auth_sign_up_email_label">Email</string>
     <string name="auth_sign_up_confirm_email_label">Confirm E-mail</string>
-    <string name="auth_sign_up_password_label">Set password</string>
+    <string name="auth_sign_up_password_label">Password</string>
     <string name="auth_sign_up_email_placeholder">loisbecket@gmail.com</string>
     <string name="auth_sign_up_email_error">E-mail invalid</string>
     <string name="auth_sign_up_password_str_title">Password must have at least</string>
@@ -28,7 +28,7 @@
     <string name="auth_sign_up_feedback_message">Proceed to login to use the app</string>
     <string name="auth_sign_up_feedback_cta">Continue</string>
     <!-- Sign IN -->
-    <string name="auth_sign_in_title">Welcome Back!</string>
+    <string name="auth_sign_in_title">Welcome Back! 👋</string>
     <string name="auth_sign_in_subtitle">Access your account to manage your invoices.</string>
     <string name="auth_sign_in_error">Error during Sign in, please try again later</string>
     <string name="auth_sign_in_sign_up_button">Don't have an account? Sign up</string>
