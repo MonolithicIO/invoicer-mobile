@@ -118,7 +118,7 @@ fun InkOutlinedInput(
                     },
                     isSingleLine = maxLines == 1,
                     paddingValues = PaddingValues(
-                        vertical = InkTheme.spacing.medium,
+                        vertical = InkTheme.spacing.xSmall,
                         horizontal = InkTheme.spacing.large
                     ),
                     leading = leadingContent,
