@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -31,6 +32,7 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_error
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_submit_button
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_text_divider
+import invoicer.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
@@ -38,13 +40,16 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.TextDivider
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import invoicer.foundation.design_system.generated.resources.Res as DsRes
 
 internal class LoginScreen : Screen {
 
@@ -105,14 +110,24 @@ internal class LoginScreen : Screen {
         callBacks: LoginScreenCallbacks
     ) {
         InkScaffold(
-            topBar = {},
+            modifier = Modifier.imePadding(),
+            topBar = {
+                InkTopBar(
+                    modifier = Modifier.statusBarsPadding(),
+                    navigationIcon = painterResource(DsRes.drawable.ic_chveron_left),
+                    onNavigationClick = callBacks.onBack
+                )
+            },
             bottomBar = {
                 InkPrimaryButton(
                     text = stringResource(Res.string.auth_sign_in_submit_button),
                     enabled = state.buttonEnabled,
                     loading = state.isSignInLoading,
                     onClick = callBacks.onSubmit,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(InkTheme.spacing.medium)
+                        .systemBarsPadding()
                 )
             },
             snackBarHost = {
@@ -122,9 +137,7 @@ internal class LoginScreen : Screen {
             Column(
                 modifier = Modifier
                     .padding(it)
-                    .imePadding()
-                    .systemBarsPadding()
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .fillMaxSize()
             ) {
                 LoginHeader()
