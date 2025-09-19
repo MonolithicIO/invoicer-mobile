@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.defaultMinSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -41,7 +40,6 @@ internal fun InkBasicButton(
     ) {
         Row(
             modifier = Modifier
-                .fillMaxWidth()
                 .defaultMinSize(minHeight = size.height)
                 .padding(InkTheme.spacing.medium),
             horizontalArrangement = Arrangement.Center,
