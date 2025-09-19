@@ -40,7 +40,7 @@ private fun InkOutlinedInputPreview() {
                 placeholder = "Placeholder Text1",
                 leadingContent = { InkText("Hello") },
                 trailingContent = { InkText("Hello world") },
-                errorText = "1234"
+                supportText = "1234"
             )
             InkOutlinedInput(
                 label = "Label 2",
@@ -56,7 +56,7 @@ private fun InkOutlinedInputPreview() {
                 modifier = Modifier.fillMaxWidth(),
                 isError = true,
                 placeholder = "Placeholder Error",
-                errorText = "1234"
+                supportText = "1234"
             )
             InkOutlinedInput(
                 label = "Label Disabled",

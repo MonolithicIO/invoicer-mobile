@@ -118,13 +118,7 @@ private fun SignUpEmailField(
             onNext = { onImeAction() }
         ),
         isError = isEmailValid.not(),
-//        supportingText = supportText.takeIf { it != null }?.let {
-//            {
-//                Text(
-//                    text = it,
-//                )
-//            }
-//        },
+        supportText = supportText,
         trailingContent = if (trailingIcon != null) {
             {
                 Icon(

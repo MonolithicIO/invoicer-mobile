@@ -171,6 +171,7 @@ internal class SignUpScreen : Screen {
                     onEmailChange = callbacks.onEmailChange,
                     toggleCensorship = callbacks.toggleCensorship
                 )
+                VerticalSpacer(height = SpacerSize.XLarge3)
                 InkTextButton(
                     modifier = Modifier.fillMaxWidth(),
                     onClick = callbacks.onSignInClick,

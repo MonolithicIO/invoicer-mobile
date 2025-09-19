@@ -21,7 +21,10 @@ import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputLabel
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputLayout
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic.InkInputLayoutDefaults
@@ -41,7 +44,7 @@ fun InkOutlinedInput(
     placeholder: String? = null,
     leadingContent: (@Composable () -> Unit)? = null,
     trailingContent: (@Composable () -> Unit)? = null,
-    errorText: String? = null,
+    supportText: String? = null,
     isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
@@ -136,6 +139,20 @@ fun InkOutlinedInput(
                             )
                         }
                     },
+                    supportText = if (supportText == null) null else {
+                        {
+                            InkText(
+                                text = supportText,
+                                style = InkTextStyle.BodyMedium,
+                                color = InkInputDefaults.supportTextColor(
+                                    isError = isError,
+                                    isEnabled = isEnabled
+                                ).value,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
+                        }
+                    }
                 )
             }
     )
