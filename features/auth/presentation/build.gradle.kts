@@ -24,6 +24,9 @@ kotlin {
             // Voyager
             implementation(libs.bundles.voyager)
 
+            // Kotlin
+            implementation(libs.immutable.collections)
+
             // Foundation
             implementation(projects.foundation.network)
             implementation(projects.foundation.navigation)

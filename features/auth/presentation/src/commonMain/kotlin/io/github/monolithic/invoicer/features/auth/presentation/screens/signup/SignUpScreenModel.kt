@@ -9,6 +9,7 @@ import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepos
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import io.github.monolithic.invoicer.foundation.network.request.RequestState
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,9 +45,11 @@ internal class SignUpScreenModel(
 
     fun onPasswordChange(newPassword: String) {
         _state.update {
+            val strength = passwordStrengthValidator
+                .validate(newPassword).toPersistentSet()
             it.copy(
                 password = newPassword,
-                passwordStrength = passwordStrengthValidator.validate(newPassword)
+                passwordIssues = strength
             )
         }
     }
@@ -60,6 +63,12 @@ internal class SignUpScreenModel(
     }
 
     fun createAccount() {
+        _state.update { oldState ->
+            oldState.copy(
+                submitAttempted = true
+            )
+        }
+
         if (emailValidator.validate(state.value.email).not()) {
             _state.update { oldState ->
                 oldState.copy(

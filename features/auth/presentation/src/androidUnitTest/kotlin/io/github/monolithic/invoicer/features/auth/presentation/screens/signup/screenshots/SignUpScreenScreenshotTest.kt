@@ -60,7 +60,7 @@ class SignUpScreenScreenshotTest {
                 state = SignUpScreenState(
                     email = "johndona@gmail.com",
                     password = "123123123",
-                    passwordStrength = PasswordStrengthResult(
+                    passwordIssues = PasswordStrengthResult(
                         lengthValid = false,
                         upperCaseValid = false,
                         lowerCaseValid = false,
@@ -79,7 +79,7 @@ class SignUpScreenScreenshotTest {
                 state = SignUpScreenState(
                     email = "johndona@gmail.com",
                     password = "123123123",
-                    passwordStrength = PasswordStrengthResult(
+                    passwordIssues = PasswordStrengthResult(
                         lengthValid = true,
                         upperCaseValid = true,
                         lowerCaseValid = true,
@@ -98,7 +98,7 @@ class SignUpScreenScreenshotTest {
                 state = SignUpScreenState(
                     email = "johndona@gmail.com",
                     password = "123123123",
-                    passwordStrength = PasswordStrengthResult(
+                    passwordIssues = PasswordStrengthResult(
                         lengthValid = true,
                         upperCaseValid = true,
                         lowerCaseValid = true,

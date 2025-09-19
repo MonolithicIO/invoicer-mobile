@@ -84,7 +84,7 @@ class SignUpScreenModelTest {
 
         assertEquals(
             expected = strength,
-            actual = viewModel.state.value.passwordStrength
+            actual = viewModel.state.value.passwordIssues
         )
     }
 

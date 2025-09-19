@@ -26,11 +26,17 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_up_emai
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_label
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_placeholder
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_password_label
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_digit
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_length
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_lowercase
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_special
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_uppercase
 import invoicer.features.auth.presentation.generated.resources.ic_email
 import invoicer.features.auth.presentation.generated.resources.ic_lock
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_off
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
+import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordIssue
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
@@ -76,7 +82,8 @@ internal fun SignUpForm(
             isCensored = state.censored,
             toggleCensorship = toggleCensorship,
             onImeAction = { keyboard?.hide() },
-            enabled = state.requestLoading.not()
+            enabled = state.requestLoading.not(),
+            passwordIssue = state.currentPasswordIssue
         )
     }
 }
@@ -142,6 +149,7 @@ private fun SignUpEmailField(
 
 @Composable
 private fun SignUpPasswordField(
+    passwordIssue: PasswordIssue?,
     value: String,
     isCensored: Boolean,
     enabled: Boolean,
@@ -159,12 +167,20 @@ private fun SignUpPasswordField(
     }
 
     val transformation = remember(isCensored) {
-
         if (isCensored) {
             PasswordVisualTransformation(mask = '●')
         } else {
             VisualTransformation.None
         }
+    }
+
+    val supportText = when (passwordIssue) {
+        PasswordIssue.LENGTH -> stringResource(Res.string.auth_sign_up_weak_password_length)
+        PasswordIssue.UPPERCASE -> stringResource(Res.string.auth_sign_up_weak_password_uppercase)
+        PasswordIssue.LOWERCASE -> stringResource(Res.string.auth_sign_up_weak_password_lowercase)
+        PasswordIssue.DIGIT -> stringResource(Res.string.auth_sign_up_weak_password_digit)
+        PasswordIssue.SPECIAL_CHARACTER -> stringResource(Res.string.auth_sign_up_weak_password_special)
+        null -> null
     }
 
     InkOutlinedInput(
@@ -196,6 +212,8 @@ private fun SignUpPasswordField(
         keyboardActions = KeyboardActions(
             onNext = { onImeAction() }
         ),
-        isEnabled = enabled
+        isEnabled = enabled,
+        supportText = supportText,
+        isError = supportText != null
     )
 }
