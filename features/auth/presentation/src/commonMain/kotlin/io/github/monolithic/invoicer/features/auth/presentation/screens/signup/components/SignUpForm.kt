@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -14,7 +11,6 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component1
 import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component2
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
@@ -31,6 +27,7 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_lowercase
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_special
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_weak_password_uppercase
+import invoicer.features.auth.presentation.generated.resources.ic_danger_square
 import invoicer.features.auth.presentation.generated.resources.ic_email
 import invoicer.features.auth.presentation.generated.resources.ic_lock
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_off
@@ -103,10 +100,8 @@ private fun SignUpEmailField(
         stringResource(Res.string.auth_sign_up_email_error)
     }
 
-    val trailingIcon = remember(isEmailValid) {
-        if (isEmailValid) null
-        else Icons.Outlined.ErrorOutline
-    }
+    val trailingIcon = if (isEmailValid) null
+    else painterResource(resource = Res.drawable.ic_danger_square)
 
     InkOutlinedInput(
         value = value,
@@ -128,11 +123,10 @@ private fun SignUpEmailField(
         supportText = supportText,
         trailingContent = if (trailingIcon != null) {
             {
-                Icon(
-                    painter = rememberVectorPainter(
-                        image = trailingIcon
-                    ),
-                    contentDescription = null
+                InkIcon(
+                    painter = trailingIcon,
+                    contentDescription = null,
+                    tint = InkTheme.colorScheme.error
                 )
             }
         } else null,
@@ -140,7 +134,8 @@ private fun SignUpEmailField(
             InkIcon(
                 painter = painterResource(Res.drawable.ic_email),
                 contentDescription = null,
-                tint = InkTheme.colorScheme.onSurfaceVariant
+                tint = if (isEmailValid) InkTheme.colorScheme.onSurfaceVariant
+                else InkTheme.colorScheme.error
             )
         },
         isEnabled = enabled
