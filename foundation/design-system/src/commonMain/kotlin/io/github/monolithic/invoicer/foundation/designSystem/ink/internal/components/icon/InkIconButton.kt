@@ -3,13 +3,12 @@ package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compo
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.BasicInkIconButton
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.BasicInkIconButtonDefaults
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.props.InkIconButtonColors
 
 @Composable
 fun InkIconButton(
@@ -18,20 +17,19 @@ fun InkIconButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
-    iconTint: Color = InkTheme.colorScheme.onSurfaceVariant,
+    colors: InkIconButtonColors = InkIconButtonDefaults.colors,
 ) {
-    val colors = BasicInkIconButtonDefaults.colors
-
     BasicInkIconButton(
         onClick = onClick,
         modifier = modifier,
         enabled = enabled,
-        interactionSource = interactionSource
+        interactionSource = interactionSource,
+        colors = colors
     ) {
         InkIcon(
             painter = icon,
             contentDescription = null,
-            tint = if (enabled) iconTint else colors.disabledContentColor
+            tint = if (enabled) colors.iconColor else colors.disabledIconColor
         )
     }
 }
@@ -43,10 +41,8 @@ fun InkIconButton(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
     icon: ImageBitmap,
-    iconTint: Color = InkTheme.colorScheme.onSurfaceVariant,
+    colors: InkIconButtonColors = InkIconButtonDefaults.colors,
 ) {
-    val colors = BasicInkIconButtonDefaults.colors
-
     BasicInkIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -56,7 +52,7 @@ fun InkIconButton(
         InkIcon(
             bitmap = icon,
             contentDescription = null,
-            tint = if (enabled) iconTint else colors.disabledContentColor
+            tint = if (enabled) colors.iconColor else colors.disabledIconColor
         )
     }
 }
@@ -68,10 +64,8 @@ fun InkIconButton(
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
     icon: ImageVector,
-    iconTint: Color = InkTheme.colorScheme.onSurfaceVariant,
+    colors: InkIconButtonColors = InkIconButtonDefaults.colors,
 ) {
-    val colors = BasicInkIconButtonDefaults.colors
-
     BasicInkIconButton(
         onClick = onClick,
         modifier = modifier,
@@ -81,7 +75,7 @@ fun InkIconButton(
         InkIcon(
             imageVector = icon,
             contentDescription = null,
-            tint = if (enabled) iconTint else colors.disabledContentColor
+            tint = if (enabled) colors.iconColor else colors.disabledIconColor
         )
     }
 }

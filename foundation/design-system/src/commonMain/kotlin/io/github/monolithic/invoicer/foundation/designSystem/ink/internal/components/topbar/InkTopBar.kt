@@ -18,6 +18,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.Spacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.props.InkTopbarColors
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
@@ -46,7 +47,10 @@ fun InkTopBar(
             InkIconButton(
                 onClick = onNavigationClick,
                 icon = navigationIcon,
-                iconTint = colors.navigationIconColor
+                colors = InkIconButtonDefaults.colors.copy(
+                    iconColor = colors.navigationIconColor,
+                    containerColor = colors.containerColor
+                )
             )
             title?.let {
                 InkText(
@@ -61,8 +65,8 @@ fun InkTopBar(
     }
 }
 
-internal object InkTopBarDefaults {
-    val Height = 64.dp
+object InkTopBarDefaults {
+    internal val Height = 64.dp
 
     val colors: InkTopbarColors
         @Composable

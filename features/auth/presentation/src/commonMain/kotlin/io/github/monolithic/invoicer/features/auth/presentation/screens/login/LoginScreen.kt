@@ -41,6 +41,8 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBarDefaults
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.props.InkTopbarColors
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.TextDivider
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
@@ -115,7 +117,7 @@ internal class LoginScreen : Screen {
                 InkTopBar(
                     modifier = Modifier.statusBarsPadding(),
                     navigationIcon = painterResource(DsRes.drawable.ic_chveron_left),
-                    onNavigationClick = callBacks.onBack
+                    onNavigationClick = callBacks.onBack,
                 )
             },
             bottomBar = {
