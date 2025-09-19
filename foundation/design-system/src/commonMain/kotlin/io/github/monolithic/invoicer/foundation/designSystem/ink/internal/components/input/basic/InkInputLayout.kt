@@ -174,7 +174,6 @@ private class InkInputMeasurePolicy(
                 ?.measure(looseConstraints)
         horizontalSpace += trailing?.width ?: 0
 
-
         val textFieldConstraints =
             constraints
                 .offset(
@@ -190,7 +189,6 @@ private class InkInputMeasurePolicy(
         val textField =
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.TextFieldIdId }
                 ?.measure(textFieldConstraints)
-
 
         val placeholderConstraints = textFieldConstraints.copy(minWidth = 0)
         val placeHolder =
@@ -217,7 +215,8 @@ private class InkInputMeasurePolicy(
             constraints = constraints
         )
 
-        val containerHeight = componentHeight - (label?.height ?: 0)
+        val containerHeight = componentHeight - (label?.height ?: 0) -
+                (if (label != null) 16.dp.toPx().roundToInt() else 0)
 
         val container =
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.ContainerId }
@@ -233,24 +232,27 @@ private class InkInputMeasurePolicy(
         return layout(
             componentWidth, componentHeight
         ) {
-            container?.place(IntOffset.Zero)
+            val labelMargin = if (label != null) 16.dp.toPx().roundToInt() else 0
+            val containerYPosition = (label?.height ?: 0) + labelMargin
 
             label?.placeRelative(
                 x = 0,
                 y = 0
             )
 
+            container?.place(IntOffset(0, containerYPosition))
+
             leading?.let { leadingItem ->
                 leadingItem.placeRelative(
                     x = 0,
-                    y = Alignment.CenterVertically.align(
+                    y = containerYPosition + Alignment.CenterVertically.align(
                         size = leadingItem.height,
                         space = containerHeight
                     )
                 )
             }
 
-            val verticalTextFieldPosition = if (singleLine) {
+            val verticalTextFieldPosition = containerYPosition + if (singleLine) {
                 Alignment.CenterVertically.align(
                     size = textField?.height ?: 0,
                     space = containerHeight
@@ -269,11 +271,10 @@ private class InkInputMeasurePolicy(
                 y = verticalTextFieldPosition
             )
 
-
             trailing?.let { trailingItem ->
                 trailingItem.placeRelative(
                     x = (componentWidth - (trailingItem.width)),
-                    y = Alignment.CenterVertically.align(
+                    y = containerYPosition + Alignment.CenterVertically.align(
                         size = trailingItem.height,
                         space = containerHeight
                     )
@@ -305,8 +306,10 @@ private class InkInputMeasurePolicy(
         val contentHeight =
             (textContentHeight + topPadding + bottomPadding).roundToInt()
 
+        val labelMargin = if (labelHeight > 0) 16.dp.value * density else 0f
+
         return maxOf(
-            contentHeight + labelHeight,
+            contentHeight + labelHeight + labelMargin.roundToInt(),
             constraints.minHeight
         )
     }
@@ -327,7 +330,6 @@ private class InkInputMeasurePolicy(
             )
 
         val wrappedWidth = middleSection + labelWidth
-
 
         return min(wrappedWidth, constraints.maxWidth)
     }
