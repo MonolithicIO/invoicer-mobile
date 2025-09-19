@@ -103,7 +103,7 @@ internal fun LoginPasswordField(
     val transformation = remember(isCensored) {
 
         if (isCensored) {
-            PasswordVisualTransformation()
+            PasswordVisualTransformation(mask = '●')
         } else {
             VisualTransformation.None
         }
