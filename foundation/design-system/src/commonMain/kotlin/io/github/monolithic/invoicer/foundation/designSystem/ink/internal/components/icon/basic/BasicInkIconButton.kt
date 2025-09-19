@@ -27,15 +27,16 @@ internal fun BasicInkIconButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource? = null,
+    colors: InkIconButtonColors = InkIconButtonDefaults.colors,
     content: @Composable () -> Unit,
 ) {
     Box(
         modifier =
             modifier
                 .minimumInteractiveComponentSize()
-                .size(BasicInkIconButtonDefaults.StateLayerSize)
-                .clip(BasicInkIconButtonDefaults.shape)
-                .background(color = BasicInkIconButtonDefaults.backgroundColor(enabled))
+                .size(InkIconButtonDefaults.StateLayerSize)
+                .clip(InkIconButtonDefaults.shape)
+                .background(color = colors.backgroundColor(enabled))
                 .clickable(
                     onClick = onClick,
                     enabled = enabled,
@@ -44,7 +45,7 @@ internal fun BasicInkIconButton(
                     indication =
                         rippleOrFallbackImplementation(
                             bounded = false,
-                            radius = BasicInkIconButtonDefaults.StateLayerSize / 2
+                            radius = InkIconButtonDefaults.StateLayerSize / 2,
                         )
                 ),
         contentAlignment = Alignment.Center
@@ -62,10 +63,10 @@ private fun rippleOrFallbackImplementation(
     return ripple(bounded, radius, color)
 }
 
-internal object BasicInkIconButtonDefaults {
+object InkIconButtonDefaults {
 
-    val shape = CircleShape
-    val StateLayerSize = 40.0.dp
+    internal val shape = CircleShape
+    internal val StateLayerSize = 40.0.dp
     val colors: InkIconButtonColors
         @Composable
         get() {
@@ -74,14 +75,9 @@ internal object BasicInkIconButtonDefaults {
                 InkIconButtonColors(
                     containerColor = theme.surfaceVariant,
                     disabledContainerColor = theme.disabled,
-                    disabledContentColor = theme.onDisabled
+                    iconColor = theme.onSurfaceVariant,
+                    disabledIconColor = theme.onDisabled
                 )
             }
         }
-
-    @Composable
-    fun backgroundColor(enabled: Boolean): Color {
-        val colors = colors
-        return if (enabled) colors.containerColor else colors.disabledContainerColor
-    }
 }

@@ -31,14 +31,15 @@
     <string name="auth_sign_in_title">Welcome Back!</string>
     <string name="auth_sign_in_subtitle">Access your account to manage your invoices.</string>
     <string name="auth_sign_in_error">Error during Sign in, please try again later</string>
-    <string name="auth_sign_in_sign_up_button">Don\'t have an account? Sign up</string>
+    <string name="auth_sign_in_sign_up_button">Don't have an account? Sign up</string>
     <string name="auth_sign_in_submit_button">Log in</string>
     <string name="auth_sign_in_text_divider">Or</string>
     <string name="auth_sign_in_google_button">Continue with Google</string>
-    <string name="auth_sign_in_dont_have_account_prefix">Don\'t have an account?</string>
+    <string name="auth_sign_in_dont_have_account_prefix">Don't have an account?</string>
     <string name="auth_sign_in_dont_have_account_suffix">Sign up</string>
     <string name="auth_sign_in_email_label">Email</string>
     <string name="auth_sign_in_password_label">Password</string>
+    <string name="auth_sign_in_forgot_password">Forgot password?</string>
     <!-- Auth menu -->
     <string name="auth_menu_title">Let's Get Started</string>
     <string name="auth_menu_description">Let's dive in into your account</string>

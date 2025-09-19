@@ -2,12 +2,13 @@ package io.github.monolithic.invoicer.foundation.designSystem.legacy.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 
 
@@ -21,18 +22,12 @@ fun TextDivider(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Spacing.medium)
     ) {
-        HorizontalDivider(
-            modifier = Modifier.weight(1f),
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Text(
+        InkHorizontalDivider(modifier = Modifier.weight(1f))
+        InkText(
             text = text,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            style = InkTextStyle.BodyMedium,
+            color = InkTheme.colorScheme.onBackground
         )
-        HorizontalDivider(
-            modifier = Modifier.weight(1f),
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        InkHorizontalDivider(modifier = Modifier.weight(1f))
     }
 }
