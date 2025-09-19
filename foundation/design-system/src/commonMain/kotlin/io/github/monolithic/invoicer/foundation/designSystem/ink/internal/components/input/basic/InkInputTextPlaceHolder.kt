@@ -1,28 +1,22 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.props.InkInputDefaults
 
 @Composable
-internal fun InkInputLabel(
-    text: String,
+internal fun InkInputPlaceHolder(
     isError: Boolean,
-    isEnabled: Boolean,
+    text: String,
     modifier: Modifier = Modifier
 ) {
-    val labelColor by InkInputDefaults.labelColor(isError = isError, isEnabled = isEnabled)
-
     InkText(
-        modifier = modifier,
         text = text,
-        style = InkTextStyle.BodyXlarge,
-        weight = FontWeight.SemiBold,
-        color = labelColor,
+        modifier = modifier,
+        style = InkTextStyle.BodyMedium,
+        color = InkInputDefaults.placeholderColor(isError = isError),
         maxLines = 1
     )
 }

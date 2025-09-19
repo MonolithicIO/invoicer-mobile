@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.specs.InkSpacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 @Composable
 fun ColumnScope.Spacer(weight: Float) {
@@ -34,14 +34,28 @@ fun HorizontalSpacer(
     Spacer(modifier = Modifier.width(width.value))
 }
 
-enum class SpacerSize(
+enum class SpacerSize {
+    XSmall2,
+    XSmall,
+    Small,
+    Medium,
+    Large,
+    XLarge,
+    XLarge3;
+
     internal val value: Dp
-) {
-    XSmall2(InkSpacing.xSmall2),
-    XSmall(InkSpacing.xSmall),
-    Small(InkSpacing.small),
-    Medium(InkSpacing.medium),
-    Large(InkSpacing.large),
-    XLarge(InkSpacing.xLarge),
-    XLarge3(InkSpacing.xLarge3)
+        @Composable
+        get() {
+            val spacing = InkTheme.spacing
+
+            return when (this) {
+                XSmall2 -> spacing.xSmall2
+                XSmall -> spacing.xSmall
+                Small -> spacing.small
+                Medium -> spacing.medium
+                Large -> spacing.large
+                XLarge -> spacing.xLarge
+                XLarge3 -> spacing.xLarge3
+            }
+        }
 }

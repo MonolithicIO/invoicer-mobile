@@ -3,19 +3,15 @@ package io.github.monolithic.invoicer.features.auth.presentation.screens.login
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -26,26 +22,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.auth.presentation.generated.resources.Res
-import invoicer.features.auth.presentation.generated.resources.auth_sign_in_description
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont_have_account_prefix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont_have_account_suffix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_error
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_submit_button
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_text_divider
-import invoicer.features.auth.presentation.generated.resources.auth_sign_in_title
+import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ScreenTitle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.TextDivider
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import kotlinx.coroutines.flow.collectLatest
@@ -110,32 +104,30 @@ internal class LoginScreen : Screen {
         snackbarHostState: SnackbarHostState,
         callBacks: LoginScreenCallbacks
     ) {
-        Scaffold(
-            modifier = Modifier.imePadding(),
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text("App Logo here")
-                    },
+        InkScaffold(
+            topBar = {},
+            bottomBar = {
+                InkPrimaryButton(
+                    text = stringResource(Res.string.auth_sign_in_submit_button),
+                    enabled = state.buttonEnabled,
+                    loading = state.isSignInLoading,
+                    onClick = callBacks.onSubmit,
+                    modifier = Modifier.fillMaxWidth()
                 )
             },
-            snackbarHost = {
+            snackBarHost = {
                 SnackbarHost(snackbarHostState)
             }
         ) {
-            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
                     .padding(it)
+                    .imePadding()
+                    .systemBarsPadding()
                     .padding(Spacing.medium)
                     .fillMaxSize()
-                    .verticalScroll(scrollState)
             ) {
-                VerticalSpacer(height = SpacerSize.XLarge3)
-                ScreenTitle(
-                    title = stringResource(Res.string.auth_sign_in_title),
-                    subTitle = stringResource(Res.string.auth_sign_in_description)
-                )
+                LoginHeader()
                 VerticalSpacer(height = SpacerSize.XLarge3)
                 SignInForm(
                     state = state,
@@ -144,15 +136,6 @@ internal class LoginScreen : Screen {
                     toggleCensorship = callBacks.toggleCensorship
                 )
                 VerticalSpacer(height = SpacerSize.XLarge)
-                PrimaryButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp),
-                    onClick = callBacks.onSubmit,
-                    isEnabled = state.buttonEnabled,
-                    isLoading = state.isSignInLoading,
-                    label = stringResource(Res.string.auth_sign_in_submit_button)
-                )
                 VerticalSpacer(height = SpacerSize.XLarge)
                 TextDivider(
                     modifier = Modifier.fillMaxWidth(),
