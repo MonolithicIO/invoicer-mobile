@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -151,7 +150,7 @@ internal class SignUpScreen : Screen {
                     onClick = callbacks.onSubmitClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(InkTheme.spacing.medium)
+                        .padding(horizontal = InkTheme.spacing.medium)
                         .systemBarsPadding()
                 )
             }
@@ -173,7 +172,7 @@ internal class SignUpScreen : Screen {
                     toggleCensorship = callbacks.toggleCensorship
                 )
                 InkTextButton(
-                    modifier = Modifier.wrapContentWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     onClick = callbacks.onSignInClick,
                     text = buildAnnotatedString {
                         withStyle(

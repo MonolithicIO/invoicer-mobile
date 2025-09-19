@@ -138,7 +138,7 @@ internal class LoginScreen : Screen {
             Column(
                 modifier = Modifier
                     .padding(it)
-                    .padding(InkTheme.spacing.medium)
+                    .padding(horizontal = InkTheme.spacing.medium)
                     .fillMaxSize()
                     .verticalScroll(scrollState)
             ) {
