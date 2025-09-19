@@ -45,7 +45,7 @@ internal fun InkInputLayout(
     val layoutDirection = LocalLayoutDirection.current
 
     Layout(
-        modifier = modifier.background(Color.Yellow),
+        modifier = modifier,
         measurePolicy = InkInputMeasurePolicy(
             singleLine = isSingleLine,
             paddingValues = paddingValues
@@ -122,7 +122,6 @@ internal fun InkInputLayout(
                 Box(
                     modifier = Modifier
                         .layoutId(InkInputLayoutDefaults.LabelId)
-                        .background(Color.Blue)
                         .wrapContentHeight(),
                 ) {
                     it()
