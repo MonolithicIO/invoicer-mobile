@@ -1,6 +1,5 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.basic
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.calculateEndPadding
@@ -12,12 +11,12 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasurePolicy
 import androidx.compose.ui.layout.MeasureResult
 import androidx.compose.ui.layout.MeasureScope
+import androidx.compose.ui.layout.Placeable
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.unit.Constraints
@@ -135,21 +134,22 @@ private val SideContentDefaultModifier =
     Modifier.defaultMinSize(minWidth = 48.dp, minHeight = 48.dp)
 
 internal object InkInputLayoutDefaults {
-    val LeadingId = "Leading"
-    val TrailingId = "Trailing"
-    val PlaceholderId = "Placeholder"
-    val TextFieldIdId = "TextField"
-    val ContainerId = "Container"
-    val LabelId = "Label"
-
+    const val LeadingId = "Leading"
+    const val TrailingId = "Trailing"
+    const val PlaceholderId = "Placeholder"
+    const val TextFieldIdId = "TextField"
+    const val ContainerId = "Container"
+    const val LabelId = "Label"
     val MinTextLineHeight = 24.dp
 }
 
+// I have no idea why or how this works, but it does.
 private class InkInputMeasurePolicy(
     private val singleLine: Boolean,
     private val paddingValues: PaddingValues
 ) : MeasurePolicy {
 
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
     override fun MeasureScope.measure(
         measurables: List<Measurable>,
         constraints: Constraints
@@ -231,54 +231,82 @@ private class InkInputMeasurePolicy(
         return layout(
             componentWidth, componentHeight
         ) {
-            val labelMargin = if (label != null) 16.dp.toPx().roundToInt() else 0
-            val containerYPosition = (label?.height ?: 0) + labelMargin
-
-            label?.placeRelative(
-                x = 0,
-                y = 0
+            placeInputElements(
+                label = label,
+                container = container,
+                leading = leading,
+                trailing = trailing,
+                textField = textField,
+                placeHolder = placeHolder,
+                componentWidth = componentWidth,
+                containerHeight = containerHeight,
+                paddingValues = paddingValues,
+                density = density,
+                labelMargin = if (label != null) 16.dp.toPx().roundToInt() else 0
             )
+        }
+    }
 
-            container?.place(IntOffset(0, containerYPosition))
+    @Suppress("LongParameterList")
+    private fun Placeable.PlacementScope.placeInputElements(
+        label: Placeable?,
+        container: Placeable?,
+        leading: Placeable?,
+        trailing: Placeable?,
+        textField: Placeable?,
+        placeHolder: Placeable?,
+        componentWidth: Int,
+        containerHeight: Int,
+        paddingValues: PaddingValues,
+        density: Float,
+        labelMargin: Int,
+    ) {
+        val containerYPosition = (label?.height ?: 0) + labelMargin
 
-            leading?.let { leadingItem ->
-                leadingItem.placeRelative(
-                    x = 0,
-                    y = containerYPosition + Alignment.CenterVertically.align(
-                        size = leadingItem.height,
-                        space = containerHeight
-                    )
-                )
-            }
+        label?.placeRelative(
+            x = 0,
+            y = 0
+        )
 
-            val verticalTextFieldPosition = containerYPosition + if (singleLine) {
-                Alignment.CenterVertically.align(
-                    size = textField?.height ?: 0,
+        container?.place(IntOffset(0, containerYPosition))
+
+        leading?.let { leadingItem ->
+            leadingItem.placeRelative(
+                x = 0,
+                y = containerYPosition + Alignment.CenterVertically.align(
+                    size = leadingItem.height,
                     space = containerHeight
                 )
-            } else {
-                (paddingValues.calculateTopPadding() * density).value.roundToInt()
-            }
-
-            textField?.placeRelative(
-                x = leading?.width ?: 0,
-                y = verticalTextFieldPosition
             )
+        }
 
-            placeHolder?.placeRelative(
-                x = leading?.width ?: 0,
-                y = verticalTextFieldPosition
+        val verticalTextFieldPosition = containerYPosition + if (singleLine) {
+            Alignment.CenterVertically.align(
+                size = textField?.height ?: 0,
+                space = containerHeight
             )
+        } else {
+            (paddingValues.calculateTopPadding() * density).value.roundToInt()
+        }
 
-            trailing?.let { trailingItem ->
-                trailingItem.placeRelative(
-                    x = (componentWidth - (trailingItem.width)),
-                    y = containerYPosition + Alignment.CenterVertically.align(
-                        size = trailingItem.height,
-                        space = containerHeight
-                    )
+        textField?.placeRelative(
+            x = leading?.width ?: 0,
+            y = verticalTextFieldPosition
+        )
+
+        placeHolder?.placeRelative(
+            x = leading?.width ?: 0,
+            y = verticalTextFieldPosition
+        )
+
+        trailing?.let { trailingItem ->
+            trailingItem.placeRelative(
+                x = (componentWidth - (trailingItem.width)),
+                y = containerYPosition + Alignment.CenterVertically.align(
+                    size = trailingItem.height,
+                    space = containerHeight
                 )
-            }
+            )
         }
     }
 

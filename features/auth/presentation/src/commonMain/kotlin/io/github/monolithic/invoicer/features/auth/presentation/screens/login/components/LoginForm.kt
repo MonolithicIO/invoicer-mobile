@@ -18,7 +18,6 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 import invoicer.features.auth.presentation.generated.resources.Res
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_email_label
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_password_label
@@ -34,8 +33,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-
-private val IconSize = 24.dp
 
 @Composable
 internal fun SignInForm(
