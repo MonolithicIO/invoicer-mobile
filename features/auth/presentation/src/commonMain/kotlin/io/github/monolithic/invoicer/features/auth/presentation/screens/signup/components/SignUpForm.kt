@@ -65,7 +65,7 @@ internal fun SignUpForm(
             enabled = state.requestLoading.not()
         )
 
-        VerticalSpacer(SpacerSize.Medium)
+        VerticalSpacer(SpacerSize.XSmall)
 
         SignUpPasswordField(
             modifier = Modifier
