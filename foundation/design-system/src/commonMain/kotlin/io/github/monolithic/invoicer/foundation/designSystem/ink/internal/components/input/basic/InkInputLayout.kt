@@ -122,8 +122,8 @@ internal fun InkInputLayout(
                 Box(
                     modifier = Modifier
                         .layoutId(InkInputLayoutDefaults.LabelId)
-                        .wrapContentHeight()
-                        .background(Color.Blue),
+                        .background(Color.Blue)
+                        .wrapContentHeight(),
                 ) {
                     it()
                 }
@@ -183,12 +183,9 @@ private class InkInputMeasurePolicy(
                 )
                 .copy(minHeight = 0)
 
-        val labelConstraints = looseConstraints.offset(
-            vertical = -(paddingValues.calculateTopPadding().value * density).roundToInt()
-        )
         val label =
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.LabelId }
-                ?.measure(labelConstraints)
+                ?.measure(looseConstraints)
 
         val textField =
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.TextFieldIdId }
@@ -203,12 +200,12 @@ private class InkInputMeasurePolicy(
         val componentHeight = calculateHeight(
             leadingHeight = leading?.height ?: 0,
             trailingHeight = trailing?.height ?: 0,
-            placeholderHeight = placeHolder?.height ?: 0,
             textFieldHeight = textField?.height ?: 0,
             labelHeight = label?.height ?: 0,
-            paddingValues = paddingValues,
+            placeholderHeight = placeHolder?.height ?: 0,
+            constraints = constraints,
             density = density,
-            constraints = constraints
+            paddingValues = paddingValues,
         )
 
         val componentWidth = calculateWidth(
@@ -238,12 +235,10 @@ private class InkInputMeasurePolicy(
         ) {
             container?.place(IntOffset.Zero)
 
-            val topPadding = (paddingValues.calculateTopPadding().value * density).roundToInt()
-
-//            label?.placeRelative(
-//                x = 0,
-//                y = (container?.height ?: 0) - topPadding
-//            )
+            label?.placeRelative(
+                x = 0,
+                y = 0
+            )
 
             leading?.let { leadingItem ->
                 leadingItem.placeRelative(
@@ -307,7 +302,8 @@ private class InkInputMeasurePolicy(
         val bottomPadding = paddingValues.calculateBottomPadding().value * density
         val topPadding = paddingValues.calculateTopPadding().value * density
 
-        val contentHeight = (textContentHeight + topPadding + bottomPadding).roundToInt()
+        val contentHeight =
+            (textContentHeight + topPadding + bottomPadding).roundToInt()
 
         return maxOf(
             contentHeight + labelHeight,
