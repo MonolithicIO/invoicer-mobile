@@ -6,8 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHost
@@ -40,6 +39,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.login.co
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.TextDivider
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
@@ -109,6 +109,7 @@ internal class LoginScreen : Screen {
         callBacks: LoginScreenCallbacks
     ) {
         InkScaffold(
+            modifier = Modifier.imePadding(),
             topBar = {
                 TopAppBar(
                     title = {
@@ -116,18 +117,25 @@ internal class LoginScreen : Screen {
                     },
                 )
             },
+            bottomBar = {
+                InkPrimaryButton(
+                    text = stringResource(Res.string.auth_sign_in_submit_button),
+                    enabled = state.buttonEnabled,
+                    loading = state.isSignInLoading,
+                    onClick = callBacks.onSubmit,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            },
             snackBarHost = {
                 SnackbarHost(snackbarHostState)
             }
         ) {
-            val scrollState = rememberScrollState()
             Column(
                 modifier = Modifier
                     .padding(it)
+                    .systemBarsPadding()
                     .padding(Spacing.medium)
-                    .imePadding()
                     .fillMaxSize()
-                    .verticalScroll(scrollState)
             ) {
                 LoginHeader()
                 VerticalSpacer(height = SpacerSize.XLarge3)
@@ -138,15 +146,6 @@ internal class LoginScreen : Screen {
                     toggleCensorship = callBacks.toggleCensorship
                 )
                 VerticalSpacer(height = SpacerSize.XLarge)
-                PrimaryButton(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp),
-                    onClick = callBacks.onSubmit,
-                    isEnabled = state.buttonEnabled,
-                    isLoading = state.isSignInLoading,
-                    label = stringResource(Res.string.auth_sign_in_submit_button)
-                )
                 VerticalSpacer(height = SpacerSize.XLarge)
                 TextDivider(
                     modifier = Modifier.fillMaxWidth(),

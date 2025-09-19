@@ -11,10 +11,10 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 
 internal object InkInputDefaults {
 
-    val MinHeight = 65.dp
+    val MinHeight = 30.dp
     val MinWidth = 280.dp
     const val DEFAULT_ERROR_MESSAGE = "Error"
-    const val TextFieldAnimationDuration = 150
+    const val TextFieldAnimationDuration = 200
 
     val shape: Shape
         @Composable

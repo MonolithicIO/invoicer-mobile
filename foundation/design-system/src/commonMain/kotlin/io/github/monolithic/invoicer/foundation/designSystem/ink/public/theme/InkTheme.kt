@@ -44,8 +44,8 @@ private fun lightInkColorScheme(): InkColorScheme {
         onBackgroundVariant = InkColors.GreyScale.grey700,
         error = InkColors.AlertStatus.error,
         errorBackground = InkColors.Background.red,
-        surfaceLight = InkColors.GreyScale.grey50,
-        surfaceDark = InkColors.GreyScale.grey200,
+        surfaceLight = InkColors.GreyScale.grey100,
+        surfaceDark = InkColors.GreyScale.grey300,
     )
 }
 
