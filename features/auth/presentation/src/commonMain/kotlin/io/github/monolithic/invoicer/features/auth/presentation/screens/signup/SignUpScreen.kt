@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,8 +50,8 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
 import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -73,31 +72,31 @@ internal class SignUpScreen : Screen {
         val errorSnackBarPainter = painterResource(Res.drawable.ic_danger_square)
         val snackBarState = rememberInkSnackBarHostState()
 
-        LaunchedEffect(viewModel.events) {
-            viewModel.events.collectLatest {
-                when (it) {
-                    SignUpEvents.Success -> navigator?.push(SignUpFeedbackScreen())
+        FlowCollectEffect(
+            flow = viewModel.events,
+            key = viewModel
+        ) {
+            when (it) {
+                SignUpEvents.Success -> navigator?.push(SignUpFeedbackScreen())
 
-                    is SignUpEvents.Failure -> {
-                        scope.launch {
-                            snackBarState.showSnackBar(
-                                message = it.message,
-                                leadingIcon = errorSnackBarPainter
-                            )
-                        }
-                    }
-
-                    SignUpEvents.GenericFailure -> scope.launch {
+                is SignUpEvents.Failure -> {
+                    scope.launch {
                         snackBarState.showSnackBar(
-                            message = genericErrorMessage,
+                            message = it.message,
                             leadingIcon = errorSnackBarPainter
                         )
                     }
-
-                    SignUpEvents.DuplicateAccount -> showDuplicateAccountDialog = true
                 }
-            }
 
+                SignUpEvents.GenericFailure -> scope.launch {
+                    snackBarState.showSnackBar(
+                        message = genericErrorMessage,
+                        leadingIcon = errorSnackBarPainter
+                    )
+                }
+
+                SignUpEvents.DuplicateAccount -> showDuplicateAccountDialog = true
+            }
         }
 
         val callBacks = remember {

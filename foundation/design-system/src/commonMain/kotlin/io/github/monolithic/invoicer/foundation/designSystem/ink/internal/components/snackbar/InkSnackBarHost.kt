@@ -1,12 +1,14 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarVisuals
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 
 /**
@@ -36,7 +38,9 @@ fun InkSnackBarHost(
             }
 
             InkSnackBar(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(InkTheme.spacing.small),
                 text = data.visuals.message,
                 leadingIcon = leadingIcon
             )
