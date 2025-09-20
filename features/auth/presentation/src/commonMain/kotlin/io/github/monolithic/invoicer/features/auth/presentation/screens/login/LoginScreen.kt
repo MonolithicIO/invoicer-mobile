@@ -10,13 +10,10 @@ import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -32,6 +29,7 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_in_dont
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_error
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_forgot_password
 import invoicer.features.auth.presentation.generated.resources.auth_sign_in_submit_button
+import invoicer.features.auth.presentation.generated.resources.ic_danger_square
 import invoicer.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
@@ -41,6 +39,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkTextButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
@@ -59,9 +60,10 @@ internal class LoginScreen : Screen {
         val viewModel = koinScreenModel<LoginScreenModel>()
         val state by viewModel.state.collectAsState()
         val scope = rememberCoroutineScope()
-        val snackBarHost = remember { SnackbarHostState() }
+        val snackBarHost = rememberInkSnackBarHostState()
         val genericErrorMessage = stringResource(Res.string.auth_sign_in_error)
         val keyboard = LocalSoftwareKeyboardController.current
+        val snackBarErrorIcon = painterResource(Res.drawable.ic_danger_square)
 
         StateContent(
             state = state,
@@ -86,15 +88,17 @@ internal class LoginScreen : Screen {
                 when (it) {
                     is LoginScreenEvents.Failure -> {
                         scope.launch {
-                            snackBarHost.showSnackbar(
-                                message = it.message
+                            snackBarHost.showSnackBar(
+                                message = it.message,
+                                leadingIcon = snackBarErrorIcon
                             )
                         }
                     }
 
                     LoginScreenEvents.GenericFailure -> scope.launch {
-                        snackBarHost.showSnackbar(
-                            message = genericErrorMessage
+                        snackBarHost.showSnackBar(
+                            message = genericErrorMessage,
+                            leadingIcon = snackBarErrorIcon
                         )
                     }
                 }
@@ -106,7 +110,7 @@ internal class LoginScreen : Screen {
     @Composable
     fun StateContent(
         state: LoginScreenState,
-        snackbarHostState: SnackbarHostState,
+        snackbarHostState: InkSnackBarHostState,
         callBacks: LoginScreenCallbacks
     ) {
         InkScaffold(
@@ -131,7 +135,7 @@ internal class LoginScreen : Screen {
                 )
             },
             snackBarHost = {
-                SnackbarHost(snackbarHostState)
+                InkSnackBarHost(snackbarHostState)
             }
         ) {
             val scrollState = rememberScrollState()
@@ -150,7 +154,6 @@ internal class LoginScreen : Screen {
                     onEmailChange = callBacks.onEmailChanged,
                     toggleCensorship = callBacks.toggleCensorship
                 )
-                VerticalSpacer(height = SpacerSize.Small)
                 InkTextButton(
                     text = stringResource(Res.string.auth_sign_in_forgot_password),
                     onClick = {},

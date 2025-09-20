@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,6 +33,7 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_up_erro
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_have_account_prefix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_have_account_suffix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_submit_button
+import invoicer.features.auth.presentation.generated.resources.ic_danger_square
 import invoicer.foundation.design_system.generated.resources.ic_chveron_left
 import invoicer.foundation.design_system.generated.resources.img_error_default
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
@@ -46,6 +45,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.InkDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.props.InkDialogAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
@@ -70,9 +72,8 @@ internal class SignUpScreen : Screen {
         val keyboard = LocalSoftwareKeyboardController.current
         var showDuplicateAccountDialog by remember { mutableStateOf(false) }
 
-        val snackBarState = remember {
-            SnackbarHostState()
-        }
+        val errorSnackBarPainter = painterResource(Res.drawable.ic_danger_square)
+        val snackBarState = rememberInkSnackBarHostState()
 
         LaunchedEffect(viewModel.events) {
             viewModel.events.collectLatest {
@@ -81,15 +82,17 @@ internal class SignUpScreen : Screen {
 
                     is SignUpEvents.Failure -> {
                         scope.launch {
-                            snackBarState.showSnackbar(
-                                message = it.message
+                            snackBarState.showSnackBar(
+                                message = it.message,
+                                leadingIcon = errorSnackBarPainter
                             )
                         }
                     }
 
                     SignUpEvents.GenericFailure -> scope.launch {
-                        snackBarState.showSnackbar(
-                            message = genericErrorMessage
+                        snackBarState.showSnackBar(
+                            message = genericErrorMessage,
+                            leadingIcon = errorSnackBarPainter
                         )
                     }
 
@@ -127,7 +130,7 @@ internal class SignUpScreen : Screen {
     @Composable
     fun StateContent(
         state: SignUpScreenState,
-        snackBarState: SnackbarHostState,
+        snackBarState: InkSnackBarHostState,
         callbacks: SignUpCallbacks,
         showDuplicateAccountDialog: Boolean,
     ) {
@@ -142,7 +145,7 @@ internal class SignUpScreen : Screen {
                 )
             },
             snackBarHost = {
-                SnackbarHost(snackBarState)
+                InkSnackBarHost(snackBarState)
             },
             bottomBar = {
                 InkPrimaryButton(

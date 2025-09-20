@@ -87,7 +87,7 @@ internal fun InkDialogContent(
                 text = description,
                 style = InkTextStyle.BodyLarge,
                 textAlign = TextAlign.Center,
-                weight = FontWeight.SemiBold
+                weight = FontWeight.Medium
             )
 
             VerticalSpacer(height = SpacerSize.XLarge3)

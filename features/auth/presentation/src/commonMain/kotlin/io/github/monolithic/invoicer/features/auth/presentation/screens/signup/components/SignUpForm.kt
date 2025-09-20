@@ -40,6 +40,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.S
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordIssue
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
@@ -162,12 +163,19 @@ private fun SignUpPasswordField(
     onImeAction: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val colors = InkTheme.colorScheme
+
     val trailingIcon = remember(isCensored) {
         if (isCensored) {
             Res.drawable.ic_visibility_on
         } else {
             Res.drawable.ic_visibility_off
         }
+    }
+
+    val iconColor by derivedStateOf {
+        if (passwordIssue == null) colors.onSurfaceVariant
+        else colors.error
     }
 
     val transformation = remember(isCensored) {
@@ -194,14 +202,17 @@ private fun SignUpPasswordField(
         trailingContent = {
             InkIconButton(
                 onClick = toggleCensorship,
-                icon = painterResource(trailingIcon)
+                icon = painterResource(trailingIcon),
+                colors = InkIconButtonDefaults.colors.copy(
+                    iconColor = iconColor
+                )
             )
         },
         leadingContent = {
             InkIcon(
                 painter = painterResource(Res.drawable.ic_lock),
                 contentDescription = null,
-                tint = InkTheme.colorScheme.onSurfaceVariant
+                tint = iconColor
             )
         },
         visualTransformation = transformation,
