@@ -1,6 +1,5 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.login.components
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
@@ -28,10 +27,10 @@ import invoicer.features.auth.presentation.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -48,7 +47,6 @@ internal fun SignInForm(
 
     Column(
         modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(Spacing.medium)
     ) {
         LoginEmailField(
             modifier = Modifier
@@ -59,6 +57,7 @@ internal fun SignInForm(
             onImeAction = { passwordFocus.requestFocus() },
             enabled = state.isSignInLoading.not()
         )
+        VerticalSpacer(SpacerSize.XSmall)
         LoginPasswordField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -117,9 +116,7 @@ internal fun LoginPasswordField(
         trailingContent = {
             InkIconButton(
                 onClick = toggleCensorship,
-                icon = painterResource(resource = trailingIcon),
-                colors = InkIconButtonDefaults.colors
-                    .copy(containerColor = InkTheme.colorScheme.surfaceLight)
+                icon = painterResource(resource = trailingIcon)
             )
         },
         visualTransformation = transformation,

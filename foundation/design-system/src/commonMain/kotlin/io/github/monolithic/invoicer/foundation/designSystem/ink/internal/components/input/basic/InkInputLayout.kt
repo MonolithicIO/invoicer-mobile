@@ -39,6 +39,7 @@ internal fun InkInputLayout(
     trailing: @Composable (() -> Unit)?,
     placeholder: @Composable (() -> Unit)?,
     label: @Composable (() -> Unit)? = null,
+    supportText: @Composable (() -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
     val layoutDirection = LocalLayoutDirection.current
@@ -126,6 +127,14 @@ internal fun InkInputLayout(
                     it()
                 }
             }
+
+            supportText?.let {
+                Box(
+                    modifier = Modifier.layoutId(InkInputLayoutDefaults.SupportTextId)
+                ) {
+                    it()
+                }
+            }
         },
     )
 }
@@ -140,6 +149,7 @@ internal object InkInputLayoutDefaults {
     const val TextFieldIdId = "TextField"
     const val ContainerId = "Container"
     const val LabelId = "Label"
+    const val SupportTextId = "SupportText"
     val MinTextLineHeight = 24.dp
 }
 
@@ -194,12 +204,19 @@ private class InkInputMeasurePolicy(
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.PlaceholderId }
                 ?.measure(placeholderConstraints)
 
+        val supportText =
+            measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.SupportTextId }
+                ?.measure(looseConstraints)
+
+        val minSupportTextHeightInPixels = MinLabelHeight.toPx().roundToInt()
+
         val componentHeight = calculateHeight(
             leadingHeight = leading?.height ?: 0,
             trailingHeight = trailing?.height ?: 0,
             textFieldHeight = textField?.height ?: 0,
             labelHeight = label?.height ?: 0,
             placeholderHeight = placeHolder?.height ?: 0,
+            supportTextHeight = supportText?.height ?: minSupportTextHeightInPixels,
             constraints = constraints,
             density = density,
             paddingValues = paddingValues,
@@ -214,8 +231,12 @@ private class InkInputMeasurePolicy(
             constraints = constraints
         )
 
-        val containerHeight = componentHeight - (label?.height ?: 0) -
-                (if (label != null) 16.dp.toPx().roundToInt() else 0)
+        val labelMarginPixels = if (label != null) LabelMargin.toPx().roundToInt() else 0
+
+        val supportMarginPixels = SupportTextMargin.toPx().roundToInt()
+
+        val containerHeight = componentHeight - (label?.height ?: 0) - labelMarginPixels - (
+                supportText?.height ?: minSupportTextHeightInPixels) - supportMarginPixels
 
         val container =
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.ContainerId }
@@ -238,11 +259,13 @@ private class InkInputMeasurePolicy(
                 trailing = trailing,
                 textField = textField,
                 placeHolder = placeHolder,
+                support = supportText,
                 componentWidth = componentWidth,
                 containerHeight = containerHeight,
                 paddingValues = paddingValues,
                 density = density,
-                labelMargin = if (label != null) 16.dp.toPx().roundToInt() else 0
+                labelMargin = labelMarginPixels,
+                supportMargin = supportMarginPixels
             )
         }
     }
@@ -255,11 +278,13 @@ private class InkInputMeasurePolicy(
         trailing: Placeable?,
         textField: Placeable?,
         placeHolder: Placeable?,
+        support: Placeable?,
         componentWidth: Int,
         containerHeight: Int,
         paddingValues: PaddingValues,
         density: Float,
         labelMargin: Int,
+        supportMargin: Int,
     ) {
         val containerYPosition = (label?.height ?: 0) + labelMargin
 
@@ -308,6 +333,11 @@ private class InkInputMeasurePolicy(
                 )
             )
         }
+
+        support?.placeRelative(
+            x = 0,
+            y = containerYPosition + containerHeight + supportMargin
+        )
     }
 
     private fun calculateHeight(
@@ -316,6 +346,7 @@ private class InkInputMeasurePolicy(
         placeholderHeight: Int,
         textFieldHeight: Int,
         labelHeight: Int,
+        supportTextHeight: Int,
         paddingValues: PaddingValues,
         constraints: Constraints,
         density: Float
@@ -333,10 +364,15 @@ private class InkInputMeasurePolicy(
         val contentHeight =
             (textContentHeight + topPadding + bottomPadding).roundToInt()
 
-        val labelMargin = if (labelHeight > 0) 16.dp.value * density else 0f
+        val labelMargin = if (labelHeight > 0) LabelMargin.value * density else 0f
+        val supportTextMargin = SupportTextMargin.value * density
+
+        val wrappedHeight =
+            contentHeight + labelHeight + supportTextHeight + labelMargin.roundToInt() +
+                    supportTextMargin.roundToInt()
 
         return maxOf(
-            contentHeight + labelHeight + labelMargin.roundToInt(),
+            wrappedHeight,
             constraints.minHeight
         )
     }
@@ -359,5 +395,11 @@ private class InkInputMeasurePolicy(
         val wrappedWidth = middleSection + labelWidth
 
         return min(wrappedWidth, constraints.maxWidth)
+    }
+
+    companion object {
+        val LabelMargin = 16.dp
+        val MinLabelHeight = 16.dp
+        val SupportTextMargin = 4.dp
     }
 }

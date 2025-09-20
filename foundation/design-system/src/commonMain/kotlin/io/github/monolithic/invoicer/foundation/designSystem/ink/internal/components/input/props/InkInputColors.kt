@@ -20,11 +20,10 @@ internal data class InkInputColors(
     val errorCursor: Color,
     val errorLabel: Color,
     val errorPlaceholder: Color,
-    val errorSupportTextBackground: Color,
     // Common
     val placeholderColor: Color,
     val labelColor: Color,
     val textColor: Color,
     val cursorColor: Color,
-    val supportTextBackground: Color,
+    val supportTextColor: Color,
 )

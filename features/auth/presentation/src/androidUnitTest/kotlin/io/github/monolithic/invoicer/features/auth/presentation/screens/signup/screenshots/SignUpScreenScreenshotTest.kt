@@ -6,7 +6,7 @@ import app.cash.paparazzi.Paparazzi
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpCallbacks
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
-import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthResult
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.testUtil.MultiplatformSnapshot
 import org.junit.Rule
@@ -60,13 +60,6 @@ class SignUpScreenScreenshotTest {
                 state = SignUpScreenState(
                     email = "johndona@gmail.com",
                     password = "123123123",
-                    passwordStrength = PasswordStrengthResult(
-                        lengthValid = false,
-                        upperCaseValid = false,
-                        lowerCaseValid = false,
-                        digitValid = false,
-                        specialCharacterValid = false
-                    )
                 )
             )
         }
@@ -79,13 +72,6 @@ class SignUpScreenScreenshotTest {
                 state = SignUpScreenState(
                     email = "johndona@gmail.com",
                     password = "123123123",
-                    passwordStrength = PasswordStrengthResult(
-                        lengthValid = true,
-                        upperCaseValid = true,
-                        lowerCaseValid = true,
-                        digitValid = true,
-                        specialCharacterValid = true
-                    )
                 )
             )
         }
@@ -98,13 +84,6 @@ class SignUpScreenScreenshotTest {
                 state = SignUpScreenState(
                     email = "johndona@gmail.com",
                     password = "123123123",
-                    passwordStrength = PasswordStrengthResult(
-                        lengthValid = true,
-                        upperCaseValid = true,
-                        lowerCaseValid = true,
-                        digitValid = true,
-                        specialCharacterValid = true
-                    ),
                     requestLoading = true
                 )
             )
@@ -132,7 +111,7 @@ class SignUpScreenScreenshotTest {
             InvoicerTheme {
                 SignUpScreen().StateContent(
                     state = state,
-                    snackBarState = SnackbarHostState(),
+                    snackBarState = InkSnackBarHostState(),
                     callbacks = SignUpCallbacks(
                         onEmailChange = { },
                         onPasswordChange = { },

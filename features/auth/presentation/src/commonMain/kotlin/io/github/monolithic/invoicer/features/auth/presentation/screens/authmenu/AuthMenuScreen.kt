@@ -35,6 +35,7 @@ import invoicer.features.auth.presentation.generated.resources.ic_facebook
 import invoicer.features.auth.presentation.generated.resources.ic_google
 import invoicer.features.auth.presentation.generated.resources.ic_logo
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
+import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
 import io.github.monolithic.invoicer.foundation.auth.presentation.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCircularIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
@@ -85,7 +86,8 @@ internal class AuthMenuScreen : Screen {
             state = state,
             actions = Actions(
                 launchGoogleSignIn = screenModel::launchGoogleLogin,
-                onSignInTap = { navigator?.pushToFront(LoginScreen()) }
+                onSignInTap = { navigator?.pushToFront(LoginScreen()) },
+                onSignUpTap = { navigator?.pushToFront(SignUpScreen()) }
             )
         )
     }
@@ -156,7 +158,7 @@ internal class AuthMenuScreen : Screen {
                         InkPrimaryButton(
                             modifier = Modifier.fillMaxWidth(),
                             text = stringResource(Res.string.auth_menu_sign_up),
-                            onClick = {}
+                            onClick = actions.onSignUpTap
                         )
                         InkSecondaryButton(
                             modifier = Modifier.fillMaxWidth(),
@@ -183,6 +185,7 @@ internal class AuthMenuScreen : Screen {
     data class Actions(
         val launchGoogleSignIn: () -> Unit,
         val onSignInTap: () -> Unit,
+        val onSignUpTap: () -> Unit,
     )
 
 }

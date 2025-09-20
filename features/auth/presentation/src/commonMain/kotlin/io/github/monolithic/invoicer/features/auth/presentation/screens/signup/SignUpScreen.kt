@@ -5,18 +5,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,36 +18,45 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.auth.presentation.generated.resources.Res
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_description
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_cta
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_description
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_title
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_error
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_have_account_prefix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_have_account_suffix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_submit_button
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_title
+import invoicer.features.auth.presentation.generated.resources.ic_danger_square
+import invoicer.foundation.design_system.generated.resources.ic_chveron_left
+import invoicer.foundation.design_system.generated.resources.img_error_default
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
-import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.PasswordStrengthCard
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.SignUpForm
+import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.SignUpHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signupfeedback.SignUpFeedbackScreen
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.DialogVariant
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InvoicerDialog
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ScreenTitle
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkTextButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.InkDialog
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.props.InkDialogAction
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import kotlinx.coroutines.flow.collectLatest
+import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import invoicer.foundation.design_system.generated.resources.Res as DsRes
 
-@OptIn(ExperimentalMaterial3Api::class)
 internal class SignUpScreen : Screen {
 
     @Composable
@@ -68,33 +69,34 @@ internal class SignUpScreen : Screen {
         val keyboard = LocalSoftwareKeyboardController.current
         var showDuplicateAccountDialog by remember { mutableStateOf(false) }
 
-        val snackBarState = remember {
-            SnackbarHostState()
-        }
+        val errorSnackBarPainter = painterResource(Res.drawable.ic_danger_square)
+        val snackBarState = rememberInkSnackBarHostState()
 
-        LaunchedEffect(viewModel.events) {
-            viewModel.events.collectLatest {
-                when (it) {
-                    SignUpEvents.Success -> navigator?.push(SignUpFeedbackScreen())
+        FlowCollectEffect(
+            flow = viewModel.events,
+            key = viewModel
+        ) {
+            when (it) {
+                SignUpEvents.Success -> navigator?.push(SignUpFeedbackScreen())
 
-                    is SignUpEvents.Failure -> {
-                        scope.launch {
-                            snackBarState.showSnackbar(
-                                message = it.message
-                            )
-                        }
-                    }
-
-                    SignUpEvents.GenericFailure -> scope.launch {
-                        snackBarState.showSnackbar(
-                            message = genericErrorMessage
+                is SignUpEvents.Failure -> {
+                    scope.launch {
+                        snackBarState.showSnackBar(
+                            message = it.message,
+                            leadingIcon = errorSnackBarPainter
                         )
                     }
-
-                    SignUpEvents.DuplicateAccount -> showDuplicateAccountDialog = true
                 }
-            }
 
+                SignUpEvents.GenericFailure -> scope.launch {
+                    snackBarState.showSnackBar(
+                        message = genericErrorMessage,
+                        leadingIcon = errorSnackBarPainter
+                    )
+                }
+
+                SignUpEvents.DuplicateAccount -> showDuplicateAccountDialog = true
+            }
         }
 
         val callBacks = remember {
@@ -125,49 +127,44 @@ internal class SignUpScreen : Screen {
     @Composable
     fun StateContent(
         state: SignUpScreenState,
-        snackBarState: SnackbarHostState,
+        snackBarState: InkSnackBarHostState,
         callbacks: SignUpCallbacks,
         showDuplicateAccountDialog: Boolean,
     ) {
         val scrollState = rememberScrollState()
-        Scaffold(
+        InkScaffold(
             modifier = Modifier.imePadding(),
             topBar = {
-                TopAppBar(
-                    title = {},
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBackClick)
-                    }
+                InkTopBar(
+                    modifier = Modifier.statusBarsPadding(),
+                    navigationIcon = painterResource(DsRes.drawable.ic_chveron_left),
+                    onNavigationClick = callbacks.onBackClick,
                 )
             },
-            snackbarHost = {
-                SnackbarHost(snackBarState)
+            snackBarHost = {
+                InkSnackBarHost(snackBarState)
             },
             bottomBar = {
-                PrimaryButton(
+                InkPrimaryButton(
+                    text = stringResource(Res.string.auth_sign_up_submit_button),
+                    enabled = state.buttonEnabled,
+                    loading = state.requestLoading,
+                    onClick = callbacks.onSubmitClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium),
-                    label = stringResource(Res.string.auth_sign_up_submit_button),
-                    onClick = callbacks.onSubmitClick,
-                    isEnabled = state.buttonEnabled,
-                    isLoading = state.requestLoading
+                        .padding(horizontal = InkTheme.spacing.medium)
+                        .systemBarBottomPadding()
                 )
-
             }
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .fillMaxSize()
                     .verticalScroll(scrollState),
             ) {
-                VerticalSpacer(height = SpacerSize.XLarge3)
-                ScreenTitle(
-                    title = stringResource(Res.string.auth_sign_up_title),
-                    subTitle = stringResource(Res.string.auth_sign_up_description)
-                )
+                SignUpHeader()
                 VerticalSpacer(height = SpacerSize.XLarge3)
                 SignUpForm(
                     modifier = Modifier.fillMaxWidth(),
@@ -176,47 +173,45 @@ internal class SignUpScreen : Screen {
                     onEmailChange = callbacks.onEmailChange,
                     toggleCensorship = callbacks.toggleCensorship
                 )
-                VerticalSpacer(height = SpacerSize.XLarge)
-                PasswordStrengthCard(
-                    passwordStrength = state.passwordStrength,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                VerticalSpacer(height = SpacerSize.XLarge)
-                TextButton(
+                VerticalSpacer(height = SpacerSize.XLarge3)
+                InkTextButton(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = callbacks.onSignInClick
-                ) {
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(
-                                style = MaterialTheme.typography.bodyMedium
-                                    .copy(color = MaterialTheme.colorScheme.onSurfaceVariant)
-                                    .toSpanStyle()
-                            ) {
-                                append(text = stringResource(Res.string.auth_sign_up_have_account_prefix))
-                            }
-                            append(" ")
-                            withStyle(
-                                style = MaterialTheme.typography.bodyMedium
-                                    .copy(color = MaterialTheme.colorScheme.primary)
-                                    .toSpanStyle()
-                            ) {
-                                append(text = stringResource(Res.string.auth_sign_up_have_account_suffix))
-                            }
+                    onClick = callbacks.onSignInClick,
+                    text = buildAnnotatedString {
+                        withStyle(
+                            style = InkTheme.typography.bodyXLarge.copy(
+                                color = InkTheme.colorScheme.onBackground,
+                                fontWeight = FontWeight.Normal
+                            ).toSpanStyle(),
+                        ) {
+                            append(text = stringResource(Res.string.auth_sign_up_have_account_prefix))
                         }
-                    )
-                }
+                        append(" ")
+                        withStyle(
+                            style = InkTheme.typography.bodyXLarge.copy(
+                                color = InkTheme.colorScheme.primary,
+                                fontWeight = FontWeight.SemiBold
+                            ).toSpanStyle(),
+                        ) {
+                            append(text = stringResource(Res.string.auth_sign_up_have_account_suffix))
+                        }
+                    }
+                )
             }
 
             if (showDuplicateAccountDialog) {
-                InvoicerDialog(
-                    onDismiss = callbacks.onDismissDialog,
-                    variant = DialogVariant.Error,
+                InkDialog(
+                    onDismissRequest = callbacks.onDismissDialog,
                     title = stringResource(Res.string.auth_sign_up_duplicate_account_title),
                     description = stringResource(
                         Res.string.auth_sign_up_duplicate_account_description,
                         state.email
-                    )
+                    ),
+                    primaryAction = InkDialogAction(
+                        title = stringResource(Res.string.auth_sign_up_duplicate_account_cta),
+                        onClick = callbacks.onDismissDialog
+                    ),
+                    image = painterResource(resource = DsRes.drawable.img_error_default)
                 )
             }
         }

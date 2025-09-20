@@ -1,43 +1,38 @@
 package io.github.monolithic.invoicer.features.auth.presentation.utils
 
 interface PasswordStrengthValidator {
-    fun validate(password: String): PasswordStrengthResult
+    fun validate(password: String): Set<PasswordIssue>
 }
-
-data class PasswordStrengthResult(
-    val lengthValid: Boolean,
-    val upperCaseValid: Boolean,
-    val lowerCaseValid: Boolean,
-    val digitValid: Boolean,
-    val specialCharacterValid: Boolean,
-)
 
 internal object PasswordStrengthValidatorImpl : PasswordStrengthValidator {
 
-    override fun validate(password: String): PasswordStrengthResult {
-        var lengthValid = password.length >= MIN_PASSWORD_LENGTH
-        var upperCaseValid = false
-        var lowerCaseValid = false
-        var digitValid = false
-        var specialCharacterValid = false
+    override fun validate(password: String): Set<PasswordIssue> {
+        val issues = PasswordIssue.entries.toMutableSet()
 
         password.forEach {
             when {
-                it.isUpperCase() -> upperCaseValid = true
-                it.isLowerCase() -> lowerCaseValid = true
-                it.isDigit() -> digitValid = true
-                !it.isLetterOrDigit() -> specialCharacterValid = true
+                it.isUpperCase() -> issues.remove(PasswordIssue.UPPERCASE)
+                it.isLowerCase() -> issues.remove(PasswordIssue.LOWERCASE)
+                it.isDigit() -> issues.remove(PasswordIssue.DIGIT)
+                !it.isLetterOrDigit() -> issues.remove(PasswordIssue.SPECIAL_CHARACTER)
             }
         }
 
-        return PasswordStrengthResult(
-            lengthValid = lengthValid,
-            upperCaseValid = upperCaseValid,
-            lowerCaseValid = lowerCaseValid,
-            digitValid = digitValid,
-            specialCharacterValid = specialCharacterValid,
-        )
+        if (password.trim().length >= MIN_PASSWORD_LENGTH) {
+            issues.remove(PasswordIssue.LENGTH)
+        }
+
+        return issues
     }
 
     private const val MIN_PASSWORD_LENGTH = 8
+}
+
+
+enum class PasswordIssue {
+    LENGTH,
+    UPPERCASE,
+    LOWERCASE,
+    DIGIT,
+    SPECIAL_CHARACTER
 }

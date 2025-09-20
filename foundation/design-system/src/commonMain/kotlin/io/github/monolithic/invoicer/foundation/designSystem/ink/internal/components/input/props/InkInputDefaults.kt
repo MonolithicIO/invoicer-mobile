@@ -43,8 +43,7 @@ internal object InkInputDefaults {
                 errorPlaceholder = InkTheme.colorScheme.error,
                 placeholderColor = InkTheme.colorScheme.onDisabled,
                 labelColor = InkTheme.colorScheme.onSurfaceVariant,
-                errorSupportTextBackground = InkTheme.colorScheme.errorBackground,
-                supportTextBackground = InkTheme.colorScheme.surfaceLight,
+                supportTextColor = InkTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
             )
         }
 
@@ -97,5 +96,18 @@ internal object InkInputDefaults {
     @Composable
     fun placeholderColor(isError: Boolean): Color {
         return if (isError) colors.errorPlaceholder else colors.placeholderColor
+    }
+
+    @Composable
+    fun supportTextColor(isError: Boolean, isEnabled: Boolean): State<Color> {
+        val color = when {
+            !isEnabled -> colors.disabledText
+            isError -> colors.errorText
+            else -> colors.supportTextColor
+        }
+        return animateColorAsState(
+            targetValue = color,
+            animationSpec = tween(durationMillis = TextFieldAnimationDuration)
+        )
     }
 }
