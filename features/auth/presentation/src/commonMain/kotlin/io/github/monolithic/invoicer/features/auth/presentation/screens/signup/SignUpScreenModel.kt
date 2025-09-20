@@ -126,6 +126,11 @@ internal class SignUpScreenModel(
         val message = when (error) {
             is RequestError.Http -> {
                 if (error.httpCode == DuplicateAccountErrorCode) {
+                    _state.update { oldState ->
+                        val newSet = oldState.duplicateEmails.toMutableSet()
+                        newSet.add(oldState.email)
+                        oldState.copy(duplicateEmails = newSet.toPersistentSet())
+                    }
                     SignUpEvents.DuplicateAccount
                 } else {
                     error.message?.let { message ->

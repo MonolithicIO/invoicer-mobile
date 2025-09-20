@@ -54,7 +54,7 @@ fun lightInkColorScheme(): InkColorScheme {
         error = InkColors.AlertStatus.error,
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.GreyScale.grey100,
-        surfaceDark = InkColors.GreyScale.grey300,
+        surfaceDark = InkColors.GreyScale.grey200,
     )
 }
 

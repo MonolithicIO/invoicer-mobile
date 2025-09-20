@@ -1,14 +1,11 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.signup
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +28,7 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.features.auth.presentation.generated.resources.Res
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_cta
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_description
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_title
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_error
@@ -45,11 +42,11 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.c
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signupfeedback.SignUpFeedbackScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkTextButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.InkDialog
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.props.InkDialogAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.DialogVariant
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InvoicerDialog
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
@@ -202,13 +199,16 @@ internal class SignUpScreen : Screen {
             }
 
             if (showDuplicateAccountDialog) {
-                InvoicerDialog(
-                    onDismiss = callbacks.onDismissDialog,
-                    variant = DialogVariant.Error,
+                InkDialog(
+                    onDismissRequest = callbacks.onDismissDialog,
                     title = stringResource(Res.string.auth_sign_up_duplicate_account_title),
                     description = stringResource(
                         Res.string.auth_sign_up_duplicate_account_description,
                         state.email
+                    ),
+                    primaryAction = InkDialogAction(
+                        title = stringResource(Res.string.auth_sign_up_duplicate_account_cta),
+                        onClick = callbacks.onDismissDialog
                     )
                 )
             }

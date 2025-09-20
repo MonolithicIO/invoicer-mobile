@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -18,6 +20,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import invoicer.features.auth.presentation.generated.resources.Res
+import invoicer.features.auth.presentation.generated.resources.auth_sign_up_duplicate_account_title
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_error
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_label
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_email_placeholder
@@ -32,6 +35,7 @@ import invoicer.features.auth.presentation.generated.resources.ic_email
 import invoicer.features.auth.presentation.generated.resources.ic_lock
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_off
 import invoicer.features.auth.presentation.generated.resources.ic_visibility_on
+import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpEmailIssue
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordIssue
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
@@ -64,8 +68,8 @@ internal fun SignUpForm(
             value = state.email,
             onChange = onEmailChange,
             onImeAction = { passwordFocus.requestFocus() },
-            isEmailValid = state.emailValid,
-            enabled = state.requestLoading.not()
+            enabled = state.requestLoading.not(),
+            emailIssue = state.currentEmailIssue
         )
 
         VerticalSpacer(SpacerSize.XSmall)
@@ -89,18 +93,23 @@ internal fun SignUpForm(
 private fun SignUpEmailField(
     value: String,
     enabled: Boolean,
-    isEmailValid: Boolean,
+    emailIssue: SignUpEmailIssue?,
     onChange: (String) -> Unit,
     onImeAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val supportText = if (isEmailValid) {
-        null
-    } else {
-        stringResource(Res.string.auth_sign_up_email_error)
+    val duplicateEmailText = stringResource(Res.string.auth_sign_up_duplicate_account_title)
+    val invalidEmailText = stringResource(Res.string.auth_sign_up_email_error)
+
+    val supportText by derivedStateOf {
+        when (emailIssue) {
+            SignUpEmailIssue.DuplicateAccount -> duplicateEmailText
+            SignUpEmailIssue.InvalidFormat -> invalidEmailText
+            null -> null
+        }
     }
 
-    val trailingIcon = if (isEmailValid) null
+    val trailingIcon = if (emailIssue == null) null
     else painterResource(resource = Res.drawable.ic_danger_square)
 
     InkOutlinedInput(
@@ -119,7 +128,7 @@ private fun SignUpEmailField(
         keyboardActions = KeyboardActions(
             onNext = { onImeAction() }
         ),
-        isError = isEmailValid.not(),
+        isError = emailIssue != null,
         supportText = supportText,
         trailingContent = if (trailingIcon != null) {
             {
@@ -134,7 +143,7 @@ private fun SignUpEmailField(
             InkIcon(
                 painter = painterResource(Res.drawable.ic_email),
                 contentDescription = null,
-                tint = if (isEmailValid) InkTheme.colorScheme.onSurfaceVariant
+                tint = if (emailIssue == null) InkTheme.colorScheme.onSurfaceVariant
                 else InkTheme.colorScheme.error
             )
         },

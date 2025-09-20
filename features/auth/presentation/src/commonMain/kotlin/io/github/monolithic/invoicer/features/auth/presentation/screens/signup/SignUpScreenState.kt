@@ -10,7 +10,8 @@ internal data class SignUpScreenState(
     val censored: Boolean = true,
     val requestLoading: Boolean = false,
     val emailValid: Boolean = true,
-    val passwordIssues: ImmutableSet<PasswordIssue> = persistentSetOf(),
+    val duplicateEmails: ImmutableSet<String> = persistentSetOf(),
+    private val passwordIssues: ImmutableSet<PasswordIssue> = persistentSetOf(),
     private val submitAttempted: Boolean = false
 ) {
     val buttonEnabled: Boolean =
@@ -30,6 +31,22 @@ internal data class SignUpScreenState(
         } else {
             null
         }
+
+    val currentEmailIssue: SignUpEmailIssue? =
+        if (submitAttempted) {
+            when {
+                duplicateEmails.contains(email) -> SignUpEmailIssue.DuplicateAccount
+                emailValid.not() -> SignUpEmailIssue.InvalidFormat
+                else -> null
+            }
+        } else {
+            null
+        }
+}
+
+internal enum class SignUpEmailIssue {
+    InvalidFormat,
+    DuplicateAccount
 }
 
 internal sealed interface SignUpEvents {
