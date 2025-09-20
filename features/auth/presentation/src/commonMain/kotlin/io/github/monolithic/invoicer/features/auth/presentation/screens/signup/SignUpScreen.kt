@@ -36,6 +36,7 @@ import invoicer.features.auth.presentation.generated.resources.auth_sign_up_have
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_have_account_suffix
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_submit_button
 import invoicer.foundation.design_system.generated.resources.ic_chveron_left
+import invoicer.foundation.design_system.generated.resources.img_error_default
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.SignUpForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.SignUpHeader
@@ -209,7 +210,8 @@ internal class SignUpScreen : Screen {
                     primaryAction = InkDialogAction(
                         title = stringResource(Res.string.auth_sign_up_duplicate_account_cta),
                         onClick = callbacks.onDismissDialog
-                    )
+                    ),
+                    image = painterResource(resource = DsRes.drawable.img_error_default)
                 )
             }
         }
