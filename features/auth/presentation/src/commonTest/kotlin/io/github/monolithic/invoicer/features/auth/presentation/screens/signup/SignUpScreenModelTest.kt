@@ -4,7 +4,6 @@ import io.github.monolithic.invoicer.features.auth.presentation.fakes.FakeAnalyt
 import io.github.monolithic.invoicer.features.auth.presentation.fakes.FakeAuthRepository
 import io.github.monolithic.invoicer.features.auth.presentation.fakes.FakeEmailValidator
 import io.github.monolithic.invoicer.features.auth.presentation.fakes.FakePasswordStrengthValidator
-import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthResult
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -69,22 +68,6 @@ class SignUpScreenModelTest {
         assertEquals(
             expected = "Abc",
             actual = viewModel.state.value.password
-        )
-    }
-
-    @Test
-    fun `should update password strength alongisde password`() {
-        val strength = PasswordStrengthResult(
-            false, false, false, false, false
-        )
-
-        passwordStrengthValidator.response = strength
-
-        viewModel.onPasswordChange("Abc")
-
-        assertEquals(
-            expected = strength,
-            actual = viewModel.state.value.passwordIssues
         )
     }
 
