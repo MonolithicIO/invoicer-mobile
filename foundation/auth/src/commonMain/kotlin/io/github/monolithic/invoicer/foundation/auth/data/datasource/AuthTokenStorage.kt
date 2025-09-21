@@ -1,6 +1,6 @@
 package io.github.monolithic.invoicer.foundation.auth.data.datasource
 
-import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthToken
+import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthTokens
 import io.github.monolithic.invoicer.foundation.storage.LocalStorage
 
 internal interface AuthStorage {
@@ -9,7 +9,7 @@ internal interface AuthStorage {
         refreshToken: String
     )
 
-    suspend fun getAuthTokens(): AuthToken?
+    suspend fun getAuthTokens(): AuthTokens?
 
     suspend fun clearTokens()
 }
@@ -30,7 +30,7 @@ internal class AuthStorageImpl(
         )
     }
 
-    override suspend fun getAuthTokens(): AuthToken? {
+    override suspend fun getAuthTokens(): AuthTokens? {
         val refreshToken = localStorage.getString(REFRESH_TOKEN_KEY)
         val accessToken = localStorage.getString(ACCESS_TOKEN_KEY)
 
@@ -38,7 +38,7 @@ internal class AuthStorageImpl(
             return null
         }
 
-        return AuthToken(
+        return AuthTokens(
             refreshToken = refreshToken,
             accessToken = accessToken
         )

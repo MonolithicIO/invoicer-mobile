@@ -87,7 +87,7 @@ private fun Module.screenModels() {
 private fun Module.data() {
     factory<InvoiceDataSource> {
         InvoiceDataSourceImpl(
-            httpWrapper = get(),
+            httpClient = get(),
             dispatcher = Dispatchers.IO
         )
     }

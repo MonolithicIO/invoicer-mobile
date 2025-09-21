@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.features.company.data.datasource
 
 import io.github.monolithic.invoicer.features.company.data.model.UpdatePayAccountRequest
-import io.github.monolithic.invoicer.foundation.network.client.HttpWrapper
+import io.ktor.client.HttpClient
 import io.ktor.client.request.delete
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
@@ -22,7 +22,7 @@ internal interface PayAccountRemoteDataSource {
 }
 
 internal class PayAccountRemoteDataSourceImpl(
-    private val httpWrapper: HttpWrapper,
+    private val httpWrapper: HttpClient,
     private val dispatcher: CoroutineDispatcher
 ) : PayAccountRemoteDataSource {
 
@@ -32,7 +32,7 @@ internal class PayAccountRemoteDataSourceImpl(
         payAccountId: String
     ) {
         withContext(dispatcher) {
-            httpWrapper.client.put("/v1/company/$companyId/pay_account/$payAccountId") {
+            httpWrapper.put("/v1/company/$companyId/pay_account/$payAccountId") {
                 setBody(request)
             }
         }
@@ -40,7 +40,7 @@ internal class PayAccountRemoteDataSourceImpl(
 
     override suspend fun deletePayAccount(companyId: String, payAccountId: String) {
         withContext(dispatcher) {
-            httpWrapper.client.delete("/v1/company/$companyId/pay_account/$payAccountId")
+            httpWrapper.delete("/v1/company/$companyId/pay_account/$payAccountId")
         }
     }
 }

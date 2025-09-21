@@ -1,6 +1,6 @@
 package io.github.monolithic.invoicer.features.auth.presentation.fakes
 
-import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthToken
+import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthTokens
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepository
 
 class FakeAuthRepository : AuthRepository {
@@ -22,11 +22,11 @@ class FakeAuthRepository : AuthRepository {
     override suspend fun signIn(
         email: String,
         password: String
-    ): AuthToken {
+    ): AuthTokens {
         TODO("Not yet implemented")
     }
 
-    override suspend fun googleSignIn(token: String): AuthToken {
+    override suspend fun googleSignIn(token: String): AuthTokens {
         TODO("Not yet implemented")
     }
 
@@ -34,7 +34,7 @@ class FakeAuthRepository : AuthRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun refreshSession(refreshToken: String): AuthToken {
+    override suspend fun refreshSession(refreshToken: String): AuthTokens {
         TODO("Not yet implemented")
     }
 }

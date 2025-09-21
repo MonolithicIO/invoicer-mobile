@@ -5,7 +5,7 @@ import io.github.monolithic.invoicer.foundation.auth.data.model.GoogleSignInRequ
 import io.github.monolithic.invoicer.foundation.auth.data.model.RefreshRequest
 import io.github.monolithic.invoicer.foundation.auth.data.model.SignInRequest
 import io.github.monolithic.invoicer.foundation.auth.data.model.SignUpRequest
-import io.github.monolithic.invoicer.foundation.network.client.HttpWrapper
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -32,7 +32,7 @@ internal interface AuthRemoteDataSource {
 }
 
 internal class AuthRemoteDataSourceImpl(
-    private val httpWrapper: HttpWrapper,
+    private val httpClient: HttpClient,
     private val dispatcher: CoroutineDispatcher,
 ) : AuthRemoteDataSource {
     override suspend fun signUp(
@@ -41,7 +41,7 @@ internal class AuthRemoteDataSourceImpl(
         password: String
     ): String {
         return withContext(dispatcher) {
-            httpWrapper.client
+            httpClient
                 .post(
                     urlString = "/v1/user"
                 ) {
@@ -58,7 +58,7 @@ internal class AuthRemoteDataSourceImpl(
 
     override suspend fun signIn(email: String, password: String): AuthTokenResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.post(
+            httpClient.post(
                 urlString = "/v1/auth/login"
             ) {
                 setBody(
@@ -73,7 +73,7 @@ internal class AuthRemoteDataSourceImpl(
 
     override suspend fun refreshToken(refreshToken: String): AuthTokenResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.post(
+            httpClient.post(
                 urlString = "/v1/auth/refresh"
             ) {
                 setBody(
@@ -87,7 +87,7 @@ internal class AuthRemoteDataSourceImpl(
 
     override suspend fun googleSignIn(token: String): AuthTokenResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.post(
+            httpClient.post(
                 urlString = "/v1/auth/google"
             ) {
                 setBody(

@@ -2,7 +2,7 @@ package io.github.monolithic.invoicer.foundation.auth.data.repository
 
 import io.github.monolithic.invoicer.foundation.auth.data.datasource.AuthRemoteDataSource
 import io.github.monolithic.invoicer.foundation.auth.data.datasource.AuthStorage
-import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthToken
+import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthTokens
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepository
 
 internal class AuthRepositoryImpl(
@@ -17,24 +17,24 @@ internal class AuthRepositoryImpl(
         )
     }
 
-    override suspend fun signIn(email: String, password: String): AuthToken {
+    override suspend fun signIn(email: String, password: String): AuthTokens {
         val response = remoteDataSource.signIn(
             email = email,
             password = password
         )
 
-        return AuthToken(
+        return AuthTokens(
             refreshToken = response.refreshToken,
             accessToken = response.token
         )
     }
 
-    override suspend fun googleSignIn(token: String): AuthToken {
+    override suspend fun googleSignIn(token: String): AuthTokens {
         val response = remoteDataSource.googleSignIn(
             token = token
         )
 
-        return AuthToken(
+        return AuthTokens(
             refreshToken = response.refreshToken,
             accessToken = response.token
         )
@@ -47,10 +47,10 @@ internal class AuthRepositoryImpl(
 
     override suspend fun refreshSession(
         refreshToken: String
-    ): AuthToken {
+    ): AuthTokens {
         val refreshedSession = remoteDataSource.refreshToken(refreshToken)
 
-        return AuthToken(
+        return AuthTokens(
             accessToken = refreshedSession.token,
             refreshToken = refreshedSession.refreshToken
         )

@@ -4,7 +4,7 @@ import io.github.monolithic.invoicer.features.company.data.model.CompanyDetailsR
 import io.github.monolithic.invoicer.features.company.data.model.CreateCompanyRequest
 import io.github.monolithic.invoicer.features.company.data.model.ListCompaniesResponse
 import io.github.monolithic.invoicer.features.company.data.model.UpdateAddressRequest
-import io.github.monolithic.invoicer.foundation.network.client.HttpWrapper
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.patch
@@ -36,7 +36,7 @@ internal interface CompanyRemoteDataSource {
 
 internal class CompanyRemoteDataSourceImpl(
     private val dispatcher: CoroutineDispatcher,
-    private val httpWrapper: HttpWrapper
+    private val httpWrapper: HttpClient
 ) : CompanyRemoteDataSource {
 
     override suspend fun listCompanies(
@@ -44,7 +44,7 @@ internal class CompanyRemoteDataSourceImpl(
         limit: Int
     ): ListCompaniesResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.get("/v1/company") {
+            httpWrapper.get("/v1/company") {
                 parameters {
                     append("page", page.toString())
                     append("limit", limit.toString())
@@ -55,7 +55,7 @@ internal class CompanyRemoteDataSourceImpl(
 
     override suspend fun createCompany(data: CreateCompanyRequest): String {
         return withContext(dispatcher) {
-            httpWrapper.client.post("/v1/company") {
+            httpWrapper.post("/v1/company") {
                 setBody(data)
             }.body<String>()
         }
@@ -63,13 +63,13 @@ internal class CompanyRemoteDataSourceImpl(
 
     override suspend fun details(companyId: String): CompanyDetailsResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.get("/v1/company/$companyId").body()
+            httpWrapper.get("/v1/company/$companyId").body()
         }
     }
 
     override suspend fun updateAddres(companyId: String, request: UpdateAddressRequest) {
         return withContext(dispatcher) {
-            httpWrapper.client.patch("v1/company/$companyId/address") {
+            httpWrapper.patch("v1/company/$companyId/address") {
                 setBody(request)
             }
         }
