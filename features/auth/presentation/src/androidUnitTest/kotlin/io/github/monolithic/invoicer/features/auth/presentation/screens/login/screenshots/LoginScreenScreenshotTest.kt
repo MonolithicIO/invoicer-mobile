@@ -1,6 +1,5 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.login.screenshots
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import app.cash.paparazzi.Paparazzi
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
