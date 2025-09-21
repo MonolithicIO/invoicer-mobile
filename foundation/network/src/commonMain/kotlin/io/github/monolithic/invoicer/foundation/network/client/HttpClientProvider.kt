@@ -102,6 +102,7 @@ internal class HttpClientProvider(
                     )
                 }
 
+                // TODO: Maybe use a message queue instead of dealing with sign out here?
                 refreshTokens {
                     runCatching {
                         refreshSessionService.refresh()

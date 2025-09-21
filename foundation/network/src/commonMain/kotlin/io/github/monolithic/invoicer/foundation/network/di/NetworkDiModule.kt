@@ -12,7 +12,10 @@ val networkDiModule = module {
 
     factory {
         HttpClientProvider(
-            authTokenRepository = get()
+            authTokenRepository = get(),
+            refreshSessionService = get(),
+            authEventBus = get(),
+            signOutService = get()
         )
     }
 }

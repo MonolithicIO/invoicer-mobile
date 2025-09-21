@@ -35,6 +35,7 @@ kotlin {
 
             // Foundation
             implementation(projects.foundation.auth)
+            implementation(projects.foundation.watchers)
 
             // Ktor
             implementation(libs.ktor.client.core)
