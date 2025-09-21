@@ -1,5 +1,7 @@
 package io.github.monolithic.invoicer.foundation.network
 
+import kotlinx.serialization.Serializable
+
 sealed class RequestError : Throwable() {
     data class Http(
         val httpCode: Int,
@@ -11,3 +13,11 @@ sealed class RequestError : Throwable() {
         val throwable: Throwable
     ) : RequestError()
 }
+
+@Serializable
+internal data class InvoicerHttpError(
+    val message: String,
+    val timeStamp: String,
+    val errorCode: Int = 0
+)
+
