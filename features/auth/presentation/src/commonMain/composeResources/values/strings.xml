@@ -21,8 +21,8 @@
     <string name="auth_sign_up_duplicate_account_description">%1$s is already registered in our platform</string>
     <string name="auth_sign_up_duplicate_account_cta">Ok</string>
     <!-- Sign Up Feedback -->
-    <string name="auth_sign_up_feedback_title">Account created</string>
-    <string name="auth_sign_up_feedback_message">Proceed to login to use the app</string>
+    <string name="auth_sign_up_feedback_title">Your account is ready!</string>
+    <string name="auth_sign_up_feedback_message">Congratulations! You can now manage your invoices.</string>
     <string name="auth_sign_up_feedback_cta">Continue</string>
     <!-- Sign IN -->
     <string name="auth_sign_in_title">Welcome Back! 👋</string>

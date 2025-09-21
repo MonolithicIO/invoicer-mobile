@@ -1,17 +1,16 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.signupfeedback
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material.icons.outlined.Close
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -20,10 +19,16 @@ import invoicer.features.auth.presentation.generated.resources.Res
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feedback_cta
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feedback_message
 import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feedback_title
+import invoicer.features.auth.presentation.generated.resources.img_sign_up_success
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal class SignUpFeedbackScreen : Screen {
@@ -32,54 +37,55 @@ internal class SignUpFeedbackScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        val onBack = remember {
-            { navigator?.replaceAll(LoginScreen()) }
-        }
 
         BackHandler(true) {
-            onBack()
+            // Disable system back
         }
 
         StateContent(
-            onSubmit = { onBack() },
-            onBack = { onBack() }
+            onBack = { navigator?.replaceAll(LoginScreen()) }
         )
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
-        onSubmit: () -> Unit,
         onBack: () -> Unit,
     ) {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {},
-                    navigationIcon = {
-                        BackButton(
-                            onBackClick = onBack,
-                            icon = Icons.Outlined.Close
-                        )
-                    }
+        InkScaffold(
+            bottomBar = {
+                PrimaryButton(
+                    label = stringResource(Res.string.auth_sign_up_feedback_cta),
+                    onClick = onBack,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = InkTheme.spacing.medium)
+                        .systemBarBottomPadding()
                 )
             }
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .systemBarsPadding()
                     .padding(it)
-                    .padding(Spacing.medium)
+                    .padding(Spacing.medium),
+                horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
-                Feedback(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(),
-                    primaryActionText = stringResource(Res.string.auth_sign_up_feedback_cta),
-                    onPrimaryAction = onSubmit,
-                    icon = Icons.Outlined.Check,
-                    title = stringResource(Res.string.auth_sign_up_feedback_title),
-                    description = stringResource(Res.string.auth_sign_up_feedback_message)
+                Image(
+                    painter = painterResource(Res.drawable.img_sign_up_success),
+                    contentDescription = null
+                )
+                InkText(
+                    text = stringResource(Res.string.auth_sign_up_feedback_title),
+                    style = InkTextStyle.Heading3,
+                    weight = FontWeight.Bold
+                )
+                InkText(
+                    text = stringResource(Res.string.auth_sign_up_feedback_message),
+                    style = InkTextStyle.Heading3,
+                    weight = FontWeight.Bold
                 )
             }
         }
