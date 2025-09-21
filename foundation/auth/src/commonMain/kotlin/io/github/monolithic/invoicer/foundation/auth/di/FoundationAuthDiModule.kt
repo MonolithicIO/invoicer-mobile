@@ -8,8 +8,8 @@ import io.github.monolithic.invoicer.foundation.auth.data.repository.AuthReposit
 import io.github.monolithic.invoicer.foundation.auth.data.repository.AuthTokenRepositoryImpl
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepository
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthTokenRepository
-import io.github.monolithic.invoicer.foundation.auth.domain.services.ResumeSessionService
-import io.github.monolithic.invoicer.foundation.auth.domain.services.ResumeSessionServiceImpl
+import io.github.monolithic.invoicer.foundation.auth.domain.services.RefreshSessionService
+import io.github.monolithic.invoicer.foundation.auth.domain.services.RefreshSessionServiceImpl
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManager
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManagerImpl
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutHandler
@@ -57,10 +57,10 @@ val foundationAuthDiModule = module {
         )
     }
 
-    factory<ResumeSessionService> {
-        ResumeSessionServiceImpl(
-            authTokenRepository = get(),
-            authEventBus = get(),
+    factory<RefreshSessionService> {
+        RefreshSessionServiceImpl(
+            authRepository = get(),
+            authTokenRepository = get()
         )
     }
 }
