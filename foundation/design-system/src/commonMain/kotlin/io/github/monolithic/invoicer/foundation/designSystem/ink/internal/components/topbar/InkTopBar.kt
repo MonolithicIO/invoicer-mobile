@@ -38,9 +38,7 @@ fun InkTopBar(
         color = colors.containerColor
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = InkTheme.spacing.medium),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
         ) {
