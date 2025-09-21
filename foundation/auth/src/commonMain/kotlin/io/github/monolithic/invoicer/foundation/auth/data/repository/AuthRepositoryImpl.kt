@@ -40,7 +40,7 @@ internal class AuthRepositoryImpl(
         )
     }
 
-    override suspend fun signOut() {
+    override suspend fun clearAuthTokens() {
         authStorage.clearTokens()
 
     }

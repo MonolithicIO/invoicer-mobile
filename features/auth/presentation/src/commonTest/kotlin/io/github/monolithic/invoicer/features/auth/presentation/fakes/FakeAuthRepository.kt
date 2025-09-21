@@ -30,7 +30,7 @@ class FakeAuthRepository : AuthRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun signOut() {
+    override suspend fun clearAuthTokens() {
         TODO("Not yet implemented")
     }
 

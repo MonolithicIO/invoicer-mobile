@@ -18,7 +18,10 @@ interface AuthRepository {
         token: String
     ): AuthTokens
 
-    suspend fun signOut()
+    /**
+     * Removes any stored authentication tokens from the local storage.
+     * */
+    suspend fun clearAuthTokens()
 
     suspend fun refreshSession(
         refreshToken: String,

@@ -7,6 +7,6 @@ import org.koin.mp.KoinPlatform
 
 actual val NetworkEngine: HttpClient = HttpClient(Darwin) {
     setupClient(
-        session = KoinPlatform.getKoin().get()
+        tokenRepository = KoinPlatform.getKoin().get(),
     )
 }

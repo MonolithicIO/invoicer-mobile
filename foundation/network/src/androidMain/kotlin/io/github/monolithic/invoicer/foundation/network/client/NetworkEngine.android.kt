@@ -8,6 +8,6 @@ import org.koin.mp.KoinPlatform
 
 actual val NetworkEngine = HttpClient(OkHttp) {
     setupClient(
-        session = KoinPlatform.getKoin().get()
+        tokenRepository = KoinPlatform.getKoin().get(),
     )
 }

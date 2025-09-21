@@ -11,7 +11,7 @@ import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthToken
 import io.github.monolithic.invoicer.foundation.auth.domain.services.ResumeSessionService
 import io.github.monolithic.invoicer.foundation.auth.domain.services.ResumeSessionServiceImpl
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManager
-import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManagerResolver
+import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManagerImpl
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutHandler
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutService
 import kotlinx.coroutines.Dispatchers
@@ -42,11 +42,10 @@ val foundationAuthDiModule = module {
     factory<AuthTokenRepository> { AuthTokenRepositoryImpl(storage = get()) }
 
     factory<SignInCommandManager> {
-        SignInCommandManagerResolver(
+        SignInCommandManagerImpl(
             authRepository = get(),
             authTokenRepository = get(),
             authEventBus = get(),
-            session = get()
         )
     }
 
@@ -55,7 +54,6 @@ val foundationAuthDiModule = module {
             authEventBus = get(),
             authRepository = get(),
             firebaseHelper = get(),
-            session = get()
         )
     }
 
@@ -63,7 +61,6 @@ val foundationAuthDiModule = module {
         ResumeSessionServiceImpl(
             authTokenRepository = get(),
             authEventBus = get(),
-            sessionUpdater = get()
         )
     }
 }
