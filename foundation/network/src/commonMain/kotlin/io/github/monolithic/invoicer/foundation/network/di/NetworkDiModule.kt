@@ -10,7 +10,7 @@ import org.koin.dsl.module
 val networkDiModule = module {
 
     // Workaround for cyclic dependency graph
-    factory<HttpClient>(named(NetworkDiTags.REGULAR_HTTP_CLIENT)) {
+    factory<HttpClient> {
         val provider = get<HttpClientProvider>()
         provider.provideClient()
     }
