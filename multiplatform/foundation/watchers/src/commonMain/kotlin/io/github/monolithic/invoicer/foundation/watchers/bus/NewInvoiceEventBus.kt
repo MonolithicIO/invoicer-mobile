@@ -1,6 +1,6 @@
-package io.github.monolithic.invoicer.foundation.watchers
+package io.github.monolithic.invoicer.foundation.watchers.bus
 
 import io.github.monolithic.invoicer.foundation.ui.events.EventAware
 import io.github.monolithic.invoicer.foundation.ui.events.EventPublisher
 
-class RefreshBeneficiaryPublisher : EventAware<Unit> by EventPublisher()
+class NewInvoiceEventBus : EventAware<Unit> by EventPublisher()

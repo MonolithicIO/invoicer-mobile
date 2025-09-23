@@ -5,21 +5,24 @@ import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.monolithic.invoicer.features.qrcodeSession.domain.repository.QrCodeTokenRepository
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.ui.events.EventAware
-import io.github.monolithic.invoicer.foundation.ui.events.EventPublisher
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class AuthorizationConfirmationScreenModel(
     private val qrCodeTokenRepository: QrCodeTokenRepository,
     private val dispatcher: CoroutineDispatcher
-) : ScreenModel, EventAware<AuthorizationConfirmationEvents> by EventPublisher() {
+) : ScreenModel {
 
     private val _state = MutableStateFlow(AuthorizationConfirmationState())
     val state: StateFlow<AuthorizationConfirmationState> = _state
+
+    private val _events = MutableSharedFlow<AuthorizationConfirmationEvents>()
+    val events = _events.asSharedFlow()
 
     fun getCodeDetails(contentId: String) {
         screenModelScope.launch(dispatcher) {
@@ -57,7 +60,7 @@ internal class AuthorizationConfirmationScreenModel(
                 qrCodeTokenRepository.consumeQrCode(token = contentId)
             }.handle(
                 onSuccess = {
-                    publish(AuthorizationConfirmationEvents.Authorized)
+                    _events.emit(AuthorizationConfirmationEvents.Authorized)
                 },
                 onFailure = { error ->
                     _state.update {

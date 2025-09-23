@@ -6,8 +6,8 @@ import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutServ
 import io.github.monolithic.invoicer.foundation.network.InvoicerHttpError
 import io.github.monolithic.invoicer.foundation.network.NetworkBuildConfig
 import io.github.monolithic.invoicer.foundation.network.RequestError
-import io.github.monolithic.invoicer.foundation.watchers.AuthEvent
-import io.github.monolithic.invoicer.foundation.watchers.AuthEventBus
+import io.github.monolithic.invoicer.foundation.watchers.bus.AuthEvent
+import io.github.monolithic.invoicer.foundation.watchers.bus.AuthEventBus
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.call.body

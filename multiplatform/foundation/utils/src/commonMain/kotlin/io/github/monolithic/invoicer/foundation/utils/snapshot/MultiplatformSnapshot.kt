@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.testUtil
+package io.github.monolithic.invoicer.foundation.utils.snapshot
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider

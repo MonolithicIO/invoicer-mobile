@@ -50,7 +50,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource

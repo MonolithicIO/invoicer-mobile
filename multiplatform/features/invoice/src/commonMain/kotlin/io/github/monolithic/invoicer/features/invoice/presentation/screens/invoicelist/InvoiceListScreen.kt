@@ -57,9 +57,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.s
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
-import io.github.monolithic.invoicer.foundation.ui.LazyListPaginationEffect
-import io.github.monolithic.invoicer.foundation.ui.events.EventEffect
-import io.github.monolithic.invoicer.foundation.watchers.NewInvoicePublisher
+import io.github.monolithic.invoicer.foundation.utils.compose.LazyListPaginationEffect
+import io.github.monolithic.invoicer.foundation.utils.events.EventEffect
+import io.github.monolithic.invoicer.foundation.watchers.bus.NewInvoiceEventBus
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
@@ -78,7 +78,7 @@ internal class InvoiceListScreen : Screen {
         val navigator = LocalNavigator.current
         val viewModel = koinScreenModel<InvoiceListScreenModel>()
         val state by viewModel.state.collectAsState()
-        val newInvoicePublisher = remember { getKoin().get<NewInvoicePublisher>() }
+        val newInvoiceEventBus = remember { getKoin().get<NewInvoiceEventBus>() }
         val snackBar = remember { SnackbarHostState() }
         val scope = rememberCoroutineScope()
 
@@ -94,7 +94,7 @@ internal class InvoiceListScreen : Screen {
             onNextPage = { viewModel.nextPage() }
         )
 
-        EventEffect(newInvoicePublisher) {
+        EventEffect(newInvoiceEventBus) {
             viewModel.loadPage(force = true)
         }
 

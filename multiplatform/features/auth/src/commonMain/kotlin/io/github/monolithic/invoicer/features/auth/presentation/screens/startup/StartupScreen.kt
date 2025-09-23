@@ -16,8 +16,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
-import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
-import kotlinx.coroutines.delay
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 
 class StartupScreen : Screen {
 

@@ -52,7 +52,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.I
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.jetbrains.compose.resources.stringResource

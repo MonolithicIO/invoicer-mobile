@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.ui
+package io.github.monolithic.invoicer.foundation.utils.compose
 
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable

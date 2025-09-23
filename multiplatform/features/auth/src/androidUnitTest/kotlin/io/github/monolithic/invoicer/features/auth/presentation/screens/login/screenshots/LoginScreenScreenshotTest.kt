@@ -7,7 +7,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.login.Lo
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
-import io.github.monolithic.invoicer.foundation.testUtil.MultiplatformSnapshot
+import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.junit.Rule
 import kotlin.test.Test

@@ -28,7 +28,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.b
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.ErrorFeedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 
 internal class InvoiceCustomerScreen : Screen {

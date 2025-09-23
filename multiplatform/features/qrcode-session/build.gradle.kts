@@ -31,7 +31,6 @@ kotlin {
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.navigation)
             implementation(projects.multiplatform.foundation.designSystem)
-            implementation(projects.multiplatform.foundation.ui)
             implementation(projects.multiplatform.foundation.validator)
             implementation(projects.multiplatform.foundation.utils)
 

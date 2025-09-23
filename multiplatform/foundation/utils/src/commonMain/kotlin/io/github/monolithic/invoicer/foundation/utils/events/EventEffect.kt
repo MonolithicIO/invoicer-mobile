@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.ui.events
+package io.github.monolithic.invoicer.foundation.utils.events
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

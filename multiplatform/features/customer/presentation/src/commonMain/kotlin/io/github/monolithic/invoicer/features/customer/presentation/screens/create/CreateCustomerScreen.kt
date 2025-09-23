@@ -41,7 +41,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.b
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 

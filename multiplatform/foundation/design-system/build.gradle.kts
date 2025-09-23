@@ -28,7 +28,7 @@ kotlin {
         }
 
         androidUnitTest.dependencies {
-            implementation(projects.multiplatform.foundation.testUtil)
+            implementation(projects.multiplatform.foundation.utils)
         }
     }
 }

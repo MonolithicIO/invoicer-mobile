@@ -9,7 +9,7 @@ android {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.multiplatform.foundation.ui)
+            implementation(projects.multiplatform.foundation.utils)
             implementation(libs.coroutines.core)
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)

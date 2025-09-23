@@ -34,7 +34,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.L
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 
 internal class CustomerListScreen : Screen {

@@ -9,7 +9,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoi
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.rememberInvoiceListCallbacks
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
-import io.github.monolithic.invoicer.foundation.testUtil.MultiplatformSnapshot
+import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate

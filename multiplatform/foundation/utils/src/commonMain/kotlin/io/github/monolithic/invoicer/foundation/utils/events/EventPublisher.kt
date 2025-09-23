@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.ui.events
+package io.github.monolithic.invoicer.foundation.utils.events
 
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
