@@ -3,9 +3,11 @@ package io.github.monolithic.invoicer.sharedApp.init.modules.platform
 import io.github.monolithic.invoicer.foundation.auth.firebase.FirebaseHelper
 import io.github.monolithic.invoicer.foundation.auth.firebase.IosGoogleFirebaseHelper
 import io.github.monolithic.invoicer.foundation.platform.analytics.AnalyticsTracker
+import io.github.monolithic.invoicer.foundation.platform.splashdismisser.SplashScreenDismisser
 import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 import io.github.monolithic.invoicer.sharedApp.init.di.appModule
 import io.github.monolithic.invoicer.sharedApp.init.modules.ModuleInitializer
+import io.github.monolithic.invoicer.sharedApp.init.modules.mutes.MutedSplashScreenDismisser
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
@@ -17,13 +19,14 @@ actual class KoinModule(
 ) : ModuleInitializer {
     override fun onStart() {
         startKoin {
-            modules(appModule)
             modules(
+                appModule,
                 module {
                     factory<LocalStorage> { storage }
                     factory<FirebaseHelper> { firebaseHelper }
                     factory<AnalyticsTracker> { analyticsTracker }
                     factory<IosGoogleFirebaseHelper> { googleFirebaseHelper }
+                    single<SplashScreenDismisser> { MutedSplashScreenDismisser }
                 }
             )
         }

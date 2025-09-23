@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
@@ -25,8 +25,12 @@ class StartupScreen : Screen {
         val viewModel = koinScreenModel<StartupScreenModel>()
         val navigator = LocalNavigator.current
 
-        LaunchedEffect(viewModel) {
+        DisposableEffect(viewModel) {
             viewModel.startApp()
+
+            onDispose {
+                viewModel.dismissSplashScreen()
+            }
         }
 
         FlowCollectEffect(
