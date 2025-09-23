@@ -3,6 +3,7 @@ package io.github.monolithic.invoicer.sharedApp.init.modules.platform
 import io.github.monolithic.invoicer.foundation.auth.firebase.FirebaseHelper
 import io.github.monolithic.invoicer.foundation.auth.firebase.IosGoogleFirebaseHelper
 import io.github.monolithic.invoicer.foundation.platform.analytics.AnalyticsTracker
+import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 import io.github.monolithic.invoicer.sharedApp.init.di.appModule
 import io.github.monolithic.invoicer.sharedApp.init.modules.ModuleInitializer
 import org.koin.core.context.startKoin
