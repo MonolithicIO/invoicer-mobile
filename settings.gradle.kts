@@ -32,31 +32,30 @@ kover {
 
     reports {
         excludesAnnotatedBy = setOf(
-            "io.github.monolithic.invoicer.foundation.utils.notations.IgnoreCoverage",
+            "io.github.monolithic.invoicer.multiplatform:foundation.utils.notations.IgnoreCoverage",
         )
     }
 }
 
 rootProject.name = "invoicer"
 include(":app")
-include(":foundation:design-system")
-include(":features:auth")
-include(":foundation:navigation")
-include(":foundation:network")
-include(":foundation:validator")
-include(":foundation:storage")
-include(":foundation:session")
-include(":foundation:auth")
-include(":features:home")
-include(":foundation:ui")
-include(":features:invoice")
-include(":features:customer:services")
-include(":features:customer:presentation")
-include(":features:qrcode-session")
-include(":features:company:services")
-include(":features:company:presentation")
-include(":foundation:watchers")
-include(":foundation:utils")
-include(":foundation:test-util")
-include(":foundation:analytics")
-include(":sharedApp")
+include(":multiplatform:foundation:design-system")
+include(":multiplatform:features:auth")
+include(":multiplatform:foundation:navigation")
+include(":multiplatform:foundation:network")
+include(":multiplatform:foundation:validator")
+include(":multiplatform:foundation:storage")
+include(":multiplatform:foundation:session")
+include(":multiplatform:foundation:platform")
+include(":multiplatform:foundation:auth")
+include(":multiplatform:features:home")
+include(":multiplatform:features:invoice")
+include(":multiplatform:features:customer:services")
+include(":multiplatform:features:customer:presentation")
+include(":multiplatform:features:qrcode-session")
+include(":multiplatform:features:company:services")
+include(":multiplatform:features:company:presentation")
+include(":multiplatform:foundation:watchers")
+include(":multiplatform:foundation:utils")
+include(":multiplatform:foundation:analytics")
+include(":multiplatform:sharedApp")

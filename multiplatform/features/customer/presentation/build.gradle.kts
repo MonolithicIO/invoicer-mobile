@@ -1,0 +1,53 @@
+plugins {
+    id("invoicer.multiplatform.library")
+    id("invoicer.compose")
+    alias(libs.plugins.paparazzi)
+
+}
+
+android {
+    namespace = "io.github.monolithic.invoicer.features.customer.presentation"
+}
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            // Compose
+            implementation(compose.ui)
+            implementation(compose.material3)
+            implementation(compose.components.resources)
+
+            // Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+
+            // Voyager
+            implementation(libs.bundles.voyager)
+
+            // Foundation
+            implementation(projects.multiplatform.foundation.network)
+            implementation(projects.multiplatform.foundation.navigation)
+            implementation(projects.multiplatform.foundation.designSystem)
+            implementation(projects.multiplatform.foundation.validator)
+            implementation(projects.multiplatform.foundation.utils)
+            implementation(projects.multiplatform.foundation.session)
+            implementation(projects.multiplatform.foundation.analytics)
+            implementation(projects.multiplatform.foundation.utils)
+
+            // Kotlin
+            implementation(libs.immutable.collections)
+
+            // Features
+            implementation(projects.multiplatform.features.customer.services)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.coroutines.test)
+        }
+
+        androidUnitTest.dependencies {
+            implementation(projects.multiplatform.foundation.utils)
+        }
+    }
+}
