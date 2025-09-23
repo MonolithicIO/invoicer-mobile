@@ -7,7 +7,7 @@ internal interface ResolveStartupDestinationService {
     suspend fun resolveDestination(): StartupDestination
 }
 
-// TODO: Implement logic to check the stored selected company and launch home if a valid company is found
+// TODO Implement logic to check the stored selected company and launch home if a valid company is found
 internal class ResolveStartupDestinationServiceImpl(
     private val authTokenRepository: AuthTokenRepository,
 ) : ResolveStartupDestinationService {
