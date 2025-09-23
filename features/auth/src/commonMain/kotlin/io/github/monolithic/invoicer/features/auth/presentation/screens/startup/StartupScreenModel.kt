@@ -14,7 +14,8 @@ internal class StartupScreenModel(
     private val dispatcher: CoroutineDispatcher
 ) : ScreenModel {
 
-    private val _events = MutableSharedFlow<StartupDestination>()
+    // TODO: There seems to be a race condition in the UI Layer so replay here serves to solve this.
+    private val _events = MutableSharedFlow<StartupDestination>(replay = 1)
     val events = _events.asSharedFlow()
 
     fun startApp() {

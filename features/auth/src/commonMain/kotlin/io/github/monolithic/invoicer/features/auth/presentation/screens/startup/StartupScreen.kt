@@ -17,6 +17,7 @@ import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
 import io.github.monolithic.invoicer.foundation.ui.FlowCollectEffect
+import kotlinx.coroutines.delay
 
 class StartupScreen : Screen {
 
@@ -24,7 +25,10 @@ class StartupScreen : Screen {
     override fun Content() {
         val viewModel = koinScreenModel<StartupScreenModel>()
         val navigator = LocalNavigator.current
-        LaunchedEffect(viewModel) { viewModel.startApp() }
+
+        LaunchedEffect(viewModel) {
+            viewModel.startApp()
+        }
 
         FlowCollectEffect(
             flow = viewModel.events,

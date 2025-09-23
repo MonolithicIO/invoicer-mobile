@@ -42,7 +42,8 @@ private fun Module.viewModelBindings() {
 
     factory<StartupScreenModel> {
         StartupScreenModel(
-
+            startupDestinationService = get(),
+            dispatcher = Dispatchers.Default
         )
     }
 
