@@ -22,7 +22,7 @@ fun InvoicerApp() {
 
     InkTheme {
         Navigator(
-            screen = ScreenRegistry.get(InvoicerScreen.Auth.AuthMenu),
+            screen = ScreenRegistry.get(InvoicerScreen.Auth.Startup),
             disposeBehavior = NavigatorDisposeBehavior(disposeSteps = false)
         ) { navigator ->
             SlideTransition(
