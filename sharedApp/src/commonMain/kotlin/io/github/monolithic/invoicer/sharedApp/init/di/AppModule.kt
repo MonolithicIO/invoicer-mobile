@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.sharedApp.init.di
 
 import io.github.monolithic.features.home.presentation.di.homePresentationDiModule
-import io.github.monolithic.invoicer.features.auth.presentation.di.featureAuthPresentationDiModule
+import io.github.monolithic.invoicer.features.auth.di.featureAuthPresentationDiModule
 import io.github.monolithic.invoicer.features.company.presentation.di.companyPresentationDiModule
 import io.github.monolithic.invoicer.features.company.services.di.companyServicesDiModule
 import io.github.monolithic.invoicer.features.customer.di.customerServiceDiModule

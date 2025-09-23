@@ -21,6 +21,9 @@ kotlin {
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
 
+            // Feature
+            implementation(projects.features.company.services)
+
             // Voyager
             implementation(libs.bundles.voyager)
 

@@ -1,5 +1,7 @@
-package io.github.monolithic.invoicer.features.auth.presentation.di
+package io.github.monolithic.invoicer.features.auth.di
 
+import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartupDestinationService
+import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartupDestinationServiceImpl
 import io.github.monolithic.invoicer.features.auth.presentation.screens.authmenu.AuthMenuScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenModel
@@ -51,6 +53,12 @@ private fun Module.viewModelBindings() {
             signInCommander = get(),
             dispatcher = Dispatchers.Default,
             analyticsTracker = get()
+        )
+    }
+
+    factory<ResolveStartupDestinationService> {
+        ResolveStartupDestinationServiceImpl(
+            authTokenRepository = get()
         )
     }
 }
