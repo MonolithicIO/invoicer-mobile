@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val qrCodeSessionDi = module {
     factory<QrCodeTokenRepository> {
         QrCodeTokenRepositoryImpl(
-            httpWrapper = get(),
+            httpClient = get(),
             dispatcher = Dispatchers.IO
         )
     }

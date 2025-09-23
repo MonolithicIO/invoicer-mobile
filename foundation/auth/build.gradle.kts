@@ -42,7 +42,7 @@ kotlin {
             implementation(libs.ktor.client.core)
 
             // Libs
-            implementation(projects.foundation.network)
+            implementation(projects.foundation.utils)
             implementation(projects.foundation.watchers)
             implementation(projects.foundation.storage)
             implementation(projects.foundation.session)

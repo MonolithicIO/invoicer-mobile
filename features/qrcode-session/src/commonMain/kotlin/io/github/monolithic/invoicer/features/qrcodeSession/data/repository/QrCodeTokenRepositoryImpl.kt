@@ -4,7 +4,7 @@ import io.github.monolithic.invoicer.features.qrcodeSession.data.model.QrCodeTok
 import io.github.monolithic.invoicer.features.qrcodeSession.data.model.toDomain
 import io.github.monolithic.invoicer.features.qrcodeSession.domain.model.QrCodeTokenDetailsModel
 import io.github.monolithic.invoicer.features.qrcodeSession.domain.repository.QrCodeTokenRepository
-import io.github.monolithic.invoicer.foundation.network.client.HttpWrapper
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
@@ -12,13 +12,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class QrCodeTokenRepositoryImpl(
-    private val httpWrapper: HttpWrapper,
+    private val httpClient: HttpClient,
     private val dispatcher: CoroutineDispatcher
 ) : QrCodeTokenRepository {
 
     override suspend fun getQrCodeDetails(token: String): QrCodeTokenDetailsModel {
         return withContext(dispatcher) {
-            httpWrapper.client
+            httpClient
                 .get("/v1/login_code/${token}")
                 .body<QrCodeTokenDetailsResponse>()
                 .toDomain()
@@ -27,7 +27,7 @@ internal class QrCodeTokenRepositoryImpl(
 
     override suspend fun consumeQrCode(token: String) {
         return withContext(dispatcher) {
-            httpWrapper.client
+            httpClient
                 .post("/v1/login_code/$token/consume")
         }
     }

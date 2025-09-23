@@ -6,7 +6,7 @@ import io.github.monolithic.invoicer.features.customer.domain.model.CreateCustom
 import io.github.monolithic.invoicer.features.customer.domain.model.CustomerListItemModel
 import io.github.monolithic.invoicer.features.customer.domain.model.CustomerListModel
 import io.github.monolithic.invoicer.features.customer.domain.repository.CustomerRepository
-import io.github.monolithic.invoicer.foundation.network.client.HttpWrapper
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
@@ -16,13 +16,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal class CustomerRepositoryImpl(
-    private val httpWrapper: HttpWrapper,
+    private val httpWrapper: HttpClient,
     private val dispatcher: CoroutineDispatcher
 ) : CustomerRepository {
 
     override suspend fun createCustomer(model: CreateCustomerModel): String {
         return withContext(dispatcher) {
-            httpWrapper.client.post(
+            httpWrapper.post(
                 "/v1/company/${model.companyId}/customer"
             ) {
                 setBody(
@@ -42,7 +42,7 @@ internal class CustomerRepositoryImpl(
         pageSize: Long
     ): CustomerListModel {
         return withContext(dispatcher) {
-            val response = httpWrapper.client.get(
+            val response = httpWrapper.get(
                 "/v1/company/$companyId/customers"
             ) {
                 parameter("page", page)

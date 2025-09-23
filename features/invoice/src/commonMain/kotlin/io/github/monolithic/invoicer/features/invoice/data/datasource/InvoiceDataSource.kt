@@ -3,7 +3,7 @@ package io.github.monolithic.invoicer.features.invoice.data.datasource
 import io.github.monolithic.invoicer.features.invoice.data.model.CreateInvoiceRequest
 import io.github.monolithic.invoicer.features.invoice.data.model.InvoiceDetailsResponse
 import io.github.monolithic.invoicer.features.invoice.data.model.InvoiceListResponse
-import io.github.monolithic.invoicer.foundation.network.client.HttpWrapper
+import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.post
@@ -35,7 +35,7 @@ internal interface InvoiceDataSource {
 }
 
 internal class InvoiceDataSourceImpl(
-    private val httpWrapper: HttpWrapper,
+    private val httpClient: HttpClient,
     private val dispatcher: CoroutineDispatcher
 ) : InvoiceDataSource {
 
@@ -50,7 +50,7 @@ internal class InvoiceDataSourceImpl(
         customerId: String?
     ): InvoiceListResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.get(urlString = "/v1/company/$companyId/invoices") {
+            httpClient.get(urlString = "/v1/company/$companyId/invoices") {
                 parameters {
                     append("page", page.toString())
                     append("limit", limit.toString())
@@ -68,7 +68,7 @@ internal class InvoiceDataSourceImpl(
         payload: CreateInvoiceRequest
     ) {
         withContext(dispatcher) {
-            httpWrapper.client.post(
+            httpClient.post(
                 urlString = "/v1/company/${payload.companyId}/invoice"
             ) {
                 setBody(payload)
@@ -81,7 +81,7 @@ internal class InvoiceDataSourceImpl(
         companyId: String,
     ): InvoiceDetailsResponse {
         return withContext(dispatcher) {
-            httpWrapper.client.get(urlString = "/v1/company/$companyId/invoice/$invoiceId").body()
+            httpClient.get(urlString = "/v1/company/$companyId/invoice/$invoiceId").body()
         }
     }
 }

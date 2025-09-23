@@ -1,6 +1,6 @@
 package io.github.monolithic.invoicer.foundation.auth.domain.repository
 
-import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthToken
+import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthTokens
 
 interface AuthTokenRepository {
     suspend fun storeAuthTokens(
@@ -8,5 +8,5 @@ interface AuthTokenRepository {
         refreshToken: String
     )
 
-    suspend fun getAuthTokens(): AuthToken?
+    suspend fun getAuthTokens(): AuthTokens?
 }

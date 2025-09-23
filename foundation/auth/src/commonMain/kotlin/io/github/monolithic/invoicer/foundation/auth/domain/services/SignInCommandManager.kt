@@ -2,8 +2,6 @@ package io.github.monolithic.invoicer.foundation.auth.domain.services
 
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepository
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthTokenRepository
-import io.github.monolithic.invoicer.foundation.session.SessionTokens
-import io.github.monolithic.invoicer.foundation.session.SessionUpdater
 import io.github.monolithic.invoicer.foundation.watchers.AuthEvent
 import io.github.monolithic.invoicer.foundation.watchers.AuthEventBus
 
@@ -16,11 +14,10 @@ sealed interface SignInCommand {
     data class Credential(val userName: String, val password: String) : SignInCommand
 }
 
-internal class SignInCommandManagerResolver(
+internal class SignInCommandManagerImpl(
     private val authRepository: AuthRepository,
     private val authTokenRepository: AuthTokenRepository,
     private val authEventBus: AuthEventBus,
-    private val session: SessionUpdater
 ) : SignInCommandManager {
 
     override suspend fun resolveCommand(command: SignInCommand) {
@@ -36,12 +33,6 @@ internal class SignInCommandManagerResolver(
         authTokenRepository.storeAuthTokens(
             accessToken = authToken.accessToken,
             refreshToken = authToken.refreshToken
-        )
-        session.updateTokens(
-            SessionTokens(
-                accessToken = authToken.accessToken,
-                refreshToken = authToken.refreshToken
-            )
         )
 
         authEventBus.publishEvent(AuthEvent.SignedIn)

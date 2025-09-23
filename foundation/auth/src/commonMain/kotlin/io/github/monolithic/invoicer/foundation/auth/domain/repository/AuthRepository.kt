@@ -1,6 +1,6 @@
 package io.github.monolithic.invoicer.foundation.auth.domain.repository
 
-import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthToken
+import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthTokens
 
 interface AuthRepository {
     suspend fun signUp(
@@ -12,15 +12,18 @@ interface AuthRepository {
     suspend fun signIn(
         email: String,
         password: String
-    ): AuthToken
+    ): AuthTokens
 
     suspend fun googleSignIn(
         token: String
-    ): AuthToken
+    ): AuthTokens
 
-    suspend fun signOut()
+    /**
+     * Removes any stored authentication tokens from the local storage.
+     * */
+    suspend fun clearAuthTokens()
 
     suspend fun refreshSession(
         refreshToken: String,
-    ): AuthToken
+    ): AuthTokens
 }

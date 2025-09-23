@@ -34,7 +34,9 @@ kotlin {
             implementation(libs.koin.core)
 
             // Foundation
-            implementation(projects.foundation.session)
+            implementation(projects.foundation.auth)
+            implementation(projects.foundation.watchers)
+            implementation(projects.foundation.utils)
 
             // Ktor
             implementation(libs.ktor.client.core)
