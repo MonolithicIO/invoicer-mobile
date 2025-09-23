@@ -2,4 +2,9 @@
 <resources>
 
     <style name="Theme.Invoicer" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Starting.Invoicer" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/app_primary</item>
+        <item name="postSplashScreenTheme">@style/Theme.Invoicer</item>
+    </style>
 </resources>
