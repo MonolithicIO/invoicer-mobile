@@ -2,8 +2,8 @@ package io.github.monolithic.invoicer.foundation.analytics.impl
 
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.logEvent
-import io.github.monolithic.invoicer.foundation.analytics.AnalyticsEvent
-import io.github.monolithic.invoicer.foundation.analytics.AnalyticsTracker
+import io.github.monolithic.invoicer.foundation.platform.analytics.AnalyticsEvent
+import io.github.monolithic.invoicer.foundation.platform.analytics.AnalyticsTracker
 import io.github.monolithic.invoicer.foundation.utils.notations.IgnoreCoverage
 
 @IgnoreCoverage

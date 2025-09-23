@@ -2,12 +2,12 @@ package io.github.monolithic.invoicer.features.auth.presentation.screens.login
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import io.github.monolithic.invoicer.foundation.analytics.AnalyticsTracker
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommand
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManager
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
+import io.github.monolithic.invoicer.foundation.platform.analytics.AnalyticsTracker
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

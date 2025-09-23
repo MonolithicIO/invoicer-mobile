@@ -28,7 +28,7 @@ import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.scan.components.QrCodeCameraView
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.utils.events.EventEffect
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import io.github.monolithic.invoicer.foundation.utils.permissions.PermissionType
 import io.github.monolithic.invoicer.foundation.utils.permissions.checkPermission
 import io.github.monolithic.invoicer.foundation.utils.permissions.rememberPermissionRequester
@@ -70,7 +70,10 @@ internal class AuthorizationScanScreen : Screen {
             }
         )
 
-        EventEffect(screenModel) { event ->
+        FlowCollectEffect(
+            flow = screenModel.events,
+            key = screenModel
+        ) { event ->
             when (event) {
                 AuthorizationScanEvents.InvalidCode, AuthorizationScanEvents.CodeNotFound ->
                     scope.launch {

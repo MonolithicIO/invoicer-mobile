@@ -40,6 +40,7 @@ kotlin {
             implementation(projects.multiplatform.foundation.analytics)
             implementation(projects.multiplatform.foundation.utils)
             implementation(projects.multiplatform.foundation.watchers)
+            implementation(projects.multiplatform.foundation.platform)
         }
 
         commonTest.dependencies {

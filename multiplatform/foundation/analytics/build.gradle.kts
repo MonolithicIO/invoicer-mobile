@@ -12,6 +12,7 @@ kotlin {
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
+            implementation(projects.multiplatform.foundation.platform)
 
             // Libs
             implementation(projects.multiplatform.foundation.utils)

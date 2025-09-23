@@ -1,6 +1,6 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.login
 
-import io.github.monolithic.invoicer.foundation.analytics.AnalyticsEvent
+import io.github.monolithic.invoicer.foundation.platform.analytics.AnalyticsEvent
 
 internal object LoginAnalytics {
 

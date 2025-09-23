@@ -37,10 +37,11 @@ kotlin {
             implementation(projects.multiplatform.features.company.services)
             implementation(projects.multiplatform.features.customer.services)
             implementation(projects.multiplatform.features.customer.presentation)
+            implementation(projects.multiplatform.foundation.analytics)
+            implementation(projects.multiplatform.foundation.storage)
 
             // Exported
-            api(projects.multiplatform.foundation.analytics)
-            api(projects.multiplatform.foundation.storage)
+            api(projects.multiplatform.foundation.platform)
             api(projects.multiplatform.foundation.auth)
 
             // Voyager
