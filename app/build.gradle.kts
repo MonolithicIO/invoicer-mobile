@@ -25,5 +25,5 @@ dependencies {
     implementation(libs.androidx.splashscreen)
 
     // App
-    implementation(projects.sharedApp)
+    implementation(projects.multiplatform.sharedApp)
 }
