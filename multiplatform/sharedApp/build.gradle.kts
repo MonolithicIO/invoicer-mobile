@@ -62,9 +62,8 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "invoicerShared"
             isStatic = true
-            export(projects.multiplatform.foundation.storage)
+            export(projects.multiplatform.foundation.platform)
             export(projects.multiplatform.foundation.auth)
-            export(projects.multiplatform.foundation.analytics)
         }
     }
 }

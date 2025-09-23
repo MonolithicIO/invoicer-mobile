@@ -3,6 +3,7 @@ package io.github.monolithic.invoicer.foundation.storage
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.edit
+import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 
 internal class AndroidLocalStorage(
     private val context: Context

@@ -44,8 +44,8 @@ kotlin {
             // Libs
             implementation(projects.multiplatform.foundation.utils)
             implementation(projects.multiplatform.foundation.watchers)
-            implementation(projects.multiplatform.foundation.storage)
             implementation(projects.multiplatform.foundation.session)
+            implementation(projects.multiplatform.foundation.platform)
         }
 
         commonTest.dependencies {

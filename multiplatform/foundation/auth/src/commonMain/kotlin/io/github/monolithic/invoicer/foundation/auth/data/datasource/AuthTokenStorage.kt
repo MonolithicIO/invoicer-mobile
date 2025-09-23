@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.foundation.auth.data.datasource
 
 import io.github.monolithic.invoicer.foundation.auth.domain.model.AuthTokens
-import io.github.monolithic.invoicer.foundation.storage.LocalStorage
+import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 
 internal interface AuthStorage {
     suspend fun storeAuthTokens(

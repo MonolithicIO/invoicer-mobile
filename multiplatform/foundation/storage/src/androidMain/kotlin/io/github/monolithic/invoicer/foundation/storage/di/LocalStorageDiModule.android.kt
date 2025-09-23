@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.foundation.storage.di
 
+import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 import io.github.monolithic.invoicer.foundation.storage.AndroidLocalStorage
-import io.github.monolithic.invoicer.foundation.storage.LocalStorage
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 import org.koin.dsl.module
