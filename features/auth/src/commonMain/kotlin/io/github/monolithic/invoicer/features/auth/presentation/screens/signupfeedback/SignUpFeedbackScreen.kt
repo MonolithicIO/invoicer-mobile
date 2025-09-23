@@ -16,11 +16,11 @@ import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.internal.BackHandler
-import invoicer.features.auth.presentation.generated.resources.Res
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feedback_cta
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feedback_message
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_feedback_title
-import invoicer.features.auth.presentation.generated.resources.img_sign_up_success
+import invoicer.features.auth.generated.resources.Res
+import invoicer.features.auth.generated.resources.auth_sign_up_feedback_cta
+import invoicer.features.auth.generated.resources.auth_sign_up_feedback_message
+import invoicer.features.auth.generated.resources.auth_sign_up_feedback_title
+import invoicer.features.auth.generated.resources.img_sign_up_success
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle

@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import invoicer.features.auth.presentation.generated.resources.Res
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_description
-import invoicer.features.auth.presentation.generated.resources.auth_sign_up_title
+import invoicer.features.auth.generated.resources.Res
+import invoicer.features.auth.generated.resources.auth_sign_up_description
+import invoicer.features.auth.generated.resources.auth_sign_up_title
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize

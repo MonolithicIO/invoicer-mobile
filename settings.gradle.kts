@@ -40,7 +40,7 @@ kover {
 rootProject.name = "invoicer"
 include(":app")
 include(":foundation:design-system")
-include(":features:auth:presentation")
+include(":features:auth")
 include(":foundation:navigation")
 include(":foundation:network")
 include(":foundation:validator")

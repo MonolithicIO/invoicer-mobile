@@ -29,7 +29,7 @@ kotlin {
             implementation(projects.foundation.session)
 
             // Features
-            implementation(projects.features.auth.presentation)
+            implementation(projects.features.auth)
             implementation(projects.features.home)
             implementation(projects.features.invoice)
             implementation(projects.features.qrcodeSession)
