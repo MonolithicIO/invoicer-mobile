@@ -46,6 +46,7 @@ kotlin {
             // Camera
             implementation(libs.bundles.camerax)
             implementation(libs.google.mlkit)
+            implementation(libs.kotlinx.coroutines.guava)
         }
     }
 }
