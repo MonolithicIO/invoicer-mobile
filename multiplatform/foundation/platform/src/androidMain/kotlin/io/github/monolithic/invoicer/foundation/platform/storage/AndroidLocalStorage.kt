@@ -1,9 +1,8 @@
-package io.github.monolithic.invoicer.foundation.storage
+package io.github.monolithic.invoicer.foundation.platform.storage
 
 import android.annotation.SuppressLint
 import android.content.Context
 import androidx.core.content.edit
-import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 
 internal class AndroidLocalStorage(
     private val context: Context
@@ -27,5 +26,4 @@ internal class AndroidLocalStorage(
     override fun clear(key: String) {
         preferences.edit { remove(key) }
     }
-
 }

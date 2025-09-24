@@ -35,7 +35,6 @@ kotlin {
             implementation(projects.multiplatform.features.company.services)
             implementation(projects.multiplatform.features.customer.services)
             implementation(projects.multiplatform.features.customer.presentation)
-            implementation(projects.multiplatform.foundation.storage)
 
             // Exported
             api(projects.multiplatform.foundation.platform)

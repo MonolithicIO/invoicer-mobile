@@ -11,12 +11,14 @@ kotlin {
         androidMain.dependencies {
             implementation(project.dependencies.platform(libs.firebase.bom))
             implementation(libs.firebase.analytics)
+            implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
+            implementation(projects.multiplatform.foundation.utils)
         }
     }
 }
