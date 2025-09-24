@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.platform
+package io.github.monolithic.invoicer.foundation.platform.splashscreen
 
 import io.github.monolithic.invoicer.foundation.platform.splashdismisser.SplashScreenDismisser
 import io.github.monolithic.invoicer.foundation.platform.splashdismisser.SplashScreenDismisserDelegate

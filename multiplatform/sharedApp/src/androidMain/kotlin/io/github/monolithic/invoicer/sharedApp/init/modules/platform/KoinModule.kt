@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.sharedApp.init.modules.platform
 
 import android.app.Application
-import io.github.monolithic.invoicer.foundation.platform.AndroidSplashScreenDismisser
+import io.github.monolithic.invoicer.foundation.platform.splashscreen.AndroidSplashScreenDismisser
 import io.github.monolithic.invoicer.foundation.platform.splashdismisser.SplashScreenDismisser
 import io.github.monolithic.invoicer.sharedApp.init.di.appModule
 import io.github.monolithic.invoicer.sharedApp.init.modules.ModuleInitializer
