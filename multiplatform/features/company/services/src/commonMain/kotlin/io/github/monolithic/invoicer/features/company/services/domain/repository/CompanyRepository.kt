@@ -23,4 +23,10 @@ interface CompanyRepository {
         companyId: String,
         model: UpdateAddressModel
     )
+
+    suspend fun storeSelectedCompanyId(
+        companyId: String
+    )
+
+    suspend fun getSelectedCompanyId(): String?
 }

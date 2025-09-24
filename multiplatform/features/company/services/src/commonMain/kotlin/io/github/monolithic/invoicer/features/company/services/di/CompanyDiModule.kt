@@ -30,7 +30,7 @@ val companyServicesDiModule = module {
 
     factory<CompanyRepository> {
         CompanyRepositoryImpl(
-            dataSource = get()
+            remoteDatasource = get()
         )
     }
 
