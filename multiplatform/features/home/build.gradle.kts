@@ -29,7 +29,6 @@ kotlin {
             implementation(projects.multiplatform.foundation.designSystem)
             implementation(projects.multiplatform.foundation.auth)
             implementation(projects.multiplatform.foundation.utils)
-            implementation(projects.multiplatform.foundation.session)
         }
     }
 }

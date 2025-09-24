@@ -11,7 +11,6 @@ import io.github.monolithic.invoicer.features.qrcodeSession.di.qrCodeSessionDi
 import io.github.monolithic.invoicer.foundation.analytics.di.analyticsDiModule
 import io.github.monolithic.invoicer.foundation.auth.di.foundationAuthDiModule
 import io.github.monolithic.invoicer.foundation.network.di.networkDiModule
-import io.github.monolithic.invoicer.foundation.session.di.sessionDiModule
 import io.github.monolithic.invoicer.foundation.storage.di.localStorageDiModule
 import io.github.monolithic.invoicer.foundation.utils.di.utilsDiModule
 import io.github.monolithic.invoicer.foundation.validator.di.validatorDiModule
@@ -35,6 +34,5 @@ internal val appModule = module {
         companyServicesDiModule,
         customerServiceDiModule,
         customerPresentationDiModule,
-        sessionDiModule
     )
 }

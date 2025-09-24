@@ -6,7 +6,7 @@ import io.github.monolithic.invoicer.features.invoice.domain.model.InvoiceList
 import io.github.monolithic.invoicer.features.invoice.domain.repository.InvoiceRepository
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.session.Session
+import io.github.monolithic.invoicer.foundation.auth.session.Session
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher

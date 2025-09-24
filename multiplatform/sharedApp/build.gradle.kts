@@ -26,7 +26,6 @@ kotlin {
             implementation(projects.multiplatform.foundation.watchers)
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.utils)
-            implementation(projects.multiplatform.foundation.session)
 
             // Features
             implementation(projects.multiplatform.features.auth)

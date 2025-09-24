@@ -8,7 +8,7 @@ import io.github.monolithic.invoicer.features.invoice.domain.repository.InvoiceR
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.session.Session
+import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.utils.date.toLocalDate
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow

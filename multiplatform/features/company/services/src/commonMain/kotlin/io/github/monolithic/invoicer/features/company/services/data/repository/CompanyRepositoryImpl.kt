@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.features.company.services.data.repository
 
+import io.github.monolithic.invoicer.features.company.services.data.datasource.CompanyLocalDatasource
 import io.github.monolithic.invoicer.features.company.services.data.datasource.CompanyRemoteDataSource
 import io.github.monolithic.invoicer.features.company.services.data.model.CreateCompanyAddressRequest
 import io.github.monolithic.invoicer.features.company.services.data.model.CreateCompanyPaymentAccountRequest
@@ -14,14 +15,15 @@ import io.github.monolithic.invoicer.features.company.services.domain.model.Upda
 import io.github.monolithic.invoicer.features.company.services.domain.repository.CompanyRepository
 
 internal class CompanyRepositoryImpl(
-    private val dataSource: CompanyRemoteDataSource
+    private val remoteDatasource: CompanyRemoteDataSource,
+    private val localDatasource: CompanyLocalDatasource,
 ) : CompanyRepository {
 
     override suspend fun listCompanies(
         page: Int,
         limit: Int
     ): ListCompaniesModel {
-        val response = dataSource.listCompanies(
+        val response = remoteDatasource.listCompanies(
             page = page,
             limit = limit
         )
@@ -40,7 +42,7 @@ internal class CompanyRepositoryImpl(
     }
 
     override suspend fun createCompany(data: CreateCompanyModel): String {
-        return dataSource.createCompany(
+        return remoteDatasource.createCompany(
             data = CreateCompanyRequest(
                 name = data.name,
                 document = data.document,
@@ -71,11 +73,11 @@ internal class CompanyRepositoryImpl(
     }
 
     override suspend fun companyDetails(companyId: String): CompanyDetailsModel {
-        return dataSource.details(companyId).toModel()
+        return remoteDatasource.details(companyId).toModel()
     }
 
     override suspend fun updateAddress(companyId: String, model: UpdateAddressModel) {
-        return dataSource.updateAddres(
+        return remoteDatasource.updateAddres(
             companyId = companyId,
             request = UpdateAddressRequest(
                 addressLine = model.addressLine,
@@ -85,5 +87,13 @@ internal class CompanyRepositoryImpl(
                 postalCode = model.postalCode
             )
         )
+    }
+
+    override suspend fun storeSelectedCompanyId(companyId: String) {
+        localDatasource.storeSelectedCompanyId(companyId = companyId)
+    }
+
+    override suspend fun getSelectedCompanyId(): String? {
+        return localDatasource.getSelectedCompanyId()
     }
 }
