@@ -13,7 +13,6 @@ import io.github.monolithic.invoicer.foundation.auth.di.foundationAuthDiModule
 import io.github.monolithic.invoicer.foundation.network.di.networkDiModule
 import io.github.monolithic.invoicer.foundation.storage.di.localStorageDiModule
 import io.github.monolithic.invoicer.foundation.utils.di.utilsDiModule
-import io.github.monolithic.invoicer.foundation.validator.di.validatorDiModule
 import io.github.monolithic.invoicer.foundation.watchers.di.watchersDiModule
 import org.koin.dsl.module
 
@@ -21,7 +20,6 @@ internal val appModule = module {
     includes(
         featureAuthPresentationDiModule,
         networkDiModule,
-        validatorDiModule,
         localStorageDiModule,
         foundationAuthDiModule,
         homePresentationDiModule,

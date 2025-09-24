@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.validator
+package io.github.monolithic.invoicer.foundation.utils.validation
 
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
