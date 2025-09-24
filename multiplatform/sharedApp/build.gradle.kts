@@ -22,7 +22,6 @@ kotlin {
             implementation(projects.multiplatform.foundation.navigation)
             implementation(projects.multiplatform.foundation.designSystem)
             implementation(projects.multiplatform.foundation.network)
-            implementation(projects.multiplatform.foundation.validator)
             implementation(projects.multiplatform.foundation.watchers)
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.utils)
@@ -36,8 +35,6 @@ kotlin {
             implementation(projects.multiplatform.features.company.services)
             implementation(projects.multiplatform.features.customer.services)
             implementation(projects.multiplatform.features.customer.presentation)
-            implementation(projects.multiplatform.foundation.analytics)
-            implementation(projects.multiplatform.foundation.storage)
 
             // Exported
             api(projects.multiplatform.foundation.platform)

@@ -31,7 +31,6 @@ kotlin {
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.navigation)
             implementation(projects.multiplatform.foundation.designSystem)
-            implementation(projects.multiplatform.foundation.validator)
             implementation(projects.multiplatform.foundation.utils)
 
             // Voyager
@@ -47,6 +46,7 @@ kotlin {
             // Camera
             implementation(libs.bundles.camerax)
             implementation(libs.google.mlkit)
+            implementation(libs.kotlinx.coroutines.guava)
         }
     }
 }

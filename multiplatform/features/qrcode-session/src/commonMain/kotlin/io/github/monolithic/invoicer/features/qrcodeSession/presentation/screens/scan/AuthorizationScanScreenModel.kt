@@ -3,7 +3,7 @@ package io.github.monolithic.invoicer.features.qrcodeSession.presentation.screen
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.monolithic.invoicer.features.qrcodeSession.util.executeWithMinDelay
-import io.github.monolithic.invoicer.foundation.validator.UuidValidator
+import io.github.monolithic.invoicer.foundation.utils.validation.UuidValidator
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

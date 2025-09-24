@@ -2,6 +2,7 @@
 agp = "8.12.3"
 kotlin = "2.2.20"
 coreKtx = "1.17.0"
+kotlinxCoroutinesGuava = "1.10.2"
 lifecycleRuntimeKtx = "2.9.3"
 activityCompose = "1.11.0"
 koinBom = "4.1.1"
@@ -61,6 +62,7 @@ coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", ve
 coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "datetime" }
 immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable-collections" }
+kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-guava", version.ref = "kotlinxCoroutinesGuava" }
 
 # Gradle PLugins
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
