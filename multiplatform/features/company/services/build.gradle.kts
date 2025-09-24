@@ -22,6 +22,7 @@ kotlin {
             // Foundation
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.utils)
+            implementation(projects.multiplatform.foundation.platform)
 
             // Ktor
             implementation(libs.ktor.client.serialization)
