@@ -15,6 +15,7 @@ internal class ResolveStartupDestinationServiceImpl(
     private val companyRepository: CompanyRepository,
     private val selectCompanyService: SelectCompanyService
 ) : ResolveStartupDestinationService {
+
     override suspend fun resolveDestination(): StartupDestination {
 
         if (!checkAuthTokenPresence()) {
