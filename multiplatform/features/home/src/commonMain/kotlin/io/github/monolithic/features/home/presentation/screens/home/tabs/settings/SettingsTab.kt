@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.tabs.settings
+package io.github.monolithic.features.home.presentation.screens.home.tabs.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,8 +37,8 @@ import invoicer.multiplatform.features.home.generated.resources.home_settings_co
 import invoicer.multiplatform.features.home.generated.resources.home_settings_label
 import invoicer.multiplatform.features.home.generated.resources.home_settings_profile
 import invoicer.multiplatform.features.home.generated.resources.home_settings_sign_out
-import io.github.monolithic.features.home.presentation.tabs.settings.components.SettingsItem
-import io.github.monolithic.features.home.presentation.tabs.settings.components.SignOutDialog
+import io.github.monolithic.features.home.presentation.screens.home.tabs.settings.components.SettingsItem
+import io.github.monolithic.features.home.presentation.screens.home.tabs.settings.components.SignOutDialog
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import org.jetbrains.compose.resources.stringResource

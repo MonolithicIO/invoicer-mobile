@@ -18,6 +18,7 @@
     <string name="welcome_icon_invoice">Invoices</string>
     <string name="welcome_icon_customer">Customers</string>
     <string name="welcome_change_company">Change</string>
+    <string name="welcome_topbar_subtitle">Welcome back! 👋</string>
 
 
 </resources>

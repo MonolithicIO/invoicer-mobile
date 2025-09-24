@@ -1,7 +1,8 @@
 package io.github.monolithic.features.home.presentation.di
 
-import io.github.monolithic.features.home.presentation.tabs.settings.SettingsScreenModel
-import io.github.monolithic.features.home.presentation.tabs.welcome.WelcomeTabScreenModel
+import io.github.monolithic.features.home.presentation.screens.home.HomeScreenModel
+import io.github.monolithic.features.home.presentation.screens.home.tabs.settings.SettingsScreenModel
+import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.WelcomeTabScreenModel
 import org.koin.dsl.module
 
 val homePresentationDiModule = module {
@@ -13,6 +14,12 @@ val homePresentationDiModule = module {
 
     factory<WelcomeTabScreenModel> {
         WelcomeTabScreenModel(
+            session = get()
+        )
+    }
+
+    factory {
+        HomeScreenModel(
             session = get()
         )
     }

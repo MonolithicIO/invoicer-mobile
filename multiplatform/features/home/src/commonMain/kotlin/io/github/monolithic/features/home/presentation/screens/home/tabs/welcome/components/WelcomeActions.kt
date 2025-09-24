@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.tabs.welcome.components
+package io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

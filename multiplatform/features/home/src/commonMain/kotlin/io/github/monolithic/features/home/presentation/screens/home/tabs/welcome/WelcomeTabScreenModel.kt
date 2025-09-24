@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.tabs.welcome
+package io.github.monolithic.features.home.presentation.screens.home.tabs.welcome
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import io.github.monolithic.invoicer.foundation.auth.session.Session

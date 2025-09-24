@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.tabs.settings
+package io.github.monolithic.features.home.presentation.screens.home.tabs.settings
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
