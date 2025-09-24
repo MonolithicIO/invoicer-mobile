@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.session
+package io.github.monolithic.invoicer.foundation.auth.session
 
 interface Session {
     fun getCompany(): SessionCompany

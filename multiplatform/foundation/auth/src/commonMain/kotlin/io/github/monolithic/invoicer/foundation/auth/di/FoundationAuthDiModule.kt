@@ -14,11 +14,15 @@ import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInComma
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignInCommandManagerImpl
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutHandler
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutService
+import io.github.monolithic.invoicer.foundation.auth.session.Session
+import io.github.monolithic.invoicer.foundation.auth.session.SessionImpl
+import io.github.monolithic.invoicer.foundation.auth.session.SessionUpdater
 import io.github.monolithic.invoicer.foundation.utils.koinTags.NetworkDiTags
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
+import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val foundationAuthDiModule = module {
@@ -65,5 +69,9 @@ val foundationAuthDiModule = module {
             authTokenRepository = get()
         )
     }
+
+    single<Session> { SessionImpl }
+
+    single { SessionImpl } binds arrayOf(Session::class, SessionUpdater::class)
 }
 internal expect val authPlatformModule: Module

@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state
 
 import io.github.monolithic.invoicer.features.invoice.presentation.fakes.FakeInvoiceRepository
-import io.github.monolithic.invoicer.foundation.session.test.FakeSession
+import io.github.monolithic.invoicer.foundation.auth.session.FakeSession
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

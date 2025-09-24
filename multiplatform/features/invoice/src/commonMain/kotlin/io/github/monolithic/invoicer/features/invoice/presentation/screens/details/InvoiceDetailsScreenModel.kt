@@ -7,7 +7,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.model.toUiMod
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.session.Session
+import io.github.monolithic.invoicer.foundation.auth.session.Session
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

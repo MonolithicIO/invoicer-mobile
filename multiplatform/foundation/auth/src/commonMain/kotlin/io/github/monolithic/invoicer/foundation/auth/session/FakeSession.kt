@@ -1,8 +1,4 @@
-package io.github.monolithic.invoicer.foundation.session.test
-
-import io.github.monolithic.invoicer.foundation.session.Session
-import io.github.monolithic.invoicer.foundation.session.SessionCompany
-import io.github.monolithic.invoicer.foundation.session.SessionUpdater
+package io.github.monolithic.invoicer.foundation.auth.session
 
 class FakeSession : Session {
 

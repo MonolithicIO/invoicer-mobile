@@ -37,7 +37,7 @@ kotlin {
             implementation(projects.multiplatform.foundation.navigation)
             implementation(projects.multiplatform.foundation.designSystem)
             implementation(projects.multiplatform.foundation.utils)
-            implementation(projects.multiplatform.foundation.session)
+            implementation(projects.multiplatform.foundation.auth)
 
             // Ktor
             implementation(libs.ktor.client.serialization)

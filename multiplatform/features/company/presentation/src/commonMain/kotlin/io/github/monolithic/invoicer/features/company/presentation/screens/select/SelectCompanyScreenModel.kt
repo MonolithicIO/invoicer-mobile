@@ -6,8 +6,8 @@ import io.github.monolithic.invoicer.features.company.services.domain.model.List
 import io.github.monolithic.invoicer.features.company.services.domain.repository.CompanyRepository
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.session.SessionCompany
-import io.github.monolithic.invoicer.foundation.session.SessionUpdater
+import io.github.monolithic.invoicer.foundation.auth.session.SessionCompany
+import io.github.monolithic.invoicer.foundation.auth.session.SessionUpdater
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow

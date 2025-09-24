@@ -6,7 +6,7 @@ import io.github.monolithic.invoicer.features.company.services.domain.model.Upda
 import io.github.monolithic.invoicer.features.company.services.domain.repository.CompanyRepository
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.session.Session
+import io.github.monolithic.invoicer.foundation.auth.session.Session
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
