@@ -4,10 +4,9 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.monolithic.invoicer.features.company.services.domain.model.ListCompaniesItemModel
 import io.github.monolithic.invoicer.features.company.services.domain.repository.CompanyRepository
+import io.github.monolithic.invoicer.features.company.services.domain.service.SelectCompanyService
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.auth.session.SessionCompany
-import io.github.monolithic.invoicer.foundation.auth.session.SessionUpdater
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,7 +19,7 @@ import kotlinx.coroutines.launch
 internal class SelectCompanyScreenModel(
     private val repository: CompanyRepository,
     private val dispatcher: CoroutineDispatcher,
-    private val session: SessionUpdater
+    private val selectCompanyService: SelectCompanyService
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(SelectCompanyState())
@@ -56,16 +55,12 @@ internal class SelectCompanyScreenModel(
     }
 
     fun selectCompany(companyId: String) {
-        val company = state.value.companies.first { it.id == companyId }
-
-        session.updateCompany(
-            SessionCompany(
-                id = company.id,
-                name = company.name,
-                isChangeCompanyEnabled = state.value.companies.size > 1
-            )
-        )
         screenModelScope.launch(dispatcher) {
+            val company = state.value.companies.first { it.id == companyId }
+            selectCompanyService.select(
+                companyName = company.name,
+                companyId = companyId
+            )
             _events.emit(SelectCompanyEvent.ContinueToHome)
         }
     }
@@ -80,13 +75,11 @@ internal class SelectCompanyScreenModel(
         }
 
         if (companies.size == 1) {
-            session.updateCompany(
-                SessionCompany(
-                    id = companies.first().id,
-                    name = companies.first().name,
-                    isChangeCompanyEnabled = false
-                )
+            selectCompanyService.select(
+                companyName = companies.first().name,
+                companyId = companies.first().id
             )
+
             if (shouldAutoSelectFirst) {
                 _events.emit(SelectCompanyEvent.ContinueToHome)
             }

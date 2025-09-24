@@ -9,7 +9,7 @@ interface SessionUpdater {
 }
 
 internal object SessionImpl : Session, SessionUpdater {
-    private var company: SessionCompany = SessionCompany("", "", false)
+    private var company: SessionCompany = SessionCompany("", "")
 
 
     override fun getCompany(): SessionCompany = company
@@ -23,5 +23,4 @@ internal object SessionImpl : Session, SessionUpdater {
 data class SessionCompany(
     val id: String,
     val name: String,
-    val isChangeCompanyEnabled: Boolean
 )

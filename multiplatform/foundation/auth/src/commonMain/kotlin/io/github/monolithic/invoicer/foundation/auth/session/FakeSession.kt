@@ -2,7 +2,7 @@ package io.github.monolithic.invoicer.foundation.auth.session
 
 class FakeSession : Session {
 
-    var companyResponse: SessionCompany = SessionCompany("", "", false)
+    var companyResponse: SessionCompany = SessionCompany("", "",)
 
 
     override fun getCompany(): SessionCompany = companyResponse

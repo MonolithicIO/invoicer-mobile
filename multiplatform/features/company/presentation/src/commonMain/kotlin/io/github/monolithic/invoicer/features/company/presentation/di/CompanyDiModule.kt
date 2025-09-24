@@ -19,7 +19,7 @@ val companyPresentationDiModule = module {
         SelectCompanyScreenModel(
             dispatcher = Dispatchers.Default,
             repository = get(),
-            session = get()
+            selectCompanyService = get()
         )
     }
 

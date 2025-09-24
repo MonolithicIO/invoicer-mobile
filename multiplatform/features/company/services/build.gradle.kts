@@ -23,6 +23,7 @@ kotlin {
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.utils)
             implementation(projects.multiplatform.foundation.platform)
+            implementation(projects.multiplatform.foundation.auth)
 
             // Ktor
             implementation(libs.ktor.client.serialization)

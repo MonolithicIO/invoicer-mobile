@@ -10,6 +10,8 @@ import io.github.monolithic.invoicer.features.company.services.data.repository.C
 import io.github.monolithic.invoicer.features.company.services.data.repository.PayAccountRepositoryImpl
 import io.github.monolithic.invoicer.features.company.services.domain.repository.CompanyRepository
 import io.github.monolithic.invoicer.features.company.services.domain.repository.PayAccountRepository
+import io.github.monolithic.invoicer.features.company.services.domain.service.SelectCompanyService
+import io.github.monolithic.invoicer.features.company.services.domain.service.SelectCompanyServiceImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.dsl.module
@@ -46,6 +48,13 @@ val companyServicesDiModule = module {
     factory<PayAccountRepository> {
         PayAccountRepositoryImpl(
             dataSource = get()
+        )
+    }
+
+    factory<SelectCompanyService> {
+        SelectCompanyServiceImpl(
+            sessionUpdater = get(),
+            companyRepository = get()
         )
     }
 }

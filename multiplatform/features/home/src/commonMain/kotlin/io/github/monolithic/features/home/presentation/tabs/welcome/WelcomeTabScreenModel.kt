@@ -15,7 +15,6 @@ internal class WelcomeTabScreenModel(
     fun loadData() {
         _state.value = WelcomeTabState(
             companyName = session.getCompany().name,
-            isChangeCompanyEnabled = session.getCompany().isChangeCompanyEnabled
         )
     }
 }
