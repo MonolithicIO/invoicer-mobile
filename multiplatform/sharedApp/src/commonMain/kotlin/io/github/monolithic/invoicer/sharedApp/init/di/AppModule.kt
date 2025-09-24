@@ -10,6 +10,7 @@ import io.github.monolithic.invoicer.features.invoice.di.invoiceDiModule
 import io.github.monolithic.invoicer.features.qrcodeSession.di.qrCodeSessionDi
 import io.github.monolithic.invoicer.foundation.auth.di.foundationAuthDiModule
 import io.github.monolithic.invoicer.foundation.network.di.networkDiModule
+import io.github.monolithic.invoicer.foundation.platform.platformDiModule
 import io.github.monolithic.invoicer.foundation.utils.di.utilsDiModule
 import io.github.monolithic.invoicer.foundation.watchers.di.watchersDiModule
 import org.koin.dsl.module
@@ -28,5 +29,6 @@ internal val appModule = module {
         companyServicesDiModule,
         customerServiceDiModule,
         customerPresentationDiModule,
+        platformDiModule
     )
 }
