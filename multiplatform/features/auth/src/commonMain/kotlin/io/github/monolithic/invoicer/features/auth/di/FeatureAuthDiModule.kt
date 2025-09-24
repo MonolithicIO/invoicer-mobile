@@ -60,7 +60,9 @@ private fun Module.viewModelBindings() {
 
     factory<ResolveStartupDestinationService> {
         ResolveStartupDestinationServiceImpl(
-            authTokenRepository = get()
+            authTokenRepository = get(),
+            companyRepository = get(),
+            selectCompanyService = get(),
         )
     }
 }
