@@ -50,7 +50,8 @@ internal fun LatestInvoicesCard(
             InkText(
                 text = stringResource(Res.string.welcome_latest_invoice_title),
                 style = InkTextStyle.Heading5,
-                weight = FontWeight.Bold
+                weight = FontWeight.Bold,
+                modifier = Modifier.weight(1f)
             )
             if (items.isNotEmpty()) {
                 InkTextButton(
@@ -59,8 +60,6 @@ internal fun LatestInvoicesCard(
                 )
             }
         }
-        VerticalSpacer(SpacerSize.Medium)
-        InkHorizontalDivider()
         VerticalSpacer(SpacerSize.Medium)
 
         if (items.isNotEmpty()) {
@@ -82,12 +81,18 @@ private fun LatestInvoiceList(
     items: ImmutableList<LatestInvoiceUiModel>,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
-        items.forEach {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
+    ) {
+        items.forEachIndexed { index, item ->
             LastestInvoiceItem(
-                item = it,
+                item = item,
                 modifier = Modifier.fillMaxWidth()
             )
+            if (index != items.lastIndex) {
+                InkHorizontalDivider()
+            }
         }
     }
 }
@@ -97,9 +102,13 @@ private fun LastestInvoiceItem(
     item: LatestInvoiceUiModel,
     modifier: Modifier = Modifier
 ) {
-    Row(modifier = modifier) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
+    ) {
         CompanyNameIcon(name = item.companyName)
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             InkText(
                 text = item.companyName,
                 style = InkTextStyle.Heading6,
@@ -115,7 +124,7 @@ private fun LastestInvoiceItem(
             text = item.amount,
             style = InkTextStyle.Heading6,
             weight = FontWeight.SemiBold,
-            color = InkTheme.colorScheme.background
+            color = InkTheme.colorScheme.onBackground
         )
     }
 }

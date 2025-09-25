@@ -7,6 +7,7 @@ import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome
 import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
+import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import io.github.monolithic.invoicer.foundation.watchers.bus.feature.HomeRefreshBus
 import kotlinx.collections.immutable.toPersistentList
@@ -46,7 +47,7 @@ internal class WelcomeTabScreenModel(
                                 LatestInvoiceUiModel(
                                     companyName = invoice.companyName,
                                     amount = invoice.totalAmount.moneyFormat(),
-                                    timeStamp = invoice.createdAt.toString()
+                                    timeStamp = invoice.createdAt.defaultFormat()
                                 )
                             }.toPersistentList(),
                             mode = WelcomeTabMode.Content
