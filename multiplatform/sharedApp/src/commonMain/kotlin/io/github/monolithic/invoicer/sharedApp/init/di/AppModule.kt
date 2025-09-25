@@ -6,7 +6,8 @@ import io.github.monolithic.invoicer.features.company.presentation.di.companyPre
 import io.github.monolithic.invoicer.features.company.services.di.companyServicesDiModule
 import io.github.monolithic.invoicer.features.customer.di.customerServiceDiModule
 import io.github.monolithic.invoicer.features.customer.presentation.di.customerPresentationDiModule
-import io.github.monolithic.invoicer.features.invoice.di.invoiceDiModule
+import io.github.monolithic.invoicer.features.invoice.presentation.di.invoicePresentationDiModule
+import io.github.monolithic.invoicer.features.invoice.services.di.invoiceServicesDiModule
 import io.github.monolithic.invoicer.features.qrcodeSession.di.qrCodeSessionDi
 import io.github.monolithic.invoicer.foundation.auth.di.foundationAuthDiModule
 import io.github.monolithic.invoicer.foundation.network.di.networkDiModule
@@ -22,7 +23,8 @@ internal val appModule = module {
         foundationAuthDiModule,
         homePresentationDiModule,
         utilsDiModule,
-        invoiceDiModule,
+        invoiceServicesDiModule,
+        invoicePresentationDiModule,
         qrCodeSessionDi,
         watchersDiModule,
         companyPresentationDiModule,
