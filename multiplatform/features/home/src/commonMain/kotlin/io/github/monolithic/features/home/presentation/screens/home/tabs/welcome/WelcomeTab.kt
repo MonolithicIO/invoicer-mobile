@@ -16,7 +16,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.LatestInvoicesCard
-import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.WelcomeActions
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
@@ -88,10 +87,6 @@ internal object WelcomeTab : Tab {
                 .background(InkTheme.colorScheme.surfaceLight)
                 .padding(Spacing.medium)
         ) {
-            WelcomeActions(
-                onInvoiceClick = callbacks.onAddInvoiceClick,
-                onCustomerClick = callbacks.onCustomerClick
-            )
             LatestInvoicesCard(
                 items = state.latestInvoices,
                 modifier = Modifier.fillMaxWidth(),
