@@ -1,7 +1,11 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.fakes
 
 
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.components.InvoiceListItem
+import io.github.monolithic.invoicer.features.invoice.services.domain.model.CreateInvoiceModel
+import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceDetailsModel
+import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceList
+import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceListItem
+import io.github.monolithic.invoicer.features.invoice.services.domain.repository.InvoiceRepository
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 

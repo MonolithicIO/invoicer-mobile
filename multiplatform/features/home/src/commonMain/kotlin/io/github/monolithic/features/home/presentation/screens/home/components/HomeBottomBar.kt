@@ -116,5 +116,4 @@ private fun NavigationItem(
             color = animatedColor
         )
     }
-
 }

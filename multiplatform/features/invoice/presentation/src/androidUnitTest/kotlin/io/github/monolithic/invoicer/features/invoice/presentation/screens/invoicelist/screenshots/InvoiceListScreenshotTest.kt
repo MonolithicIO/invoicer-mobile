@@ -3,11 +3,11 @@ package io.github.monolithic.invoicer.features.invoice.screens.invoicelist.scree
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import app.cash.paparazzi.Paparazzi
-import io.github.monolithic.invoicer.features.invoice.domain.model.InvoiceListItem
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.InvoiceListScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListMode
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.rememberInvoiceListCallbacks
+import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceListItem
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
