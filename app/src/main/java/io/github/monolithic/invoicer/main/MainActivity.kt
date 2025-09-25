@@ -17,6 +17,7 @@ class MainActivity : ComponentActivity(), SplashScreenDismisserDelegate {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         splashScreenDismisser.attachDelegate(this)
+        // This causes the app to freeze on screen rotation: find a fix
         installSplashScreen().setKeepOnScreenCondition {
             showSplashScreen
         }
