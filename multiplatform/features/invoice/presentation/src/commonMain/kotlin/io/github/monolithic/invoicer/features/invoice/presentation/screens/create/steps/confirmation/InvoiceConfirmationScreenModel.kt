@@ -10,6 +10,7 @@ import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
 import io.github.monolithic.invoicer.foundation.utils.date.toLocalDate
+import io.github.monolithic.invoicer.foundation.watchers.bus.feature.HomeRefreshBus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,8 @@ internal class InvoiceConfirmationScreenModel(
     private val form: CreateInvoiceForm,
     private val session: Session,
     private val invoiceRepository: InvoiceRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val homeRefreshBus: HomeRefreshBus
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(InvoiceConfirmationState())
@@ -76,6 +78,7 @@ internal class InvoiceConfirmationScreenModel(
                     }
                 },
                 onSuccess = {
+                    homeRefreshBus.publishEvent(Unit)
                     _events.emit(InvoiceConfirmationEvent.Success)
                 },
                 onFailure = {
