@@ -20,7 +20,7 @@ import invoicer.multiplatform.features.home.generated.resources.ic_plus
 import io.github.monolithic.features.home.presentation.screens.home.components.HomeBottomBar
 import io.github.monolithic.features.home.presentation.screens.home.components.HomeTopBar
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.WelcomeTab
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkCircleButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
@@ -80,7 +80,7 @@ internal class HomeContainerScreen : Screen {
                     )
                 },
                 floatingActionButton = {
-                    InkIconButton(
+                    InkCircleButton(
                         icon = painterResource(Res.drawable.ic_plus),
                         onClick = actions.onNewInvoiceClick
                     )
