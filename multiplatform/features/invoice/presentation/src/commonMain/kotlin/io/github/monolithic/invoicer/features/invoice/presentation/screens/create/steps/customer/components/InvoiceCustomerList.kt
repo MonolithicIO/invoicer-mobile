@@ -1,0 +1,55 @@
+package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.customer.components
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_customer_empty_state_description
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_customer_empty_state_title
+import io.github.monolithic.invoicer.features.customer.domain.model.CustomerListItemModel
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.card.SelectableCard
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
+import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.stringResource
+
+@Composable
+internal fun InvoiceCustomerList(
+    items: ImmutableList<CustomerListItemModel>,
+    selectedId: String?,
+    onSelect: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    if (items.isEmpty()) {
+        EmptyState(
+            title = stringResource(Res.string.invoice_customer_empty_state_title),
+            description = stringResource(Res.string.invoice_customer_empty_state_description),
+            modifier = modifier,
+        )
+    } else {
+        LazyColumn(
+            modifier = modifier,
+            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+        ) {
+            items(
+                items = items,
+                key = { it.id }
+            ) { customer ->
+                SelectableCard(
+                    isSelected = customer.id == selectedId,
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = { onSelect(customer.id) },
+                    content = {
+                        Text(
+                            text = customer.name,
+                        )
+                    },
+                )
+            }
+        }
+    }
+}

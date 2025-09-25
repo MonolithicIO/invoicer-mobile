@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_BlackItalic
 import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_Bold
 import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_BoldItalic
@@ -129,23 +129,23 @@ private fun rememberUrbanistFontFamily(): FontFamily {
 @Composable
 private fun urbanistNormal(): ImmutableList<Font> {
     val urbanistRegular =
-        Font(Res.font.Urbanist_Regular, FontWeight.Normal, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_Regular, FontWeight.Normal, style = FontStyle.Normal)
     val urbanistThin =
-        Font(Res.font.Urbanist_Thin, FontWeight.Thin, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_Thin, FontWeight.Thin, style = FontStyle.Normal)
     val urbanistLight =
-        Font(Res.font.Urbanist_Light, FontWeight.Light, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_Light, FontWeight.Light, style = FontStyle.Normal)
     val urbanistBold =
-        Font(Res.font.Urbanist_Bold, FontWeight.Bold, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_Bold, FontWeight.Bold, style = FontStyle.Normal)
     val urbanistExtraBold =
-        Font(Res.font.Urbanist_ExtraBold, FontWeight.ExtraBold, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_ExtraBold, FontWeight.ExtraBold, style = FontStyle.Normal)
     val urbanistSemiBold =
-        Font(Res.font.Urbanist_SemiBold, FontWeight.SemiBold, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_SemiBold, FontWeight.SemiBold, style = FontStyle.Normal)
     val urbanistMedium =
-        Font(Res.font.Urbanist_Medium, FontWeight.Medium, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_Medium, FontWeight.Medium, style = FontStyle.Normal)
     val urbanistExtraLight =
-        Font(Res.font.Urbanist_ExtraLight, FontWeight.ExtraLight, style = FontStyle.Normal)
+        Font(DsResources.font.Urbanist_ExtraLight, FontWeight.ExtraLight, style = FontStyle.Normal)
     val urbanistBlack =
-        Font(Res.font.Urbanist_BlackItalic, FontWeight.Black, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_BlackItalic, FontWeight.Black, style = FontStyle.Italic)
 
     return remember {
         persistentListOf(
@@ -165,23 +165,35 @@ private fun urbanistNormal(): ImmutableList<Font> {
 @Composable
 private fun urbanistItalic(): ImmutableList<Font> {
     val urbanistItalic =
-        Font(Res.font.Urbanist_Italic, FontWeight.Normal, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_Italic, FontWeight.Normal, style = FontStyle.Italic)
     val urbanistThin =
-        Font(Res.font.Urbanist_ThinItalic, FontWeight.Thin, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_ThinItalic, FontWeight.Thin, style = FontStyle.Italic)
     val urbanistLight =
-        Font(Res.font.Urbanist_LightItalic, FontWeight.Light, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_LightItalic, FontWeight.Light, style = FontStyle.Italic)
     val urbanistBold =
-        Font(Res.font.Urbanist_BoldItalic, FontWeight.Bold, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_BoldItalic, FontWeight.Bold, style = FontStyle.Italic)
     val urbanistExtraBold =
-        Font(Res.font.Urbanist_ExtraBoldItalic, FontWeight.ExtraBold, style = FontStyle.Italic)
+        Font(
+            DsResources.font.Urbanist_ExtraBoldItalic,
+            FontWeight.ExtraBold,
+            style = FontStyle.Italic
+        )
     val urbanistSemiBold =
-        Font(Res.font.Urbanist_SemiBoldItalic, FontWeight.SemiBold, style = FontStyle.Italic)
+        Font(
+            DsResources.font.Urbanist_SemiBoldItalic,
+            FontWeight.SemiBold,
+            style = FontStyle.Italic
+        )
     val urbanistMedium =
-        Font(Res.font.Urbanist_MediumItalic, FontWeight.Medium, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_MediumItalic, FontWeight.Medium, style = FontStyle.Italic)
     val urbanistExtraLight =
-        Font(Res.font.Urbanist_ExtraLightItalic, FontWeight.ExtraLight, style = FontStyle.Italic)
+        Font(
+            DsResources.font.Urbanist_ExtraLightItalic,
+            FontWeight.ExtraLight,
+            style = FontStyle.Italic
+        )
     val urbanistBlack =
-        Font(Res.font.Urbanist_BlackItalic, FontWeight.Black, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_BlackItalic, FontWeight.Black, style = FontStyle.Italic)
 
     return remember {
         persistentListOf(

@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.error_feedback_default_cta
 import invoicer.multiplatform.foundation.design_system.generated.resources.error_feedback_default_description
 import invoicer.multiplatform.foundation.design_system.generated.resources.error_feedback_default_title
@@ -96,11 +96,11 @@ fun Feedback(
 @Composable
 fun ErrorFeedback(
     modifier: Modifier = Modifier,
-    primaryActionText: String = stringResource(Res.string.error_feedback_default_cta),
+    primaryActionText: String = stringResource(DsResources.string.error_feedback_default_cta),
     onPrimaryAction: () -> Unit,
     icon: ImageVector = Icons.Outlined.ErrorOutline,
-    title: String = stringResource(Res.string.error_feedback_default_title),
-    description: String? = stringResource(Res.string.error_feedback_default_description),
+    title: String = stringResource(DsResources.string.error_feedback_default_title),
+    description: String? = stringResource(DsResources.string.error_feedback_default_description),
     secondaryActionText: String? = null,
     onSecondaryAction: (() -> Unit)? = null,
 ) {

@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.window.Dialog
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.design_dialog_dismiss_default
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
@@ -58,7 +58,7 @@ fun InvoicerDialog(
                 )
                 VerticalSpacer(SpacerSize.Medium)
                 PrimaryButton(
-                    label = stringResource(Res.string.design_dialog_dismiss_default),
+                    label = stringResource(DsResources.string.design_dialog_dismiss_default),
                     onClick = onDismiss,
                     modifier = Modifier.fillMaxWidth()
                 )

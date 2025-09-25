@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.google
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSecondaryButton
@@ -45,7 +45,7 @@ private fun PrimaryPreview() {
 
             InkSocialButton(
                 text = "Continue with Google",
-                iconPainter = painterResource(Res.drawable.google),
+                iconPainter = painterResource(DsResources.drawable.google),
             ) { }
         }
 

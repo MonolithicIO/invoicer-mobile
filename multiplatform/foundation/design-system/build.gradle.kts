@@ -15,6 +15,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
             implementation(libs.immutable.collections)
+            implementation(projects.multiplatform.foundation.utils)
             api(compose.materialIconsExtended)
         }
 
@@ -34,5 +35,6 @@ kotlin {
 }
 
 compose.resources {
+    nameOfResClass = "DsResources"
     publicResClass = true
 }

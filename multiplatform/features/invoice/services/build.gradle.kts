@@ -1,0 +1,35 @@
+plugins {
+    id("invoicer.multiplatform.library")
+    alias(libs.plugins.kotlin.serialization)
+}
+
+android {
+    namespace = "io.github.monolithic.invoicer.features.invoice.services"
+}
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            // Koin
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+
+            // Kotlin
+            implementation(libs.immutable.collections)
+            implementation(libs.datetime)
+
+            // Foundation
+            implementation(projects.multiplatform.foundation.network)
+            implementation(projects.multiplatform.foundation.utils)
+
+            // Ktor
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.client.core)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.coroutines.test)
+        }
+    }
+}

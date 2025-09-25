@@ -32,6 +32,7 @@ import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_hav
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_have_account_suffix
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_submit_button
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import invoicer.multiplatform.foundation.design_system.generated.resources.img_error_default
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
@@ -55,7 +56,6 @@ import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPa
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res as DsRes
 
 internal class SignUpScreen : Screen {
 
@@ -137,7 +137,7 @@ internal class SignUpScreen : Screen {
             topBar = {
                 InkTopBar(
                     modifier = Modifier.statusBarsPadding(),
-                    navigationIcon = painterResource(DsRes.drawable.ic_chveron_left),
+                    navigationIcon = painterResource(DsResources.drawable.ic_chveron_left),
                     onNavigationClick = callbacks.onBackClick,
                 )
             },
@@ -211,7 +211,7 @@ internal class SignUpScreen : Screen {
                         title = stringResource(Res.string.auth_sign_up_duplicate_account_cta),
                         onClick = callbacks.onDismissDialog
                     ),
-                    image = painterResource(resource = DsRes.drawable.img_error_default)
+                    image = painterResource(resource = DsResources.drawable.img_error_default)
                 )
             }
         }

@@ -29,7 +29,8 @@ kotlin {
             // Features
             implementation(projects.multiplatform.features.auth)
             implementation(projects.multiplatform.features.home)
-            implementation(projects.multiplatform.features.invoice)
+            implementation(projects.multiplatform.features.invoice.services)
+            implementation(projects.multiplatform.features.invoice.presentation)
             implementation(projects.multiplatform.features.qrcodeSession)
             implementation(projects.multiplatform.features.company.presentation)
             implementation(projects.multiplatform.features.company.services)

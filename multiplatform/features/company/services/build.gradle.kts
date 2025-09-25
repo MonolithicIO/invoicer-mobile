@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "io.github.monolithic.invoicer.features.company"
+    namespace = "io.github.monolithic.invoicer.features.company.services"
 }
 
 kotlin {
