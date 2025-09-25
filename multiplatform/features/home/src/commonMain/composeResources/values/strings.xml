@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General -->
+    <string name="home_retry">Try again</string>
+
     <!-- Settings -->
     <string name="home_settings_label">Settings</string>
     <string name="home_settings_sign_out">Sign out</string>

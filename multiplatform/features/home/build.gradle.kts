@@ -25,6 +25,10 @@ kotlin {
 
             // Kotlin
             implementation(libs.immutable.collections)
+            implementation(libs.datetime)
+
+            // Feature
+            implementation(projects.multiplatform.features.invoice.services)
 
             // Foundation
             implementation(projects.multiplatform.foundation.network)
@@ -32,6 +36,7 @@ kotlin {
             implementation(projects.multiplatform.foundation.designSystem)
             implementation(projects.multiplatform.foundation.auth)
             implementation(projects.multiplatform.foundation.utils)
+            implementation(projects.multiplatform.foundation.watchers)
         }
     }
 }

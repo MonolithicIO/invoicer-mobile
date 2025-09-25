@@ -11,8 +11,8 @@ import cafe.adriel.voyager.transitions.SlideTransition
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
-import io.github.monolithic.invoicer.foundation.watchers.bus.AuthEvent
-import io.github.monolithic.invoicer.foundation.watchers.bus.AuthEventBus
+import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEvent
+import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEventBus
 import org.koin.mp.KoinPlatform
 
 @OptIn(ExperimentalVoyagerApi::class)

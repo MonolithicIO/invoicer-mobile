@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.watchers.bus
+package io.github.monolithic.invoicer.foundation.watchers.bus.feature
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow

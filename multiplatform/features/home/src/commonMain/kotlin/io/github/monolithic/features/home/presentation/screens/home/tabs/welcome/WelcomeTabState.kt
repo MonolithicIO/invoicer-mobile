@@ -6,5 +6,12 @@ import kotlinx.collections.immutable.persistentListOf
 
 internal data class WelcomeTabState(
     val companyName: String = "",
-    val latestInvoices: ImmutableList<LatestInvoiceUiModel> = persistentListOf()
+    val latestInvoices: ImmutableList<LatestInvoiceUiModel> = persistentListOf(),
+    val mode: WelcomeTabMode = WelcomeTabMode.Loading
 )
+
+enum class WelcomeTabMode {
+    Loading,
+    Error,
+    Content,
+}
