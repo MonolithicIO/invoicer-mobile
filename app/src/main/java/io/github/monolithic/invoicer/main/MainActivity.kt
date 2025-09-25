@@ -3,6 +3,7 @@ package io.github.monolithic.invoicer.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import io.github.monolithic.invoicer.foundation.platform.splashdismisser.SplashScreenDismisser
 import io.github.monolithic.invoicer.foundation.platform.splashdismisser.SplashScreenDismisserDelegate
@@ -11,15 +12,13 @@ import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity(), SplashScreenDismisserDelegate {
     private val splashScreenDismisser by inject<SplashScreenDismisser>()
-
-    private var showSplashScreen = true
+    private val viewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         splashScreenDismisser.attachDelegate(this)
-        // This causes the app to freeze on screen rotation: find a fix
         installSplashScreen().setKeepOnScreenCondition {
-            showSplashScreen
+            viewModel.showSplashScreen
         }
         setContent {
             InvoicerApp()
@@ -32,6 +31,6 @@ class MainActivity : ComponentActivity(), SplashScreenDismisserDelegate {
     }
 
     override fun dismissSplashScreen() {
-        showSplashScreen = false
+        viewModel.showSplashScreen = false
     }
 }
