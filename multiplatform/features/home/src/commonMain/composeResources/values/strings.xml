@@ -22,7 +22,7 @@
     <string name="welcome_icon_customer">Customers</string>
     <string name="welcome_change_company">Change</string>
     <string name="welcome_topbar_subtitle">Welcome back! 👋</string>
-    <string name="welcome_latest_invoice_title">Invoice history</string>
+    <string name="welcome_latest_invoice_title">Latest invoices</string>
     <string name="welcome_latest_invoice_view_all">View all</string>
     <string name="welcome_latest_invoice_empty_title">You don't have invoices yet!</string>
     <string name="welcome_latest_invoice_empty_subtitle">Create your first invoice and start to manage your finances.</string>
