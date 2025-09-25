@@ -45,7 +45,7 @@ internal class WelcomeTabScreenModel(
                             companyName = session.getCompany().name,
                             latestInvoices = response.top3Invoices.map { invoice ->
                                 LatestInvoiceUiModel(
-                                    companyName = invoice.companyName,
+                                    companyName = invoice.customerName,
                                     amount = invoice.totalAmount.moneyFormat(),
                                     timeStamp = invoice.createdAt.defaultFormat()
                                 )

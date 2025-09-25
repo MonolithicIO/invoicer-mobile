@@ -123,7 +123,7 @@ private fun LastestInvoiceItem(
         InkText(
             text = item.amount,
             style = InkTextStyle.Heading6,
-            weight = FontWeight.SemiBold,
+            weight = FontWeight.Black,
             color = InkTheme.colorScheme.onBackground
         )
     }
