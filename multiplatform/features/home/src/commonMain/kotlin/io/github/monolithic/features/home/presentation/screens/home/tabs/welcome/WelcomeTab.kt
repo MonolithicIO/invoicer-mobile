@@ -3,6 +3,7 @@ package io.github.monolithic.features.home.presentation.screens.home.tabs.welcom
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -14,6 +15,7 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.LatestInvoicesCard
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.WelcomeActions
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
@@ -38,7 +40,7 @@ internal object WelcomeTab : Tab {
 
         val callbacks = remember {
             WelcomeActions(
-                onInvoiceClick = {
+                onAddInvoiceClick = {
                     navigator?.push(
                         ScreenRegistry.get(InvoicerScreen.Invoices.List)
                     )
@@ -54,10 +56,16 @@ internal object WelcomeTab : Tab {
                             )
                         )
                     )
+                },
+                onViewInvoicesClick = {
+                    navigator?.push(
+                        ScreenRegistry.get(
+                            InvoicerScreen.Invoices.List
+                        )
+                    )
                 }
             )
         }
-
 
         LaunchedEffect(Unit) {
             screenModel.loadData()
@@ -81,15 +89,22 @@ internal object WelcomeTab : Tab {
                 .padding(Spacing.medium)
         ) {
             WelcomeActions(
-                onInvoiceClick = callbacks.onInvoiceClick,
+                onInvoiceClick = callbacks.onAddInvoiceClick,
                 onCustomerClick = callbacks.onCustomerClick
+            )
+            LatestInvoicesCard(
+                items = state.latestInvoices,
+                modifier = Modifier.fillMaxWidth(),
+                onViewAllClick = callbacks.onViewInvoicesClick,
+                onCreateInvoiceClick = callbacks.onAddInvoiceClick
             )
         }
     }
 
     data class WelcomeActions(
-        val onInvoiceClick: () -> Unit,
+        val onAddInvoiceClick: () -> Unit,
         val onCustomerClick: () -> Unit,
         val onChangeCompanyClick: () -> Unit,
+        val onViewInvoicesClick: () -> Unit,
     )
 }

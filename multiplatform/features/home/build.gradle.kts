@@ -23,6 +23,9 @@ kotlin {
             implementation(libs.bundles.voyager)
             implementation(libs.voyager.tabs)
 
+            // Kotlin
+            implementation(libs.immutable.collections)
+
             // Foundation
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.navigation)

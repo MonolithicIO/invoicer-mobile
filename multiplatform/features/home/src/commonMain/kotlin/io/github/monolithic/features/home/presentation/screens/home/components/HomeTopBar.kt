@@ -1,20 +1,16 @@
 package io.github.monolithic.features.home.presentation.screens.home.components
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import invoicer.multiplatform.features.home.generated.resources.Res
 import invoicer.multiplatform.features.home.generated.resources.welcome_topbar_subtitle
@@ -22,7 +18,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.utils.modifier.circleLayout
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
 import org.jetbrains.compose.resources.stringResource
 
 private val BarHeight = 72.dp
@@ -64,22 +60,4 @@ internal fun HomeTopBar(
             }
         }
     }
-}
-
-@Composable
-private fun CompanyNameIcon(
-    name: String,
-    modifier: Modifier = Modifier
-) {
-    val backgroundColor = InkTheme.colorScheme.onBackground
-    InkText(
-        modifier = modifier
-            .background(backgroundColor, shape = CircleShape)
-            .padding(InkTheme.spacing.xSmall2)
-            .circleLayout(),
-        text = name.take(2).toUpperCase(Locale.current),
-        color = InkTheme.colorScheme.background,
-        weight = FontWeight.Bold,
-        style = InkTextStyle.Heading5
-    )
 }

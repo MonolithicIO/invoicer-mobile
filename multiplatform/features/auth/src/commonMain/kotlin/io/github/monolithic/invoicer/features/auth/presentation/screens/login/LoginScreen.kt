@@ -29,6 +29,7 @@ import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_err
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_forgot_password
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_submit_button
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
@@ -49,7 +50,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res as DsRes
 
 internal class LoginScreen : Screen {
 
@@ -116,7 +116,7 @@ internal class LoginScreen : Screen {
             topBar = {
                 InkTopBar(
                     modifier = Modifier.statusBarsPadding(),
-                    navigationIcon = painterResource(DsRes.drawable.ic_chveron_left),
+                    navigationIcon = painterResource(DsResources.drawable.ic_chveron_left),
                     onNavigationClick = callBacks.onBack,
                 )
             },
