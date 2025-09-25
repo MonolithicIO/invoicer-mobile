@@ -17,7 +17,11 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import invoicer.multiplatform.features.home.generated.resources.Res
 import invoicer.multiplatform.features.home.generated.resources.home_retry
+import invoicer.multiplatform.features.home.generated.resources.ic_plus
+import io.github.monolithic.features.home.presentation.screens.home.components.HomeTopBar
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.LatestInvoicesCard
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkCircleButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
@@ -25,6 +29,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.public.componen
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal object WelcomeTab : Tab {
@@ -88,30 +93,48 @@ internal object WelcomeTab : Tab {
         state: WelcomeTabState,
         actions: WelcomeActions
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(InkTheme.colorScheme.surfaceLight)
-                .padding(Spacing.medium)
-        ) {
-            when (state.mode) {
-                WelcomeTabMode.Loading -> LoadingState(
-                    modifier = Modifier.fillMaxSize()
+        InkScaffold(
+            containerColor = InkTheme.colorScheme.surfaceLight,
+            topBar = {
+                HomeTopBar(
+                    companyName = state.companyName,
+                    modifier = Modifier.fillMaxWidth(),
+                    backgroundColor = InkTheme.colorScheme.surfaceLight
                 )
-
-                WelcomeTabMode.Error -> ErrorState(
-                    modifier = Modifier.fillMaxSize(),
-                    primaryAction = ErrorStateAction(
-                        label = stringResource(Res.string.home_retry),
-                        action = actions.onRetry
+            },
+            floatingActionButton = {
+                InkCircleButton(
+                    icon = painterResource(Res.drawable.ic_plus),
+                    onClick = actions.onAddInvoiceClick
+                )
+            }
+        ) { scaffoldPadding ->
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(InkTheme.colorScheme.surfaceLight)
+                    .padding(horizontal = Spacing.medium)
+                    .padding(scaffoldPadding)
+            ) {
+                when (state.mode) {
+                    WelcomeTabMode.Loading -> LoadingState(
+                        modifier = Modifier.fillMaxSize()
                     )
-                )
 
-                WelcomeTabMode.Content -> SuccessContent(
-                    modifier = Modifier.fillMaxSize(),
-                    state = state,
-                    actions = actions
-                )
+                    WelcomeTabMode.Error -> ErrorState(
+                        modifier = Modifier.fillMaxSize(),
+                        primaryAction = ErrorStateAction(
+                            label = stringResource(Res.string.home_retry),
+                            action = actions.onRetry
+                        )
+                    )
+
+                    WelcomeTabMode.Content -> SuccessContent(
+                        modifier = Modifier.fillMaxSize(),
+                        state = state,
+                        actions = actions
+                    )
+                }
             }
         }
     }

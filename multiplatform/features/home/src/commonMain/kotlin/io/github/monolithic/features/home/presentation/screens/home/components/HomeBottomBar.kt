@@ -6,7 +6,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.tab.Tab
 import invoicer.multiplatform.features.home.generated.resources.Res
 import invoicer.multiplatform.features.home.generated.resources.ic_home
@@ -31,8 +29,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import org.jetbrains.compose.resources.painterResource
 
-private val BottomBarHeight = 90.dp
-
 @Composable
 internal fun HomeBottomBar(
     modifier: Modifier = Modifier,
@@ -42,7 +38,6 @@ internal fun HomeBottomBar(
 ) {
     InkSurface(
         modifier = modifier
-            .defaultMinSize(minHeight = BottomBarHeight)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
