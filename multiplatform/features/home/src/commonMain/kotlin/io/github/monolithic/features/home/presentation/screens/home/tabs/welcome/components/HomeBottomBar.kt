@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.screens.home.components
+package io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.clickable
@@ -30,7 +30,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun HomeBottomBar(
+internal fun WelcomeTopBar(
     modifier: Modifier = Modifier,
     onCustomersClick: () -> Unit,
     selectedTab: Tab,

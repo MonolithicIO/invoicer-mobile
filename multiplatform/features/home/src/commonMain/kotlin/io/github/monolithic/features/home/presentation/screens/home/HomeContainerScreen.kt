@@ -1,22 +1,19 @@
 package io.github.monolithic.features.home.presentation.screens.home
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import io.github.monolithic.features.home.presentation.screens.home.components.HomeBottomBar
+import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.WelcomeTopBar
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.WelcomeTab
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
@@ -55,7 +52,7 @@ internal class HomeContainerScreen : Screen {
             InkScaffold(
                 containerColor = InkTheme.colorScheme.background,
                 bottomBar = {
-                    HomeBottomBar(
+                    WelcomeTopBar(
                         selectedTab = navigator.current,
                         onSelectTab = { newTab ->
                             navigator.current = newTab

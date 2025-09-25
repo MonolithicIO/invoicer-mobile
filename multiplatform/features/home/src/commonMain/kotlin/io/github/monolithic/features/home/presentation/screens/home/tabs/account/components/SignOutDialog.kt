@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.screens.home.tabs.settings.components
+package io.github.monolithic.features.home.presentation.screens.home.tabs.account.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.WarningAmber

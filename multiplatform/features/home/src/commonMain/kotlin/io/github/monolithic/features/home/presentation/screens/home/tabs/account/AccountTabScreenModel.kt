@@ -1,11 +1,11 @@
-package io.github.monolithic.features.home.presentation.screens.home.tabs.settings
+package io.github.monolithic.features.home.presentation.screens.home.tabs.account
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutService
 import kotlinx.coroutines.launch
 
-internal class SettingsScreenModel(
+internal class AccountTabScreenModel(
     private val signOutService: SignOutService,
 ) : ScreenModel {
 
