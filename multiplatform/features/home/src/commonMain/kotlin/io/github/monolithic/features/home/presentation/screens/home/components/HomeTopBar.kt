@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.toUpperCase
@@ -28,11 +29,12 @@ private val BarHeight = 72.dp
 
 @Composable
 internal fun HomeTopBar(
+    backgroundColor: Color,
     companyName: String,
     modifier: Modifier = Modifier,
 ) {
     InkSurface(
-        color = InkTheme.colorScheme.background,
+        color = backgroundColor,
         modifier = modifier
             .defaultMinSize(minHeight = BarHeight)
             .padding(horizontal = InkTheme.spacing.medium)
