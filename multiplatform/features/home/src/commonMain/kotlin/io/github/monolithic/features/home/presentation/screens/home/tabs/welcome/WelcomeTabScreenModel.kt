@@ -12,6 +12,7 @@ import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import io.github.monolithic.invoicer.foundation.watchers.bus.feature.HomeRefreshBus
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -27,15 +28,24 @@ internal class WelcomeTabScreenModel(
 
     private val _state = MutableStateFlow(WelcomeTabState())
     val state = _state.asStateFlow()
+    private var isInitialized = false
 
     init {
         screenModelScope.launch(dispatchers) {
-            homeRefreshBus.subscribe().collectLatest { loadData() }
+            homeRefreshBus.subscribe().collectLatest { fetchHomeDetails() }
         }
     }
 
-    fun loadData() {
-        screenModelScope.launch(dispatchers) {
+    fun loadData(
+        isRetry: Boolean = false
+    ) {
+        if (isInitialized.not() || isRetry) {
+            fetchHomeDetails().invokeOnCompletion { isInitialized = true }
+        }
+    }
+
+    private fun fetchHomeDetails(): Job {
+        return screenModelScope.launch(dispatchers) {
             launchRequest {
                 homeDetailsService.get()
             }.handle(
@@ -66,8 +76,5 @@ internal class WelcomeTabScreenModel(
                 }
             )
         }
-        _state.value = WelcomeTabState(
-            companyName = session.getCompany().name,
-        )
     }
 }

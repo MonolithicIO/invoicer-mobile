@@ -69,16 +69,12 @@ internal object WelcomeTab : Tab {
                         )
                     )
                 },
-                onRetry = screenModel::loadData
+                onRetry = { screenModel.loadData(isRetry = true) }
             )
         }
 
         LaunchedEffect(Unit) {
             screenModel.loadData()
-        }
-
-        LaunchedEffect(Unit) {
-
         }
 
         StateContent(
