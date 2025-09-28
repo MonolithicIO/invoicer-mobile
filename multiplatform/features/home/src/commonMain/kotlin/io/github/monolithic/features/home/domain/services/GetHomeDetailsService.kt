@@ -29,5 +29,4 @@ internal class GetHomeDetailsServiceImpl(
             top3Invoices = top3Invoices.items
         )
     }
-
 }
