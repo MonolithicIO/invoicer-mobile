@@ -31,5 +31,6 @@
     <string name="account_qrcode_auth">Authorize QrCode</string>
     <string name="account_change_company">Change company</string>
     <string name="account_sign_out">Sign out</string>
+    <string name="account_selected_company_title">Selected company</string>
 
 </resources>

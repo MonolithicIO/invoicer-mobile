@@ -39,3 +39,29 @@ fun InkCard(
     }
 }
 
+@Composable
+fun InkCard(
+    modifier: Modifier = Modifier,
+    shape: Shape = InkTheme.shape.small,
+    border: BorderStroke? = null,
+    contentPadding: PaddingValues = PaddingValues(),
+    elevation: Dp = 0.dp,
+    containerColor: Color = InkTheme.colorScheme.surface,
+    onClick: () -> Unit,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Surface(
+        modifier = modifier,
+        shape = shape,
+        color = containerColor,
+        contentColor = Color.Unspecified,
+        shadowElevation = elevation,
+        border = border,
+        onClick = onClick
+    ) {
+        Column(
+            modifier = Modifier.padding(contentPadding),
+            content = content
+        )
+    }
+}

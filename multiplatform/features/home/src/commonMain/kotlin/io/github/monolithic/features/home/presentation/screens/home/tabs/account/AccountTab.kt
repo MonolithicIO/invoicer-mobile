@@ -5,8 +5,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +29,11 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.ic_ed
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_qr_code
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_settings
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_sign_out
+import io.github.monolithic.features.home.presentation.screens.home.tabs.account.components.SelectedCompanyCard
 import io.github.monolithic.features.home.presentation.screens.home.tabs.account.components.SignOutDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ListItem
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
@@ -50,6 +56,7 @@ internal object AccountTab : Tab {
     override fun Content() {
         val navigator = LocalNavigator.current?.parent
         val viewModel = koinScreenModel<AccountTabScreenModel>()
+        val state by viewModel.state.collectAsState()
         var signOutDialogState by remember { mutableStateOf(false) }
 
         val callBacks = remember {
@@ -76,32 +83,47 @@ internal object AccountTab : Tab {
                     signOutDialogState = false
                     viewModel::signOut
                 },
-                onRequestSignOut = { signOutDialogState = true }
+                onRequestSignOut = { signOutDialogState = true },
+                onCompanyDetailsClick = {
+                    navigator?.push(getScreen(InvoicerScreen.Company.Details))
+                }
             )
         }
 
         StateContent(
             actions = callBacks,
-            isDialogVisible = signOutDialogState
+            isDialogVisible = signOutDialogState,
+            state = state
         )
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
+        state: AccountTabState,
         actions: Actions,
         isDialogVisible: Boolean,
     ) {
+        val scrollState = rememberScrollState()
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(InkTheme.colorScheme.surfaceLight)
                 .padding(Spacing.medium)
+                .verticalScroll(scrollState)
         ) {
+            SelectedCompanyCard(
+                companyName = state.currentCompanyName,
+                containerColor = InkTheme.colorScheme.background,
+                contentPadding = PaddingValues(InkTheme.spacing.medium),
+                onClick = actions.onCompanyDetailsClick
+            )
+
+            VerticalSpacer(SpacerSize.Medium)
+
             InkCard(
                 containerColor = InkTheme.colorScheme.background,
-                modifier = Modifier,
                 contentPadding = PaddingValues(InkTheme.spacing.medium)
             ) {
                 ListItem(
@@ -143,5 +165,6 @@ internal object AccountTab : Tab {
         val onDismissSignOut: () -> Unit,
         val onConfirmSignOut: () -> Unit,
         val onRequestSignOut: () -> Unit,
+        val onCompanyDetailsClick: () -> Unit,
     )
 }

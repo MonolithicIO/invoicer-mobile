@@ -11,7 +11,8 @@ import org.koin.dsl.module
 val homePresentationDiModule = module {
     factory<AccountTabScreenModel> {
         AccountTabScreenModel(
-            signOutService = get()
+            signOutService = get(),
+            session = get()
         )
     }
 
