@@ -81,7 +81,7 @@ internal object AccountTab : Tab {
                 onDismissSignOut = { signOutDialogState = false },
                 onConfirmSignOut = {
                     signOutDialogState = false
-                    viewModel::signOut
+                    viewModel.signOut()
                 },
                 onRequestSignOut = { signOutDialogState = true },
                 onCompanyDetailsClick = {
