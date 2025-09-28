@@ -60,6 +60,7 @@ val foundationAuthDiModule = module {
             authEventBus = get(),
             authRepository = get(),
             firebaseHelper = get(),
+            localStorage = get()
         )
     }
 
