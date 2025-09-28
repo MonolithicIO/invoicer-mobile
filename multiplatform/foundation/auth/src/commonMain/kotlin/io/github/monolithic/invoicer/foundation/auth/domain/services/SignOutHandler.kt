@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.foundation.auth.domain.services
 
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepository
-import io.github.monolithic.invoicer.foundation.auth.firebase.FirebaseHelper
+import io.github.monolithic.invoicer.foundation.platform.firebaseAuth.FirebaseHelper
 import io.github.monolithic.invoicer.foundation.platform.storage.LocalStorage
 import io.github.monolithic.invoicer.foundation.platform.storage.StorageKeys
 import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEvent

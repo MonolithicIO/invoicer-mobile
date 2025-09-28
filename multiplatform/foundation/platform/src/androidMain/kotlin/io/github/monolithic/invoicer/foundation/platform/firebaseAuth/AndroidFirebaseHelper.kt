@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.auth.firebase
+package io.github.monolithic.invoicer.foundation.platform.firebaseAuth
 
 import com.google.firebase.auth.FirebaseAuth
 

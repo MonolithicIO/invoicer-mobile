@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.auth.firebase
+package io.github.monolithic.invoicer.foundation.platform.firebaseAuth
 
 import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -10,7 +10,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import io.github.monolithic.invoicer.foundation.auth.AuthBuildConfig
+import io.github.monolithic.invoicer.foundation.platform.PlatformBuildConfig
 import kotlinx.coroutines.tasks.await
 
 
@@ -20,7 +20,7 @@ internal class GoogleFirebaseHelper(
 ) {
     fun getSignInClient(): GoogleSignInClient {
         val options = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(AuthBuildConfig.FIREBASE_WEB_ID)
+            .requestIdToken(PlatformBuildConfig.FIREBASE_WEB_ID)
             .requestEmail()
             .build()
 

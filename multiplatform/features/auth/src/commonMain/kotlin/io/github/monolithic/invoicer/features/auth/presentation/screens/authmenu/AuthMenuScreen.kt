@@ -36,7 +36,6 @@ import invoicer.multiplatform.features.auth.generated.resources.ic_google
 import invoicer.multiplatform.features.auth.generated.resources.ic_logo
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
-import io.github.monolithic.invoicer.foundation.auth.presentation.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCircularIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
@@ -48,6 +47,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
+import io.github.monolithic.invoicer.foundation.platform.firebaseAuth.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource

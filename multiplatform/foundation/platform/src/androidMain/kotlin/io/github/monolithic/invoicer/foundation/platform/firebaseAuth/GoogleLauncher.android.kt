@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.auth.presentation
+package io.github.monolithic.invoicer.foundation.platform.firebaseAuth
 
 import android.app.Activity.RESULT_OK
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -8,12 +8,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import io.github.monolithic.invoicer.foundation.auth.firebase.GoogleFirebaseHelper
-import io.github.monolithic.invoicer.foundation.auth.firebase.GoogleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import org.koin.mp.KoinPlatform
+
 
 internal class AndroidGoogleLauncher : GoogleLauncher {
 
