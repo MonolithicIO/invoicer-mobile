@@ -18,3 +18,14 @@ fun Modifier.systemBarBottomPadding(): Modifier {
         )
     }
 }
+
+fun Modifier.systemBarTopPadding(): Modifier {
+    return composed {
+        val systemBarPadding =
+            WindowInsets.systemBars.asPaddingValues(LocalDensity.current)
+
+        this.then(
+            other = Modifier.padding(bottom = systemBarPadding.calculateTopPadding())
+        )
+    }
+}

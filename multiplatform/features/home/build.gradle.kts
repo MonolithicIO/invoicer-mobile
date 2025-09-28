@@ -23,12 +23,20 @@ kotlin {
             implementation(libs.bundles.voyager)
             implementation(libs.voyager.tabs)
 
+            // Kotlin
+            implementation(libs.immutable.collections)
+            implementation(libs.datetime)
+
+            // Feature
+            implementation(projects.multiplatform.features.invoice.services)
+
             // Foundation
             implementation(projects.multiplatform.foundation.network)
             implementation(projects.multiplatform.foundation.navigation)
             implementation(projects.multiplatform.foundation.designSystem)
             implementation(projects.multiplatform.foundation.auth)
             implementation(projects.multiplatform.foundation.utils)
+            implementation(projects.multiplatform.foundation.watchers)
         }
     }
 }

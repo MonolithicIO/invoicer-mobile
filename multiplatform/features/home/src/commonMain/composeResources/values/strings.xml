@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- General -->
+    <string name="home_retry">Try again</string>
+
     <!-- Settings -->
     <string name="home_settings_label">Settings</string>
     <string name="home_settings_sign_out">Sign out</string>
@@ -10,14 +13,24 @@
     <string name="home_settings_sign_out_negative">Cancel</string>
 
     <!-- Settings Item -->
-    <string name="home_settings_authorization">Authorization</string>
-    <string name="home_settings_profile">Profile</string>
-    <string name="home_settings_company">Company</string>
 
     <!-- Welcome -->
     <string name="welcome_icon_invoice">Invoices</string>
     <string name="welcome_icon_customer">Customers</string>
     <string name="welcome_change_company">Change</string>
+    <string name="welcome_topbar_subtitle">Welcome back! 👋</string>
+    <string name="welcome_latest_invoice_title">Latest invoices</string>
+    <string name="welcome_latest_invoice_view_all">View all</string>
+    <string name="welcome_latest_invoice_empty_title">You don't have invoices yet!</string>
+    <string name="welcome_latest_invoice_empty_subtitle">Create your first invoice and start to manage your finances.</string>
+    <string name="welcome_latest_invoice_empty_action">Create Invoice</string>
 
+    <!-- Account -->
+    <string name="account_topbar_title">Account</string>"
+    <string name="account_settings">Settings</string>
+    <string name="account_qrcode_auth">Authorize QrCode</string>
+    <string name="account_change_company">Change company</string>
+    <string name="account_sign_out">Sign out</string>
+    <string name="account_selected_company_title">Selected company</string>
 
 </resources>

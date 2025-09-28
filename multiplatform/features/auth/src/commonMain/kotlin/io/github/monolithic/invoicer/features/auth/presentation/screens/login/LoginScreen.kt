@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -29,6 +30,7 @@ import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_err
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_forgot_password
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_submit_button
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
@@ -44,12 +46,10 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
-import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import invoicer.multiplatform.foundation.design_system.generated.resources.Res as DsRes
 
 internal class LoginScreen : Screen {
 
@@ -116,7 +116,7 @@ internal class LoginScreen : Screen {
             topBar = {
                 InkTopBar(
                     modifier = Modifier.statusBarsPadding(),
-                    navigationIcon = painterResource(DsRes.drawable.ic_chveron_left),
+                    navigationIcon = painterResource(DsResources.drawable.ic_chveron_left),
                     onNavigationClick = callBacks.onBack,
                 )
             },
@@ -129,7 +129,7 @@ internal class LoginScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = InkTheme.spacing.medium)
-                        .systemBarBottomPadding()
+                        .navigationBarsPadding()
                 )
             },
             snackBarHost = {

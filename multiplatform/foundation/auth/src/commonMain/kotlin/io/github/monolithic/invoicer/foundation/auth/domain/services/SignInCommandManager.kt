@@ -2,8 +2,8 @@ package io.github.monolithic.invoicer.foundation.auth.domain.services
 
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthRepository
 import io.github.monolithic.invoicer.foundation.auth.domain.repository.AuthTokenRepository
-import io.github.monolithic.invoicer.foundation.watchers.bus.AuthEvent
-import io.github.monolithic.invoicer.foundation.watchers.bus.AuthEventBus
+import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEvent
+import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEventBus
 
 interface SignInCommandManager {
     suspend fun resolveCommand(command: SignInCommand)

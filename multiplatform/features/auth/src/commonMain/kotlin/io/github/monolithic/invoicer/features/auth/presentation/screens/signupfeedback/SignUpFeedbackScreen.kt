@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.runtime.Composable
@@ -30,7 +31,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -62,7 +62,7 @@ internal class SignUpFeedbackScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = InkTheme.spacing.medium)
-                        .systemBarBottomPadding()
+                        .navigationBarsPadding()
                 )
             }
         ) {
