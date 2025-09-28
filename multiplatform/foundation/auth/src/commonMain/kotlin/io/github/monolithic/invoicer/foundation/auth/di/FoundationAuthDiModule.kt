@@ -20,13 +20,11 @@ import io.github.monolithic.invoicer.foundation.auth.session.SessionUpdater
 import io.github.monolithic.invoicer.foundation.utils.koinTags.NetworkDiTags
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
-import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.binds
 import org.koin.dsl.module
 
 val foundationAuthDiModule = module {
-    includes(authPlatformModule)
 
     factory<AuthStorage> {
         AuthStorageImpl(
@@ -75,4 +73,3 @@ val foundationAuthDiModule = module {
 
     single { SessionImpl } binds arrayOf(Session::class, SessionUpdater::class)
 }
-internal expect val authPlatformModule: Module

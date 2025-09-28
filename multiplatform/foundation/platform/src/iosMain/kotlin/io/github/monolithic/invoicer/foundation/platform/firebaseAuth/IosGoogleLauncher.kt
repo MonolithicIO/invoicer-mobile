@@ -1,10 +1,8 @@
-package io.github.monolithic.invoicer.foundation.auth.presentation
+package io.github.monolithic.invoicer.foundation.platform.firebaseAuth
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
-import io.github.monolithic.invoicer.foundation.auth.firebase.IosGoogleFirebaseHelper
-import io.github.monolithic.invoicer.foundation.auth.firebase.IosGoogleResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import org.koin.mp.KoinPlatform

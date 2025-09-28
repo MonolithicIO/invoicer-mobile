@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.auth.firebase
+package io.github.monolithic.invoicer.foundation.platform.firebaseAuth
 
 interface IosGoogleFirebaseHelper {
     suspend fun getGoogleIdToken(): IosGoogleResult

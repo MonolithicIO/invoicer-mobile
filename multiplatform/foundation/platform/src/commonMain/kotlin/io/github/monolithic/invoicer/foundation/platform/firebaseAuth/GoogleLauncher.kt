@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.foundation.auth.presentation
+package io.github.monolithic.invoicer.foundation.platform.firebaseAuth
 
 import androidx.compose.runtime.Composable
 
