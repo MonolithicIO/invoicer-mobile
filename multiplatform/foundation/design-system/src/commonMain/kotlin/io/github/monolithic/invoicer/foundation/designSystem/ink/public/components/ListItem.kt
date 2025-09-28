@@ -15,7 +15,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chevron_right
-import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkSurface
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
@@ -33,7 +32,8 @@ fun ListItem(
     contentPadding: PaddingValues = PaddingValues(vertical = InkTheme.spacing.medium),
     containerColor: Color = InkTheme.colorScheme.background,
     contentColor: Color = InkTheme.colorScheme.onBackground,
-    onClick: (() -> Unit)? = null
+    onClick: (() -> Unit)? = null,
+    showNavIcon: Boolean = onClick != null
 ) {
     InkSurface(
         color = containerColor,
@@ -60,7 +60,7 @@ fun ListItem(
                 weight = FontWeight.Bold,
                 style = InkTextStyle.Heading6
             )
-            if (onClick != null) {
+            if (onClick != null && showNavIcon) {
                 InkIcon(
                     painter = painterResource(DsResources.drawable.ic_chevron_right),
                     contentDescription = null,

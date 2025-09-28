@@ -4,42 +4,36 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.Logout
-import androidx.compose.material.icons.outlined.Business
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.QrCodeScanner
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import cafe.adriel.voyager.core.registry.ScreenRegistry
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import invoicer.multiplatform.features.home.generated.resources.Res
-import invoicer.multiplatform.features.home.generated.resources.home_settings_authorization
-import invoicer.multiplatform.features.home.generated.resources.home_settings_company
-import invoicer.multiplatform.features.home.generated.resources.home_settings_profile
-import invoicer.multiplatform.features.home.generated.resources.home_settings_sign_out
+import invoicer.multiplatform.features.home.generated.resources.account_change_company
+import invoicer.multiplatform.features.home.generated.resources.account_qrcode_auth
+import invoicer.multiplatform.features.home.generated.resources.account_settings
+import invoicer.multiplatform.features.home.generated.resources.account_sign_out
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_edit
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_qr_code
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_settings
-import io.github.monolithic.features.home.presentation.screens.home.tabs.account.components.SettingsItem
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_sign_out
 import io.github.monolithic.features.home.presentation.screens.home.tabs.account.components.SignOutDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ListItem
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
+import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
+import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -59,25 +53,35 @@ internal object AccountTab : Tab {
         var signOutDialogState by remember { mutableStateOf(false) }
 
         val callBacks = remember {
-            Callbacks(
-                onSignOutClick = { signOutDialogState = true },
+            Actions(
+                onChangeCompanyClick = {
+                    navigator?.push(
+                        getScreen(
+                            InvoicerScreen.Company.SelectCompany(
+                                intent = SelectCompanyIntent.ChangeCompany
+                            )
+                        )
+                    )
+                },
+                onSettingsClick = {},
+                onQrCodeAuthClick = {
+                    navigator?.push(
+                        getScreen(
+                            InvoicerScreen.Authorization.Home
+                        )
+                    )
+                },
+                onDismissSignOut = { signOutDialogState = false },
                 onConfirmSignOut = {
                     signOutDialogState = false
-                    viewModel.signOut()
+                    viewModel::signOut
                 },
-                onCancelSignOut = { signOutDialogState = false },
-                onAuthorizationClick = {
-                    navigator?.push(ScreenRegistry.get(InvoicerScreen.Authorization.Home))
-                },
-                onProfileClick = {},
-                onCompanyClick = {
-                    navigator?.push(ScreenRegistry.get(InvoicerScreen.Company.Details))
-                },
+                onRequestSignOut = { signOutDialogState = true }
             )
         }
 
         StateContent(
-            callbacks = callBacks,
+            actions = callBacks,
             isDialogVisible = signOutDialogState
         )
     }
@@ -85,7 +89,7 @@ internal object AccountTab : Tab {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
-        callbacks: Callbacks,
+        actions: Actions,
         isDialogVisible: Boolean,
     ) {
 
@@ -100,63 +104,44 @@ internal object AccountTab : Tab {
                 modifier = Modifier,
                 contentPadding = PaddingValues(InkTheme.spacing.medium)
             ) {
-                Column(
-                ) {
-                    ListItem(
-                        text = "Settings",
-                        icon = painterResource(DsResources.drawable.ic_settings),
-                        onClick = {}
-                    )
-                    ListItem(
-                        text = "Authorize QrCode",
-                        icon = painterResource(DsResources.drawable.ic_qr_code),
-                        onClick = {}
-                    )
-                    SettingsItem(
-                        modifier = Modifier.fillMaxWidth(),
-                        content = stringResource(Res.string.home_settings_authorization),
-                        icon = Icons.Outlined.QrCodeScanner,
-                        onClick = callbacks.onAuthorizationClick
-                    )
-                    HorizontalDivider()
-                    SettingsItem(
-                        modifier = Modifier.fillMaxWidth(),
-                        content = stringResource(Res.string.home_settings_profile),
-                        icon = Icons.Outlined.Person,
-                        onClick = callbacks.onProfileClick
-                    )
-                    HorizontalDivider()
-                    SettingsItem(
-                        modifier = Modifier.fillMaxWidth(),
-                        content = stringResource(Res.string.home_settings_company),
-                        icon = Icons.Outlined.Business,
-                        onClick = callbacks.onCompanyClick
-                    )
-                    HorizontalDivider()
-                    SettingsItem(
-                        modifier = Modifier.fillMaxWidth(),
-                        content = stringResource(Res.string.home_settings_sign_out),
-                        icon = Icons.AutoMirrored.Outlined.Logout,
-                        iconTint = MaterialTheme.colorScheme.primary,
-                        onClick = callbacks.onSignOutClick
-                    )
-                }
+                ListItem(
+                    text = stringResource(Res.string.account_change_company),
+                    icon = painterResource(DsResources.drawable.ic_edit),
+                    onClick = actions.onChangeCompanyClick
+                )
+                ListItem(
+                    text = stringResource(Res.string.account_qrcode_auth),
+                    icon = painterResource(DsResources.drawable.ic_qr_code),
+                    onClick = actions.onQrCodeAuthClick
+                )
+                ListItem(
+                    text = stringResource(Res.string.account_settings),
+                    icon = painterResource(DsResources.drawable.ic_settings),
+                    onClick = actions.onSettingsClick
+                )
+                ListItem(
+                    text = stringResource(Res.string.account_sign_out),
+                    icon = painterResource(DsResources.drawable.ic_sign_out),
+                    onClick = actions.onRequestSignOut,
+                    contentColor = InkTheme.colorScheme.error,
+                    showNavIcon = false,
+                )
             }
         }
 
         SignOutDialog(
-            onDismiss = callbacks.onCancelSignOut,
-            onConfirm = callbacks.onConfirmSignOut,
+            onDismiss = actions.onDismissSignOut,
+            onConfirm = actions.onConfirmSignOut,
             isVisible = isDialogVisible
         )
     }
 
-    internal data class Callbacks(
-        val onSignOutClick: () -> Unit,
+    internal data class Actions(
+        val onChangeCompanyClick: () -> Unit,
+        val onSettingsClick: () -> Unit,
+        val onQrCodeAuthClick: () -> Unit,
+        val onDismissSignOut: () -> Unit,
         val onConfirmSignOut: () -> Unit,
-        val onCancelSignOut: () -> Unit,
-        val onAuthorizationClick: () -> Unit,
-        val onProfileClick: () -> Unit,
-        val onCompanyClick: () -> Unit,
+        val onRequestSignOut: () -> Unit,
     )
 }

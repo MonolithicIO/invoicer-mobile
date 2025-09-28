@@ -6,7 +6,6 @@ import io.github.monolithic.invoicer.foundation.auth.domain.services.SignOutServ
 import io.github.monolithic.invoicer.foundation.network.InvoicerHttpError
 import io.github.monolithic.invoicer.foundation.network.NetworkBuildConfig
 import io.github.monolithic.invoicer.foundation.network.RequestError
-import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEvent
 import io.github.monolithic.invoicer.foundation.watchers.bus.feature.AuthEventBus
 import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
@@ -28,7 +27,6 @@ import kotlinx.serialization.json.Json
 internal class HttpClientProvider(
     private val authTokenRepository: AuthTokenRepository,
     private val refreshSessionService: RefreshSessionService,
-    private val authEventBus: AuthEventBus,
     private val signOutService: SignOutService
 ) {
 
@@ -111,7 +109,6 @@ internal class HttpClientProvider(
                         },
                         onFailure = {
                             signOutService.signOut()
-                            authEventBus.publishEvent(AuthEvent.SignedOut)
                             BearerTokens(
                                 accessToken = "",
                                 refreshToken = ""

@@ -24,7 +24,6 @@ val networkDiModule = module {
         HttpClientProvider(
             authTokenRepository = get(),
             refreshSessionService = get(),
-            authEventBus = get(),
             signOutService = get()
         )
     }

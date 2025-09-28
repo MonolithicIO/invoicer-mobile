@@ -13,9 +13,6 @@
     <string name="home_settings_sign_out_negative">Cancel</string>
 
     <!-- Settings Item -->
-    <string name="home_settings_authorization">Authorization</string>
-    <string name="home_settings_profile">Profile</string>
-    <string name="home_settings_company">Company</string>
 
     <!-- Welcome -->
     <string name="welcome_icon_invoice">Invoices</string>
@@ -30,5 +27,9 @@
 
     <!-- Account -->
     <string name="account_topbar_title">Account</string>"
+    <string name="account_settings">Settings</string>
+    <string name="account_qrcode_auth">Authorize QrCode</string>
+    <string name="account_change_company">Change company</string>
+    <string name="account_sign_out">Sign out</string>
 
 </resources>

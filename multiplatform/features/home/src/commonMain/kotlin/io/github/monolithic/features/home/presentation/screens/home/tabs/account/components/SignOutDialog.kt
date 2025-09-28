@@ -1,14 +1,13 @@
 package io.github.monolithic.features.home.presentation.screens.home.tabs.account.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.WarningAmber
 import androidx.compose.runtime.Composable
 import invoicer.multiplatform.features.home.generated.resources.Res
 import invoicer.multiplatform.features.home.generated.resources.home_settings_sign_out_confirmation
 import invoicer.multiplatform.features.home.generated.resources.home_settings_sign_out_negative
 import invoicer.multiplatform.features.home.generated.resources.home_settings_sign_out_positive
 import invoicer.multiplatform.features.home.generated.resources.home_settings_sing_out_title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.dialog.DefaultInvoicerDialog
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.InkDialog
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.props.InkDialogAction
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -19,14 +18,18 @@ internal fun SignOutDialog(
     onConfirm: () -> Unit,
 ) {
     if (isVisible) {
-        DefaultInvoicerDialog(
-            onDismiss = onDismiss,
+        InkDialog(
+            onDismissRequest = onDismiss,
             title = stringResource(Res.string.home_settings_sing_out_title),
             description = stringResource(Res.string.home_settings_sign_out_confirmation),
-            confirmButtonText = stringResource(Res.string.home_settings_sign_out_positive),
-            cancelButtonText = stringResource(Res.string.home_settings_sign_out_negative),
-            confirmButtonClick = onConfirm,
-            icon = Icons.Rounded.WarningAmber
+            primaryAction = InkDialogAction(
+                title = stringResource(Res.string.home_settings_sign_out_positive),
+                onClick = onConfirm
+            ),
+            secondaryAction = InkDialogAction(
+                title = stringResource(Res.string.home_settings_sign_out_negative),
+                onClick = onDismiss
+            ),
         )
     }
 }
