@@ -74,17 +74,12 @@ internal class SelectCompanyScreenModel(
             return
         }
 
-        if (companies.size == 1) {
+        if (shouldAutoSelectFirst && companies.size == 1) {
             selectCompanyService.select(
                 companyName = companies.first().name,
                 companyId = companies.first().id
             )
-
-            if (shouldAutoSelectFirst) {
-                _events.emit(SelectCompanyEvent.ContinueToHome)
-            }
-
-            return
+            _events.emit(SelectCompanyEvent.ContinueToHome)
         }
 
         _state.update {
