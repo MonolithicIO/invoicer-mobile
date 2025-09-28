@@ -92,7 +92,7 @@ internal object WelcomeTab : Tab {
             modifier = Modifier
                 .fillMaxSize()
                 .background(InkTheme.colorScheme.surfaceLight)
-                .padding(horizontal = Spacing.medium)
+                .padding(Spacing.medium)
         ) {
             when (state.mode) {
                 WelcomeTabMode.Loading -> LoadingState(

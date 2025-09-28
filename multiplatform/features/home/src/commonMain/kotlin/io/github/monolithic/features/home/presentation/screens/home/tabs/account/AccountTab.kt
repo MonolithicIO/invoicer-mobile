@@ -30,12 +30,17 @@ import invoicer.multiplatform.features.home.generated.resources.home_settings_au
 import invoicer.multiplatform.features.home.generated.resources.home_settings_company
 import invoicer.multiplatform.features.home.generated.resources.home_settings_profile
 import invoicer.multiplatform.features.home.generated.resources.home_settings_sign_out
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_qr_code
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_settings
 import io.github.monolithic.features.home.presentation.screens.home.tabs.account.components.SettingsItem
 import io.github.monolithic.features.home.presentation.screens.home.tabs.account.components.SignOutDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ListItem
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal object AccountTab : Tab {
@@ -88,7 +93,7 @@ internal object AccountTab : Tab {
             modifier = Modifier
                 .fillMaxSize()
                 .background(InkTheme.colorScheme.surfaceLight)
-                .padding(horizontal = Spacing.medium)
+                .padding(Spacing.medium)
         ) {
             InkCard(
                 containerColor = InkTheme.colorScheme.background,
@@ -97,6 +102,16 @@ internal object AccountTab : Tab {
             ) {
                 Column(
                 ) {
+                    ListItem(
+                        text = "Settings",
+                        icon = painterResource(DsResources.drawable.ic_settings),
+                        onClick = {}
+                    )
+                    ListItem(
+                        text = "Authorize QrCode",
+                        icon = painterResource(DsResources.drawable.ic_qr_code),
+                        onClick = {}
+                    )
                     SettingsItem(
                         modifier = Modifier.fillMaxWidth(),
                         content = stringResource(Res.string.home_settings_authorization),

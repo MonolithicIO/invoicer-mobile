@@ -15,16 +15,19 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_plus
 import io.github.monolithic.features.home.presentation.screens.home.components.AccountTopBar
 import io.github.monolithic.features.home.presentation.screens.home.components.HomeBottomBar
 import io.github.monolithic.features.home.presentation.screens.home.components.WelcomeTopBar
 import io.github.monolithic.features.home.presentation.screens.home.tabs.account.AccountTab
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.WelcomeTab
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkCircleButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
-import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
+import org.jetbrains.compose.resources.painterResource
 
 internal class HomeContainerScreen : Screen {
     @Composable
@@ -78,6 +81,14 @@ internal class HomeContainerScreen : Screen {
                         modifier = Modifier.navigationBarsPadding()
                     )
                 },
+                floatingActionButton = {
+                    if (navigator.current is WelcomeTab) {
+                        InkCircleButton(
+                            onClick = actions.onNewInvoiceClick,
+                            icon = painterResource(DsResources.drawable.ic_plus)
+                        )
+                    }
+                }
             ) { scaffoldPadding ->
                 Box(
                     modifier = Modifier

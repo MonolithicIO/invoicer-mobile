@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.navigator.tab.Tab
-import invoicer.multiplatform.features.home.generated.resources.Res
-import invoicer.multiplatform.features.home.generated.resources.ic_home
-import invoicer.multiplatform.features.home.generated.resources.ic_user
-import invoicer.multiplatform.features.home.generated.resources.ic_user_group
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_home
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_user
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_user_group
 import io.github.monolithic.features.home.presentation.screens.home.tabs.account.AccountTab
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.WelcomeTab
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkSurface
@@ -47,19 +47,19 @@ internal fun HomeBottomBar(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             NavigationItem(
-                icon = painterResource(Res.drawable.ic_home),
+                icon = painterResource(DsResources.drawable.ic_home),
                 label = "Home",
                 selected = selectedTab is WelcomeTab,
                 onClick = { onSelectTab(WelcomeTab) }
             )
             NavigationItem(
-                icon = painterResource(Res.drawable.ic_user_group),
+                icon = painterResource(DsResources.drawable.ic_user_group),
                 label = "Customers",
                 selected = false,
                 onClick = onCustomersClick
             )
             NavigationItem(
-                icon = painterResource(Res.drawable.ic_user),
+                icon = painterResource(DsResources.drawable.ic_user),
                 label = "Account",
                 selected = selectedTab is AccountTab,
                 onClick = { onSelectTab(AccountTab) }

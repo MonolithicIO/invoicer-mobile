@@ -13,16 +13,20 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chevron_right
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkSurface
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import org.jetbrains.compose.resources.painterResource
 
 private val IconSize = 24.dp
 
 @Composable
-fun InternalListItem(
+fun ListItem(
     icon: Painter,
     text: String,
     modifier: Modifier = Modifier,
@@ -56,6 +60,13 @@ fun InternalListItem(
                 weight = FontWeight.Bold,
                 style = InkTextStyle.Heading6
             )
+            if (onClick != null) {
+                InkIcon(
+                    painter = painterResource(DsResources.drawable.ic_chevron_right),
+                    contentDescription = null,
+                    tint = contentColor
+                )
+            }
         }
     }
 }
