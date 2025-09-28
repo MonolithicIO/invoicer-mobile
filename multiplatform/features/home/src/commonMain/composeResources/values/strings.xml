@@ -28,4 +28,7 @@
     <string name="welcome_latest_invoice_empty_subtitle">Create your first invoice and start to manage your finances.</string>
     <string name="welcome_latest_invoice_empty_action">Create Invoice</string>
 
+    <!-- Account -->
+    <string name="account_topbar_title">Account</string>"
+
 </resources>

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
@@ -52,7 +53,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
-import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -153,7 +153,7 @@ internal class SignUpScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = InkTheme.spacing.medium)
-                        .systemBarBottomPadding()
+                        .navigationBarsPadding()
                 )
             }
         ) { scaffoldPadding ->

@@ -1,4 +1,4 @@
-package io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components
+package io.github.monolithic.features.home.presentation.screens.home.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.clickable
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -30,17 +31,18 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-internal fun WelcomeTopBar(
+internal fun HomeBottomBar(
     modifier: Modifier = Modifier,
     onCustomersClick: () -> Unit,
     selectedTab: Tab,
     onSelectTab: (Tab) -> Unit
 ) {
     InkSurface(
-        modifier = modifier
+        modifier = modifier,
+        color = InkTheme.colorScheme.background
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(vertical = InkTheme.spacing.xSmall3),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {

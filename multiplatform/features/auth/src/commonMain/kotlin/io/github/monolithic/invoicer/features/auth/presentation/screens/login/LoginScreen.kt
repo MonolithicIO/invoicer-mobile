@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.wrapContentWidth
@@ -45,7 +46,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
-import io.github.monolithic.invoicer.foundation.utils.modifier.systemBarBottomPadding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -129,7 +129,7 @@ internal class LoginScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = InkTheme.spacing.medium)
-                        .systemBarBottomPadding()
+                        .navigationBarsPadding()
                 )
             },
             snackBarHost = {

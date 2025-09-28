@@ -2,7 +2,9 @@ package io.github.monolithic.features.home.presentation.screens.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,7 +15,10 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.components.WelcomeTopBar
+import io.github.monolithic.features.home.presentation.screens.home.components.AccountTopBar
+import io.github.monolithic.features.home.presentation.screens.home.components.HomeBottomBar
+import io.github.monolithic.features.home.presentation.screens.home.components.WelcomeTopBar
+import io.github.monolithic.features.home.presentation.screens.home.tabs.account.AccountTab
 import io.github.monolithic.features.home.presentation.screens.home.tabs.welcome.WelcomeTab
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
@@ -51,14 +56,26 @@ internal class HomeContainerScreen : Screen {
         TabNavigator(WelcomeTab) { navigator ->
             InkScaffold(
                 containerColor = InkTheme.colorScheme.background,
+                topBar = {
+                    when (navigator.current) {
+                        is WelcomeTab -> WelcomeTopBar(
+                            modifier = Modifier.statusBarsPadding(),
+                            companyName = state.companyName
+                        )
+
+                        is AccountTab -> AccountTopBar(
+                            modifier = Modifier.statusBarsPadding(),
+                        )
+                    }
+                },
                 bottomBar = {
-                    WelcomeTopBar(
+                    HomeBottomBar(
                         selectedTab = navigator.current,
                         onSelectTab = { newTab ->
                             navigator.current = newTab
                         },
                         onCustomersClick = actions.onCustomersClick,
-                        modifier = Modifier.systemBarBottomPadding()
+                        modifier = Modifier.navigationBarsPadding()
                     )
                 },
             ) { scaffoldPadding ->
