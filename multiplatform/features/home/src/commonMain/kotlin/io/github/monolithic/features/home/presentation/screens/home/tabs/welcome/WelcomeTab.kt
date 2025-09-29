@@ -47,7 +47,7 @@ internal object WelcomeTab : Tab {
             WelcomeActions(
                 onAddInvoiceClick = {
                     navigator?.push(
-                        ScreenRegistry.get(InvoicerScreen.Invoices.List)
+                        ScreenRegistry.get(InvoicerScreen.Invoices.Create)
                     )
                 },
                 onCustomerClick = {

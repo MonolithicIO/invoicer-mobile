@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -31,6 +32,7 @@ fun InkSurface(
     shape: Shape = RectangleShape,
     onClick: () -> Unit,
     enabled: Boolean = true,
+    interactionSource: MutableInteractionSource? = null,
     content: @Composable () -> Unit
 ) {
     Surface(
@@ -38,7 +40,8 @@ fun InkSurface(
         shape = shape,
         color = color,
         onClick = onClick,
-        enabled = enabled
+        enabled = enabled,
+        interactionSource = interactionSource
     ) {
         content()
     }

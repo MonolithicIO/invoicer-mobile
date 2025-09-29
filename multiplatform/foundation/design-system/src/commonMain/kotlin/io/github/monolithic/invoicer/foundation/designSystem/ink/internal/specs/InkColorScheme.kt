@@ -7,6 +7,7 @@ data class InkColorScheme(
     val onBackground: Color,
     val onBackgroundVariant: Color,
     val primary: Color,
+    val primaryVariant: Color,
     val onPrimary: Color,
     val disabled: Color,
     val onDisabled: Color,
@@ -18,5 +19,5 @@ data class InkColorScheme(
     val error: Color,
     val errorBackground: Color,
     val surfaceLight: Color,
-    val surfaceDark: Color
+    val surfaceDark: Color,
 )

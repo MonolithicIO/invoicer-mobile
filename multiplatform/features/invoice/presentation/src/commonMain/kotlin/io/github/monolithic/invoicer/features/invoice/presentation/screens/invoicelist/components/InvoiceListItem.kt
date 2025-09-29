@@ -1,133 +1,85 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.OpenInNew
-import androidx.compose.material3.Card
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_item_amount
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_item_customer
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_item_due_date
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_item_issue_date
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_item_number
-import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceListItem
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
-import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
-import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_item_id
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chevron_right
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InvoiceListItem(
-    item: InvoiceListItem,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    invoiceNumber: String,
+    customerName: String,
+    timeStamp: String,
+    amount: String,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
 ) {
-    Card(
-        shape = MaterialTheme.shapes.medium,
-        modifier = modifier
-            .clickable(onClick = onClick)
+    InkCard(
+        containerColor = InkTheme.colorScheme.surfaceLight,
+        onClick = onClick,
+        contentPadding = PaddingValues(InkTheme.spacing.small),
+        modifier = modifier,
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(Spacing.medium),
-            verticalArrangement = Arrangement.spacedBy(Spacing.xSmall)
-        ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
             ) {
-                InvoiceListVerticalTopic(
-                    modifier = Modifier.weight(1f),
-                    title = stringResource(Res.string.invoice_list_item_number),
-                    value = item.externalId,
+                CompanyNameIcon(
+                    name = customerName
                 )
-
-                Icon(
-                    imageVector = Icons.AutoMirrored.Default.OpenInNew,
-                    contentDescription = null
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.xSmall2)
+                ) {
+                    InkText(
+                        text = customerName,
+                        style = InkTextStyle.Heading6,
+                        weight = FontWeight.SemiBold
+                    )
+                    InkText(
+                        text = timeStamp,
+                        style = InkTextStyle.BodyMedium,
+                        color = InkTheme.colorScheme.onSurfaceVariant
+                    )
+                    InkText(
+                        text = stringResource(Res.string.invoice_list_item_id, invoiceNumber),
+                        style = InkTextStyle.BodyMedium,
+                        color = InkTheme.colorScheme.onBackgroundVariant,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                InkText(
+                    text = amount,
+                    style = InkTextStyle.Heading5,
+                    weight = FontWeight.Black,
+                    color = InkTheme.colorScheme.primaryVariant
+                )
+                InkIcon(
+                    painter = painterResource(DsResources.drawable.ic_chevron_right),
+                    contentDescription = null,
+                    tint = InkTheme.colorScheme.onBackground
                 )
             }
-
-            InvoiceListVerticalTopic(
-                title = stringResource(Res.string.invoice_list_item_customer),
-                value = item.customerName,
-            )
-
-            InvoiceListHorizontalTopic(
-                title = stringResource(Res.string.invoice_list_item_due_date),
-                value = item.issueDate.defaultFormat()
-            )
-
-            InvoiceListHorizontalTopic(
-                title = stringResource(Res.string.invoice_list_item_issue_date),
-                value = item.dueDate.defaultFormat()
-            )
-
-            InvoiceListHorizontalTopic(
-                title = stringResource(Res.string.invoice_list_item_amount),
-                value = item.totalAmount.moneyFormat()
-            )
         }
-    }
-}
-
-@Composable
-private fun InvoiceListVerticalTopic(
-    title: String,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.SemiBold
-        )
-        VerticalSpacer(SpacerSize.XSmall2)
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
-}
-
-@Composable
-private fun InvoiceListHorizontalTopic(
-    title: String,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.bodyLarge,
-            fontWeight = FontWeight.SemiBold
-        )
-        Spacer(1f)
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
     }
 }

@@ -42,27 +42,27 @@ internal fun LatestInvoicesCard(
         containerColor = InkTheme.colorScheme.background,
         contentPadding = PaddingValues(InkTheme.spacing.medium)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
-        ) {
-            InkText(
-                text = stringResource(Res.string.welcome_latest_invoice_title),
-                style = InkTextStyle.Heading5,
-                weight = FontWeight.Bold,
-                modifier = Modifier.weight(1f)
-            )
-            if (items.isNotEmpty()) {
-                InkTextButton(
-                    text = stringResource(Res.string.welcome_latest_invoice_view_all),
-                    onClick = onViewAllClick
-                )
-            }
-        }
-        VerticalSpacer(SpacerSize.Medium)
-
         if (items.isNotEmpty()) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+            ) {
+                InkText(
+                    text = stringResource(Res.string.welcome_latest_invoice_title),
+                    style = InkTextStyle.Heading5,
+                    weight = FontWeight.Bold,
+                    modifier = Modifier.weight(1f)
+                )
+                if (items.isNotEmpty()) {
+                    InkTextButton(
+                        text = stringResource(Res.string.welcome_latest_invoice_view_all),
+                        onClick = onViewAllClick
+                    )
+                }
+            }
+            VerticalSpacer(SpacerSize.Medium)
+
             LatestInvoiceList(
                 items = items,
                 modifier = Modifier.fillMaxWidth()
@@ -124,7 +124,7 @@ private fun LastestInvoiceItem(
             text = item.amount,
             style = InkTextStyle.Heading6,
             weight = FontWeight.Black,
-            color = InkTheme.colorScheme.onBackground
+            color = InkTheme.colorScheme.primaryVariant
         )
     }
 }

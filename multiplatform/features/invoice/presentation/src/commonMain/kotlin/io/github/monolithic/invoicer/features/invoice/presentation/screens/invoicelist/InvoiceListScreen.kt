@@ -1,32 +1,21 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.registry.ScreenRegistry
 import cafe.adriel.voyager.core.screen.Screen
@@ -36,11 +25,11 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_empty_description
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_empty_title
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_description
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_retry
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_new_invoice
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_title
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.components.InvoiceListItem
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListCallbacks
@@ -49,19 +38,26 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoi
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListScreenModel
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.rememberInvoiceListCallbacks
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.CloseButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.utils.compose.LazyListPaginationEffect
+import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import io.github.monolithic.invoicer.foundation.utils.events.EventEffect
+import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import io.github.monolithic.invoicer.foundation.watchers.bus.NewInvoiceEventBus
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.mp.KoinPlatform.getKoin
 
@@ -79,7 +75,7 @@ internal class InvoiceListScreen : Screen {
         val viewModel = koinScreenModel<InvoiceListScreenModel>()
         val state by viewModel.state.collectAsState()
         val newInvoiceEventBus = remember { getKoin().get<NewInvoiceEventBus>() }
-        val snackBar = remember { SnackbarHostState() }
+        val snackBar = rememberInkSnackBarHostState()
         val scope = rememberCoroutineScope()
 
         val callbacks = rememberInvoiceListCallbacks(
@@ -107,7 +103,7 @@ internal class InvoiceListScreen : Screen {
                 when (it) {
                     is InvoiceListEvent.Error -> {
                         scope.launch {
-                            snackBar.showSnackbar(
+                            snackBar.showSnackBar(
                                 message = it.message,
                             )
                         }
@@ -123,38 +119,38 @@ internal class InvoiceListScreen : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: InvoiceListState,
         callbacks: InvoiceListCallbacks,
-        snackbarHostState: SnackbarHostState
+        snackbarHostState: InkSnackBarHostState
     ) {
-        Scaffold(
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.invoice_list_title)
-                        )
-                    },
-                    navigationIcon = { CloseButton(onBackClick = callbacks::onClose) },
+                InkTopBar(
+                    navigationIcon = painterResource(
+                        resource = DsResources.drawable.ic_chveron_left
+                    ),
+                    onNavigationClick = callbacks::onClose,
+                    title = stringResource(Res.string.invoice_list_title),
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
                 if (state.mode == InvoiceListMode.Content) {
-                    PrimaryButton(
-                        label = stringResource(Res.string.invoice_list_new_invoice),
+                    InkPrimaryButton(
+                        text = stringResource(Res.string.invoice_list_new_invoice),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(Spacing.medium)
-                    ) { callbacks.onCreateInvoiceClick() }
+                            .navigationBarsPadding(),
+                        onClick = callbacks::onCreateInvoiceClick
+                    )
                 }
             },
-            snackbarHost = {
-                SnackbarHost(snackbarHostState)
+            snackBarHost = {
+                InkSnackBarHost(snackbarHostState)
             },
-            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier
@@ -181,7 +177,7 @@ internal class InvoiceListScreen : Screen {
                             }
 
                             LazyColumn(
-                                modifier = Modifier.weight(1f),
+                                modifier = Modifier.fillMaxSize(),
                                 verticalArrangement = Arrangement.spacedBy(Spacing.medium),
                                 state = listState
                             ) {
@@ -190,34 +186,28 @@ internal class InvoiceListScreen : Screen {
                                     key = { index, item -> item.id }
                                 ) { index, invoiceItem ->
                                     InvoiceListItem(
-                                        item = invoiceItem,
-                                        onClick = { callbacks.onClickInvoice(invoiceItem.id) }
+                                        onClick = { callbacks.onClickInvoice(invoiceItem.id) },
+                                        invoiceNumber = invoiceItem.externalId,
+                                        customerName = invoiceItem.customerName,
+                                        timeStamp = invoiceItem.createdAt.defaultFormat(),
+                                        amount = invoiceItem.totalAmount.moneyFormat(),
+                                        modifier = Modifier.fillMaxWidth(),
                                     )
-                                    if (index != state.invoices.lastIndex) {
-                                        VerticalSpacer(SpacerSize.Medium)
-                                        HorizontalDivider()
-                                    }
                                 }
                             }
                         }
                     }
 
-                    InvoiceListMode.Loading -> Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    InvoiceListMode.Loading -> LoadingState(
+                        modifier = Modifier.fillMaxSize(),
+                    )
 
-                    InvoiceListMode.Error -> Feedback(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        primaryActionText = stringResource(Res.string.invoice_list_error_retry),
-                        onPrimaryAction = callbacks::onRetry,
-                        icon = Icons.Outlined.ErrorOutline,
-                        title = stringResource(Res.string.invoice_list_error_title),
-                        description = stringResource(Res.string.invoice_list_error_description)
+                    InvoiceListMode.Error -> ErrorState(
+                        modifier = Modifier.fillMaxSize(),
+                        primaryAction = ErrorStateAction(
+                            label = stringResource(Res.string.invoice_list_error_retry),
+                            action = callbacks::onRetry
+                        )
                     )
                 }
             }
