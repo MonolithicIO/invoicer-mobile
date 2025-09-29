@@ -124,7 +124,7 @@ private fun LastestInvoiceItem(
             text = item.amount,
             style = InkTextStyle.Heading6,
             weight = FontWeight.Black,
-            color = InkTheme.colorScheme.onBackground
+            color = InkTheme.colorScheme.primaryVariant
         )
     }
 }

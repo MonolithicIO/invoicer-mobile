@@ -55,6 +55,7 @@ fun lightInkColorScheme(): InkColorScheme {
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.GreyScale.grey100,
         surfaceDark = InkColors.GreyScale.grey200,
+        primaryVariant = InkColors.Transparent.transparentPrimary
     )
 }
 
@@ -76,6 +77,7 @@ fun darkInkColorScheme(): InkColorScheme {
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.Dark.dark4,
         surfaceDark = InkColors.Dark.dark4,
+        primaryVariant = InkColors.Transparent.transparentPrimary
     )
 }
 
@@ -86,11 +88,11 @@ fun defaultInkTypography() = InkTypography(
     h4 = TextStyle(fontSize = 24.sp),
     h5 = TextStyle(fontSize = 20.sp),
     h6 = TextStyle(fontSize = 18.sp),
-    bodyXLarge = TextStyle(fontSize = 18.sp),
-    bodyLarge = TextStyle(fontSize = 16.sp),
-    bodyMedium = TextStyle(fontSize = 14.sp),
+    bodyXLarge = TextStyle(fontSize = 24.sp),
+    bodyLarge = TextStyle(fontSize = 20.sp),
+    bodyMedium = TextStyle(fontSize = 16.sp),
     bodySmall = TextStyle(fontSize = 12.sp),
-    bodyXSmall = TextStyle(fontSize = 10.sp),
+    bodyXSmall = TextStyle(fontSize = 8.sp),
 )
 
 @Suppress("MagicNumber")

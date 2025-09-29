@@ -15,7 +15,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -55,12 +54,12 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.utils.compose.LazyListPaginationEffect
+import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import io.github.monolithic.invoicer.foundation.utils.events.EventEffect
+import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import io.github.monolithic.invoicer.foundation.watchers.bus.NewInvoiceEventBus
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -194,13 +193,13 @@ internal class InvoiceListScreen : Screen {
                                     key = { index, item -> item.id }
                                 ) { index, invoiceItem ->
                                     InvoiceListItem(
-                                        item = invoiceItem,
-                                        onClick = { callbacks.onClickInvoice(invoiceItem.id) }
+                                        onClick = { callbacks.onClickInvoice(invoiceItem.id) },
+                                        invoiceNumber = invoiceItem.externalId,
+                                        customerName = invoiceItem.customerName,
+                                        timeStamp = invoiceItem.createdAt.defaultFormat(),
+                                        amount = invoiceItem.totalAmount.moneyFormat(),
+                                        modifier = Modifier.fillMaxWidth(),
                                     )
-                                    if (index != state.invoices.lastIndex) {
-                                        VerticalSpacer(SpacerSize.Medium)
-                                        HorizontalDivider()
-                                    }
                                 }
                             }
                         }
