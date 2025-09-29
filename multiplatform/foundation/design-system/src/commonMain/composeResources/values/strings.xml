@@ -5,4 +5,6 @@
     <string name="error_feedback_default_title">Something went wrong</string>
     <string name="error_feedback_default_description">Check your connection and try again</string>
     <string name="error_feedback_default_cta">Try again</string>
+
+    <string name="empty_feedback_default_title">Nothing to see here</string>"
 </resources>

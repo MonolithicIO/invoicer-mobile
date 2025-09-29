@@ -8,6 +8,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoi
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.rememberInvoiceListCallbacks
 import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceListItem
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
@@ -97,7 +98,7 @@ class InvoiceListScreenshotTest {
                             onClickCreateInvoice = {},
                             onNextPage = {},
                         ),
-                        snackbarHostState = SnackbarHostState(),
+                        snackbarHostState = InkSnackBarHostState(),
                     )
             }
         }
