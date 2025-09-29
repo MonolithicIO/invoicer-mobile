@@ -5,8 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,11 +16,6 @@ import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -41,6 +37,8 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_new_invoice
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_title
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.components.InvoiceListItem
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListCallbacks
@@ -49,8 +47,12 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoi
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListScreenModel
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.InvoiceListState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.state.rememberInvoiceListCallbacks
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.CloseButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
@@ -62,6 +64,7 @@ import io.github.monolithic.invoicer.foundation.utils.events.EventEffect
 import io.github.monolithic.invoicer.foundation.watchers.bus.NewInvoiceEventBus
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.mp.KoinPlatform.getKoin
 
@@ -79,7 +82,7 @@ internal class InvoiceListScreen : Screen {
         val viewModel = koinScreenModel<InvoiceListScreenModel>()
         val state by viewModel.state.collectAsState()
         val newInvoiceEventBus = remember { getKoin().get<NewInvoiceEventBus>() }
-        val snackBar = remember { SnackbarHostState() }
+        val snackBar = rememberInkSnackBarHostState()
         val scope = rememberCoroutineScope()
 
         val callbacks = rememberInvoiceListCallbacks(
@@ -107,7 +110,7 @@ internal class InvoiceListScreen : Screen {
                 when (it) {
                     is InvoiceListEvent.Error -> {
                         scope.launch {
-                            snackBar.showSnackbar(
+                            snackBar.showSnackBar(
                                 message = it.message,
                             )
                         }
@@ -128,33 +131,34 @@ internal class InvoiceListScreen : Screen {
     fun StateContent(
         state: InvoiceListState,
         callbacks: InvoiceListCallbacks,
-        snackbarHostState: SnackbarHostState
+        snackbarHostState: InkSnackBarHostState
     ) {
-        Scaffold(
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.invoice_list_title)
-                        )
-                    },
-                    navigationIcon = { CloseButton(onBackClick = callbacks::onClose) },
+                InkTopBar(
+                    navigationIcon = painterResource(
+                        resource = DsResources.drawable.ic_chveron_left
+                    ),
+                    onNavigationClick = callbacks::onClose,
+                    title = stringResource(Res.string.invoice_list_title),
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
                 if (state.mode == InvoiceListMode.Content) {
-                    PrimaryButton(
-                        label = stringResource(Res.string.invoice_list_new_invoice),
+                    InkPrimaryButton(
+                        text = stringResource(Res.string.invoice_list_new_invoice),
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(Spacing.medium)
-                    ) { callbacks.onCreateInvoiceClick() }
+                            .navigationBarsPadding(),
+                        onClick = callbacks::onCreateInvoiceClick
+                    )
                 }
             },
-            snackbarHost = {
-                SnackbarHost(snackbarHostState)
+            snackBarHost = {
+                InkSnackBarHost(snackbarHostState)
             },
-            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier

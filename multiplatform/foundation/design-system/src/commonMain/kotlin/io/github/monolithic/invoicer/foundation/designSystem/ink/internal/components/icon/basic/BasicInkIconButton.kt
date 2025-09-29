@@ -7,7 +7,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -33,7 +32,6 @@ internal fun BasicInkIconButton(
     Box(
         modifier =
             modifier
-                .minimumInteractiveComponentSize()
                 .size(InkIconButtonDefaults.StateLayerSize)
                 .clip(InkIconButtonDefaults.shape)
                 .background(color = colors.backgroundColor(enabled))
