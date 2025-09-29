@@ -1,7 +1,6 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,9 +10,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,7 +17,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.registry.ScreenRegistry
 import cafe.adriel.voyager.core.screen.Screen
@@ -31,9 +26,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_empty_description
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_empty_title
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_description
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_retry
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_new_invoice
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_title
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
@@ -52,7 +45,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
@@ -184,7 +179,7 @@ internal class InvoiceListScreen : Screen {
                             }
 
                             LazyColumn(
-                                modifier = Modifier.weight(1f),
+                                modifier = Modifier.fillMaxSize(),
                                 verticalArrangement = Arrangement.spacedBy(Spacing.medium),
                                 state = listState
                             ) {
@@ -205,22 +200,16 @@ internal class InvoiceListScreen : Screen {
                         }
                     }
 
-                    InvoiceListMode.Loading -> Box(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
-                    }
+                    InvoiceListMode.Loading -> LoadingState(
+                        modifier = Modifier.fillMaxSize(),
+                    )
 
-                    InvoiceListMode.Error -> Feedback(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        primaryActionText = stringResource(Res.string.invoice_list_error_retry),
-                        onPrimaryAction = callbacks::onRetry,
-                        icon = Icons.Outlined.ErrorOutline,
-                        title = stringResource(Res.string.invoice_list_error_title),
-                        description = stringResource(Res.string.invoice_list_error_description)
+                    InvoiceListMode.Error -> ErrorState(
+                        modifier = Modifier.fillMaxSize(),
+                        primaryAction = ErrorStateAction(
+                            label = stringResource(Res.string.invoice_list_error_retry),
+                            action = callbacks::onRetry
+                        )
                     )
                 }
             }
