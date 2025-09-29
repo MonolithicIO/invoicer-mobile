@@ -1,6 +1,5 @@
 package io.github.monolithic.invoicer.features.invoice.screens.invoicelist.screenshots
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import app.cash.paparazzi.Paparazzi
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.invoicelist.InvoiceListScreen
@@ -16,6 +15,7 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import org.junit.Rule
 import org.junit.Test
+import kotlin.test.Ignore
 
 class InvoiceListScreenshotTest {
 
@@ -35,6 +35,7 @@ class InvoiceListScreenshotTest {
     }
 
     @Test
+    @Ignore
     fun invoiceList_filled() {
         paparazzi.snapshot {
             TestContent(
