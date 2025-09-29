@@ -27,8 +27,12 @@ fun InkPrimaryButton(
         modifier = modifier,
         enabled = enabled && loading.not(),
         size = size,
-        backgroundColor = InkPrimaryButtonDefaults.getBackgroundColor(enabled),
-        contentColor = InkPrimaryButtonDefaults.getContentColor(enabled),
+        backgroundColor = InkPrimaryButtonDefaults.getBackgroundColor(
+            enabled, loading
+        ),
+        contentColor = InkPrimaryButtonDefaults.getContentColor(
+            enabled, loading
+        ),
         borderStroke = null,
     ) {
         if (loading) {
@@ -41,7 +45,9 @@ fun InkPrimaryButton(
                 text = text,
                 style = InkTextStyle.BodyLarge,
                 weight = FontWeight.Bold,
-                color = InkPrimaryButtonDefaults.getContentColor(enabled)
+                color = InkPrimaryButtonDefaults.getContentColor(
+                    enabled, loading
+                )
             )
         }
     }
@@ -51,8 +57,8 @@ fun InkPrimaryButton(
 internal object InkPrimaryButtonDefaults {
 
     @Composable
-    fun getBackgroundColor(isEnabled: Boolean): Color {
-        return if (isEnabled) {
+    fun getBackgroundColor(isEnabled: Boolean, isLoading: Boolean): Color {
+        return if (isEnabled || isLoading) {
             InkTheme.colorScheme.primary
         } else {
             InkTheme.colorScheme.disabled
@@ -60,8 +66,8 @@ internal object InkPrimaryButtonDefaults {
     }
 
     @Composable
-    fun getContentColor(isEnabled: Boolean): Color {
-        return if (isEnabled) {
+    fun getContentColor(isEnabled: Boolean, isLoading: Boolean): Color {
+        return if (isEnabled || isLoading) {
             InkTheme.colorScheme.onPrimary
         } else {
             InkTheme.colorScheme.onDisabled
