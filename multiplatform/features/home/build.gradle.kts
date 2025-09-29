@@ -12,6 +12,7 @@ kotlin {
         commonMain.dependencies {
             // Compose
             implementation(compose.ui)
+            implementation(compose.foundation)
             implementation(compose.components.resources)
 
             // Koin
