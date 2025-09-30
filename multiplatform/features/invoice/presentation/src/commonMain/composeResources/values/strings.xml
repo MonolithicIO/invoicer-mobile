@@ -19,6 +19,7 @@
 
     <!-- Create Invoice -->
     <string name="invoice_create_continue_cta">Continue</string>
+    <string name="invoice_create_step">%1$s/%2$s</string>
 
     <!-- Configuration -->
     <string name="invoice_configuration_title">Configuration</string>

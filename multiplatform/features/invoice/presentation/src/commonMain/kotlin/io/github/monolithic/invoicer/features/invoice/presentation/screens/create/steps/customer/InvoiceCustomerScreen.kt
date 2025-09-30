@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -20,11 +18,10 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_continue_cta
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_customer_title
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.ErrorFeedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
@@ -72,15 +69,9 @@ internal class InvoiceCustomerScreen : Screen {
     ) {
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.invoice_customer_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBack)
-                    }
+                CreateInvoiceToolbar(
+                    onBack = callbacks.onBack,
+                    step = 1
                 )
             },
             bottomBar = {
