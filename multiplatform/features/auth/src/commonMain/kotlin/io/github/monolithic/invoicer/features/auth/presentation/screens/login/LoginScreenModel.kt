@@ -27,11 +27,11 @@ internal class LoginScreenModel(
     val events = _events.asSharedFlow()
 
     fun onEmailChanged(email: String) {
-        _state.value = _state.value.copy(email = email)
+        _state.value = _state.value.copy(email = email.trim())
     }
 
     fun onPasswordChanged(password: String) {
-        _state.value = _state.value.copy(password = password)
+        _state.value = _state.value.copy(password = password.trim())
     }
 
     fun toggleCensorship() {

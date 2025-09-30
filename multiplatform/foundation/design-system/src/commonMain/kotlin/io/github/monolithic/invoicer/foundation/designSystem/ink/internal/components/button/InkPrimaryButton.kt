@@ -74,5 +74,5 @@ internal object InkPrimaryButtonDefaults {
         }
     }
 
-    val LoadingSize = 32.dp
+    val LoadingSize = 24.dp
 }

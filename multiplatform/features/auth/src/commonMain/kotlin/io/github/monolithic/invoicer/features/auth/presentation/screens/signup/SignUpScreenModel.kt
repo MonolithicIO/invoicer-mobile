@@ -37,7 +37,7 @@ internal class SignUpScreenModel(
     fun onEmailChange(newEmail: String) {
         _state.update { oldState ->
             oldState.copy(
-                email = newEmail,
+                email = newEmail.trim(),
                 emailValid = true
             )
         }
@@ -48,7 +48,7 @@ internal class SignUpScreenModel(
             val strength = passwordStrengthValidator
                 .validate(newPassword).toPersistentSet()
             it.copy(
-                password = newPassword,
+                password = newPassword.trim(),
                 passwordIssues = strength
             )
         }

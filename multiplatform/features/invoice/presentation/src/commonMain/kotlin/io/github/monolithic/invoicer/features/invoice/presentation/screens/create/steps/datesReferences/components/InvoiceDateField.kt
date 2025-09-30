@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.configuration.components
+package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.datesReferences.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons

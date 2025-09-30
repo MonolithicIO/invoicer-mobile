@@ -9,7 +9,6 @@ import io.github.monolithic.invoicer.features.invoice.services.domain.repository
 import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.utils.date.toLocalDate
 import io.github.monolithic.invoicer.foundation.watchers.bus.feature.HomeRefreshBus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.TimeZone
 
 internal class InvoiceConfirmationScreenModel(
     private val form: CreateInvoiceForm,
@@ -39,8 +37,8 @@ internal class InvoiceConfirmationScreenModel(
             it.copy(
                 companyName = session.getCompany().name,
                 customerName = form.customerName,
-                issueDate = form.issueDate.toLocalDate(TimeZone.UTC),
-                dueDate = form.dueDate.toLocalDate(TimeZone.UTC),
+                issueDate = form.issueDate,
+                dueDate = form.dueDate,
                 invoiceNumber = form.invoiceNumber,
                 activities = form.activities
             )
@@ -54,8 +52,8 @@ internal class InvoiceConfirmationScreenModel(
                     payload = CreateInvoiceModel(
                         companyId = session.getCompany().id,
                         customerId = form.customerId,
-                        issueDate = form.issueDate.toLocalDate(TimeZone.UTC),
-                        dueDate = form.dueDate.toLocalDate(TimeZone.UTC),
+                        issueDate = form.issueDate,
+                        dueDate = form.dueDate,
                         invoiceNumber = form.invoiceNumber,
                         activities = form.activities.map {
                             CreateInvoiceActivityModel(
