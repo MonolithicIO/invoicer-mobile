@@ -12,8 +12,8 @@
     <string name="invoice_list_new_invoice">New Invoice</string>
 
     <!-- Invoice Customer -->
-    <string name="invoice_customer_title">Invoice customer</string>
-    <string name="invoice_customer_description">Select invoice customer</string>
+    <string name="invoice_customer_title">Customer</string>
+    <string name="invoice_customer_description">Identify which customer this new invoice should be addressed to</string>
     <string name="invoice_customer_empty_state_title">No Customers Found</string>
     <string name="invoice_customer_empty_state_description">Please add a customer to continue.</string>
 

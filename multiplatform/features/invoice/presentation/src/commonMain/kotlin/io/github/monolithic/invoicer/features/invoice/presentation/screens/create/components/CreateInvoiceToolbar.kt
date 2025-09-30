@@ -38,10 +38,12 @@ private const val MaxStep = 4
 
 @Composable
 internal fun CreateInvoiceToolbar(
-    onBack: () -> Unit,
     step: Int,
+    modifier: Modifier = Modifier,
+    onBack: () -> Unit,
 ) {
     CreateInvoiceBasicToolbar(
+        modifier = modifier,
         leading = {
             InkIconButton(
                 onClick = onBack,
