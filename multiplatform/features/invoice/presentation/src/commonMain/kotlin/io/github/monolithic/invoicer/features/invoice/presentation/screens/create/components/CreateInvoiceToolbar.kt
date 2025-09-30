@@ -2,6 +2,7 @@ package io.github.monolithic.invoicer.features.invoice.presentation.screens.crea
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,16 +21,19 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_step
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkHorizontalIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.horizontalIndicator.InkHorizontalIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import kotlin.math.max
 import kotlin.math.roundToInt
 
 private val MinTopBarHeight = 72.dp
+private val IndicatorHeight = 12.dp
 private const val MaxStep = 4
 
 @Composable
@@ -41,12 +45,17 @@ internal fun CreateInvoiceToolbar(
         leading = {
             InkIconButton(
                 onClick = onBack,
-                icon = painterResource(DsResources.drawable.ic_chveron_left)
+                icon = painterResource(DsResources.drawable.ic_chveron_left),
+                colors = InkIconButtonDefaults.colors.copy(
+                    containerColor = InkTheme.colorScheme.background
+                )
             )
         },
         middle = {
             InkHorizontalIndicator(
-                progress = (step.toFloat() / MaxStep.toFloat())
+                modifier = Modifier.fillMaxWidth(),
+                progress = (step.toFloat() / MaxStep.toFloat()),
+                height = IndicatorHeight
             )
         },
         trailing = {
