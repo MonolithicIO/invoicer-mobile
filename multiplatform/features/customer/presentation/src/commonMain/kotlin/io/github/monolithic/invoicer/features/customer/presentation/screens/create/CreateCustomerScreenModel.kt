@@ -4,9 +4,10 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.monolithic.invoicer.features.customer.domain.model.CreateCustomerModel
 import io.github.monolithic.invoicer.features.customer.domain.repository.CustomerRepository
+import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.auth.session.Session
+import io.github.monolithic.invoicer.foundation.watchers.bus.NewCustomerEventBus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,8 @@ import kotlinx.coroutines.launch
 internal class CreateCustomerScreenModel(
     private val dispatcher: CoroutineDispatcher,
     private val customerRepository: CustomerRepository,
-    private val session: Session
+    private val session: Session,
+    private val bus: NewCustomerEventBus
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(CreateCustomerState())
@@ -69,6 +71,7 @@ internal class CreateCustomerScreenModel(
                     _state.update { it.copy(isButtonLoading = true) }
                 },
                 onSuccess = {
+                    bus.publish(Unit)
                     _events.emit(CreateCustomerEvent.Success)
                 },
                 onFinish = {

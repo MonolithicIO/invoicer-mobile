@@ -25,12 +25,16 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
+import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 
@@ -46,7 +50,10 @@ internal class InvoiceCustomerScreen : Screen {
                 onBack = { navigator?.parent?.pop() },
                 onSubmit = screenModel::submit,
                 onSelectCustomer = screenModel::selectCustomer,
-                onRetry = { screenModel.loadCustomers(force = true) }
+                onRetry = { screenModel.loadCustomers(force = true) },
+                onNewCustomer = {
+                    navigator?.push(getScreen(InvoicerScreen.Customer.Create))
+                }
             )
         }
 
@@ -103,12 +110,15 @@ internal class InvoiceCustomerScreen : Screen {
                     description = stringResource(Res.string.invoice_customer_description)
                 )
 
+                VerticalSpacer(SpacerSize.Medium)
+
                 when (state.mode) {
                     InvoiceCustomerMode.Content -> InvoiceCustomerList(
                         modifier = Modifier.fillMaxSize(),
                         items = state.customers,
                         selectedId = state.selectedCustomerId,
                         onSelect = callbacks.onSelectCustomer,
+                        onNewCustomerClick = callbacks.onNewCustomer
                     )
 
                     InvoiceCustomerMode.Loading -> LoadingState(Modifier.fillMaxSize())
@@ -130,5 +140,6 @@ internal class InvoiceCustomerScreen : Screen {
         val onSubmit: () -> Unit,
         val onSelectCustomer: (String) -> Unit,
         val onRetry: () -> Unit,
+        val onNewCustomer: () -> Unit,
     )
 }

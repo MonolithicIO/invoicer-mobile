@@ -5,15 +5,12 @@ import androidx.compose.runtime.LaunchedEffect
 
 @Composable
 fun <T> EventEffect(
-    publisher: EventAware<T>,
+    publisher: EventBus<T>,
     onEvent: (T) -> Unit
 ) {
-    LaunchedEffect(publisher.stack) {
-        publisher.stack.collect {
-            it.firstOrNull()?.let { event ->
-                onEvent(event.data)
-                publisher.consume(event)
-            }
+    LaunchedEffect(publisher) {
+        publisher.subscribe { event ->
+            onEvent(event.data)
         }
     }
 }

@@ -10,7 +10,8 @@ val customerPresentationDiModule = module {
         CreateCustomerScreenModel(
             session = get(),
             dispatcher = Dispatchers.Default,
-            customerRepository = get()
+            customerRepository = get(),
+            bus = get()
         )
     }
 

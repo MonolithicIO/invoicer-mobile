@@ -30,7 +30,8 @@ val invoicePresentationDiModule = module {
             customerRepository = get(),
             dispatcher = Dispatchers.Default,
             session = get(),
-            createInvoiceForm = get()
+            createInvoiceForm = get(),
+            newCustomerEventBus = get()
         )
     }
 

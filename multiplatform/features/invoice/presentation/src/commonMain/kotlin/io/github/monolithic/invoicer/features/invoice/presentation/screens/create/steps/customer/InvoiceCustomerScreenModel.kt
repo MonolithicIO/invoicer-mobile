@@ -4,9 +4,10 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import io.github.monolithic.invoicer.features.customer.domain.repository.CustomerRepository
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
+import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
-import io.github.monolithic.invoicer.foundation.auth.session.Session
+import io.github.monolithic.invoicer.foundation.watchers.bus.NewCustomerEventBus
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -19,8 +20,17 @@ internal class InvoiceCustomerScreenModel(
     private val customerRepository: CustomerRepository,
     private val dispatcher: CoroutineDispatcher,
     private val session: Session,
-    private val createInvoiceForm: CreateInvoiceForm
+    private val createInvoiceForm: CreateInvoiceForm,
+    private val newCustomerEventBus: NewCustomerEventBus
 ) : ScreenModel {
+
+    init {
+        screenModelScope.launch(dispatcher) {
+            newCustomerEventBus.subscribe {
+                loadCustomers(force = true)
+            }
+        }
+    }
 
     private var isInitialized = false
 

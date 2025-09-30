@@ -16,6 +16,7 @@
     <string name="invoice_customer_description">Identify which customer this new invoice should be addressed to</string>
     <string name="invoice_customer_empty_state_title">No Customers Found</string>
     <string name="invoice_customer_empty_state_description">Please add a customer to continue.</string>
+    <string name="invoice_customer_create">Create new Customer +</string>
 
     <!-- Create Invoice -->
     <string name="invoice_create_continue_cta">Continue</string>
