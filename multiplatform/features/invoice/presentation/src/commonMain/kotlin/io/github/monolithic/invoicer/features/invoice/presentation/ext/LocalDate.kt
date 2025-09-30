@@ -2,6 +2,7 @@ package io.github.monolithic.invoicer.features.invoice.presentation.ext
 
 import kotlinx.datetime.LocalDate
 
+@Suppress("MagicNumber")
 internal fun String.toLocalDate(): LocalDate? {
     if (this.length != 8) return null
 

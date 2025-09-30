@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 private val MinHeight = 4.dp
-private val Radius = 20f
+private const val Radius = 20f
 
 @Composable
 internal fun BasicInkHorizontalIndicator(
