@@ -85,7 +85,8 @@ private fun InvoiceActivityHeader(
                     Res.string.invoice_create_activity_item_quantity,
                     quantity
                 ),
-                color = InkTheme.colorScheme.onSurfaceVariant
+                color = InkTheme.colorScheme.onBackgroundVariant,
+                style = InkTextStyle.BodyLarge,
             )
         }
         InkText(
