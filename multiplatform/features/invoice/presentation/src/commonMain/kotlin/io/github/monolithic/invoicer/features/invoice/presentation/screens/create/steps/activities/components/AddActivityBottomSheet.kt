@@ -9,13 +9,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component1
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component2
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component3
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
@@ -33,6 +34,8 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_support
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.AddActivityFormState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.InkModalBottomSheet
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.InkSheetState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
@@ -41,7 +44,8 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun AddActivityBottomSheet(
     modifier: Modifier = Modifier,
-    sheetState: SheetState,
+    sheetState: InkSheetState,
+    isVisible: Boolean,
     formState: AddActivityFormState,
     onDismiss: () -> Unit,
     onChangeDescription: (String) -> Unit,
@@ -49,11 +53,11 @@ internal fun AddActivityBottomSheet(
     onChangeQuantity: (String) -> Unit,
     onAddActivity: () -> Unit
 ) {
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
+    InkModalBottomSheet(
+        onDismiss = onDismiss,
         sheetState = sheetState,
-        modifier = modifier.testTag(AddActivityBottomSheetTestTag.CONTENT)
-
+        modifier = modifier.testTag(AddActivityBottomSheetTestTag.CONTENT),
+        isVisible = isVisible
     ) {
         Column(
             modifier = Modifier

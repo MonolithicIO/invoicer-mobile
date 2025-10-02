@@ -22,7 +22,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -52,6 +51,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.rememberInkBottomSheetState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
@@ -133,7 +133,10 @@ internal class InvoiceActivitiesScreen : Screen {
         snackBarHostState: InkSnackBarHostState,
         callbacks: Actions
     ) {
-        val sheetState = rememberModalBottomSheetState()
+        val sheetState = rememberInkBottomSheetState(
+            skipPartiallyExpanded = true
+        )
+
         var showSheet by remember {
             mutableStateOf(false)
         }
@@ -240,30 +243,30 @@ internal class InvoiceActivitiesScreen : Screen {
                         )
                     }
                 }
-                if (showSheet) {
-                    AddActivityBottomSheet(
-                        sheetState = sheetState,
-                        formState = state.formState,
-                        onChangeQuantity = callbacks.onChangeQuantity,
-                        onChangeUnitPrice = callbacks.onChangeUnitPrice,
-                        onChangeDescription = callbacks.onChangeDescription,
-                        onDismiss = {
-                            showSheet = false
-                            callbacks.onClearForm()
-                        },
-                        onAddActivity = {
-                            scope.launch {
-                                sheetState.hide()
-                            }.invokeOnCompletion {
-                                showSheet = false
-                                callbacks.onAddActivity()
-                            }
-                        },
-                        modifier = Modifier.systemBarsPadding().imePadding()
-                    )
-                }
             }
         }
+
+        AddActivityBottomSheet(
+            isVisible = showSheet,
+            sheetState = sheetState,
+            formState = state.formState,
+            onChangeQuantity = callbacks.onChangeQuantity,
+            onChangeUnitPrice = callbacks.onChangeUnitPrice,
+            onChangeDescription = callbacks.onChangeDescription,
+            onDismiss = {
+                showSheet = false
+                callbacks.onClearForm()
+            },
+            onAddActivity = {
+                scope.launch {
+                    sheetState.hide()
+                }.invokeOnCompletion {
+                    showSheet = false
+                    callbacks.onAddActivity()
+                }
+            },
+            modifier = Modifier.systemBarsPadding()
+        )
     }
 
     internal data class Actions(
