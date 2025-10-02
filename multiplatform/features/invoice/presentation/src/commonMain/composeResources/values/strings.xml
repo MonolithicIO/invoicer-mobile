@@ -40,6 +40,7 @@
     <string name="invoice_create_activity_item_quantity">Quantity</string>
     <string name="invoice_create_activity_item_unit_price">Unit price</string>
     <string name="invoice_create_activity_item_total_paid">Total</string>
+    <string name="invoice_create_activity_empty">No services or products have been added. Tap the add button to create your first line item.</string>
 
     <string name="invoice_create_activity_list_quantity">Quantity</string>
     <string name="invoice_create_activity_list_unitprice">Unit value</string>

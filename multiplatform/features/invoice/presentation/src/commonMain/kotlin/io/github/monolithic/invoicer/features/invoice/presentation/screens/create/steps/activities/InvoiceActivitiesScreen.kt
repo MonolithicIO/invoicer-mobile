@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,11 +22,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.testTag
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_empty
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_subtitle
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_continue_cta
@@ -49,6 +47,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -115,7 +114,7 @@ internal class InvoiceActivitiesScreen : Screen {
         StateContent(
             state = state,
             snackBarHostState = snackbarState,
-            callbacks = callbacks
+            actions = callbacks
         )
     }
 
@@ -124,7 +123,7 @@ internal class InvoiceActivitiesScreen : Screen {
     fun StateContent(
         state: InvoiceActivitiesState,
         snackBarHostState: InkSnackBarHostState,
-        callbacks: Actions
+        actions: Actions
     ) {
         val sheetState = rememberInkBottomSheetState(
             skipPartiallyExpanded = true
@@ -140,7 +139,7 @@ internal class InvoiceActivitiesScreen : Screen {
             topBar = {
                 CreateInvoiceToolbar(
                     step = 3,
-                    onBack = callbacks.onBack,
+                    onBack = actions.onBack,
                     modifier = Modifier.statusBarsPadding(),
                 )
             },
@@ -151,7 +150,7 @@ internal class InvoiceActivitiesScreen : Screen {
                         .padding(Spacing.medium)
                         .navigationBarsPadding(),
                     text = stringResource(Res.string.invoice_create_continue_cta),
-                    onClick = callbacks.onContinue,
+                    onClick = actions.onContinue,
                     enabled = state.isButtonEnabled
                 )
             },
@@ -165,13 +164,11 @@ internal class InvoiceActivitiesScreen : Screen {
                 )
             }
         ) { scaffoldPadding ->
-            val verticalScroll = rememberScrollState()
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
-                    .verticalScroll(verticalScroll)
             ) {
                 CreateInvoiceScreenTitle(
                     title = stringResource(Res.string.invoice_create_activity_title),
@@ -180,22 +177,27 @@ internal class InvoiceActivitiesScreen : Screen {
 
                 VerticalSpacer(SpacerSize.Medium)
 
-                LazyColumn(
-                    modifier = Modifier
-                        .weight(1f)
-                        .fillMaxWidth()
-                        .testTag(TestTags.LIST),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.medium)
-                ) {
-                    items(
-                        items = state.activities,
-                        key = { it.id }
-                    ) { activity ->
-                        InvoiceActivityCard(
-                            modifier = Modifier.animateItem().fillMaxWidth(),
-                            item = activity,
-                            onDeleteClick = { callbacks.onDelete(activity.id) }
-                        )
+                if (state.activities.isEmpty()) {
+                    EmptyState(
+                        modifier = Modifier.fillMaxSize(),
+                        description = stringResource(Res.string.invoice_create_activity_empty)
+                    )
+
+                } else {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                    ) {
+                        items(
+                            items = state.activities,
+                            key = { it.id }
+                        ) { activity ->
+                            InvoiceActivityCard(
+                                modifier = Modifier.animateItem().fillMaxWidth(),
+                                item = activity,
+                                onDeleteClick = { actions.onDelete(activity.id) }
+                            )
+                        }
                     }
                 }
             }
@@ -205,19 +207,19 @@ internal class InvoiceActivitiesScreen : Screen {
             isVisible = showSheet,
             sheetState = sheetState,
             formState = state.formState,
-            onChangeQuantity = callbacks.onChangeQuantity,
-            onChangeUnitPrice = callbacks.onChangeUnitPrice,
-            onChangeDescription = callbacks.onChangeDescription,
+            onChangeQuantity = actions.onChangeQuantity,
+            onChangeUnitPrice = actions.onChangeUnitPrice,
+            onChangeDescription = actions.onChangeDescription,
             onDismiss = {
                 showSheet = false
-                callbacks.onClearForm()
+                actions.onClearForm()
             },
             onAddActivity = {
                 scope.launch {
                     sheetState.hide()
                 }.invokeOnCompletion {
                     showSheet = false
-                    callbacks.onAddActivity()
+                    actions.onAddActivity()
                 }
             },
             modifier = Modifier.systemBarsPadding()
@@ -234,10 +236,4 @@ internal class InvoiceActivitiesScreen : Screen {
         val onBack: () -> Unit,
         val onContinue: () -> Unit,
     )
-
-    companion object TestTags {
-        const val LIST = "add_invoice_activity_list"
-        const val ADD_ACTIVITY = "add_invoice_activity_add"
-        const val LIST_ITEM = "add_invoice_activity_item"
-    }
 }
