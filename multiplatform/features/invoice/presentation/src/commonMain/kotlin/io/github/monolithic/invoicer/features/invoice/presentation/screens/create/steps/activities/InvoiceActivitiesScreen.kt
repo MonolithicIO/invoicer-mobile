@@ -193,7 +193,8 @@ internal class InvoiceActivitiesScreen : Screen {
                     ) { activity ->
                         InvoiceActivityCard(
                             modifier = Modifier.animateItem().fillMaxWidth(),
-                            item = activity
+                            item = activity,
+                            onDeleteClick = { callbacks.onDelete(activity.id) }
                         )
                     }
                 }

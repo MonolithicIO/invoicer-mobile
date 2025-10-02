@@ -16,19 +16,25 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_item_quantity
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_item_total_paid
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_item_unit_price
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_trash_can
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.Spacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun InvoiceActivityCard(
     item: CreateInvoiceActivityUiModel,
+    onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     InkCard(
@@ -38,31 +44,43 @@ internal fun InvoiceActivityCard(
         containerColor = InkTheme.colorScheme.surfaceLight,
         contentPadding = PaddingValues(InkTheme.spacing.medium)
     ) {
-        Column(
+        Row(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
         ) {
-            InkText(
-                text = item.description,
-                style = InkTextStyle.Heading5,
-                weight = FontWeight.SemiBold,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+            ) {
+                InkText(
+                    text = item.description,
+                    style = InkTextStyle.Heading5,
+                    weight = FontWeight.SemiBold,
+                    overflow = TextOverflow.Ellipsis,
+                    maxLines = 1
+                )
+                InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
+                ActivityItemRow(
+                    label = stringResource(Res.string.invoice_create_activity_item_quantity),
+                    value = item.quantity.toString()
+                )
+                InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
+                ActivityItemRow(
+                    label = stringResource(Res.string.invoice_create_activity_item_unit_price),
+                    value = item.unitPrice.moneyFormat()
+                )
+                InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
+                InvoiceActivityFooter(totalPrice = item.totalPrice.moneyFormat())
+            }
+            InkIconButton(
+                onClick = onDeleteClick,
+                icon = painterResource(DsResources.drawable.ic_trash_can),
+                colors = InkIconButtonDefaults.colors.copy(
+                    iconColor = InkTheme.colorScheme.error
+                )
             )
-            InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
-            ActivityItemRow(
-                label = stringResource(Res.string.invoice_create_activity_item_quantity),
-                value = item.quantity.toString()
-            )
-            InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
-            ActivityItemRow(
-                label = stringResource(Res.string.invoice_create_activity_item_unit_price),
-                value = item.unitPrice.moneyFormat()
-            )
-            InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
-            InvoiceActivityFooter(totalPrice = item.totalPrice.moneyFormat())
         }
-
     }
 }
 
