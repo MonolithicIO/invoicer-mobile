@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -177,13 +178,20 @@ internal class InvoiceActivitiesScreen : Screen {
 
                 VerticalSpacer(SpacerSize.Medium)
 
-                if (state.activities.isEmpty()) {
+                AnimatedVisibility(
+                    visible = state.activities.isEmpty(),
+                    modifier = Modifier.fillMaxSize(),
+                ) {
                     EmptyState(
                         modifier = Modifier.fillMaxSize(),
                         description = stringResource(Res.string.invoice_create_activity_empty)
                     )
+                }
 
-                } else {
+                AnimatedVisibility(
+                    visible = state.activities.isNotEmpty(),
+                    modifier = Modifier.fillMaxSize(),
+                ) {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(Spacing.medium)
@@ -192,8 +200,14 @@ internal class InvoiceActivitiesScreen : Screen {
                             items = state.activities,
                             key = { it.id }
                         ) { activity ->
+                            val animationModifier =
+                                if (state.activities.size > 1) Modifier.animateItem()
+                                else Modifier
+
                             InvoiceActivityCard(
-                                modifier = Modifier.animateItem().fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .then(animationModifier),
                                 item = activity,
                                 onDeleteClick = { actions.onDelete(activity.id) }
                             )
