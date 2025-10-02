@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -20,11 +22,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,16 +39,23 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_add_cta
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_subtitle
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_continue_cta
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen.TestTags.ADD_ACTIVITY
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen.TestTags.LIST_ITEM
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components.AddActivityBottomSheet
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.rememberSnackMessages
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreen
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.SwipeableCard
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
@@ -79,7 +83,7 @@ internal class InvoiceActivitiesScreen : Screen {
         onContinue: () -> Unit
     ) {
         val state by screenModel.state.collectAsState()
-        val snackbarState = remember { SnackbarHostState() }
+        val snackbarState = rememberInkSnackBarHostState()
         val messages = rememberSnackMessages()
         val scope = rememberCoroutineScope()
 
@@ -92,18 +96,18 @@ internal class InvoiceActivitiesScreen : Screen {
                 when (it) {
                     InvoiceActivitiesEvent.ActivityQuantityError ->
                         scope.launch {
-                            snackbarState.showSnackbar(message = messages.quantityError)
+                            snackbarState.showSnackBar(message = messages.quantityError)
                         }
 
                     InvoiceActivitiesEvent.ActivityUnitPriceError -> scope.launch {
-                        snackbarState.showSnackbar(message = messages.unitPriceError)
+                        snackbarState.showSnackBar(message = messages.unitPriceError)
                     }
                 }
             }
         }
 
         val callbacks = remember {
-            InvoiceActivitiesCallbacks(
+            Actions(
                 onContinue = onContinue,
                 onBack = onBack,
                 onChangeDescription = screenModel::updateFormDescription,
@@ -117,7 +121,7 @@ internal class InvoiceActivitiesScreen : Screen {
 
         StateContent(
             state = state,
-            snackbarHostState = snackbarState,
+            snackBarHostState = snackbarState,
             callbacks = callbacks
         )
     }
@@ -126,8 +130,8 @@ internal class InvoiceActivitiesScreen : Screen {
     @Composable
     fun StateContent(
         state: InvoiceActivitiesState,
-        snackbarHostState: SnackbarHostState,
-        callbacks: InvoiceActivitiesCallbacks
+        snackBarHostState: InkSnackBarHostState,
+        callbacks: Actions
     ) {
         val sheetState = rememberModalBottomSheetState()
         var showSheet by remember {
@@ -135,34 +139,28 @@ internal class InvoiceActivitiesScreen : Screen {
         }
         val scope = rememberCoroutineScope()
 
-        Scaffold(
-            modifier = Modifier
-                .imePadding()
-                .systemBarsPadding(),
+        InkScaffold(
+            modifier = Modifier.imePadding(),
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.invoice_create_activity_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBack)
-                    }
+                CreateInvoiceToolbar(
+                    step = 3,
+                    onBack = callbacks.onBack,
+                    modifier = Modifier.statusBarsPadding(),
                 )
             },
             bottomBar = {
-                PrimaryButton(
+                InkPrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium),
-                    label = stringResource(Res.string.invoice_create_continue_cta),
+                        .padding(Spacing.medium)
+                        .navigationBarsPadding(),
+                    text = stringResource(Res.string.invoice_create_continue_cta),
                     onClick = callbacks.onContinue,
-                    isEnabled = state.isButtonEnabled
+                    enabled = state.isButtonEnabled
                 )
             },
-            snackbarHost = {
-                SnackbarHost(snackbarHostState)
+            snackBarHost = {
+                InkSnackBarHost(snackBarHostState)
             }
         ) { scaffoldPadding ->
             val verticalScroll = rememberScrollState()
@@ -173,6 +171,13 @@ internal class InvoiceActivitiesScreen : Screen {
                     .padding(Spacing.medium)
                     .verticalScroll(verticalScroll)
             ) {
+                CreateInvoiceScreenTitle(
+                    title = stringResource(Res.string.invoice_create_activity_title),
+                    description = stringResource(Res.string.invoice_create_activity_subtitle)
+                )
+
+                VerticalSpacer(SpacerSize.Medium)
+
                 LazyColumn(
                     modifier = Modifier
                         .weight(1f)
@@ -261,7 +266,18 @@ internal class InvoiceActivitiesScreen : Screen {
         }
     }
 
-    internal object TestTags {
+    internal data class Actions(
+        val onChangeDescription: (String) -> Unit,
+        val onChangeUnitPrice: (String) -> Unit,
+        val onChangeQuantity: (String) -> Unit,
+        val onDelete: (String) -> Unit,
+        val onClearForm: () -> Unit,
+        val onAddActivity: () -> Unit,
+        val onBack: () -> Unit,
+        val onContinue: () -> Unit,
+    )
+
+    companion object TestTags {
         const val LIST = "add_invoice_activity_list"
         const val ADD_ACTIVITY = "add_invoice_activity_add"
         const val LIST_ITEM = "add_invoice_activity_item"

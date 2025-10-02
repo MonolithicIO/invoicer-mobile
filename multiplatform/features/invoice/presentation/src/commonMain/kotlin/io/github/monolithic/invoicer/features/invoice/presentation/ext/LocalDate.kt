@@ -31,6 +31,7 @@ internal fun String.toLocalDate(): LocalDate? {
 
 internal fun LocalDate.toDateInputString(): String {
     val formatMonthNumber = monthNumber.toString().padStart(2, '0')
+    val formatDayOfMonth = dayOfMonth.toString().padStart(2, '0')
 
-    return "$dayOfMonth$formatMonthNumber$year"
+    return "$formatDayOfMonth$formatMonthNumber$year"
 }

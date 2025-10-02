@@ -93,7 +93,8 @@ internal class InvoiceCustomerScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(Spacing.medium)
+                        .padding(Spacing.medium),
+                    enabled = state.isButtonEnabled
                 )
             },
         ) { scaffoldPadding ->

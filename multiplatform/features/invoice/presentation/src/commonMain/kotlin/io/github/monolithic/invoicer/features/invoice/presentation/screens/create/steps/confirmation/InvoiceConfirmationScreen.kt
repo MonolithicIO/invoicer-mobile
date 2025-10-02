@@ -39,7 +39,6 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_customer_name
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_due_date_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_issue_date_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_configuration_number_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_continue_cta
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_title
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
@@ -133,7 +132,7 @@ internal class InvoiceConfirmationScreen : Screen {
                 ) {
                     item {
                         ConfirmationCard(
-                            label = stringResource(Res.string.invoice_configuration_number_label),
+                            label = "invoice-number",
                             content = state.invoiceNumber,
                             icon = Icons.Outlined.Badge
                         )

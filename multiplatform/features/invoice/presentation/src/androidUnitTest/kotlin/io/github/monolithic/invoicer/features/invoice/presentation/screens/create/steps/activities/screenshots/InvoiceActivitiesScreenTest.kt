@@ -53,7 +53,7 @@ internal class InvoiceActivitiesScreenTest {
                 InvoiceActivitiesScreen()
                     .StateContent(
                         state = state,
-                        snackbarHostState = SnackbarHostState(),
+                        snackBarHostState = SnackbarHostState(),
                         callbacks = InvoiceActivitiesCallbacks(
                             onChangeDescription = { },
                             onChangeUnitPrice = { },
