@@ -37,10 +37,11 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_add_cta
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_subtitle
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_continue_cta
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_plus
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
@@ -49,6 +50,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkCircleButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.rememberInkBottomSheetState
@@ -56,10 +58,10 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.SwipeableCard
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal class InvoiceActivitiesScreen : Screen {
@@ -164,6 +166,12 @@ internal class InvoiceActivitiesScreen : Screen {
             },
             snackBarHost = {
                 InkSnackBarHost(snackBarHostState)
+            },
+            floatingActionButton = {
+                InkCircleButton(
+                    onClick = { showSheet = true },
+                    icon = painterResource(DsResources.drawable.ic_plus)
+                )
             }
         ) { scaffoldPadding ->
             val verticalScroll = rememberScrollState()
@@ -188,18 +196,6 @@ internal class InvoiceActivitiesScreen : Screen {
                         .testTag(TestTags.LIST),
                     verticalArrangement = Arrangement.spacedBy(Spacing.medium)
                 ) {
-                    stickyHeader {
-                        PrimaryButton(
-                            label = stringResource(Res.string.invoice_create_activity_add_cta),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .testTag(ADD_ACTIVITY),
-                            onClick = {
-                                showSheet = true
-                            }
-                        )
-                    }
-
                     items(
                         items = state.activities,
                         key = { it.id }
