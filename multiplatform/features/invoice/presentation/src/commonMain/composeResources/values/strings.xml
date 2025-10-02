@@ -38,7 +38,6 @@
     <string name="invoice_create_activity_title">Services &amp; Products</string>
     <string name="invoice_create_activity_subtitle">Specify the items to be included and billed on this invoice.</string>
 
-    <string name="invoice_activity_new_title">New activity</string>
     <string name="invoice_create_activity_list_quantity">Quantity</string>
     <string name="invoice_create_activity_list_unitprice">Unit value</string>
     <string name="invoice_create_activity_list_total_price">Total price</string>
@@ -51,7 +50,7 @@
     <string name="invoice_create_activity_form_quantity_label">Quantity</string>
     <string name="invoice_create_activity_form_quantity_placeholder">100</string>
     <string name="invoice_create_activity_form_quantity_support">Limited to 100</string>
-    <string name="invoice_add_activity_cta">Add Activity</string>
+    <string name="invoice_add_activity_cta">Confirm</string>
     <string name="invoice_add_activity_error_quantity">Invalid quantity, must be between 1 and 100</string>
     <string name="invoice_add_activity_error_unit_price">Invalid unit price, must be 1 cent or higher</string>
 

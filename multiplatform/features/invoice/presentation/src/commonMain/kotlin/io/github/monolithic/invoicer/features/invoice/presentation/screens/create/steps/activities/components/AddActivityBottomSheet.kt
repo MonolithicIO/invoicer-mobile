@@ -16,12 +16,10 @@ import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_activity_new_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_add_activity_cta
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_description_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_description_placeholder
@@ -30,8 +28,6 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_support
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.AddActivityFormState
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.InkModalBottomSheet
@@ -66,12 +62,6 @@ internal fun AddActivityBottomSheet(
         ) {
             val (descriptionFocus, unitPriceFocus, quantityFocus) = FocusRequester.createRefs()
             val keyboard = LocalSoftwareKeyboardController.current
-
-            InkText(
-                text = stringResource(Res.string.invoice_activity_new_title),
-                style = InkTextStyle.Heading3,
-                weight = FontWeight.Bold
-            )
 
             InkOutlinedInput(
                 modifier = Modifier
