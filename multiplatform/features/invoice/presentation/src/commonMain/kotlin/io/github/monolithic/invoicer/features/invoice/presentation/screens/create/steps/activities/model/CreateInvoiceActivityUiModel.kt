@@ -10,4 +10,5 @@ internal data class CreateInvoiceActivityUiModel(
 ) {
     @OptIn(ExperimentalUuidApi::class)
     val id = Uuid.random().toString()
+    val totalPrice = unitPrice * quantity
 }

@@ -41,7 +41,6 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_issue_date_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_continue_cta
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_title
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback.InvoiceFeedbackScreen
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
@@ -188,12 +187,12 @@ internal class InvoiceConfirmationScreen : Screen {
                     items(
                         items = state.activities
                     ) {
-                        InvoiceActivityCard(
-                            modifier = Modifier.fillMaxWidth(),
-                            quantity = it.quantity,
-                            unitPrice = it.unitPrice,
-                            description = it.description
-                        )
+//                        InvoiceActivityCard(
+//                            modifier = Modifier.fillMaxWidth(),
+//                            quantity = it.quantity,
+//                            unitPrice = it.unitPrice,
+//                            description = it.description
+//                        )
                     }
                 }
             }

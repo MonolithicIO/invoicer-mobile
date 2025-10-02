@@ -3,7 +3,9 @@ package io.github.monolithic.invoicer.foundation.designSystem.legacy.components
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,6 +25,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.IntOffset
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -50,6 +55,7 @@ fun SwipeableCard(
             offset.animateTo(0f)
         }
     }
+
 
     Box(
         modifier = modifier
