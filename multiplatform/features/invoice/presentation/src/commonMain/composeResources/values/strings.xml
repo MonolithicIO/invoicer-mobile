@@ -46,7 +46,7 @@
     <string name="invoice_create_activity_form_description_label">Description</string>
     <string name="invoice_create_activity_form_description_placeholder">Gardening services at Johns</string>
     <string name="invoice_create_activity_form_price_label">Unit Price</string>
-    <string name="invoice_create_activity_form_price_placeholder">10000</string>
+    <string name="invoice_create_activity_form_price_placeholder">$10.00</string>
     <string name="invoice_create_activity_form_quantity_label">Quantity</string>
     <string name="invoice_create_activity_form_quantity_placeholder">100</string>
     <string name="invoice_create_activity_form_quantity_support">Limited to 100</string>

@@ -24,15 +24,23 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_description_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_description_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_price_label
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_price_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_support
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_dollar
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_edit
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_horizontal_tuning
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.AddActivityFormState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.InkModalBottomSheet
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.InkSheetState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -80,6 +88,13 @@ internal fun AddActivityBottomSheet(
                 ),
                 placeholder = stringResource(Res.string.invoice_create_activity_form_description_placeholder),
                 label = stringResource(Res.string.invoice_create_activity_form_description_label),
+                leadingContent = {
+                    InkIcon(
+                        painter = painterResource(DsResources.drawable.ic_edit),
+                        contentDescription = null,
+                        tint = InkTheme.colorScheme.onSurface
+                    )
+                }
             )
 
             InkOutlinedInput(
@@ -99,8 +114,15 @@ internal fun AddActivityBottomSheet(
                     imeAction = ImeAction.Next,
                     keyboardType = KeyboardType.NumberPassword
                 ),
-                placeholder = stringResource(Res.string.invoice_create_activity_form_description_placeholder),
+                placeholder = stringResource(Res.string.invoice_create_activity_form_price_placeholder),
                 label = stringResource(Res.string.invoice_create_activity_form_price_label),
+                leadingContent = {
+                    InkIcon(
+                        painter = painterResource(DsResources.drawable.ic_dollar),
+                        contentDescription = null,
+                        tint = InkTheme.colorScheme.onSurface
+                    )
+                }
             )
 
             InkOutlinedInput(
@@ -122,7 +144,14 @@ internal fun AddActivityBottomSheet(
                 ),
                 label = stringResource(Res.string.invoice_create_activity_form_quantity_label),
                 placeholder = stringResource(Res.string.invoice_create_activity_form_quantity_placeholder),
-                supportText = stringResource(Res.string.invoice_create_activity_form_quantity_support)
+                supportText = stringResource(Res.string.invoice_create_activity_form_quantity_support),
+                leadingContent = {
+                    InkIcon(
+                        painter = painterResource(DsResources.drawable.ic_horizontal_tuning),
+                        contentDescription = null,
+                        tint = InkTheme.colorScheme.onSurface
+                    )
+                }
             )
 
             InkPrimaryButton(
