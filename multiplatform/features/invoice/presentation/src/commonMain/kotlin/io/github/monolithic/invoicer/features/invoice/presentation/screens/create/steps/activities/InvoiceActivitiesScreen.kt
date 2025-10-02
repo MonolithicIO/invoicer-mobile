@@ -188,30 +188,21 @@ internal class InvoiceActivitiesScreen : Screen {
                     )
                 }
 
-                AnimatedVisibility(
-                    visible = state.activities.isNotEmpty(),
+                LazyColumn(
                     modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(Spacing.medium)
                 ) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.spacedBy(Spacing.medium)
-                    ) {
-                        itemsIndexed(
-                            items = state.activities,
-                            key = { _, item -> item.id }
-                        ) { index, activity ->
-                            val animationModifier =
-                                if (index > 0) Modifier.animateItem()
-                                else Modifier
-
-                            InvoiceActivityCard(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .then(animationModifier),
-                                item = activity,
-                                onDeleteClick = { actions.onDelete(activity.id) }
-                            )
-                        }
+                    itemsIndexed(
+                        items = state.activities,
+                        key = { _, item -> item.id }
+                    ) { index, activity ->
+                        InvoiceActivityCard(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .animateItem(),
+                            item = activity,
+                            onDeleteClick = { actions.onDelete(activity.id) }
+                        )
                     }
                 }
             }
