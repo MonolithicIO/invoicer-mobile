@@ -6,11 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -34,9 +30,12 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_support
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.AddActivityFormState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.InkModalBottomSheet
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.InkSheetState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -68,13 +67,13 @@ internal fun AddActivityBottomSheet(
             val (descriptionFocus, unitPriceFocus, quantityFocus) = FocusRequester.createRefs()
             val keyboard = LocalSoftwareKeyboardController.current
 
-            Text(
+            InkText(
                 text = stringResource(Res.string.invoice_activity_new_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
+                style = InkTextStyle.Heading3,
+                weight = FontWeight.Bold
             )
 
-            InputField(
+            InkOutlinedInput(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(descriptionFocus)
@@ -89,19 +88,11 @@ internal fun AddActivityBottomSheet(
                     imeAction = ImeAction.Next,
                     capitalization = KeyboardCapitalization.Sentences
                 ),
-                placeholder = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_description_placeholder)
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_description_label)
-                    )
-                },
+                placeholder = stringResource(Res.string.invoice_create_activity_form_description_placeholder),
+                label = stringResource(Res.string.invoice_create_activity_form_description_label),
             )
 
-            InputField(
+            InkOutlinedInput(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(unitPriceFocus)
@@ -116,26 +107,13 @@ internal fun AddActivityBottomSheet(
                 ),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Decimal
+                    keyboardType = KeyboardType.NumberPassword
                 ),
-                placeholder = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_description_placeholder)
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_price_label)
-                    )
-                },
-                prefix = {
-                    Text(
-                        text = "$"
-                    )
-                }
+                placeholder = stringResource(Res.string.invoice_create_activity_form_description_placeholder),
+                label = stringResource(Res.string.invoice_create_activity_form_price_label),
             )
 
-            OutlinedTextField(
+            InkOutlinedInput(
                 maxLines = 1,
                 value = formState.quantity,
                 onValueChange = { fieldValue ->
@@ -152,32 +130,19 @@ internal fun AddActivityBottomSheet(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.NumberPassword
                 ),
-                label = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_quantity_label)
-                    )
-                },
-                placeholder = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_quantity_placeholder)
-                    )
-                },
-                supportingText = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_quantity_support)
-                    )
-                }
+                label = stringResource(Res.string.invoice_create_activity_form_quantity_label),
+                placeholder = stringResource(Res.string.invoice_create_activity_form_quantity_placeholder),
+                supportText = stringResource(Res.string.invoice_create_activity_form_quantity_support)
             )
 
-            Button(
+            InkPrimaryButton(
                 onClick = onAddActivity,
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag(AddActivityBottomSheetTestTag.SUBMIT_BUTTON),
-                enabled = formState.formButtonEnabled
-            ) {
-                Text(text = stringResource(Res.string.invoice_add_activity_cta))
-            }
+                enabled = formState.formButtonEnabled,
+                text = stringResource(Res.string.invoice_add_activity_cta)
+            )
         }
     }
 }
