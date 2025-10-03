@@ -1,5 +1,6 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_item_quantity
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_item_total_paid
@@ -42,7 +44,11 @@ internal fun InvoiceActivityCard(
             .fillMaxWidth()
             .height(IntrinsicSize.Min),
         containerColor = InkTheme.colorScheme.surfaceLight,
-        contentPadding = PaddingValues(InkTheme.spacing.medium)
+        contentPadding = PaddingValues(InkTheme.spacing.medium),
+        border = BorderStroke(
+            width = 2.dp,
+            color = InkTheme.colorScheme.borderStroke
+        )
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
