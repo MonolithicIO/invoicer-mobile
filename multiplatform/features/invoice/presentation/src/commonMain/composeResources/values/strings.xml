@@ -41,13 +41,11 @@
     <string name="invoice_create_activity_item_unit_price">Unit price</string>
     <string name="invoice_create_activity_item_total_paid">Total</string>
     <string name="invoice_create_activity_empty">No services or products have been added. Tap the add button to create your first line item.</string>
-
     <string name="invoice_create_activity_list_quantity">Quantity</string>
     <string name="invoice_create_activity_list_unitprice">Unit value</string>
     <string name="invoice_create_activity_list_total_price">Total price</string>
     <string name="invoice_create_activity_list_description">Description</string>
 
-    <string name="invoice_create_activity_add_cta">Add activity</string>
     <string name="invoice_create_activity_form_description_label">Description</string>
     <string name="invoice_create_activity_form_description_placeholder">Gardening services at Johns</string>
     <string name="invoice_create_activity_form_price_label">Unit Price</string>
@@ -60,8 +58,9 @@
     <string name="invoice_add_activity_error_unit_price">Invalid unit price, must be 1 cent or higher</string>
 
     <!-- Invoice Confirmation -->
-    <string name="invoice_create_confirmation_title">Confirm details</string>
-    <string name="invoice_create_confirmation_subtitle">Preview invoice before submitting</string>
+    <string name="invoice_create_confirmation_title">Review Invoice</string>
+    <string name="invoice_create_confirmation_subtitle">Please review the invoice details before proceeding.</string>
+
     <string name="invoice_create_confirmation_continue_cta">Submit invoice</string>
     <string name="confirmation_company_name">Company name</string>
     <string name="confirmation_customer_name">Customer name</string>
@@ -78,7 +77,7 @@
 
     <!-- Invoice details -->
     <string name="invoice_details_title">Invoice details</string>
-    <string name="invoice_details_number">Invoice number</string>
+    <string name="invoice_details_number">Invoice ID#</string>
     <string name="invoice_details_company_title">Company</string>
     <string name="invoice_details_company_name_label">Name</string>
     <string name="invoice_details_company_name_address_label">Address</string>

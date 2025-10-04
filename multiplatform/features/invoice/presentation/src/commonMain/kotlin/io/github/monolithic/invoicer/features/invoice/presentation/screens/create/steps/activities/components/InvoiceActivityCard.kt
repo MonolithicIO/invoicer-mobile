@@ -35,7 +35,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun InvoiceActivityCard(
     item: CreateInvoiceActivityUiModel,
-    onDeleteClick: () -> Unit,
+    onDeleteClick: (() -> Unit)?,
     modifier: Modifier = Modifier
 ) {
     InkCard(
@@ -66,13 +66,15 @@ internal fun InvoiceActivityCard(
                     maxLines = 1,
                     modifier = Modifier.weight(1f)
                 )
-                InkIconButton(
-                    onClick = onDeleteClick,
-                    icon = painterResource(DsResources.drawable.ic_trash_can),
-                    colors = InkIconButtonDefaults.colors.copy(
-                        iconColor = InkTheme.colorScheme.error
+                onDeleteClick?.let {
+                    InkIconButton(
+                        onClick = it,
+                        icon = painterResource(DsResources.drawable.ic_trash_can),
+                        colors = InkIconButtonDefaults.colors.copy(
+                            iconColor = InkTheme.colorScheme.error
+                        )
                     )
-                )
+                }
             }
             ActivityItemRow(
                 label = stringResource(Res.string.invoice_create_activity_item_unit_price),
