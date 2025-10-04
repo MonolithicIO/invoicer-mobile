@@ -71,9 +71,9 @@
     <string name="confirmation_number_label">Invoice number</string>
 
     <!-- Invoice feedback -->
-    <string name="invoice_feedback_title">Invoice created successfully</string>
-    <string name="invoice_feedback_description">You may now return to home</string>
-    <string name="invoice_feedback_cta">Return to home</string>
+    <string name="invoice_feedback_title">Invoice created</string>
+    <string name="invoice_feedback_description">The invoice has been successfully created and is ready for use.</string>
+    <string name="invoice_feedback_cta">Go to Home</string>
 
     <!-- Invoice details -->
     <string name="invoice_details_title">Invoice details</string>
