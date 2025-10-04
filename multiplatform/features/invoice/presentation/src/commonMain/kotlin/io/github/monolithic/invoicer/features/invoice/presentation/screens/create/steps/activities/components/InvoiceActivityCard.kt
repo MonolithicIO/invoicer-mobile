@@ -25,7 +25,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.Spacer
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
@@ -43,56 +42,57 @@ internal fun InvoiceActivityCard(
         modifier = modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Min),
-        containerColor = InkTheme.colorScheme.surfaceLight,
+        containerColor = InkTheme.colorScheme.background,
         contentPadding = PaddingValues(InkTheme.spacing.medium),
         border = BorderStroke(
             width = 2.dp,
             color = InkTheme.colorScheme.borderStroke
         )
     ) {
-        Row(
+        Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
         ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
                 InkText(
                     text = item.description,
                     style = InkTextStyle.Heading5,
-                    weight = FontWeight.SemiBold,
+                    weight = FontWeight.Black,
                     overflow = TextOverflow.Ellipsis,
-                    maxLines = 1
+                    maxLines = 1,
+                    modifier = Modifier.weight(1f)
                 )
-                InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
-                ActivityItemRow(
-                    label = stringResource(Res.string.invoice_create_activity_item_quantity),
-                    value = item.quantity.toString()
+                InkIconButton(
+                    onClick = onDeleteClick,
+                    icon = painterResource(DsResources.drawable.ic_trash_can),
+                    colors = InkIconButtonDefaults.colors.copy(
+                        iconColor = InkTheme.colorScheme.error
+                    )
                 )
-                InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
-                ActivityItemRow(
-                    label = stringResource(Res.string.invoice_create_activity_item_unit_price),
-                    value = item.unitPrice.moneyFormat()
-                )
-                InkHorizontalDivider(color = InkTheme.colorScheme.onSurface)
-                InvoiceActivityFooter(totalPrice = item.totalPrice.moneyFormat())
             }
-            InkIconButton(
-                onClick = onDeleteClick,
-                icon = painterResource(DsResources.drawable.ic_trash_can),
-                colors = InkIconButtonDefaults.colors.copy(
-                    iconColor = InkTheme.colorScheme.error
-                )
+            ActivityItemRow(
+                label = stringResource(Res.string.invoice_create_activity_item_unit_price),
+                value = item.unitPrice.moneyFormat()
             )
+
+            ActivityItemRow(
+                label = stringResource(Res.string.invoice_create_activity_item_quantity),
+                value = item.quantity.toString()
+            )
+
+            InvoiceActivityTotal(totalPrice = item.totalPrice.moneyFormat())
         }
+
     }
 }
 
 
 @Composable
-private fun InvoiceActivityFooter(
+private fun InvoiceActivityTotal(
     totalPrice: String,
     modifier: Modifier = Modifier
 ) {
@@ -103,7 +103,7 @@ private fun InvoiceActivityFooter(
         InkText(
             text = stringResource(Res.string.invoice_create_activity_item_total_paid),
             style = InkTextStyle.Heading5,
-            weight = FontWeight.SemiBold,
+            weight = FontWeight.Black,
             modifier = Modifier.weight(1f)
         )
         InkText(

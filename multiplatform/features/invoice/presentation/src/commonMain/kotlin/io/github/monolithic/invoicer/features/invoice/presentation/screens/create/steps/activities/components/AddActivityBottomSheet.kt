@@ -92,7 +92,7 @@ internal fun AddActivityBottomSheet(
                     InkIcon(
                         painter = painterResource(DsResources.drawable.ic_edit),
                         contentDescription = null,
-                        tint = InkTheme.colorScheme.onSurface
+                        tint = InkTheme.colorScheme.onBackground
                     )
                 }
             )
@@ -120,7 +120,7 @@ internal fun AddActivityBottomSheet(
                     InkIcon(
                         painter = painterResource(DsResources.drawable.ic_dollar),
                         contentDescription = null,
-                        tint = InkTheme.colorScheme.onSurface
+                        tint = InkTheme.colorScheme.onBackground
                     )
                 }
             )
@@ -149,7 +149,7 @@ internal fun AddActivityBottomSheet(
                     InkIcon(
                         painter = painterResource(DsResources.drawable.ic_horizontal_tuning),
                         contentDescription = null,
-                        tint = InkTheme.colorScheme.onSurface
+                        tint = InkTheme.colorScheme.onBackground
                     )
                 }
             )

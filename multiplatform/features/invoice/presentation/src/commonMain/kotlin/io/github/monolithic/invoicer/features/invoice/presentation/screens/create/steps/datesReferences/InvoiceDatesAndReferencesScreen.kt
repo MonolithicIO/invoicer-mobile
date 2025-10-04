@@ -167,7 +167,7 @@ internal class InvoiceDatesAndReferencesScreen : Screen {
                             contentDescription = null,
                             tint =
                                 if (state.issueDateState == DateState.Valid)
-                                    InkTheme.colorScheme.onSurface
+                                    InkTheme.colorScheme.onBackground
                                 else InkTheme.colorScheme.error
                         )
                     },
@@ -201,7 +201,7 @@ internal class InvoiceDatesAndReferencesScreen : Screen {
                             contentDescription = null,
                             tint =
                                 if (state.dueDateState == DateState.Valid)
-                                    InkTheme.colorScheme.onSurface
+                                    InkTheme.colorScheme.onBackground
                                 else InkTheme.colorScheme.error
                         )
                     },
@@ -231,7 +231,7 @@ internal class InvoiceDatesAndReferencesScreen : Screen {
                         InkIcon(
                             painter = painterResource(DsResources.drawable.ic_key),
                             contentDescription = null,
-                            tint = InkTheme.colorScheme.onSurface
+                            tint = InkTheme.colorScheme.onBackground
                         )
                     }
                 )
