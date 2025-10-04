@@ -1,12 +1,11 @@
-package io.github.monolithic.invoicer.features.invoice.screens.create.steps.activities.screenshots
+package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.screenshots
 
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import app.cash.paparazzi.Paparazzi
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesCallbacks
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
 import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
@@ -53,8 +52,8 @@ internal class InvoiceActivitiesScreenTest {
                 InvoiceActivitiesScreen()
                     .StateContent(
                         state = state,
-                        snackBarHostState = SnackbarHostState(),
-                        actions = InvoiceActivitiesCallbacks(
+                        snackBarHostState = InkSnackBarHostState(),
+                        actions = InvoiceActivitiesScreen.Actions(
                             onChangeDescription = { },
                             onChangeUnitPrice = { },
                             onChangeQuantity = { },

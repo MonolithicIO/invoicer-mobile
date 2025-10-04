@@ -2,6 +2,7 @@ package io.github.monolithic.invoicer.features.invoice.presentation.screens.crea
 
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
+import io.github.monolithic.invoicer.foundation.utils.date.StaticClock
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -10,13 +11,11 @@ import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
-import kotlin.collections.addAll
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
-import kotlin.toString
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class InvoiceActivitiesScreenModelTest {
@@ -29,7 +28,7 @@ class InvoiceActivitiesScreenModelTest {
     @BeforeTest
     fun setUp() {
         Dispatchers.setMain(dispatcher)
-        createInvoiceManager = CreateInvoiceForm()
+        createInvoiceManager = CreateInvoiceForm(StaticClock)
         viewModel = InvoiceActivitiesScreenModel(
             dispatcher = dispatcher,
             createInvoiceManager = createInvoiceManager
