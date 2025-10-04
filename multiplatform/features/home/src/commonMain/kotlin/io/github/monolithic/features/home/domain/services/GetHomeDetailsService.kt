@@ -26,7 +26,11 @@ internal class GetHomeDetailsServiceImpl(
         )
 
         return HomeDetailsModel(
-            top3Invoices = top3Invoices.items
+            top3Invoices = top3Invoices.items.take(InvoiceCap)
         )
+    }
+
+    companion object {
+        private const val InvoiceCap = 3
     }
 }
