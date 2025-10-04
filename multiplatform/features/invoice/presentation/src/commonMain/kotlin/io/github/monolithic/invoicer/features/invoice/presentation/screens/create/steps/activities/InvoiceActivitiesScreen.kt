@@ -2,8 +2,6 @@ package io.github.monolithic.invoicer.features.invoice.presentation.screens.crea
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExitTransition
-import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +13,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -121,7 +118,6 @@ internal class InvoiceActivitiesScreen : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
     @Composable
     fun StateContent(
         state: InvoiceActivitiesState,
