@@ -3,7 +3,7 @@ package io.github.monolithic.invoicer.features.invoice.presentation.di
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.CreateInvoiceForm
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.CreateInvoiceFormManager
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreenModel
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.configuration.InvoiceConfigurationScreenModel
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.datesReferences.InvoiceDatesAndReferencesScreenModel
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.InvoiceConfirmationScreenModel
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.customer.InvoiceCustomerScreenModel
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.InvoiceDetailsScreenModel
@@ -19,7 +19,7 @@ val invoicePresentationDiModule = module {
     }
 
     factory {
-        InvoiceConfigurationScreenModel(
+        InvoiceDatesAndReferencesScreenModel(
             invoiceForm = get(),
             clock = get()
         )
@@ -30,7 +30,8 @@ val invoicePresentationDiModule = module {
             customerRepository = get(),
             dispatcher = Dispatchers.Default,
             session = get(),
-            createInvoiceForm = get()
+            createInvoiceForm = get(),
+            newCustomerEventBus = get()
         )
     }
 

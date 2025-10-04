@@ -4,49 +4,47 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Alarm
-import androidx.compose.material.icons.outlined.AlarmOn
-import androidx.compose.material.icons.outlined.AttachMoney
-import androidx.compose.material.icons.outlined.Badge
-import androidx.compose.material.icons.outlined.Business
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_activities_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_amount_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_company_name
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_customer_name
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_due_date_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.confirmation_issue_date_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_configuration_number_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_continue_cta
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_subtitle
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_title
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.InvoiceActivityCard
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_number
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components.InvoiceActivityCard
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.AmountConfirmationCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationCard
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationHeader
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback.InvoiceFeedbackScreen
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.flow.collectLatest
@@ -60,7 +58,7 @@ internal class InvoiceConfirmationScreen : Screen {
         val screenModel = koinScreenModel<InvoiceConfirmationScreenModel>()
         val state by screenModel.state.collectAsState()
         val scope = rememberCoroutineScope()
-        val snackbarHostState = remember { SnackbarHostState() }
+        val snackbarHostState = rememberInkSnackBarHostState()
         val navigator = LocalNavigator.current
 
         LaunchedEffect(screenModel) { screenModel.initState() }
@@ -69,7 +67,7 @@ internal class InvoiceConfirmationScreen : Screen {
             screenModel.events.collectLatest {
                 when (it) {
                     is InvoiceConfirmationEvent.Error -> scope.launch {
-                        snackbarHostState.showSnackbar(it.message)
+                        snackbarHostState.showSnackBar(it.message)
                     }
 
                     InvoiceConfirmationEvent.Success -> navigator?.push(InvoiceFeedbackScreen())
@@ -85,40 +83,36 @@ internal class InvoiceConfirmationScreen : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: InvoiceConfirmationState,
-        snackbarHostState: SnackbarHostState,
+        snackbarHostState: InkSnackBarHostState,
         onSubmit: () -> Unit,
         onBack: () -> Unit,
     ) {
-        Scaffold(
-            modifier = Modifier.systemBarsPadding(),
+        val scrollState = rememberScrollState()
+
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.invoice_create_confirmation_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = onBack)
-                    }
+                CreateInvoiceToolbar(
+                    modifier = Modifier.fillMaxWidth().statusBarsPadding(),
+                    onBack = onBack,
+                    step = 4
                 )
             },
             bottomBar = {
-                PrimaryButton(
+                InkPrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium),
-                    label = stringResource(Res.string.invoice_create_confirmation_continue_cta),
+                        .padding(Spacing.medium)
+                        .navigationBarsPadding(),
+                    text = stringResource(Res.string.invoice_create_confirmation_continue_cta),
                     onClick = onSubmit,
-                    isLoading = state.isLoading
+                    loading = state.isLoading
                 )
             },
-            snackbarHost = {
-                SnackbarHost(snackbarHostState)
+            snackBarHost = {
+                InkSnackBarHost(snackbarHostState)
             }
         ) { scaffoldPadding ->
             Column(
@@ -126,76 +120,69 @@ internal class InvoiceConfirmationScreen : Screen {
                     .fillMaxSize()
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
+                    .verticalScroll(scrollState),
+                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
-                LazyColumn(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.medium)
-                ) {
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.invoice_configuration_number_label),
-                            content = state.invoiceNumber,
-                            icon = Icons.Outlined.Badge
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_company_name),
-                            content = state.companyName,
-                            icon = Icons.Outlined.Business
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_customer_name),
-                            content = state.customerName,
-                            icon = Icons.Outlined.Business
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_issue_date_label),
-                            content = state.issueDate.defaultFormat(),
-                            icon = Icons.Outlined.Alarm
-                        )
-                    }
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_due_date_label),
-                            content = state.dueDate.defaultFormat(),
-                            icon = Icons.Outlined.AlarmOn
-                        )
-                    }
+                CreateInvoiceScreenTitle(
+                    modifier = Modifier.fillMaxWidth(),
+                    title = stringResource(Res.string.invoice_create_confirmation_title),
+                    description = stringResource(Res.string.invoice_create_confirmation_subtitle)
+                )
 
-                    item {
-                        ConfirmationCard(
-                            label = stringResource(Res.string.confirmation_amount_label),
-                            content = state.totalAmount,
-                            icon = Icons.Outlined.AttachMoney
-                        )
-                    }
+                VerticalSpacer(SpacerSize.Medium)
 
-                    item {
-                        HorizontalDivider()
-                    }
+                ConfirmationHeader(
+                    customerName = state.customerName,
+                    modifier = Modifier.fillMaxWidth()
 
-                    item {
-                        Text(
-                            text = stringResource(Res.string.confirmation_activities_label),
-                            style = MaterialTheme.typography.headlineMedium
-                        )
-                    }
+                )
 
-                    items(
-                        items = state.activities
-                    ) {
-                        InvoiceActivityCard(
-                            modifier = Modifier.fillMaxWidth(),
-                            quantity = it.quantity,
-                            unitPrice = it.unitPrice,
-                            description = it.description
-                        )
-                    }
+                InkHorizontalDivider(
+                    color = InkTheme.colorScheme.onBackgroundVariant
+                )
+
+                ConfirmationCard(
+                    label = stringResource(Res.string.confirmation_issue_date_label),
+                    content = state.issueDate.defaultFormat(),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                ConfirmationCard(
+                    label = stringResource(Res.string.confirmation_due_date_label),
+                    content = state.dueDate.defaultFormat(),
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                ConfirmationCard(
+                    label = stringResource(Res.string.invoice_details_number),
+                    content = state.invoiceNumber,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                InkHorizontalDivider(
+                    color = InkTheme.colorScheme.onBackgroundVariant
+                )
+
+                AmountConfirmationCard(
+                    amount = state.totalAmount,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                InkHorizontalDivider(
+                    color = InkTheme.colorScheme.onBackgroundVariant
+                )
+
+                InkText(
+                    text = stringResource(Res.string.confirmation_activities_label),
+                    style = InkTextStyle.Heading4,
+                    weight = FontWeight.SemiBold
+                )
+                state.activities.forEach { activity ->
+                    InvoiceActivityCard(
+                        item = activity,
+                        onDeleteClick = null,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
                 }
             }
         }

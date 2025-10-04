@@ -6,42 +6,47 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.SheetState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component1
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component2
+import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component3
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_activity_new_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_add_activity_cta
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_description_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_description_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_price_label
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_price_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_label
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_placeholder
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_activity_form_quantity_support
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_dollar
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_edit
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_horizontal_tuning
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.AddActivityFormState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.InkModalBottomSheet
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.InkSheetState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun AddActivityBottomSheet(
     modifier: Modifier = Modifier,
-    sheetState: SheetState,
+    sheetState: InkSheetState,
+    isVisible: Boolean,
     formState: AddActivityFormState,
     onDismiss: () -> Unit,
     onChangeDescription: (String) -> Unit,
@@ -49,11 +54,11 @@ internal fun AddActivityBottomSheet(
     onChangeQuantity: (String) -> Unit,
     onAddActivity: () -> Unit
 ) {
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
+    InkModalBottomSheet(
+        onDismiss = onDismiss,
         sheetState = sheetState,
-        modifier = modifier.testTag(AddActivityBottomSheetTestTag.CONTENT)
-
+        modifier = modifier.testTag(AddActivityBottomSheetTestTag.CONTENT),
+        isVisible = isVisible
     ) {
         Column(
             modifier = Modifier
@@ -64,13 +69,7 @@ internal fun AddActivityBottomSheet(
             val (descriptionFocus, unitPriceFocus, quantityFocus) = FocusRequester.createRefs()
             val keyboard = LocalSoftwareKeyboardController.current
 
-            Text(
-                text = stringResource(Res.string.invoice_activity_new_title),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.SemiBold
-            )
-
-            InputField(
+            InkOutlinedInput(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(descriptionFocus)
@@ -85,19 +84,18 @@ internal fun AddActivityBottomSheet(
                     imeAction = ImeAction.Next,
                     capitalization = KeyboardCapitalization.Sentences
                 ),
-                placeholder = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_description_placeholder)
+                placeholder = stringResource(Res.string.invoice_create_activity_form_description_placeholder),
+                label = stringResource(Res.string.invoice_create_activity_form_description_label),
+                leadingContent = {
+                    InkIcon(
+                        painter = painterResource(DsResources.drawable.ic_edit),
+                        contentDescription = null,
+                        tint = InkTheme.colorScheme.onBackground
                     )
-                },
-                label = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_description_label)
-                    )
-                },
+                }
             )
 
-            InputField(
+            InkOutlinedInput(
                 modifier = Modifier
                     .fillMaxWidth()
                     .focusRequester(unitPriceFocus)
@@ -112,26 +110,20 @@ internal fun AddActivityBottomSheet(
                 ),
                 keyboardOptions = KeyboardOptions(
                     imeAction = ImeAction.Next,
-                    keyboardType = KeyboardType.Decimal
+                    keyboardType = KeyboardType.NumberPassword
                 ),
-                placeholder = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_description_placeholder)
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_price_label)
-                    )
-                },
-                prefix = {
-                    Text(
-                        text = "$"
+                placeholder = stringResource(Res.string.invoice_create_activity_form_price_placeholder),
+                label = stringResource(Res.string.invoice_create_activity_form_price_label),
+                leadingContent = {
+                    InkIcon(
+                        painter = painterResource(DsResources.drawable.ic_dollar),
+                        contentDescription = null,
+                        tint = InkTheme.colorScheme.onBackground
                     )
                 }
             )
 
-            OutlinedTextField(
+            InkOutlinedInput(
                 maxLines = 1,
                 value = formState.quantity,
                 onValueChange = { fieldValue ->
@@ -148,32 +140,26 @@ internal fun AddActivityBottomSheet(
                     imeAction = ImeAction.Done,
                     keyboardType = KeyboardType.NumberPassword
                 ),
-                label = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_quantity_label)
-                    )
-                },
-                placeholder = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_quantity_placeholder)
-                    )
-                },
-                supportingText = {
-                    Text(
-                        text = stringResource(Res.string.invoice_create_activity_form_quantity_support)
+                label = stringResource(Res.string.invoice_create_activity_form_quantity_label),
+                placeholder = stringResource(Res.string.invoice_create_activity_form_quantity_placeholder),
+                supportText = stringResource(Res.string.invoice_create_activity_form_quantity_support),
+                leadingContent = {
+                    InkIcon(
+                        painter = painterResource(DsResources.drawable.ic_horizontal_tuning),
+                        contentDescription = null,
+                        tint = InkTheme.colorScheme.onBackground
                     )
                 }
             )
 
-            Button(
+            InkPrimaryButton(
                 onClick = onAddActivity,
                 modifier = Modifier
                     .fillMaxWidth()
                     .testTag(AddActivityBottomSheetTestTag.SUBMIT_BUTTON),
-                enabled = formState.formButtonEnabled
-            ) {
-                Text(text = stringResource(Res.string.invoice_add_activity_cta))
-            }
+                enabled = formState.formButtonEnabled,
+                text = stringResource(Res.string.invoice_add_activity_cta)
+            )
         }
     }
 }

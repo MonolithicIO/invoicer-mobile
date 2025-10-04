@@ -7,4 +7,6 @@
     <string name="error_feedback_default_cta">Try again</string>
 
     <string name="empty_feedback_default_title">Nothing to see here</string>"
+
+    <string name="progress_toolbar_step">%1$s/%2$s</string>
 </resources>

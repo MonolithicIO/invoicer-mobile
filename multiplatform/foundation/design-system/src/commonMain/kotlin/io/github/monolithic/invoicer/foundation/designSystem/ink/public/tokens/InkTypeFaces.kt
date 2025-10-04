@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_Black
 import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_BlackItalic
 import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_Bold
 import invoicer.multiplatform.foundation.design_system.generated.resources.Urbanist_BoldItalic
@@ -80,35 +81,35 @@ internal object InkTypeFaces {
         val xLarge
             @Composable
             get() = TextStyle(
-                fontSize = 18.sp,
+                fontSize = 20.sp,
                 fontFamily = rememberUrbanistFontFamily(),
             )
 
         val large
             @Composable
             get() = TextStyle(
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 fontFamily = rememberUrbanistFontFamily(),
             )
 
         val medium
             @Composable
             get() = TextStyle(
-                fontSize = 14.sp,
+                fontSize = 16.sp,
                 fontFamily = rememberUrbanistFontFamily(),
             )
 
         val small
             @Composable
             get() = TextStyle(
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 fontFamily = rememberUrbanistFontFamily(),
             )
 
         val xSmall
             @Composable
             get() = TextStyle(
-                fontSize = 10.sp,
+                fontSize = 12.sp,
                 fontFamily = rememberUrbanistFontFamily(),
             )
     }
@@ -145,7 +146,7 @@ private fun urbanistNormal(): ImmutableList<Font> {
     val urbanistExtraLight =
         Font(DsResources.font.Urbanist_ExtraLight, FontWeight.ExtraLight, style = FontStyle.Normal)
     val urbanistBlack =
-        Font(DsResources.font.Urbanist_BlackItalic, FontWeight.Black, style = FontStyle.Italic)
+        Font(DsResources.font.Urbanist_Black, FontWeight.Black, style = FontStyle.Normal)
 
     return remember {
         persistentListOf(

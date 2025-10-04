@@ -1,7 +1,7 @@
 package io.github.monolithic.invoicer.foundation.utils.events
 
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -13,17 +13,15 @@ data class Event<T>(
     val id = Uuid.random().toString()
 }
 
-interface EventAware<T> {
+interface EventBus<T> {
     suspend fun publish(event: T)
-    fun consume(event: Event<T>)
 
-    val stack: StateFlow<List<Event<T>>>
+    suspend fun subscribe(onEvent: (Event<T>) -> Unit)
+
 }
 
-class EventPublisher<T> : EventAware<T> {
-
+class BaseEventBus<T> : EventBus<T> {
     private val _eventStack = MutableStateFlow(emptyList<Event<T>>())
-    override val stack: StateFlow<List<Event<T>>> = _eventStack
 
     override suspend fun publish(event: T) {
         _eventStack.update {
@@ -31,9 +29,18 @@ class EventPublisher<T> : EventAware<T> {
         }
     }
 
-    override fun consume(event: Event<T>) {
+    private fun consume(event: Event<T>) {
         _eventStack.update { events ->
             events.filter { it.id != event.id }
+        }
+    }
+
+    override suspend fun subscribe(onEvent: ((Event<T>)) -> Unit) {
+        _eventStack.collectLatest {
+            it.forEach { event ->
+                onEvent(event)
+                consume(event)
+            }
         }
     }
 }

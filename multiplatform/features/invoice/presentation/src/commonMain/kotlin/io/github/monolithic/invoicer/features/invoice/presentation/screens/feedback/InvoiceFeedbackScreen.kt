@@ -1,11 +1,9 @@
 package io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
@@ -16,8 +14,10 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_feedback_cta
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_feedback_description
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_feedback_title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.SuccessState
 import org.jetbrains.compose.resources.stringResource
 
 internal class InvoiceFeedbackScreen : Screen {
@@ -42,21 +42,25 @@ internal class InvoiceFeedbackScreen : Screen {
     fun StateContent(
         onClearFlow: () -> Unit
     ) {
-        Scaffold(
-            modifier = Modifier.systemBarsPadding()
-        ) {
-            Feedback(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(Spacing.medium)
-                    .padding(it),
-                primaryActionText = stringResource(Res.string.invoice_feedback_cta),
+        InkScaffold(
+            bottomBar = {
+                InkPrimaryButton(
+                    text = stringResource(Res.string.invoice_feedback_cta),
+                    onClick = onClearFlow,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(InkTheme.spacing.medium)
+                        .navigationBarsPadding()
+                )
+            }
+        ) { scaffoldPadding ->
+            SuccessState(
                 title = stringResource(Res.string.invoice_feedback_title),
                 description = stringResource(Res.string.invoice_feedback_description),
-                onPrimaryAction = {
-                    onClearFlow()
-                },
-                icon = Icons.Outlined.Check
+                modifier = Modifier
+                    .padding(scaffoldPadding)
+                    .padding(InkTheme.spacing.medium)
+                    .fillMaxSize()
             )
         }
     }

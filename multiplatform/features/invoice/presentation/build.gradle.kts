@@ -16,6 +16,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.components.resources)
 
+
             // Koin
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.koin.core)
@@ -48,6 +49,11 @@ kotlin {
 
         androidUnitTest.dependencies {
             implementation(projects.multiplatform.foundation.utils)
+        }
+
+        androidMain.dependencies {
+            implementation(compose.preview)
+            implementation(compose.uiTooling)
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -286,7 +287,9 @@ private class InkInputMeasurePolicy(
         labelMargin: Int,
         supportMargin: Int,
     ) {
-        val containerYPosition = (label?.height ?: 0) + labelMargin
+        val containerYPosition = label?.height?.let {
+            it + labelMargin
+        } ?: 0
 
         label?.placeRelative(
             x = 0,
