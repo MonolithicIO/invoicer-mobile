@@ -9,14 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 
 @Composable
 internal fun PreviewContainer(
     isDarkMode: Boolean = false,
     content: @Composable () -> Unit,
 ) {
-    InkTheme(isDarkTheme = isDarkMode) {
+    InvoicerInkTheme(isDarkTheme = isDarkMode) {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background)

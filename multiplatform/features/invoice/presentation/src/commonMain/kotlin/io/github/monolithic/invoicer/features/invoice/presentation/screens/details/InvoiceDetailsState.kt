@@ -3,11 +3,14 @@ package io.github.monolithic.invoicer.features.invoice.presentation.screens.deta
 import io.github.monolithic.invoicer.features.invoice.presentation.model.InvoicePayAccountUiModel
 import io.github.monolithic.invoicer.features.invoice.services.domain.model.InvoiceDetailsActivityModel
 import io.github.monolithic.invoicer.foundation.utils.date.Default
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 
 internal data class InvoiceDetailsState(
     val invoiceNumber: String = "",
+    val id: String = "",
     val companyName: String = "",
     val companyAddress: String = "",
     val customerName: String = "",
@@ -20,7 +23,7 @@ internal data class InvoiceDetailsState(
         bankAddress = ""
     ),
     val intermediaryAccount: InvoicePayAccountUiModel? = null,
-    val activities: List<InvoiceDetailsActivityModel> = listOf(),
+    val activities: ImmutableList<InvoiceDetailsActivityModel> = persistentListOf(),
     val createdAt: Instant = Instant.DISTANT_PAST,
     val mode: InvoiceDetailsMode = InvoiceDetailsMode.Content,
 ) {

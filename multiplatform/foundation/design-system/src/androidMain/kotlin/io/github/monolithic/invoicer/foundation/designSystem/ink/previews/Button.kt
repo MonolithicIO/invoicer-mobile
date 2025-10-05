@@ -15,13 +15,13 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSecondaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSocialButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
 @Preview
 private fun PrimaryPreview() {
-    InkTheme {
+    InvoicerInkTheme {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background)

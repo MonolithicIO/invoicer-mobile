@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.InkDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.props.InkDialogAction
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 
 private data class InkDialogPreviewParams(
     val title: String,
@@ -39,7 +39,7 @@ private class InkDialogPreviewProvider : PreviewParameterProvider<InkDialogPrevi
 private fun InkDialogPreview(
     @PreviewParameter(InkDialogPreviewProvider::class) params: InkDialogPreviewParams
 ) {
-    InkTheme {
+    InvoicerInkTheme {
         InkDialog(
             onDismissRequest = {},
             title = params.title,

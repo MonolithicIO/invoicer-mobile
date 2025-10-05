@@ -16,12 +16,12 @@ import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 
 @Composable
 @Preview
 private fun TopBar() {
-    InkTheme {
+    InvoicerInkTheme {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background)

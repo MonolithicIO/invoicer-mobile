@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.Spacer
@@ -20,12 +22,13 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.props.InkTopbarColors
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InkTopBar(
-    navigationIcon: Painter,
-    onNavigationClick: () -> Unit,
+    navigationIcon: Painter? = painterResource(DsResources.drawable.ic_chveron_left),
+    onNavigationClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     title: String? = null,
     colors: InkTopbarColors = InkTopBarDefaults.colors,
@@ -41,14 +44,17 @@ fun InkTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
         ) {
-            InkIconButton(
-                onClick = onNavigationClick,
-                icon = navigationIcon,
-                colors = InkIconButtonDefaults.colors.copy(
-                    iconColor = colors.navigationIconColor,
-                    containerColor = colors.containerColor
+            navigationIcon?.let {
+                InkIconButton(
+                    onClick = onNavigationClick,
+                    icon = navigationIcon,
+                    colors = InkIconButtonDefaults.colors.copy(
+                        iconColor = colors.navigationIconColor,
+                        containerColor = colors.containerColor
+                    )
                 )
-            )
+            }
+
             title?.let {
                 InkText(
                     text = it,

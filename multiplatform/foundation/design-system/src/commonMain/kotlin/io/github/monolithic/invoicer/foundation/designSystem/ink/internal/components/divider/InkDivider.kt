@@ -15,7 +15,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 
 @Composable
 fun InkHorizontalDivider(
-    color: Color = InkTheme.colorScheme.disabled,
+    color: Color = InkTheme.colorScheme.onSurfaceVariant,
     thickness: InkDividerThickness = InkDividerThickness.Small,
     modifier: Modifier = Modifier
 ) {

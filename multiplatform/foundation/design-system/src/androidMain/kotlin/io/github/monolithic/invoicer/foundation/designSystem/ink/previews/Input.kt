@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 
 @Composable
 @Preview
 private fun InkOutlinedInputPreview() {
     var text by remember { mutableStateOf("") }
 
-    InkTheme(false) {
+    InvoicerInkTheme(false) {
         Column(
             modifier = Modifier
                 .background(InkTheme.colorScheme.background)

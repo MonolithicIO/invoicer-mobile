@@ -8,6 +8,8 @@ import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.RequestError
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
+import kotlinx.collections.immutable.toPersistentList
+import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -54,8 +56,9 @@ internal class InvoiceDetailsScreenModel(
                                 primaryAccount = response.primaryAccount.toUiModel(),
                                 intermediaryAccount = response.intermediaryAccount?.toUiModel(),
                                 createdAt = response.createdAt,
-                                activities = response.activities,
-                                mode = InvoiceDetailsMode.Content
+                                activities = response.activities.toPersistentList(),
+                                mode = InvoiceDetailsMode.Content,
+                                id = response.id
                             )
                         }
                     },
