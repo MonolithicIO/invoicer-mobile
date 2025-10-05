@@ -179,7 +179,8 @@ internal data class InvoiceDetailsScreen(
 
             InkText(
                 text = stringResource(Res.string.invoice_details_primary_pay_title),
-                style = InkTextStyle.BodyMedium,
+                style = InkTextStyle.BodyLarge,
+                weight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.Start)
             )
 
@@ -212,7 +213,8 @@ internal data class InvoiceDetailsScreen(
             state.intermediaryAccount?.let { intermediaryAccount ->
                 InkText(
                     text = stringResource(Res.string.invoice_details_intermediary_pay_title),
-                    style = InkTextStyle.BodyMedium,
+                    style = InkTextStyle.BodyLarge,
+                    weight = FontWeight.Bold,
                     modifier = Modifier.align(Alignment.Start)
                 )
 
