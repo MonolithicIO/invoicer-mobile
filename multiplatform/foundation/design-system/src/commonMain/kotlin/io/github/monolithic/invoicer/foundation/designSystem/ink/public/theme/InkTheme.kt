@@ -11,7 +11,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.tokens.InkTypeFaces
 
 @Composable
-fun InkTheme(
+fun InvoicerInkTheme(
     isDarkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

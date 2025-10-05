@@ -77,18 +77,27 @@
 
     <!-- Invoice details -->
     <string name="invoice_details_title">Invoice details</string>
+    <string name="invoice_details_amount">Amount</string>
+    <string name="invoice_details_created_at">Created on</string>
+    <string name="invoice_details_issue_date">Issue Date</string>
+    <string name="invoice_details_due_date">Due Date</string>
     <string name="invoice_details_number">Invoice ID#</string>
-    <string name="invoice_details_company_title">Company</string>
-    <string name="invoice_details_company_name_label">Name</string>
-    <string name="invoice_details_company_name_address_label">Address</string>
-    <string name="invoice_details_customer_title">Customer</string>
-    <string name="invoice_details_customer_name_label">Name</string>
+    <string name="invoice_details_transaction_id">Transaction ID#</string>
+    <string name="invoice_details_activity_quantity_label">Qty: %1$s</string>
+    <string name="invoice_details_activity_unite_price_label">Unit price: %1$s</string>
+    <string name="invoice_details_activity_title">Activities</string>
     <string name="invoice_details_primary_pay_title">Payment account</string>
     <string name="invoice_details_intermediary_pay_title">Intermediary account</string>
     <string name="invoice_details_pay_swift">SWIFT</string>
     <string name="invoice_details_pay_iban">IBAN</string>
     <string name="invoice_details_pay_bank_address">Bank address</string>
     <string name="invoice_details_pay_bank_name">Bank name</string>
-    <string name="invoice_details_activity_title">Activities</string>
-    <string name="invoice_details_activity_quantity_label">Quantity: %1$s</string>
+
+    <string name="invoice_details_company_title">Company</string>
+    <string name="invoice_details_company_name_label">Name</string>
+    <string name="invoice_details_company_name_address_label">Address</string>
+    <string name="invoice_details_customer_title">Customer</string>
+    <string name="invoice_details_customer_name_label">Name</string>
+
+
 </resources>

@@ -4,15 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -20,16 +17,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.util.fastForEach
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.Res
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_activity_title
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_company_name_address_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_company_name_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_company_title
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_customer_name_label
-import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_customer_title
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_amount
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_created_at
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_due_date
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_intermediary_pay_title
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_issue_date
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_number
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_pay_bank_address
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_pay_bank_name
@@ -37,13 +35,20 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_pay_swift
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_primary_pay_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_title
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsActivityItem
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopic
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsTopicItem
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.AppColor
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.FontSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_transaction_id
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsActivityCard
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsRow
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
+import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
+import io.github.monolithic.invoicer.foundation.utils.date.toDateTimeString
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
 import org.jetbrains.compose.resources.stringResource
 
@@ -71,139 +76,187 @@ internal data class InvoiceDetailsScreen(
         state: InvoiceDetailsState,
         onBackPress: () -> Unit,
     ) {
-        Scaffold(
-            modifier = Modifier.systemBarsPadding(),
+
+        val verticalScroll = rememberScrollState()
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.invoice_details_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = onBackPress)
-                    }
+                InkTopBar(
+                    onNavigationClick = onBackPress,
+                    title = stringResource(Res.string.invoice_details_title),
+                    modifier = Modifier.statusBarsPadding()
                 )
+
             }
         ) { scaffoldPadding ->
-            val scrollState = rememberScrollState()
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
-                    .verticalScroll(scrollState),
-                verticalArrangement = Arrangement.spacedBy(Spacing.medium)
-            ) {
-                Text(
-                    text = state.invoiceTotal.moneyFormat(),
-                    style = MaterialTheme.typography.titleMedium,
-                    fontSize = FontSize.xLarge3,
-                    fontWeight = FontWeight.Bold,
-                    color = AppColor.MoneyGreen,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+            val contentPadding = Modifier.padding(scaffoldPadding).padding(InkTheme.spacing.medium)
+
+            when (state.mode) {
+                InvoiceDetailsMode.Content -> DetailsContent(
+                    state = state,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .verticalScroll(verticalScroll)
+                        .then(contentPadding)
+                        .navigationBarsPadding()
                 )
 
-                InvoiceDetailsTopic(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.invoice_details_number)
-                ) {
-                    Text(
-                        text = state.invoiceNumber,
-                        style = MaterialTheme.typography.bodyLarge,
-                        fontWeight = FontWeight.SemiBold,
-                    )
-                }
+                is InvoiceDetailsMode.Error -> ErrorState(
+                    modifier = Modifier.fillMaxSize().then(contentPadding)
+                )
 
-                InvoiceDetailsTopic(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.invoice_details_company_title)
-                ) {
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_company_name_label),
-                        content = state.companyName
-                    )
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_company_name_address_label),
-                        content = state.companyAddress
-                    )
-                }
-
-                InvoiceDetailsTopic(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.invoice_details_customer_title)
-                ) {
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_customer_name_label),
-                        content = state.customerName
-                    )
-                }
-
-                InvoiceDetailsTopic(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.invoice_details_primary_pay_title)
-                ) {
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_pay_swift),
-                        content = state.primaryAccount.swift
-                    )
-
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_pay_iban),
-                        content = state.primaryAccount.iban
-                    )
-
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_pay_bank_name),
-                        content = state.primaryAccount.bankName
-                    )
-
-                    InvoiceDetailsTopicItem(
-                        title = stringResource(Res.string.invoice_details_pay_bank_address),
-                        content = state.primaryAccount.bankAddress
-                    )
-                }
-
-                state.intermediaryAccount?.let { intermediary ->
-                    InvoiceDetailsTopic(
-                        modifier = Modifier.fillMaxWidth(),
-                        title = stringResource(Res.string.invoice_details_primary_pay_title)
-                    ) {
-                        InvoiceDetailsTopicItem(
-                            title = stringResource(Res.string.invoice_details_pay_swift),
-                            content = intermediary.swift
-                        )
-
-                        InvoiceDetailsTopicItem(
-                            title = stringResource(Res.string.invoice_details_pay_iban),
-                            content = intermediary.iban
-                        )
-
-                        InvoiceDetailsTopicItem(
-                            title = stringResource(Res.string.invoice_details_pay_bank_name),
-                            content = intermediary.bankName
-                        )
-
-                        InvoiceDetailsTopicItem(
-                            title = stringResource(Res.string.invoice_details_pay_bank_address),
-                            content = intermediary.bankAddress
-                        )
-                    }
-                }
-
-                InvoiceDetailsTopic(
-                    modifier = Modifier.fillMaxWidth(),
-                    title = stringResource(Res.string.invoice_details_activity_title)
-                ) {
-                    state.activities.forEach {
-                        InvoiceDetailsActivityItem(
-                            name = it.description,
-                            quantity = it.quantity.toString(),
-                            unitPrice = it.unitPrice.moneyFormat()
-                        )
-                    }
-                }
+                InvoiceDetailsMode.Loading -> LoadingState(
+                    modifier = Modifier.fillMaxSize().then(contentPadding)
+                )
             }
+        }
+    }
+
+    @Composable
+    fun DetailsContent(
+        state: InvoiceDetailsState,
+        modifier: Modifier = Modifier
+    ) {
+        Column(
+            modifier = modifier,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+        ) {
+            CompanyNameIcon(name = state.customerName)
+            InkText(
+                text = state.customerName,
+                style = InkTextStyle.Heading5,
+                weight = FontWeight.SemiBold
+            )
+
+            InkHorizontalDivider()
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_amount),
+                value = state.invoiceTotal.moneyFormat(),
+                valueStyle = InkTextStyle.Heading5,
+                valueColor = InkTheme.colorScheme.primaryVariant,
+                valueWeight = FontWeight.Bold
+            )
+
+            InkHorizontalDivider()
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_created_at),
+                value = state.createdAt.toDateTimeString(),
+            )
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_issue_date),
+                value = state.issueDate.defaultFormat(),
+            )
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_due_date),
+                value = state.dueDate.defaultFormat(),
+            )
+
+            InkHorizontalDivider()
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_due_date),
+                value = state.dueDate.defaultFormat(),
+            )
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_number),
+                value = state.invoiceNumber,
+            )
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_transaction_id),
+                value = state.id,
+            )
+
+            InkHorizontalDivider()
+
+            InkText(
+                text = stringResource(Res.string.invoice_details_primary_pay_title),
+                style = InkTextStyle.BodyMedium,
+                modifier = Modifier.align(Alignment.Start)
+            )
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_pay_swift),
+                value = state.primaryAccount.swift,
+            )
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_pay_iban),
+                value = state.primaryAccount.iban,
+            )
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_pay_bank_name),
+                value = state.primaryAccount.bankName,
+            )
+
+            InvoiceDetailsRow(
+                modifier = Modifier.fillMaxWidth(),
+                label = stringResource(Res.string.invoice_details_pay_bank_address),
+                value = state.primaryAccount.bankAddress,
+            )
+
+            InkHorizontalDivider()
+
+            state.intermediaryAccount?.let { intermediaryAccount ->
+                InkText(
+                    text = stringResource(Res.string.invoice_details_intermediary_pay_title),
+                    style = InkTextStyle.BodyMedium,
+                    modifier = Modifier.align(Alignment.Start)
+                )
+
+                InvoiceDetailsRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(Res.string.invoice_details_pay_swift),
+                    value = intermediaryAccount.swift,
+                )
+
+                InvoiceDetailsRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(Res.string.invoice_details_pay_iban),
+                    value = intermediaryAccount.iban,
+                )
+
+                InvoiceDetailsRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(Res.string.invoice_details_pay_bank_name),
+                    value = intermediaryAccount.bankName,
+                )
+
+                InvoiceDetailsRow(
+                    modifier = Modifier.fillMaxWidth(),
+                    label = stringResource(Res.string.invoice_details_pay_bank_address),
+                    value = intermediaryAccount.bankAddress,
+                )
+
+                InkHorizontalDivider()
+            }
+
+            InkText(
+                text = stringResource(Res.string.invoice_details_activity_title),
+                style = InkTextStyle.BodyMedium,
+                modifier = Modifier.align(Alignment.Start)
+            )
+            state.activities.fastForEach {
+                InvoiceDetailsActivityCard(
+                    description = it.description,
+                    quantity = it.quantity.toString(),
+                    unitPrice = it.unitPrice.moneyFormat(),
+                    totalAmount = it.total.moneyFormat()
+                )
+            }
+
         }
     }
 }
