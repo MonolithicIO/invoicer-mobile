@@ -32,7 +32,7 @@ internal fun InvoiceDetailsActivityCard(
         modifier = modifier,
         contentPadding = PaddingValues(InkTheme.spacing.small),
         border = BorderStroke(width = 1.dp, color = InkTheme.colorScheme.primary),
-        containerColor = InkTheme.colorScheme.surfaceDark
+        containerColor = InkTheme.colorScheme.surfaceLight
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),

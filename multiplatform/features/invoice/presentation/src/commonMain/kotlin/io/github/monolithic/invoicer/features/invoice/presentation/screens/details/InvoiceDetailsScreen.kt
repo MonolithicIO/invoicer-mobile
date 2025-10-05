@@ -247,7 +247,8 @@ internal data class InvoiceDetailsScreen(
 
             InkText(
                 text = stringResource(Res.string.invoice_details_activity_title),
-                style = InkTextStyle.BodyMedium,
+                style = InkTextStyle.BodyLarge,
+                weight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.Start)
             )
             state.activities.fastForEach {
