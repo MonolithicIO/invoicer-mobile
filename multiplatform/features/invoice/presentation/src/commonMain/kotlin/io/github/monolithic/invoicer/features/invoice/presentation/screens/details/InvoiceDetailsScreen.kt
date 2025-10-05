@@ -36,11 +36,15 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_primary_pay_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_transaction_id
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_download_square
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsActivityCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.details.components.InvoiceDetailsRow
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
@@ -50,6 +54,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.public.componen
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import io.github.monolithic.invoicer.foundation.utils.date.toDateTimeString
 import io.github.monolithic.invoicer.foundation.utils.money.moneyFormat
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal data class InvoiceDetailsScreen(
@@ -83,7 +88,16 @@ internal data class InvoiceDetailsScreen(
                 InkTopBar(
                     onNavigationClick = onBackPress,
                     title = stringResource(Res.string.invoice_details_title),
-                    modifier = Modifier.statusBarsPadding()
+                    modifier = Modifier.statusBarsPadding(),
+                    actions = {
+                        InkIconButton(
+                            onClick = {},
+                            icon = painterResource(DsResources.drawable.ic_download_square),
+                            colors = InkIconButtonDefaults.colors.copy(
+                                containerColor = InkTheme.colorScheme.background
+                            )
+                        )
+                    }
                 )
 
             }
