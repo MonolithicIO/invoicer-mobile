@@ -3,12 +3,15 @@
 
     <!-- Create customer-->
     <string name="create_customer_title">New customer</string>
-    <string name="create_customer_subtitle">Inform customer information</string>
+    <string name="create_customer_subtitle">Fill in the details below to add a new customer.</string>
     <string name="create_customer_name_hint">Name</string>
     <string name="create_customer_email_hint">Email</string>
     <string name="create_customer_phone_hint">Phone</string>
     <string name="create_customer_phone_support_text">Optional</string>
     <string name="create_customer_cta">Submit</string>
+    <string name="create_customer_name_error">Name is required</string>
+    <string name="create_customer_phone_error">Invalid phone number</string>
+    <string name="create_customer_email_error">Invalid e-mail format</string>
 
     <!-- List customer -->
     <string name="customer_list_title">Customers</string>

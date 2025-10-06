@@ -7,6 +7,7 @@ import io.github.monolithic.invoicer.features.customer.domain.repository.Custome
 import io.github.monolithic.invoicer.foundation.auth.session.Session
 import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
+import io.github.monolithic.invoicer.foundation.utils.validation.EmailValidator
 import io.github.monolithic.invoicer.foundation.watchers.bus.NewCustomerEventBus
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -20,7 +21,8 @@ internal class CreateCustomerScreenModel(
     private val dispatcher: CoroutineDispatcher,
     private val customerRepository: CustomerRepository,
     private val session: Session,
-    private val bus: NewCustomerEventBus
+    private val bus: NewCustomerEventBus,
+    private val emailValidator: EmailValidator
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(CreateCustomerState())
@@ -32,7 +34,7 @@ internal class CreateCustomerScreenModel(
     fun updateName(name: String) {
         _state.update {
             it.copy(
-                name = name
+                name = name.trim()
             )
         }
     }
@@ -40,7 +42,7 @@ internal class CreateCustomerScreenModel(
     fun updateEmail(email: String) {
         _state.update {
             it.copy(
-                email = email
+                email = email.trim()
             )
         }
     }
@@ -48,13 +50,13 @@ internal class CreateCustomerScreenModel(
     fun updatePhone(phone: String) {
         _state.update {
             it.copy(
-                phone = phone
+                phone = phone.trim()
             )
         }
     }
 
     fun submit() {
-        if (state.value.isButtonEnabled.not()) return
+        if (validateFields().not()) return
 
         screenModelScope.launch(dispatcher) {
             launchRequest {
@@ -82,5 +84,25 @@ internal class CreateCustomerScreenModel(
                 }
             )
         }
+    }
+
+    private fun validateFields(): Boolean {
+        val emailValid = emailValidator.validate(_state.value.email)
+        val nameValid = _state.value.name.isNotBlank()
+        val phoneValid = _state.value.phone.let {
+            if (it.isBlank()) true
+            else it.isNotBlank() && (it.length in 8..15)
+        }
+
+
+        _state.update {
+            it.copy(
+                emailValid = emailValid,
+                nameValid = nameValid,
+                phoneValid = phoneValid
+            )
+        }
+
+        return emailValid && nameValid && phoneValid
     }
 }

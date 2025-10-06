@@ -4,14 +4,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
@@ -29,20 +28,31 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.customer.presentation.generated.resources.Res
 import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_cta
+import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_email_error
 import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_email_hint
+import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_name_error
 import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_name_hint
+import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_phone_error
 import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_phone_hint
-import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_subtitle
 import invoicer.multiplatform.features.customer.presentation.generated.resources.create_customer_title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.ScreenTitle
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_edit
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_email
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_phone
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal class CreateCustomerScreen : Screen {
@@ -53,10 +63,10 @@ internal class CreateCustomerScreen : Screen {
         val navigator = LocalNavigator.current
         val scope = rememberCoroutineScope()
 
-        val snackBarHostState = remember { SnackbarHostState() }
+        val snackBarHostState = rememberInkSnackBarHostState()
         val state = screenModel.state.collectAsState()
         val callBacks = remember {
-            Callbacks(
+            Actions(
                 onNameChange = screenModel::updateName,
                 onEmailChange = screenModel::updateEmail,
                 onPhoneChange = screenModel::updatePhone,
@@ -71,7 +81,7 @@ internal class CreateCustomerScreen : Screen {
         ) { event ->
             when (event) {
                 is CreateCustomerEvent.Failure -> scope.launch {
-                    snackBarHostState.showSnackbar(
+                    snackBarHostState.showSnackBar(
                         message = event.message
                     )
                 }
@@ -82,102 +92,140 @@ internal class CreateCustomerScreen : Screen {
 
         StateContent(
             state = state.value,
-            callbacks = callBacks
+            actions = callBacks,
+            snackBarState = snackBarHostState
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: CreateCustomerState,
-        callbacks: Callbacks
+        actions: Actions,
+        snackBarState: InkSnackBarHostState
     ) {
         val (nameRef, emailRef, phoneRef) = FocusRequester.createRefs()
         val keyBoard = LocalSoftwareKeyboardController.current
 
-        Scaffold(
+        InkScaffold(
             modifier = Modifier.imePadding(),
             topBar = {
-                TopAppBar(
-                    title = {},
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBack)
-                    }
+                InkTopBar(
+                    onNavigationClick = actions.onBack,
+                    title = stringResource(Res.string.create_customer_title),
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
-                PrimaryButton(
-                    label = stringResource(Res.string.create_customer_cta),
-                    onClick = callbacks.onSubmit,
-                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium)
+                InkPrimaryButton(
+                    text = stringResource(Res.string.create_customer_cta),
+                    onClick = actions.onSubmit,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Spacing.medium)
+                        .navigationBarsPadding(),
+                    loading = state.isButtonLoading,
                 )
+            },
+            snackBarHost = {
+                InkSnackBarHost(snackBarState)
             }
         ) { scaffoldPadding ->
+            val verticalsScroll = rememberScrollState()
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
+                    .verticalScroll(verticalsScroll)
             ) {
-                ScreenTitle(
-                    title = stringResource(Res.string.create_customer_title),
-                    subTitle = stringResource(Res.string.create_customer_subtitle)
-                )
-                VerticalSpacer(SpacerSize.XLarge3)
 
-                InputField(
+                InkOutlinedInput(
                     value = state.name,
-                    onValueChange = callbacks.onNameChange,
+                    onValueChange = actions.onNameChange,
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(nameRef),
-                    label = { Text(text = stringResource(Res.string.create_customer_name_hint)) },
+                    label = stringResource(Res.string.create_customer_name_hint),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next
                     ),
                     keyboardActions = KeyboardActions(
                         onNext = { emailRef.requestFocus() }
-                    )
+                    ),
+                    leadingContent = {
+                        InkIcon(
+                            painter = painterResource(DsResources.drawable.ic_edit),
+                            contentDescription = null
+                        )
+                    },
+                    isError = state.nameValid.not(),
+                    maxLines = 1,
+                    supportText = if (state.nameValid.not())
+                        stringResource(Res.string.create_customer_name_error)
+                    else null
                 )
 
                 VerticalSpacer(SpacerSize.Medium)
 
-                InputField(
+                InkOutlinedInput(
                     value = state.email,
-                    onValueChange = callbacks.onEmailChange,
+                    onValueChange = actions.onEmailChange,
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(emailRef),
-                    label = { Text(text = stringResource(Res.string.create_customer_email_hint)) },
+                    label = stringResource(Res.string.create_customer_email_hint),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next
                     ),
                     keyboardActions = KeyboardActions(
                         onNext = { phoneRef.requestFocus() }
-                    )
+                    ),
+                    leadingContent = {
+                        InkIcon(
+                            painter = painterResource(DsResources.drawable.ic_email),
+                            contentDescription = null
+                        )
+                    },
+                    isError = state.emailValid.not(),
+                    maxLines = 1,
+                    supportText = if (state.emailValid.not())
+                        stringResource(Res.string.create_customer_email_error)
+                    else null
                 )
 
                 VerticalSpacer(SpacerSize.Medium)
 
-                InputField(
+                InkOutlinedInput(
                     value = state.phone,
-                    onValueChange = callbacks.onPhoneChange,
+                    onValueChange = actions.onPhoneChange,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .focusRequester(emailRef),
-                    label = { Text(text = stringResource(Res.string.create_customer_phone_hint)) },
+                        .focusRequester(phoneRef),
+                    label = stringResource(Res.string.create_customer_phone_hint),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = { keyBoard?.hide() }
-                    )
+                    ),
+                    leadingContent = {
+                        InkIcon(
+                            painter = painterResource(DsResources.drawable.ic_phone),
+                            contentDescription = null
+                        )
+                    },
+                    isError = state.phoneValid.not(),
+                    maxLines = 1,
+                    supportText = if (state.phoneValid.not())
+                        stringResource(Res.string.create_customer_phone_error)
+                    else null
                 )
             }
         }
     }
 
-    data class Callbacks(
+    data class Actions(
         val onNameChange: (String) -> Unit,
         val onEmailChange: (String) -> Unit,
         val onPhoneChange: (String) -> Unit,

@@ -1,6 +1,6 @@
 package io.github.monolithic.invoicer.features.auth.presentation.fakes
 
-import io.github.monolithic.invoicer.features.auth.presentation.utils.EmailValidator
+import io.github.monolithic.invoicer.foundation.utils.validation.EmailValidator
 
 class FakeEmailValidator : EmailValidator {
 

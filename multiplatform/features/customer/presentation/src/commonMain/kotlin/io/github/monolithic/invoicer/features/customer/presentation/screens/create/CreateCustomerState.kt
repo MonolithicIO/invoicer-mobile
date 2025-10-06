@@ -5,9 +5,10 @@ internal data class CreateCustomerState(
     val email: String = "",
     val name: String = "",
     val isButtonLoading: Boolean = false,
-) {
-    val isButtonEnabled: Boolean = email.isNotBlank() && name.isNotBlank()
-}
+    val phoneValid: Boolean = true,
+    val emailValid: Boolean = true,
+    val nameValid: Boolean = true,
+)
 
 internal sealed interface CreateCustomerEvent {
     data object Success : CreateCustomerEvent
