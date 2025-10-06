@@ -11,7 +11,8 @@ val customerPresentationDiModule = module {
             session = get(),
             dispatcher = Dispatchers.Default,
             customerRepository = get(),
-            bus = get()
+            bus = get(),
+            emailValidator = get()
         )
     }
 

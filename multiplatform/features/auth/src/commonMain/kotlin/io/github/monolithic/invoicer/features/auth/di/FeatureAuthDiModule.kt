@@ -6,8 +6,6 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.authmenu
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.startup.StartupScreenModel
-import io.github.monolithic.invoicer.features.auth.presentation.utils.EmailValidator
-import io.github.monolithic.invoicer.features.auth.presentation.utils.EmailValidatorImpl
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthValidator
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthValidatorImpl
 import kotlinx.coroutines.Dispatchers
@@ -47,8 +45,6 @@ private fun Module.viewModelBindings() {
             splashScreenDismisser = get()
         )
     }
-
-    factory<EmailValidator> { EmailValidatorImpl() }
 
     factory {
         AuthMenuScreenModel(

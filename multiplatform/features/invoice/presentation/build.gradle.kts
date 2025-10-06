@@ -13,7 +13,7 @@ kotlin {
         commonMain.dependencies {
             // Compose
             implementation(compose.ui)
-            implementation(compose.material3)
+            implementation(compose.foundation)
             implementation(compose.components.resources)
 
 
