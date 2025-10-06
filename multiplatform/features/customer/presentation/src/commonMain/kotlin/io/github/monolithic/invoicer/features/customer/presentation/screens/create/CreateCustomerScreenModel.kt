@@ -91,7 +91,7 @@ internal class CreateCustomerScreenModel(
         val nameValid = _state.value.name.isNotBlank()
         val phoneValid = _state.value.phone.let {
             if (it.isBlank()) true
-            else it.isNotBlank() && (it.length in 8..15)
+            else it.isNotBlank() && (it.length in PhoneRange)
         }
 
 
@@ -104,5 +104,9 @@ internal class CreateCustomerScreenModel(
         }
 
         return emailValid && nameValid && phoneValid
+    }
+
+    companion object {
+        val PhoneRange = (8..15)
     }
 }
