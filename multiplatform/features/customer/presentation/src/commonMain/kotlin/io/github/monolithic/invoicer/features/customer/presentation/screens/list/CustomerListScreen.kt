@@ -2,18 +2,9 @@ package io.github.monolithic.invoicer.features.customer.presentation.screens.lis
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Add
-import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -28,13 +19,19 @@ import invoicer.multiplatform.features.customer.presentation.generated.resources
 import invoicer.multiplatform.features.customer.presentation.generated.resources.customer_list_error_title
 import invoicer.multiplatform.features.customer.presentation.generated.resources.customer_list_retry
 import invoicer.multiplatform.features.customer.presentation.generated.resources.customer_list_title
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_plus
 import io.github.monolithic.invoicer.features.customer.presentation.screens.create.CreateCustomerScreen
 import io.github.monolithic.invoicer.features.customer.presentation.screens.list.components.CustomerList
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkCircleButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal class CustomerListScreen : Screen {
@@ -46,7 +43,7 @@ internal class CustomerListScreen : Screen {
         val state by screenModel.state.collectAsState()
 
         val callBacks = remember {
-            Callbacks(
+            Actions(
                 onBack = { navigator?.pop() },
                 requestNextPage = screenModel::nextPage,
                 onCreateNewCustomer = {
@@ -72,40 +69,29 @@ internal class CustomerListScreen : Screen {
 
         StateContent(
             state = state,
-            callbacks = callBacks
+            actions = callBacks
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: CustomerListState,
-        callbacks: Callbacks
+        actions: Actions
     ) {
-        Scaffold(
-            modifier = Modifier.systemBarsPadding(),
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.customer_list_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBack)
-                    }
+                InkTopBar(
+                    onNavigationClick = actions.onBack,
+                    title = stringResource(Res.string.customer_list_title),
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             floatingActionButton = {
                 if (state.mode == CustomerListMode.Content) {
-                    FloatingActionButton(
-                        onClick = callbacks.onCreateNewCustomer
-                    ) {
-                        Icon(
-                            imageVector = Icons.Outlined.Add,
-                            contentDescription = null
-                        )
-                    }
+                    InkCircleButton(
+                        onClick = actions.onCreateNewCustomer,
+                        icon = painterResource(DsResources.drawable.ic_plus)
+                    )
                 }
             }
         ) { scaffoldPadding ->
@@ -118,27 +104,28 @@ internal class CustomerListScreen : Screen {
                 when (state.mode) {
 
                     CustomerListMode.Content -> CustomerList(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
+                        modifier = Modifier.fillMaxSize().navigationBarsPadding(),
                         items = state.customers
                     )
 
-                    CustomerListMode.Error -> Feedback(
-                        modifier = Modifier.weight(1f).fillMaxWidth(),
-                        primaryActionText = stringResource(Res.string.customer_list_retry),
-                        onPrimaryAction = callbacks.onRetry,
-                        icon = Icons.Outlined.ErrorOutline,
+                    CustomerListMode.Error -> ErrorState(
+                        modifier = Modifier.fillMaxSize(),
+                        primaryAction = ErrorStateAction(
+                            label = stringResource(Res.string.customer_list_retry),
+                            action = actions.onRetry
+                        ),
                         title = stringResource(Res.string.customer_list_error_title),
                         description = stringResource(Res.string.customer_list_error_description),
                     )
 
-                    CustomerListMode.Loading -> LoadingState(Modifier.weight(1f).fillMaxWidth())
+                    CustomerListMode.Loading -> LoadingState(Modifier.fillMaxSize())
                 }
             }
         }
     }
 
 
-    data class Callbacks(
+    data class Actions(
         val onBack: () -> Unit,
         val requestNextPage: () -> Unit,
         val onCreateNewCustomer: () -> Unit,

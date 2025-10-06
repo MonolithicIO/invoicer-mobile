@@ -137,9 +137,7 @@ internal class InvoiceConfirmationScreen : Screen {
 
                 )
 
-                InkHorizontalDivider(
-                    color = InkTheme.colorScheme.onBackgroundVariant
-                )
+                InkHorizontalDivider()
 
                 ConfirmationCard(
                     label = stringResource(Res.string.confirmation_issue_date_label),
@@ -159,18 +157,14 @@ internal class InvoiceConfirmationScreen : Screen {
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                InkHorizontalDivider(
-                    color = InkTheme.colorScheme.onBackgroundVariant
-                )
+                InkHorizontalDivider()
 
                 AmountConfirmationCard(
                     amount = state.totalAmount,
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                InkHorizontalDivider(
-                    color = InkTheme.colorScheme.onBackgroundVariant
-                )
+                InkHorizontalDivider()
 
                 InkText(
                     text = stringResource(Res.string.confirmation_activities_label),
