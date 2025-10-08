@@ -19,7 +19,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.RoundTextAbbreviation
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -44,8 +44,8 @@ internal fun InvoiceListItem(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
             ) {
-                CompanyNameIcon(
-                    name = customerName
+                RoundTextAbbreviation(
+                    text = customerName
                 )
                 Column(
                     modifier = Modifier.weight(1f),

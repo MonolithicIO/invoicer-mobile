@@ -47,7 +47,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.RoundTextAbbreviation
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
@@ -133,7 +133,7 @@ internal data class InvoiceDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
         ) {
-            CompanyNameIcon(name = state.customerName)
+            RoundTextAbbreviation(text = state.customerName)
             InkText(
                 text = state.customerName,
                 style = InkTextStyle.Heading5,
