@@ -2,14 +2,13 @@ package io.github.monolithic.invoicer.features.company.presentation.screens.upda
 
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 
 @Composable
 internal fun UpdateAddressInput(
@@ -44,18 +43,14 @@ internal fun UpdateAddressInput(
         )
     }
 
-    InputField(
+    InkOutlinedInput(
         value = value,
         onValueChange = onChange,
         modifier = modifier.focusRequester(focusRef),
         keyboardActions = keyboardAction,
         keyboardOptions = keyboardOptions,
-        label = { Text(label) },
-        supportingText = {
-            supportText?.let {
-                Text(it)
-            }
-        }
+        label = label,
+        supportText = supportText
     )
 }
 

@@ -190,7 +190,6 @@ private class InkInputMeasurePolicy(
                     horizontal = -horizontalSpace,
                     vertical = -bottomPadding - topPadding
                 )
-                .copy(minHeight = 0)
 
         val label =
             measurables.fastFirstOrNull { it.layoutId == InkInputLayoutDefaults.LabelId }

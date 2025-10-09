@@ -5,20 +5,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -48,9 +41,13 @@ import invoicer.multiplatform.features.company.presentation.generated.resources.
 import invoicer.multiplatform.features.company.presentation.generated.resources.update_pay_account_swift_code_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.update_pay_account_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.components.DeletePayAccountModal
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
@@ -67,7 +64,7 @@ internal data class UpdatePayAccountScreen(
         val navigator = LocalNavigator.current
         val state by screenModel.state.collectAsState()
         val scope = rememberCoroutineScope()
-        val snackBarHost = remember { SnackbarHostState() }
+        val snackBarHost = rememberInkSnackBarHostState()
         var showDeleteDialog by remember { mutableStateOf(false) }
 
         LaunchedEffect(Unit) {
@@ -80,7 +77,9 @@ internal data class UpdatePayAccountScreen(
         ) { event ->
             when (event) {
                 is UpdatePayAccountEvent.Failure -> scope.launch {
-                    snackBarHost.showSnackbar(message = event.message)
+                    snackBarHost.showSnackBar(
+                        message = event.message,
+                    )
                 }
 
                 UpdatePayAccountEvent.Success, UpdatePayAccountEvent.DeleteSuccess -> {
@@ -91,17 +90,18 @@ internal data class UpdatePayAccountScreen(
 
         StateContent(
             state = state,
-            callbacks = remember {
-                Callbacks(
+            actions = remember {
+                Actions(
                     onSwiftChange = screenModel::updateSwift,
                     onIbanChange = screenModel::updateIban,
                     onBankAddressChange = screenModel::updateBankAddress,
                     onBankNameChange = screenModel::updateBankName,
                     onUpdatePayAccount = { screenModel.updatePayAccount(args.payAccountId) },
                     onBackPressed = { navigator?.pop() },
-                    onDelete = { showDeleteDialog = true }
+                    onDelete = { showDeleteDialog = true },
                 )
-            }
+            },
+            snackBarHostState = snackBarHost
         )
 
         DeletePayAccountModal(
@@ -115,68 +115,63 @@ internal data class UpdatePayAccountScreen(
 
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: UpdatePayAccountState,
-        callbacks: Callbacks
+        actions: Actions,
+        snackBarHostState: InkSnackBarHostState
     ) {
         val keyboard = LocalSoftwareKeyboardController.current
 
-        Scaffold(
+        InkScaffold(
+            snackBarHost = {
+                InkSnackBarHost(
+                    state = snackBarHostState
+                )
+            },
             topBar = {
-                TopAppBar(
-                    title = { Text(text = state.accountType.getText()) },
-                    navigationIcon = { BackButton(onBackClick = callbacks.onBackPressed) },
-                    actions = {
-                        if (state.isDeleteButtonVisible) {
-                            IconButton(
-                                onClick = callbacks.onDelete
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = null,
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                        }
-                    }
+                InkTopBar(
+                    title = state.accountType.getText(),
+                    onNavigationClick = actions.onBackPressed,
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
-                PrimaryButton(
-                    label = stringResource(Res.string.update_pay_account_cta),
+                InkPrimaryButton(
+                    text = stringResource(Res.string.update_pay_account_cta),
                     onClick = {
                         keyboard?.hide()
-                        callbacks.onUpdatePayAccount()
+                        actions.onUpdatePayAccount()
                     },
-                    isEnabled = state.isButtonEnabled,
-                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium),
-                    isLoading = state.isButtonLoading
+                    enabled = state.isButtonEnabled,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Spacing.medium)
+                        .navigationBarsPadding(),
+                    loading = state.isButtonLoading
                 )
             },
-            modifier = Modifier.imePadding().systemBarsPadding()
+            modifier = Modifier.imePadding()
         ) { scaffoldPadding ->
+            val verticalScroll = rememberScrollState()
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium),
+                    .padding(Spacing.medium)
+                    .verticalScroll(verticalScroll),
                 verticalArrangement = Arrangement.spacedBy(Spacing.medium)
             ) {
                 val (swiftFocus, ibanFocus, bankAddressFocus, bankNameFocus) = FocusRequester.createRefs()
 
-                InputField(
+                InkOutlinedInput(
                     value = state.swift,
-                    onValueChange = callbacks.onSwiftChange,
+                    onValueChange = actions.onSwiftChange,
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(swiftFocus),
-                    label = {
-                        Text(
-                            text = stringResource(Res.string.update_pay_account_swift_code_label)
-                        )
-                    },
+                    label = stringResource(Res.string.update_pay_account_swift_code_label),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next
                     ),
@@ -186,17 +181,13 @@ internal data class UpdatePayAccountScreen(
                     maxLines = 1
                 )
 
-                InputField(
+                InkOutlinedInput(
                     value = state.iban,
-                    onValueChange = callbacks.onIbanChange,
+                    onValueChange = actions.onIbanChange,
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(ibanFocus),
-                    label = {
-                        Text(
-                            text = stringResource(Res.string.update_pay_account_iban_code_label)
-                        )
-                    },
+                    label = stringResource(Res.string.update_pay_account_iban_code_label),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next
                     ),
@@ -206,17 +197,13 @@ internal data class UpdatePayAccountScreen(
                     maxLines = 1
                 )
 
-                InputField(
+                InkOutlinedInput(
                     value = state.bankName,
-                    onValueChange = callbacks.onBankNameChange,
+                    onValueChange = actions.onBankNameChange,
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(bankNameFocus),
-                    label = {
-                        Text(
-                            text = stringResource(Res.string.update_pay_account_bank_name_label)
-                        )
-                    },
+                    label = stringResource(Res.string.update_pay_account_bank_name_label),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next
                     ),
@@ -226,17 +213,13 @@ internal data class UpdatePayAccountScreen(
                     maxLines = 1
                 )
 
-                InputField(
+                InkOutlinedInput(
                     value = state.bankAddress,
-                    onValueChange = callbacks.onBankAddressChange,
+                    onValueChange = actions.onBankAddressChange,
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(bankAddressFocus),
-                    label = {
-                        Text(
-                            text = stringResource(Res.string.update_pay_account_bank_address_label)
-                        )
-                    },
+                    label = stringResource(Res.string.update_pay_account_bank_address_label),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done
                     ),
@@ -249,7 +232,7 @@ internal data class UpdatePayAccountScreen(
         }
     }
 
-    data class Callbacks(
+    data class Actions(
         val onSwiftChange: (String) -> Unit,
         val onIbanChange: (String) -> Unit,
         val onBankAddressChange: (String) -> Unit,

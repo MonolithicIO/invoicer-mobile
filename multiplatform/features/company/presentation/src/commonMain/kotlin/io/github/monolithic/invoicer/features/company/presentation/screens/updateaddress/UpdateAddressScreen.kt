@@ -4,13 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -39,8 +38,12 @@ import invoicer.multiplatform.features.company.presentation.generated.resources.
 import invoicer.multiplatform.features.company.presentation.generated.resources.update_address_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.components.UpdateAddressInput
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.components.UpdateAddressInputIme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
@@ -57,7 +60,7 @@ internal class UpdateAddressScreen(
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.current
         val scope = rememberCoroutineScope()
-        val snackBarHost = remember { SnackbarHostState() }
+        val snackBarHost = rememberInkSnackBarHostState()
 
         LaunchedEffect(Unit) { screenModel.initState(args) }
 
@@ -67,7 +70,7 @@ internal class UpdateAddressScreen(
         ) { event ->
             when (event) {
                 is UpdateAddressEvent.Error -> scope.launch {
-                    snackBarHost.showSnackbar(event.message)
+                    snackBarHost.showSnackBar(event.message)
                 }
 
                 is UpdateAddressEvent.Success -> navigator?.pop()
@@ -86,37 +89,39 @@ internal class UpdateAddressScreen(
                     onUpdateAddressClick = screenModel::submit,
                     onBackClick = { navigator?.pop() }
                 )
-            }
+            },
+            snackBarHostState = snackBarHost
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: UpdateAddressState,
-        callbacks: Callbacks
+        callbacks: Callbacks,
+        snackBarHostState: InkSnackBarHostState
     ) {
-        Scaffold(
-            modifier = Modifier.systemBarsPadding(),
+        InkScaffold(
+            modifier = Modifier.imePadding(),
+            snackBarHost = {
+                InkSnackBarHost(state = snackBarHostState)
+            },
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.update_address_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBackClick)
-                    }
+                InkTopBar(
+                    title = stringResource(Res.string.update_address_title),
+                    onNavigationClick = callbacks.onBackClick,
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
-                PrimaryButton(
-                    label = stringResource(Res.string.update_address_cta),
+                InkPrimaryButton(
+                    text = stringResource(Res.string.update_address_cta),
                     onClick = callbacks.onUpdateAddressClick,
-                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium),
-                    isEnabled = state.isButtonEnabled,
-                    isLoading = state.isButtonLoading
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(Spacing.medium)
+                        .navigationBarsPadding(),
+                    enabled = state.isButtonEnabled,
+                    loading = state.isButtonLoading
                 )
             }
         ) { scaffoldPadding ->
@@ -129,11 +134,14 @@ internal class UpdateAddressScreen(
                 stateFocus,
                 postalCodeFocus) = FocusRequester.createRefs()
 
+            val verticalScroll = rememberScrollState()
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(Spacing.medium)
-                    .padding(scaffoldPadding),
+                    .padding(scaffoldPadding)
+                    .verticalScroll(verticalScroll),
                 verticalArrangement = Arrangement.spacedBy(Spacing.medium)
             ) {
                 UpdateAddressInput(

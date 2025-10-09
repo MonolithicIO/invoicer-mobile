@@ -42,19 +42,19 @@ internal class UpdatePayAccountScreenModel(
     }
 
     fun updateSwift(swift: String) {
-        _state.update { it.copy(swift = swift) }
+        _state.update { it.copy(swift = swift.trim()) }
     }
 
     fun updateIban(iban: String) {
-        _state.update { it.copy(iban = iban) }
+        _state.update { it.copy(iban = iban.trim()) }
     }
 
     fun updateBankAddress(bankAddress: String) {
-        _state.update { it.copy(bankAddress = bankAddress) }
+        _state.update { it.copy(bankAddress = bankAddress.trim()) }
     }
 
     fun updateBankName(bankName: String) {
-        _state.update { it.copy(bankName = bankName) }
+        _state.update { it.copy(bankName = bankName.trim()) }
     }
 
     fun updatePayAccount(
