@@ -17,7 +17,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.RoundTextAbbreviation
 import org.jetbrains.compose.resources.stringResource
 
 private val BarHeight = 72.dp
@@ -39,8 +39,8 @@ internal fun WelcomeTopBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
         ) {
-            CompanyNameIcon(
-                name = companyName
+            RoundTextAbbreviation(
+                text = companyName
             )
             Column(
                 verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.xSmall2)

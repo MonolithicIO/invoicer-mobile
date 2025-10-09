@@ -26,7 +26,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.props.InkButtonSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.RoundTextAbbreviation
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 
@@ -107,7 +107,7 @@ private fun LastestInvoiceItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
     ) {
-        CompanyNameIcon(name = item.companyName)
+        RoundTextAbbreviation(text = item.companyName)
         Column(modifier = Modifier.weight(1f)) {
             InkText(
                 text = item.companyName,

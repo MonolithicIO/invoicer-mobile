@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
@@ -68,5 +69,33 @@ fun ListItem(
                 )
             }
         }
+    }
+}
+
+@Composable
+fun LabeledListItem(
+    label: String,
+    value: String,
+    valueColor: Color = InkTheme.colorScheme.onBackground,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
+    ) {
+        InkText(
+            text = label,
+            style = InkTextStyle.BodyLarge,
+            modifier = Modifier.weight(1f)
+        )
+        InkText(
+            text = value,
+            style = InkTextStyle.BodyXlarge,
+            modifier = Modifier.weight(1f),
+            weight = FontWeight.SemiBold,
+            color = valueColor,
+            textAlign = TextAlign.End
+        )
     }
 }

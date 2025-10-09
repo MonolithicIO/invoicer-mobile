@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.CompanyNameIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.RoundTextAbbreviation
 
 @Composable
 internal fun ConfirmationHeader(
@@ -21,8 +21,8 @@ internal fun ConfirmationHeader(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
     ) {
-        CompanyNameIcon(
-            name = customerName
+        RoundTextAbbreviation(
+            text = customerName
         )
         InkText(
             text = customerName,

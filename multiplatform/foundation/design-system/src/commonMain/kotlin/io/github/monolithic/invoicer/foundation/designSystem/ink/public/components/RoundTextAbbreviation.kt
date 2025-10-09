@@ -14,8 +14,8 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.utils.modifier.circleLayout
 
 @Composable
-fun CompanyNameIcon(
-    name: String,
+fun RoundTextAbbreviation(
+    text: String,
     modifier: Modifier = Modifier
 ) {
     val backgroundColor = InkTheme.colorScheme.onBackground
@@ -24,7 +24,7 @@ fun CompanyNameIcon(
             .background(backgroundColor, shape = CircleShape)
             .padding(InkTheme.spacing.xSmall2)
             .circleLayout(),
-        text = name.take(2).toUpperCase(Locale.current),
+        text = text.take(2).toUpperCase(Locale.current),
         color = InkTheme.colorScheme.background,
         weight = FontWeight.Bold,
         style = InkTextStyle.Heading5

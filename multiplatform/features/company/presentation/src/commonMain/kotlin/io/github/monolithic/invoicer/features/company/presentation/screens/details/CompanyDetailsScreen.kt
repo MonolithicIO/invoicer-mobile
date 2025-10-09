@@ -1,18 +1,12 @@
 package io.github.monolithic.invoicer.features.company.presentation.screens.details
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -23,33 +17,19 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.company.presentation.generated.resources.Res
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address_city
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address_country_code
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address_line1
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address_line2
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address_postal_code
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_address_state
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_info
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_info_document
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_info_name
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_intermediary_account
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_pay_account
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_pay_account_bank_address
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_pay_account_bank_name
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_pay_account_iban
-import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_pay_account_swift
 import invoicer.multiplatform.features.company.presentation.generated.resources.company_details_title
+import invoicer.multiplatform.features.company.presentation.generated.resources.company_error_retry
 import io.github.monolithic.invoicer.features.company.presentation.model.CompanyPaymentUiModel
-import io.github.monolithic.invoicer.features.company.presentation.screens.details.components.CompanyDetailsCard
-import io.github.monolithic.invoicer.features.company.presentation.screens.details.components.CompanyDetailsRow
+import io.github.monolithic.invoicer.features.company.presentation.screens.details.components.CompanyDetailsContent
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.UpdateAddressScreen
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreen
 import io.github.monolithic.invoicer.features.company.presentation.screens.updatepayaccount.UpdatePayAccountScreenArgs
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.ErrorFeedback
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import org.jetbrains.compose.resources.stringResource
 
 internal class CompanyDetailsScreen : Screen {
@@ -66,8 +46,8 @@ internal class CompanyDetailsScreen : Screen {
 
         StateContent(
             state = state,
-            callbacks = remember {
-                Callbacks(
+            actions = remember {
+                Actions(
                     onBack = { navigator?.pop() },
                     onEditIntermediaryAccount = { account ->
                         navigator?.push(
@@ -116,152 +96,61 @@ internal class CompanyDetailsScreen : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: CompanyDetailsState,
-        callbacks: Callbacks
+        actions: Actions
     ) {
         val scroll = rememberScrollState()
-        Scaffold(
-            modifier = Modifier.systemBarsPadding(),
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.company_details_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBack)
-                    }
+                InkTopBar(
+                    onNavigationClick = actions.onBack,
+                    title = stringResource(Res.string.company_details_title),
+                    modifier = Modifier.statusBarsPadding()
                 )
             }
         ) { scaffoldPadding ->
-            Surface(
+            Column(
                 modifier = Modifier
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .fillMaxSize()
             ) {
                 when (state.mode) {
                     CompanyDetailsMode.Loading -> LoadingState(Modifier.fillMaxSize())
 
                     CompanyDetailsMode.Content ->
-                        Column(
-                            modifier = Modifier.fillMaxSize().verticalScroll(scroll),
-                            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
-                        ) {
-                            CompanyDetailsCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                title = stringResource(Res.string.company_details_info)
-                            ) {
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_info_name),
-                                    content = state.name
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_info_document),
-                                    content = state.document
-                                )
-                            }
-
-                            CompanyDetailsCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                title = stringResource(Res.string.company_details_address),
-                                onEditClick = callbacks.onEditAddress
-                            ) {
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_address_line1),
-                                    content = state.addressLine1
-                                )
-                                state.addressLine2?.let {
-                                    CompanyDetailsRow(
-                                        title = stringResource(Res.string.company_details_address_line2),
-                                        content = it
-                                    )
-                                }
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_address_state),
-                                    content = state.state
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_address_city),
-                                    content = state.city
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_address_postal_code),
-                                    content = state.postalCode
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_address_country_code),
-                                    content = state.countryCode
-                                )
-                            }
-
-                            CompanyDetailsCard(
-                                modifier = Modifier.fillMaxWidth(),
-                                title = stringResource(Res.string.company_details_pay_account),
-                                onEditClick = {
-                                    callbacks.onEditPayAccount(state.payAccount)
-                                }
-                            ) {
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_pay_account_swift),
-                                    content = state.payAccount.swift
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_pay_account_iban),
-                                    content = state.payAccount.iban
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_pay_account_bank_name),
-                                    content = state.payAccount.bankName
-                                )
-                                CompanyDetailsRow(
-                                    title = stringResource(Res.string.company_details_pay_account_bank_address),
-                                    content = state.payAccount.bankAddress
-                                )
-                            }
-
-                            state.intermediaryAccount?.let { intermediaryAccount ->
-                                CompanyDetailsCard(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    title = stringResource(Res.string.company_details_intermediary_account),
-                                    onEditClick = {
-                                        callbacks.onEditIntermediaryAccount(intermediaryAccount)
-                                    }
-                                ) {
-                                    CompanyDetailsRow(
-                                        title = stringResource(Res.string.company_details_pay_account_swift),
-                                        content = intermediaryAccount.swift
-                                    )
-                                    CompanyDetailsRow(
-                                        title = stringResource(Res.string.company_details_pay_account_swift),
-                                        content = intermediaryAccount.iban
-                                    )
-                                    CompanyDetailsRow(
-                                        title = stringResource(Res.string.company_details_pay_account_bank_name),
-                                        content = intermediaryAccount.bankName
-                                    )
-                                    CompanyDetailsRow(
-                                        title = stringResource(Res.string.company_details_pay_account_bank_address),
-                                        content = intermediaryAccount.bankAddress
+                        CompanyDetailsContent(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScroll(scroll)
+                                .navigationBarsPadding(),
+                            state = state,
+                            onEditAddress = actions.onEditAddress,
+                            onEditPrimaryAccount = { actions.onEditPayAccount(state.payAccount) },
+                            onEditIntermediaryAccount = {
+                                state.intermediaryAccount?.let {
+                                    actions.onEditIntermediaryAccount(
+                                        it
                                     )
                                 }
                             }
-                        }
+                        )
 
-                    CompanyDetailsMode.Error -> ErrorFeedback(
+                    CompanyDetailsMode.Error -> ErrorState(
                         modifier = Modifier.fillMaxSize(),
-                        onPrimaryAction = callbacks.onRetry
+                        primaryAction = ErrorStateAction(
+                            action = actions.onRetry,
+                            label = stringResource(Res.string.company_error_retry)
+                        )
                     )
                 }
             }
         }
     }
 
-    data class Callbacks(
+    data class Actions(
         val onBack: () -> Unit,
         val onEditPayAccount: (CompanyPaymentUiModel) -> Unit,
         val onEditIntermediaryAccount: (CompanyPaymentUiModel) -> Unit,
