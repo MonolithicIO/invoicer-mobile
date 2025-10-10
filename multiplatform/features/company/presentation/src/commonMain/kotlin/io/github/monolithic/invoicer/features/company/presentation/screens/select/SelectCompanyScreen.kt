@@ -131,8 +131,11 @@ internal class SelectCompanyScreen(
                         .navigationBarsPadding(),
                     onAction = { action ->
                         when (action) {
-                            SelectCompanyBottomBarAction.Continue -> screenActions.onConfirm
-                            SelectCompanyBottomBarAction.CreateNew -> screenActions.onCreateNewCompany
+                            SelectCompanyBottomBarAction.Continue ->
+                                screenActions.onConfirm()
+
+                            SelectCompanyBottomBarAction.CreateNew ->
+                                screenActions.onCreateNewCompany()
                         }
                     }
                 )
