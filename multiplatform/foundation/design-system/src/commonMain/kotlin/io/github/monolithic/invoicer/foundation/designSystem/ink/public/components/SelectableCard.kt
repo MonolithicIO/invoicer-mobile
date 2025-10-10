@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components
+package io.github.monolithic.invoicer.foundation.designSystem.ink.public.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.BorderStroke
@@ -18,7 +18,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 private val BorderWidth = 2.dp
 
 @Composable
-internal fun CreateInvoiceSelectableCard(
+fun SelectableCard(
     isSelected: Boolean,
     modifier: Modifier = Modifier,
     onSelect: () -> Unit,

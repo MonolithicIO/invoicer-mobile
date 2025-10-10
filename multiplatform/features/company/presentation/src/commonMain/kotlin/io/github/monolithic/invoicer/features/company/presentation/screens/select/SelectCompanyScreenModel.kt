@@ -55,13 +55,27 @@ internal class SelectCompanyScreenModel(
     }
 
     fun selectCompany(companyId: String) {
+        _state.update {
+            it.copy(selectedCompanyId = companyId)
+        }
+
+    }
+
+    fun submit() {
         screenModelScope.launch(dispatcher) {
-            val company = state.value.companies.first { it.id == companyId }
-            selectCompanyService.select(
-                companyName = company.name,
-                companyId = companyId
-            )
-            _events.emit(SelectCompanyEvent.ContinueToHome)
+            val companyId = state.value.selectedCompanyId
+
+            if (companyId != null) {
+                val company = state.value.companies.first { it.id == companyId }
+                selectCompanyService.select(
+                    companyName = company.name,
+                    companyId = companyId
+                )
+                _events.emit(SelectCompanyEvent.ContinueToHome)
+            } else {
+                _events.emit(SelectCompanyEvent.NoCompanySelected)
+            }
+
         }
     }
 
@@ -70,7 +84,7 @@ internal class SelectCompanyScreenModel(
         shouldAutoSelectFirst: Boolean
     ) {
         if (companies.isEmpty()) {
-            _state.update { it.copy(mode = SelectCompanyMode.CreateCompany) }
+            _state.update { it.copy(mode = SelectCompanyMode.EmptyState) }
             return
         }
 

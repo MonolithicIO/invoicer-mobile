@@ -36,7 +36,10 @@ fun ErrorState(
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
+        verticalArrangement = Arrangement.spacedBy(
+            space = InkTheme.spacing.medium,
+            alignment = Alignment.CenterVertically
+        )
     ) {
         Image(
             painter = painterResource(DsResources.drawable.img_error_default),
