@@ -13,13 +13,13 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_user_group
 import io.github.monolithic.invoicer.features.customer.domain.model.CustomerListItemModel
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceSelectableCard
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkTextButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.SelectableCard
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -47,7 +47,7 @@ internal fun InvoiceCustomerList(
                 items = items,
                 key = { it.id }
             ) { customer ->
-                CreateInvoiceSelectableCard(
+                SelectableCard(
                     isSelected = customer.id == selectedId,
                     onSelect = { onSelect(customer.id) }
                 ) {

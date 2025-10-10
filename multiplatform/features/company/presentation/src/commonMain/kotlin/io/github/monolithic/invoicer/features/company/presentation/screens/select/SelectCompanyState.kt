@@ -6,16 +6,18 @@ import kotlinx.collections.immutable.persistentListOf
 
 internal data class SelectCompanyState(
     val mode: SelectCompanyMode = SelectCompanyMode.Loading,
-    val companies: ImmutableList<ListCompaniesItemModel> = persistentListOf()
+    val companies: ImmutableList<ListCompaniesItemModel> = persistentListOf(),
+    val selectedCompanyId: String? = null
 )
 
 internal sealed interface SelectCompanyEvent {
     data object ContinueToHome : SelectCompanyEvent
+    data object NoCompanySelected: SelectCompanyEvent
 }
 
 internal enum class SelectCompanyMode {
     Loading,
     List,
     Error,
-    CreateCompany,
+    EmptyState,
 }
