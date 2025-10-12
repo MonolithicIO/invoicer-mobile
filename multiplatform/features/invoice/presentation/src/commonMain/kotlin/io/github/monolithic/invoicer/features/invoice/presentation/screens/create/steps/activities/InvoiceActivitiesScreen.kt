@@ -32,7 +32,6 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_continue_cta
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_plus
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components.AddActivityBottomSheet
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components.InvoiceActivityCard
@@ -48,6 +47,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -169,9 +169,10 @@ internal class InvoiceActivitiesScreen : Screen {
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
-                CreateInvoiceScreenTitle(
+                Title(
                     title = stringResource(Res.string.invoice_create_activity_title),
-                    description = stringResource(Res.string.invoice_create_activity_subtitle)
+                    subtitle = stringResource(Res.string.invoice_create_activity_subtitle),
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 VerticalSpacer(SpacerSize.Medium)
