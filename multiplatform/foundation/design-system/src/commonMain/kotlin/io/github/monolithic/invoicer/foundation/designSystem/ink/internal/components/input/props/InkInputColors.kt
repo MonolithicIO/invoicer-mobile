@@ -3,12 +3,10 @@ package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compo
 import androidx.compose.ui.graphics.Color
 
 internal data class InkInputColors(
+    val indicator: Color,
+    val background: Color,
     // Focused
     val focusedIndicator: Color,
-    val focusedBackground: Color,
-    // Unfocused
-    val unfocusedIndicator: Color,
-    val unfocusedBackground: Color,
     // Disabled
     val disabledIndicator: Color,
     val disabledBackground: Color,

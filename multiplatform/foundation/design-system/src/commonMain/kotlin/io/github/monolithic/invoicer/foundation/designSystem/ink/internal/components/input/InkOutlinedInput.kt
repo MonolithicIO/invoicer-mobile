@@ -169,7 +169,6 @@ private fun InkOutlinedInputContainer(
     val hasFocus by interactionSource.collectIsFocusedAsState()
     val backgroundColor =
         InkInputDefaults.backgroundColor(
-            isFocused = hasFocus,
             isEnabled = isEnabled
         )
 

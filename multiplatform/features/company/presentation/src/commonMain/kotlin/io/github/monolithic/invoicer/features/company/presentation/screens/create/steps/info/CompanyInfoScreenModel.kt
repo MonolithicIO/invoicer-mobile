@@ -5,6 +5,7 @@ import io.github.monolithic.invoicer.features.company.presentation.model.CreateC
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 
 internal class CompanyInfoScreenModel(
     private val form: CreateCompanyForm
@@ -23,20 +24,23 @@ internal class CompanyInfoScreenModel(
     }
 
     fun setName(name: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
-                companyName = name
+                companyName = name.trim()
             )
+        }.let { newState ->
+            form.companyName = newState.companyName
         }
-        form.companyName = name
+
     }
 
     fun setDocument(document: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
-                companyDocument = document
+                companyDocument = document.trim()
             )
+        }.let { newState ->
+            form.companyDocument = newState.companyDocument
         }
-        form.companyDocument = document
     }
 }
