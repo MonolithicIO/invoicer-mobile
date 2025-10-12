@@ -1,6 +1,5 @@
 package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm
 
-import io.github.monolithic.invoicer.features.company.presentation.model.CreateCompanyForm.IntermediaryAccountInfo
 import io.github.monolithic.invoicer.features.company.presentation.model.CreateCompanyForm.PayAccountInfo
 import io.github.monolithic.invoicer.features.company.services.domain.model.CreateCompanyAddressModel
 import io.github.monolithic.invoicer.features.company.services.domain.model.CreateCompanyModel
@@ -20,9 +19,8 @@ internal data class ConfirmCompanyState(
         swift = "",
         bankName = "",
         bankAddress = "",
-        shouldContinueToIntermediary = false
     ),
-    val intermediaryPayAccount: IntermediaryAccountInfo? = null,
+    val intermediaryPayAccount: PayAccountInfo? = null,
     val isButtonLoading: Boolean = false,
     val isButtonEnabled: Boolean = false
 )

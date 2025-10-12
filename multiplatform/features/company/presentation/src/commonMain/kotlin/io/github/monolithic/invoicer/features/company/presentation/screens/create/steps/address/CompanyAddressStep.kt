@@ -40,7 +40,7 @@ import invoicer.multiplatform.features.company.presentation.generated.resources.
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_title
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_continue
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.components.CreateCompanyTopBar
-import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.primary.PrimaryPayInfoScreen
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.PayAccountScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -66,7 +66,7 @@ internal class CompanyAddressStep : Screen {
                 onCityChange = screenModel::setCity,
                 onStateChange = screenModel::setState,
                 onPostalCodeChange = screenModel::setPostalCode,
-                onNextClick = { navigator?.push(PrimaryPayInfoScreen()) },
+                onNextClick = { navigator?.push(PayAccountScreen()) },
                 onBackClick = { navigator?.pop() })
         }
 

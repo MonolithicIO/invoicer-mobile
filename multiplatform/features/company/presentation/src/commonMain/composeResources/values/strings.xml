@@ -34,6 +34,8 @@
     <string name="create_company_address_postal_code_label">Postal Code</string>
 
     <!-- Create company pay info -->
+    <string name="create_company_pay_title">Payment Information</string>
+    <string name="create_company_pay_description">Inform payment account</string>
     <string name="create_company_pay_info_swift_code_label">Swift Code</string>
     <string name="create_company_pay_info_iban_code_label">IBAN Code</string>
     <string name="create_company_pay_info_bank_name_label">Bank Name</string>
