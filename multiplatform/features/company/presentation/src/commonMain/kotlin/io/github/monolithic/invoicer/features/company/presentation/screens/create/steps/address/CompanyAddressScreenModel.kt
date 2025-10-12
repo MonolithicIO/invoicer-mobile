@@ -5,6 +5,7 @@ import io.github.monolithic.invoicer.features.company.presentation.model.CreateC
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 
 internal class CompanyAddressScreenModel(
     private val form: CreateCompanyForm
@@ -27,47 +28,53 @@ internal class CompanyAddressScreenModel(
     }
 
     fun setAddressLine1(value: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
-                addressLine1 = value
+                addressLine1 = value.trim()
             )
+        }.let {
+            form.addressLine1 = it.addressLine1
         }
-        form.addressLine1 = value
+
     }
 
     fun setAddressLine2(value: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
-                addressLine2 = value
+                addressLine2 = value.trim()
             )
+        }.let {
+            form.addressLine2 = it.addressLine2
         }
-        form.addressLine2 = value
     }
 
     fun setCity(value: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
-                city = value
+                city = value.trim()
             )
+        }.let {
+            form.city = it.city
         }
-        form.city = value
     }
 
     fun setState(value: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
                 state = value
             )
+        }.let {
+            form.state = it.state
         }
-        form.state = value
     }
 
     fun setPostalCode(value: String) {
-        _state.update {
+        _state.updateAndGet {
             it.copy(
                 postalCode = value
             )
+        }.let {
+            form.postalCode = it.postalCode
         }
-        form.postalCode = value
     }
 }
