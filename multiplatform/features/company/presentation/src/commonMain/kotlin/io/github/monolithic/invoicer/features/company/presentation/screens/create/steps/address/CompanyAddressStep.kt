@@ -30,13 +30,17 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.company.presentation.generated.resources.Res
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_address_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_city_label
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_city_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_description
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_line_1_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_line_2_help_text
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_line_2_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_postal_code_label
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_postal_code_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_state_label
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_state_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_address_title
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_continue
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.components.CreateCompanyTopBar
@@ -139,7 +143,8 @@ internal class CompanyAddressStep : Screen {
                         ),
                         keyboardActions = KeyboardActions(
                             onNext = { addressLine2Focus.requestFocus() }
-                        )
+                        ),
+                        placeholder = stringResource(Res.string.create_company_address_address_placeholder)
                     )
 
                     InkOutlinedInput(
@@ -156,7 +161,7 @@ internal class CompanyAddressStep : Screen {
                         ),
                         keyboardActions = KeyboardActions(
                             onNext = { cityFocus.requestFocus() }
-                        )
+                        ),
                     )
 
                     InkOutlinedInput(
@@ -172,7 +177,8 @@ internal class CompanyAddressStep : Screen {
                         ),
                         keyboardActions = KeyboardActions(
                             onNext = { stateFocus.requestFocus() }
-                        )
+                        ),
+                        placeholder = stringResource(Res.string.create_company_address_city_placeholder)
                     )
                     InkOutlinedInput(
                         value = state.state,
@@ -187,7 +193,8 @@ internal class CompanyAddressStep : Screen {
                         ),
                         keyboardActions = KeyboardActions(
                             onNext = { postalCodeFocus.requestFocus() }
-                        )
+                        ),
+                        placeholder = stringResource(Res.string.create_company_address_state_placeholder)
                     )
                     InkOutlinedInput(
                         value = state.postalCode,
@@ -202,7 +209,8 @@ internal class CompanyAddressStep : Screen {
                         ),
                         keyboardActions = KeyboardActions(
                             onDone = { keyboard?.hide() }
-                        )
+                        ),
+                        placeholder = stringResource(Res.string.create_company_address_postal_code_placeholder)
                     )
                 }
             }

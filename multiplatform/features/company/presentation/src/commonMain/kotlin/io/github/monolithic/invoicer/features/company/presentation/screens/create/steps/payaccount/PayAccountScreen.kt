@@ -31,12 +31,16 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.company.presentation.generated.resources.Res
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_continue
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_bank_address_placeholder
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_bank_name_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_description
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_iban_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_bank_address_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_bank_name_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_iban_code_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_primary_use_intermediary
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_swift_code_label
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_swift_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.components.CreateCompanyTopBar
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreen
@@ -142,7 +146,8 @@ internal class PayAccountScreen : Screen {
                         imeAction = ImeAction.Next
                     ),
                     label = stringResource(Res.string.create_company_pay_info_swift_code_label),
-                    maxLines = 1
+                    maxLines = 1,
+                    placeholder = stringResource(Res.string.create_company_pay_swift_placeholder)
                 )
 
                 InkOutlinedInput(
@@ -160,7 +165,8 @@ internal class PayAccountScreen : Screen {
                         imeAction = ImeAction.Next
                     ),
                     label = stringResource(Res.string.create_company_pay_info_iban_code_label),
-                    maxLines = 1
+                    maxLines = 1,
+                    placeholder = stringResource(Res.string.create_company_pay_iban_placeholder)
                 )
 
                 InkOutlinedInput(
@@ -177,7 +183,8 @@ internal class PayAccountScreen : Screen {
                         imeAction = ImeAction.Next
                     ),
                     label = stringResource(Res.string.create_company_pay_info_bank_name_label),
-                    maxLines = 1
+                    maxLines = 1,
+                    placeholder = stringResource(Res.string.create_company_pay_bank_name_placeholder)
                 )
 
                 InkOutlinedInput(
@@ -194,7 +201,8 @@ internal class PayAccountScreen : Screen {
                         imeAction = ImeAction.Done
                     ),
                     label = stringResource(Res.string.create_company_pay_info_bank_address_label),
-                    maxLines = 1
+                    maxLines = 1,
+                    placeholder = stringResource(Res.string.create_company_pay_bank_address_placeholder)
                 )
 
                 ToggleListItem(
