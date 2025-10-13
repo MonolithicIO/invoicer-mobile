@@ -56,6 +56,7 @@ fun lightInkColorScheme(): InkColorScheme {
         surfaceLight = InkColors.GreyScale.grey100,
         surfaceDark = InkColors.GreyScale.grey200,
         primaryVariant = InkColors.Transparent.transparentPrimary,
+        white = InkColors.BlackWhite.white
     )
 }
 
@@ -77,7 +78,8 @@ fun darkInkColorScheme(): InkColorScheme {
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.Dark.dark4,
         surfaceDark = InkColors.Dark.dark4,
-        primaryVariant = InkColors.Transparent.transparentPrimary
+        primaryVariant = InkColors.Transparent.transparentPrimary,
+        white = InkColors.BlackWhite.white
     )
 }
 
