@@ -4,6 +4,7 @@ import io.github.monolithic.invoicer.features.company.presentation.model.CreateC
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoScreenModel
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.intermediaryaccount.IntermediaryAccountScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.PayAccountScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.details.CompanyDetailsScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
@@ -44,6 +45,12 @@ val companyPresentationDiModule = module {
 
     factory {
         PayAccountScreenModel(
+            form = get<CreateCompanyFormManager>().getForm()
+        )
+    }
+
+    factory {
+        IntermediaryAccountScreenModel(
             form = get<CreateCompanyFormManager>().getForm()
         )
     }

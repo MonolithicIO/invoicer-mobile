@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount
+package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.intermediaryaccount
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.model.CreateCompanyForm
@@ -7,21 +7,20 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 
-internal class PayAccountScreenModel(
+internal class IntermediaryAccountScreenModel(
     private val form: CreateCompanyForm
 ) : ScreenModel {
 
-    private val _state = MutableStateFlow(PayAccountState())
+    private val _state = MutableStateFlow(IntermediaryAccountState())
     val state = _state.asStateFlow()
 
     fun resumeState() {
         _state.update {
             it.copy(
-                primaryIban = form.primaryPayAccount.iban,
-                primarySwift = form.primaryPayAccount.swift,
-                primaryBankName = form.primaryPayAccount.bankName,
-                primaryBankAddress = form.primaryPayAccount.bankAddress,
-                useIntermediaryAccount = form.useIntermediaryAccount
+                primaryIban = form.intermediaryPayAccount?.iban.orEmpty(),
+                primarySwift = form.intermediaryPayAccount?.swift.orEmpty(),
+                primaryBankName = form.intermediaryPayAccount?.bankName.orEmpty(),
+                primaryBankAddress = form.intermediaryPayAccount?.bankAddress.orEmpty(),
             )
         }
     }
@@ -32,7 +31,8 @@ internal class PayAccountScreenModel(
                 primaryIban = iban.trim()
             )
         }.let { newState ->
-            form.primaryPayAccount = form.primaryPayAccount.copy(iban = newState.primaryIban)
+            form.intermediaryPayAccount =
+                form.intermediaryPayAccount?.copy(iban = newState.primaryIban)
         }
     }
 
@@ -42,7 +42,8 @@ internal class PayAccountScreenModel(
                 primarySwift = swift.trim()
             )
         }.let { newState ->
-            form.primaryPayAccount = form.primaryPayAccount.copy(swift = newState.primarySwift)
+            form.intermediaryPayAccount =
+                form.intermediaryPayAccount?.copy(swift = newState.primarySwift)
         }
     }
 
@@ -52,8 +53,8 @@ internal class PayAccountScreenModel(
                 primaryBankName = bankName.trim()
             )
         }.let { newState ->
-            form.primaryPayAccount =
-                form.primaryPayAccount.copy(bankName = newState.primaryBankName)
+            form.intermediaryPayAccount =
+                form.intermediaryPayAccount?.copy(bankName = newState.primaryBankName)
         }
     }
 
@@ -63,18 +64,8 @@ internal class PayAccountScreenModel(
                 primaryBankAddress = bankAddress.trim()
             )
         }.let { newState ->
-            form.primaryPayAccount =
-                form.primaryPayAccount.copy(bankAddress = newState.primaryBankAddress)
-        }
-    }
-
-    fun toggleIntermediaryAccount(active: Boolean) {
-        _state.updateAndGet {
-            it.copy(
-                useIntermediaryAccount = active
-            )
-        }.let { newState ->
-            form.useIntermediaryAccount = newState.useIntermediaryAccount
+            form.intermediaryPayAccount =
+                form.intermediaryPayAccount?.copy(bankAddress = newState.primaryBankAddress)
         }
     }
 }

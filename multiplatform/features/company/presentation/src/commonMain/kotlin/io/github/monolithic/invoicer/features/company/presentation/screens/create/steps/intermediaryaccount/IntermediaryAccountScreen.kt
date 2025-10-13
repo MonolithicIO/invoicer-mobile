@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount
+package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.intermediaryaccount
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,7 +23,6 @@ import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.
 import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component2
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import cafe.adriel.voyager.core.screen.Screen
@@ -31,29 +30,26 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.company.presentation.generated.resources.Res
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_continue
-import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_description
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_bank_address_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_bank_name_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_iban_code_label
-import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_primary_use_intermediary
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_intermediary_description
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_intermediary_title
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_swift_code_label
-import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.components.CreateCompanyTopBar
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreen
-import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.intermediaryaccount.IntermediaryAccountScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
-import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ToggleListItem
 import org.jetbrains.compose.resources.stringResource
 
-internal class PayAccountScreen : Screen {
+internal class IntermediaryAccountScreen : Screen {
 
     @Composable
     override fun Content() {
-        val screenModel = koinScreenModel<PayAccountScreenModel>()
+        val screenModel = koinScreenModel<IntermediaryAccountScreenModel>()
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.current
 
@@ -65,16 +61,11 @@ internal class PayAccountScreen : Screen {
             actions = remember(screenModel) {
                 Actions(
                     onBack = { navigator?.pop() },
-                    onContinue = {
-                        if (state.useIntermediaryAccount)
-                            navigator?.push(IntermediaryAccountScreen())
-                        else navigator?.push(ConfirmCompanyScreen())
-                    },
+                    onContinue = { navigator?.push(ConfirmCompanyScreen()) },
                     onUpdatePrimarySwift = screenModel::onChangePrimarySwift,
                     onUpdatePrimaryIban = screenModel::onChangePrimaryIban,
                     onUpdatePrimaryBankName = screenModel::onChangePrimaryBankName,
                     onUpdatePrimaryBankAddress = screenModel::onChangePrimaryBankAddress,
-                    onToggleUseIntermediaryAccount = screenModel::toggleIntermediaryAccount
                 )
             },
             state = state
@@ -84,7 +75,7 @@ internal class PayAccountScreen : Screen {
     @Composable
     fun StateContent(
         actions: Actions,
-        state: PayAccountState
+        state: IntermediaryAccountState
     ) {
         InkScaffold(
             topBar = {
@@ -123,8 +114,8 @@ internal class PayAccountScreen : Screen {
                 verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
                 Title(
-                    title = stringResource(Res.string.create_company_pay_title),
-                    subtitle = stringResource(Res.string.create_company_pay_description)
+                    title = stringResource(Res.string.create_company_pay_info_intermediary_title),
+                    subtitle = stringResource(Res.string.create_company_pay_info_intermediary_description)
                 )
 
                 InkOutlinedInput(
@@ -196,13 +187,6 @@ internal class PayAccountScreen : Screen {
                     label = stringResource(Res.string.create_company_pay_info_bank_address_label),
                     maxLines = 1
                 )
-
-                ToggleListItem(
-                    label = stringResource(Res.string.create_company_pay_info_primary_use_intermediary),
-                    checked = state.useIntermediaryAccount,
-                    onCheckedChange = actions.onToggleUseIntermediaryAccount,
-                    labelWeight = FontWeight.SemiBold
-                )
             }
         }
 
@@ -215,6 +199,5 @@ internal class PayAccountScreen : Screen {
         val onUpdatePrimaryIban: (String) -> Unit,
         val onUpdatePrimaryBankName: (String) -> Unit,
         val onUpdatePrimaryBankAddress: (String) -> Unit,
-        val onToggleUseIntermediaryAccount: (Boolean) -> Unit,
     )
 }
