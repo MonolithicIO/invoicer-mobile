@@ -23,6 +23,7 @@ import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.
 import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component2
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import cafe.adriel.voyager.core.screen.Screen
@@ -34,6 +35,7 @@ import invoicer.multiplatform.features.company.presentation.generated.resources.
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_bank_address_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_bank_name_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_iban_code_label
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_primary_use_intermediary
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_info_swift_code_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_pay_title
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.components.CreateCompanyTopBar
@@ -42,6 +44,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ToggleListItem
 import org.jetbrains.compose.resources.stringResource
 
 internal class PayAccountScreen : Screen {
@@ -128,8 +131,8 @@ internal class PayAccountScreen : Screen {
                         onNext = { ibanRef.requestFocus() }
                     ),
                     keyboardOptions = KeyboardOptions(
-//                        capitalization = KeyboardCapitalization.Characters,
-//                        autoCorrectEnabled = false,
+                        capitalization = KeyboardCapitalization.Characters,
+                        autoCorrectEnabled = false,
                         imeAction = ImeAction.Next
                     ),
                     label = stringResource(Res.string.create_company_pay_info_swift_code_label),
@@ -187,6 +190,13 @@ internal class PayAccountScreen : Screen {
                     label = stringResource(Res.string.create_company_pay_info_bank_address_label),
                     maxLines = 1
                 )
+
+                ToggleListItem(
+                    label = stringResource(Res.string.create_company_pay_info_primary_use_intermediary),
+                    checked = state.useIntermediaryAccount,
+                    onCheckedChange = actions.onToggleUseIntermediaryAccount,
+                    labelWeight = FontWeight.SemiBold
+                )
             }
         }
 
@@ -199,6 +209,6 @@ internal class PayAccountScreen : Screen {
         val onUpdatePrimaryIban: (String) -> Unit,
         val onUpdatePrimaryBankName: (String) -> Unit,
         val onUpdatePrimaryBankAddress: (String) -> Unit,
-        val onToggleUseIntermediaryAccount: () -> Unit,
+        val onToggleUseIntermediaryAccount: (Boolean) -> Unit,
     )
 }

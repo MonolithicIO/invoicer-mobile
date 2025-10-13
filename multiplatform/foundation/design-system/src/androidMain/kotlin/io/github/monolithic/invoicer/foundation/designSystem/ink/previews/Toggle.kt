@@ -12,7 +12,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 @Composable
 @Preview
 fun TogglePreview() {
-    PreviewContainer(false) {
+    PreviewContainer(true) {
         var checkedState by remember { mutableStateOf(false) }
 
         InkToggle(
@@ -29,16 +29,6 @@ fun TogglePreview() {
             checked = checkedState,
             enabled = false,
             onClick = { checkedState = it },
-        )
-
-        InkToggle(
-            checked = true,
-            onClick = { },
-        )
-
-        InkToggle(
-            checked = false,
-            onClick = { },
         )
     }
 }

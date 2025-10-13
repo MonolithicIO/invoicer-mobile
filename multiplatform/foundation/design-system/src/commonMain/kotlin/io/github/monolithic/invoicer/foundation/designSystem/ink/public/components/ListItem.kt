@@ -20,6 +20,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.toggle.InkToggle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import org.jetbrains.compose.resources.painterResource
 
@@ -96,6 +97,32 @@ fun LabeledListItem(
             weight = FontWeight.SemiBold,
             color = valueColor,
             textAlign = TextAlign.End
+        )
+    }
+}
+
+@Composable
+fun ToggleListItem(
+    label: String,
+    labelWeight: FontWeight = FontWeight.Normal,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.small)
+    ) {
+        InkText(
+            text = label,
+            style = InkTextStyle.BodyLarge,
+            modifier = Modifier.weight(1f),
+            weight = labelWeight
+        )
+        InkToggle(
+            checked = checked,
+            onClick = onCheckedChange
         )
     }
 }

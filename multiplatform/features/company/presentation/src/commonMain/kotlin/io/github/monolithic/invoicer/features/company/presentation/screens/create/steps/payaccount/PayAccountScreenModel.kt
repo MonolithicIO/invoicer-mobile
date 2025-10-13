@@ -21,7 +21,7 @@ internal class PayAccountScreenModel(
                 primarySwift = form.primaryPayAccount.swift,
                 primaryBankName = form.primaryPayAccount.bankName,
                 primaryBankAddress = form.primaryPayAccount.bankAddress,
-                useIntermediaryAccount = form.intermediaryPayAccount != null
+                useIntermediaryAccount = form.useIntermediaryAccount
             )
         }
     }
@@ -68,17 +68,15 @@ internal class PayAccountScreenModel(
         }
     }
 
-    fun toggleIntermediaryAccount() {
+    fun toggleIntermediaryAccount(active: Boolean) {
         _state.updateAndGet {
             it.copy(
-                useIntermediaryAccount = it.useIntermediaryAccount.not()
+                useIntermediaryAccount = active
             )
         }.let { newState ->
-            if (newState.useIntermediaryAccount) {
-                form.useIntermediaryAccount = true
-            } else {
+            form.useIntermediaryAccount = newState.useIntermediaryAccount
+            if (newState.useIntermediaryAccount.not()) {
                 form.intermediaryPayAccount = null
-                form.useIntermediaryAccount = false
             }
         }
     }

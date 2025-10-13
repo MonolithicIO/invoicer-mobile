@@ -2,7 +2,6 @@ package io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compo
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
@@ -22,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 @Composable
-internal fun InkToggle(
+fun InkToggle(
     checked: Boolean,
     onClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

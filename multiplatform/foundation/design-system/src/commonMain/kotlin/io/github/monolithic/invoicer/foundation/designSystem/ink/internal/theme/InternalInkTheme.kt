@@ -67,7 +67,7 @@ fun darkInkColorScheme(): InkColorScheme {
         primary = InkColors.Main.primary,
         onPrimary = InkColors.BlackWhite.white,
         disabled = InkColors.AlertStatus.darkDisabled,
-        onDisabled = InkColors.GreyScale.grey200,
+        onDisabled = InkColors.GreyScale.grey500,
         surface = InkColors.Dark.dark5,
         onSurface = InkColors.BlackWhite.white,
         borderStroke = InkColors.Dark.dark5,

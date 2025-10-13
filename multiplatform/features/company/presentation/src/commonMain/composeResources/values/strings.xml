@@ -44,7 +44,7 @@
     <!-- Create company pay info Primary -->
     <string name="create_company_pay_info_primary_title">Payment Account</string>
     <string name="create_company_pay_info_primary_description">Inform payment account</string>
-    <string name="create_company_pay_info_primary_use_intermediary">Add intermediary account</string>
+    <string name="create_company_pay_info_primary_use_intermediary">Use intermediary account</string>
 
     <!-- Create company pay info intermediary -->
     <string name="create_company_pay_info_intermediary_title">Intermediary Account</string>
