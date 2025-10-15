@@ -59,9 +59,9 @@
     <string name="create_company_pay_info_intermediary_description">Inform intermediary account</string>
 
     <!-- Create company confirmation -->
-    <string name="create_company_confirmation_title">Confirm Company</string>
-    <string name="create_company_confirmation_description">Review the information below before creating your company.</string>
-    <string name="create_company_confirmation_cta">Create Company</string>
+    <string name="create_company_confirmation_title">Confirm Details</string>
+    <string name="create_company_confirmation_description">Review company information before proceeding.</string>
+    <string name="create_company_confirmation_cta">Continue</string>
     <string name="create_company_confirmation_info_section_label">Company Information</string>
     <string name="create_company_confirmation_name_label">Name</string>
     <string name="create_company_confirmation_document_label">Document</string>
@@ -74,6 +74,10 @@
     <string name="create_company_confirmation_country_code_label">Country code</string>
     <string name="create_company_confirmation_pay_info_section_label">Payment Information</string>
     <string name="create_company_confirmation_intermediary_section_label">Intermediary Account</string>
+    <string name="create_company_confirmation_swift_label">Swift Code</string>
+    <string name="create_company_confirmation_iban_label">IBAN Code</string>
+    <string name="create_company_confirmation_bank_name_label">Bank Name</string>
+    <string name="create_company_confirmation_bank_address_label">Bank Address</string>
 
     <!-- Company Details -->
     <string name="company_details_title">Company Details</string>
