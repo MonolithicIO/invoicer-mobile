@@ -39,6 +39,8 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.DsRes
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_edit
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_email
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_phone
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
@@ -47,9 +49,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -121,7 +121,7 @@ internal class CreateCustomerScreen : Screen {
                     onClick = actions.onSubmit,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium)
+                        .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
                     loading = state.isButtonLoading,
                 )
@@ -136,7 +136,7 @@ internal class CreateCustomerScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .verticalScroll(verticalsScroll)
             ) {
 

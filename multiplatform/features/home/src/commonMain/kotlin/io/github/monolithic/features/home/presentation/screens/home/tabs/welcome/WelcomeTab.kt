@@ -22,7 +22,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import org.jetbrains.compose.resources.stringResource
@@ -92,7 +91,7 @@ internal object WelcomeTab : Tab {
             modifier = Modifier
                 .fillMaxSize()
                 .background(InkTheme.colorScheme.surfaceLight)
-                .padding(Spacing.medium)
+                .padding(InkTheme.spacing.medium)
         ) {
             when (state.mode) {
                 WelcomeTabMode.Loading -> LoadingState(

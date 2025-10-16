@@ -44,11 +44,11 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.utils.compose.LazyListPaginationEffect
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
@@ -142,7 +142,7 @@ internal class InvoiceListScreen : Screen {
                         text = stringResource(Res.string.invoice_list_new_invoice),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(Spacing.medium)
+                            .padding(InkTheme.spacing.medium)
                             .navigationBarsPadding(),
                         onClick = callbacks::onCreateInvoiceClick
                     )
@@ -155,7 +155,7 @@ internal class InvoiceListScreen : Screen {
             Column(
                 modifier = Modifier
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .fillMaxSize()
             ) {
                 when (state.mode) {
@@ -178,7 +178,7 @@ internal class InvoiceListScreen : Screen {
 
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
-                                verticalArrangement = Arrangement.spacedBy(Spacing.medium),
+                                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium),
                                 state = listState
                             ) {
                                 itemsIndexed(

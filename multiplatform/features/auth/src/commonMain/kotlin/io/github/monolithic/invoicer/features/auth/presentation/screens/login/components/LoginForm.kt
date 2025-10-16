@@ -25,12 +25,12 @@ import invoicer.multiplatform.features.auth.generated.resources.ic_lock
 import invoicer.multiplatform.features.auth.generated.resources.ic_visibility_off
 import invoicer.multiplatform.features.auth.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 

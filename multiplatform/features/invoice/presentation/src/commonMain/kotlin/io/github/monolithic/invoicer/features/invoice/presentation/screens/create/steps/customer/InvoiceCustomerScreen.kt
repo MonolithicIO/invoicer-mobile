@@ -27,11 +27,11 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
@@ -93,7 +93,7 @@ internal class InvoiceCustomerScreen : Screen {
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
-                        .padding(Spacing.medium),
+                        .padding(InkTheme.spacing.medium),
                     enabled = state.isButtonEnabled
                 )
             },
@@ -102,7 +102,7 @@ internal class InvoiceCustomerScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
             ) {
                 Title(
                     title = stringResource(Res.string.invoice_customer_title),

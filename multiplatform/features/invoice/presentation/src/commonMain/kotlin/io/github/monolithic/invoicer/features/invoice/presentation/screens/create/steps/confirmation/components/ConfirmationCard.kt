@@ -25,7 +25,7 @@ internal fun ConfirmationCard(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.medium)
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
     ) {
         InkText(
             text = label,
@@ -49,7 +49,7 @@ internal fun AmountConfirmationCard(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.medium)
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
     ) {
         InkText(
             text = stringResource(Res.string.confirmation_amount_label),

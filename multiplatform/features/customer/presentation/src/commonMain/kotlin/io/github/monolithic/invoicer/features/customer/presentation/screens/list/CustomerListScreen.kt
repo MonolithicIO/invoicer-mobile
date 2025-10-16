@@ -26,10 +26,10 @@ import io.github.monolithic.invoicer.features.customer.presentation.screens.list
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkCircleButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -99,7 +99,7 @@ internal class CustomerListScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
             ) {
                 when (state.mode) {
 

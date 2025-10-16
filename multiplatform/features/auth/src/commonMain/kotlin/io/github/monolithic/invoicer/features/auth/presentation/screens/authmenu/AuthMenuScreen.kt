@@ -39,13 +39,13 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.S
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCircularIndicator
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSecondaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSocialButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.navigation.extensions.pushToFront
 import io.github.monolithic.invoicer.foundation.platform.firebaseAuth.rememberGoogleLauncher
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect

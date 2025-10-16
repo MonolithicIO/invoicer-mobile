@@ -6,7 +6,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesState
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.model.CreateInvoiceActivityUiModel
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import kotlinx.collections.immutable.persistentListOf
 import org.junit.Rule
@@ -48,7 +48,7 @@ internal class InvoiceActivitiesScreenTest {
         state: InvoiceActivitiesState
     ) {
         MultiplatformSnapshot {
-            InvoicerTheme {
+            InvoicerInkTheme {
                 InvoiceActivitiesScreen()
                     .StateContent(
                         state = state,

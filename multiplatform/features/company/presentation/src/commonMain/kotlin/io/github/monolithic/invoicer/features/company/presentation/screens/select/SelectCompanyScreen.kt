@@ -46,7 +46,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.public.componen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
@@ -145,7 +144,7 @@ internal class SelectCompanyScreen(
             Column(
                 modifier = Modifier
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
             ) {
                 when (state.mode) {
                     SelectCompanyMode.Loading -> LoadingState(
@@ -157,7 +156,7 @@ internal class SelectCompanyScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f),
-                            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
                         ) {
                             items(
                                 items = state.companies,

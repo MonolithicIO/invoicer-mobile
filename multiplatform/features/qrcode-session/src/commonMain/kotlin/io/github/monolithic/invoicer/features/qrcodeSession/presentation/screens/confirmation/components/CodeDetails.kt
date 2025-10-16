@@ -14,8 +14,8 @@ import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_cod
 import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_code_details_requested_at
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LabeledListItem
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -31,10 +31,10 @@ internal fun CodeDetails(
         modifier = modifier,
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(Spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium),
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Spacing.small)
+                .padding(InkTheme.spacing.small)
         ) {
             LabeledListItem(
                 label = stringResource(Res.string.qr_code_details_agent),

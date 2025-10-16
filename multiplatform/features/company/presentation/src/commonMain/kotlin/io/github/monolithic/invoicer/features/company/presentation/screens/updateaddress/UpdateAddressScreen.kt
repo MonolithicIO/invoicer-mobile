@@ -44,7 +44,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -118,7 +118,7 @@ internal class UpdateAddressScreen(
                     onClick = callbacks.onUpdateAddressClick,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium)
+                        .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
                     enabled = state.isButtonEnabled,
                     loading = state.isButtonLoading
@@ -139,10 +139,10 @@ internal class UpdateAddressScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .padding(scaffoldPadding)
                     .verticalScroll(verticalScroll),
-                verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
                 UpdateAddressInput(
                     value = state.addressLine,

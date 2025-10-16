@@ -40,6 +40,8 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.login.Lo
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.SignUpForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.components.SignUpHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signupfeedback.SignUpFeedbackScreen
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkTextButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.dialog.InkDialog
@@ -50,8 +52,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource

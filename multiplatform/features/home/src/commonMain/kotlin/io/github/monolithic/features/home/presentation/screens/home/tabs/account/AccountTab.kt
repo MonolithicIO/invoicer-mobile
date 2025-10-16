@@ -35,7 +35,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ListItem
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.args.SelectCompanyIntent
 import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
@@ -108,7 +107,7 @@ internal object AccountTab : Tab {
             modifier = Modifier
                 .fillMaxSize()
                 .background(InkTheme.colorScheme.surfaceLight)
-                .padding(Spacing.medium)
+                .padding(InkTheme.spacing.medium)
                 .verticalScroll(scrollState)
         ) {
             SelectedCompanyCard(

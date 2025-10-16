@@ -6,7 +6,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.login.Lo
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenCallbacks
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.junit.Rule
@@ -84,7 +84,7 @@ class LoginScreenScreenshotTest {
         state: LoginScreenState
     ) {
         MultiplatformSnapshot {
-            InvoicerTheme {
+            InvoicerInkTheme {
                 LoginScreen().StateContent(
                     snackbarHostState = InkSnackBarHostState(),
                     state = state,
