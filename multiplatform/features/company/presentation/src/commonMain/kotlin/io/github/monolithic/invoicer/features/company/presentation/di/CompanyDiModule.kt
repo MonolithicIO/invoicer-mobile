@@ -39,7 +39,9 @@ val companyPresentationDiModule = module {
         ConfirmCompanyScreenModel(
             form = get<CreateCompanyFormManager>().getForm(),
             dispatcher = Dispatchers.Default,
-            repository = get()
+            repository = get(),
+            sessionUpdater = get(),
+            homeRefreshBus = get()
         )
     }
 

@@ -30,7 +30,9 @@ fun InkToggle(
     val colors = InkToggleDefaults.colors
 
     val handleOffset by animateDpAsState(
-        targetValue = if (checked) InkToggleDefaults.width - InkToggleDefaults.handleSize - (InkToggleDefaults.containerPadding * 2)
+        targetValue = if (checked) InkToggleDefaults.width -
+                InkToggleDefaults.handleSize -
+                (InkToggleDefaults.containerPadding * 2)
         else 0.dp
     )
 

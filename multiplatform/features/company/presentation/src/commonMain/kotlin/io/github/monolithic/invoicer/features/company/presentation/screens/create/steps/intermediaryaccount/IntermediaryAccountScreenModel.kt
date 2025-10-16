@@ -28,7 +28,7 @@ internal class IntermediaryAccountScreenModel(
     fun onChangePrimaryIban(iban: String) {
         _state.updateAndGet {
             it.copy(
-                primaryIban = iban.trim()
+                primaryIban = iban
             )
         }.let { newState ->
             form.intermediaryPayAccount =
@@ -39,7 +39,7 @@ internal class IntermediaryAccountScreenModel(
     fun onChangePrimarySwift(swift: String) {
         _state.updateAndGet {
             it.copy(
-                primarySwift = swift.trim()
+                primarySwift = swift
             )
         }.let { newState ->
             form.intermediaryPayAccount =
@@ -50,7 +50,7 @@ internal class IntermediaryAccountScreenModel(
     fun onChangePrimaryBankName(bankName: String) {
         _state.updateAndGet {
             it.copy(
-                primaryBankName = bankName.trim()
+                primaryBankName = bankName
             )
         }.let { newState ->
             form.intermediaryPayAccount =
@@ -61,7 +61,7 @@ internal class IntermediaryAccountScreenModel(
     fun onChangePrimaryBankAddress(bankAddress: String) {
         _state.updateAndGet {
             it.copy(
-                primaryBankAddress = bankAddress.trim()
+                primaryBankAddress = bankAddress
             )
         }.let { newState ->
             form.intermediaryPayAccount =

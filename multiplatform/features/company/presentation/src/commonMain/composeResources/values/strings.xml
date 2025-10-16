@@ -79,6 +79,11 @@
     <string name="create_company_confirmation_bank_name_label">Bank Name</string>
     <string name="create_company_confirmation_bank_address_label">Bank Address</string>
 
+    <!-- Create company success -->
+    <string name="create_company_success_title">Company Created</string>
+    <string name="create_company_success_description">Your company has been successfully created.</string>
+    <string name="create_company_success_cta">Continue</string>
+
     <!-- Company Details -->
     <string name="company_details_title">Company Details</string>
     <string name="company_details_info">Info</string>

@@ -30,7 +30,7 @@ internal class CompanyAddressScreenModel(
     fun setAddressLine1(value: String) {
         _state.updateAndGet {
             it.copy(
-                addressLine1 = value.trim()
+                addressLine1 = value
             )
         }.let {
             form.addressLine1 = it.addressLine1
@@ -41,7 +41,7 @@ internal class CompanyAddressScreenModel(
     fun setAddressLine2(value: String) {
         _state.updateAndGet {
             it.copy(
-                addressLine2 = value.trim()
+                addressLine2 = value
             )
         }.let {
             form.addressLine2 = it.addressLine2
@@ -51,7 +51,7 @@ internal class CompanyAddressScreenModel(
     fun setCity(value: String) {
         _state.updateAndGet {
             it.copy(
-                city = value.trim()
+                city = value
             )
         }.let {
             form.city = it.city

@@ -29,7 +29,7 @@ internal class PayAccountScreenModel(
     fun onChangePrimaryIban(iban: String) {
         _state.updateAndGet {
             it.copy(
-                primaryIban = iban.trim()
+                primaryIban = iban
             )
         }.let { newState ->
             form.primaryPayAccount = form.primaryPayAccount.copy(iban = newState.primaryIban)
@@ -39,7 +39,7 @@ internal class PayAccountScreenModel(
     fun onChangePrimarySwift(swift: String) {
         _state.updateAndGet {
             it.copy(
-                primarySwift = swift.trim()
+                primarySwift = swift
             )
         }.let { newState ->
             form.primaryPayAccount = form.primaryPayAccount.copy(swift = newState.primarySwift)
@@ -49,7 +49,7 @@ internal class PayAccountScreenModel(
     fun onChangePrimaryBankName(bankName: String) {
         _state.updateAndGet {
             it.copy(
-                primaryBankName = bankName.trim()
+                primaryBankName = bankName
             )
         }.let { newState ->
             form.primaryPayAccount =
@@ -60,7 +60,7 @@ internal class PayAccountScreenModel(
     fun onChangePrimaryBankAddress(bankAddress: String) {
         _state.updateAndGet {
             it.copy(
-                primaryBankAddress = bankAddress.trim()
+                primaryBankAddress = bankAddress
             )
         }.let { newState ->
             form.primaryPayAccount =

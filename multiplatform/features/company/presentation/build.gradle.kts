@@ -37,6 +37,7 @@ kotlin {
             implementation(projects.multiplatform.foundation.navigation)
             implementation(projects.multiplatform.foundation.designSystem)
             implementation(projects.multiplatform.foundation.utils)
+            implementation(projects.multiplatform.foundation.watchers)
             implementation(projects.multiplatform.foundation.auth)
 
             // Ktor

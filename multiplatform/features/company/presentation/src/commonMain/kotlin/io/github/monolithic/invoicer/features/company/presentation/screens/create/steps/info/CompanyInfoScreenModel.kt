@@ -26,7 +26,7 @@ internal class CompanyInfoScreenModel(
     fun setName(name: String) {
         _state.updateAndGet {
             it.copy(
-                companyName = name.trim()
+                companyName = name
             )
         }.let { newState ->
             form.companyName = newState.companyName
@@ -37,7 +37,7 @@ internal class CompanyInfoScreenModel(
     fun setDocument(document: String) {
         _state.updateAndGet {
             it.copy(
-                companyDocument = document.trim()
+                companyDocument = document
             )
         }.let { newState ->
             form.companyDocument = newState.companyDocument

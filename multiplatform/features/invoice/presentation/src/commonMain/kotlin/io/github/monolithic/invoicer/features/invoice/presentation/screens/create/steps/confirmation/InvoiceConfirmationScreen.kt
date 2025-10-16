@@ -32,7 +32,7 @@ import io.github.monolithic.invoicer.features.invoice.presentation.screens.creat
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.AmountConfirmationCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationHeader
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback.InvoiceFeedbackScreen
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.feedback.InvoiceFeedbackScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize

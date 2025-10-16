@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,6 +28,7 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.dange
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.AddressSection
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.ConfirmCompanyHeader
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.PaySection
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.success.CreateCompanySuccessScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -51,7 +51,6 @@ internal class ConfirmCompanyScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        val parentNavigator = navigator?.parent
         val screenModel = koinScreenModel<ConfirmCompanyScreenModel>()
         val state = screenModel.state.collectAsState()
         val scope = rememberCoroutineScope()
@@ -65,7 +64,7 @@ internal class ConfirmCompanyScreen : Screen {
             key = screenModel,
         ) {
             when (it) {
-                is CreateCompanyEvents.Success -> parentNavigator?.pop()
+                is CreateCompanyEvents.Success -> navigator?.push(CreateCompanySuccessScreen())
 
                 is CreateCompanyEvents.Error -> {
                     scope.launch {
@@ -91,7 +90,6 @@ internal class ConfirmCompanyScreen : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: ConfirmCompanyState,

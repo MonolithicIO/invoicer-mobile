@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 internal class ConfirmCompanyScreenModel(
     private val form: CreateCompanyForm,
     private val repository: CompanyRepository,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
 ) : ScreenModel {
 
     private val _state = MutableStateFlow(ConfirmCompanyState())
@@ -64,7 +64,7 @@ internal class ConfirmCompanyScreenModel(
                         it.copy(isButtonLoading = false)
                     }
                 },
-                onSuccess = {
+                onSuccess = { companyId ->
                     _events.emit(CreateCompanyEvents.Success)
                 },
                 onFailure = {
