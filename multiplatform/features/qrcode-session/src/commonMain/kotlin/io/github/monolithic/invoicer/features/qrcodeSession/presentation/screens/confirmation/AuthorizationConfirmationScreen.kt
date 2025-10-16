@@ -27,7 +27,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.InkTheme.spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 
