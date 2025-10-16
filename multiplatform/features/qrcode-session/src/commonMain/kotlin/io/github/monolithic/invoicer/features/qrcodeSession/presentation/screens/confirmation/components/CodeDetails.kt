@@ -4,10 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import invoicer.multiplatform.features.qrcode_session.generated.resources.Res
@@ -16,6 +12,9 @@ import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_cod
 import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_code_details_expiration
 import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_code_details_ip
 import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_code_details_requested_at
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkCard
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LabeledListItem
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
@@ -28,7 +27,7 @@ internal fun CodeDetails(
     qrCodeEmission: String,
     onAuthorize: () -> Unit,
 ) {
-    Card(
+    InkCard(
         modifier = modifier,
     ) {
         Column(
@@ -37,36 +36,30 @@ internal fun CodeDetails(
                 .fillMaxWidth()
                 .padding(Spacing.small)
         ) {
-            ListItem(
-                headlineContent = { Text(text = qrCodeAgent) },
-                overlineContent = {
-                    Text(stringResource(Res.string.qr_code_details_agent))
-                }
+            LabeledListItem(
+                label = stringResource(Res.string.qr_code_details_agent),
+                value = qrCodeAgent,
             )
-            ListItem(
-                headlineContent = { Text(text = qrCodeIp) },
-                overlineContent = {
-                    Text(stringResource(Res.string.qr_code_details_ip))
-                }
+            LabeledListItem(
+                label = stringResource(Res.string.qr_code_details_ip),
+                value = qrCodeIp,
             )
-            ListItem(
-                headlineContent = { Text(text = qrCodeExpiration) },
-                overlineContent = {
-                    Text(stringResource(Res.string.qr_code_details_expiration))
-                }
+
+            LabeledListItem(
+                label = stringResource(Res.string.qr_code_details_expiration),
+                value = qrCodeExpiration,
             )
-            ListItem(
-                headlineContent = { Text(text = qrCodeEmission) },
-                overlineContent = {
-                    Text(stringResource(Res.string.qr_code_details_requested_at))
-                }
+
+            LabeledListItem(
+                label = stringResource(Res.string.qr_code_details_requested_at),
+                value = qrCodeEmission,
             )
-            Button(
+
+            InkPrimaryButton(
                 onClick = onAuthorize,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(stringResource(Res.string.qr_code_details_authorize))
-            }
+                modifier = Modifier.fillMaxWidth(),
+                text = stringResource(Res.string.qr_code_details_authorize)
+            )
         }
     }
 }

@@ -3,14 +3,9 @@ package io.github.monolithic.invoicer.features.qrcodeSession.presentation.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -22,12 +17,17 @@ import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.qrcode_session.generated.resources.Res
-import invoicer.multiplatform.features.qrcode_session.generated.resources.qrcode_scan_in_progress
 import invoicer.multiplatform.features.qrcode_session.generated.resources.qrcode_scan_title
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.confirmation.AuthorizationConfirmationScreen
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.scan.components.QrCodeCameraView
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import io.github.monolithic.invoicer.foundation.utils.permissions.PermissionType
 import io.github.monolithic.invoicer.foundation.utils.permissions.checkPermission
@@ -41,7 +41,7 @@ internal class AuthorizationScanScreen : Screen {
     override fun Content() {
         val screenModel = koinScreenModel<AuthorizationScanScreenModel>()
         val state by screenModel.state.collectAsState()
-        val snackBarHost = remember { SnackbarHostState() }
+        val snackBarHost = rememberInkSnackBarHostState()
         val scope = rememberCoroutineScope()
         val navigator = LocalNavigator.current
 
@@ -77,7 +77,7 @@ internal class AuthorizationScanScreen : Screen {
             when (event) {
                 AuthorizationScanEvents.InvalidCode, AuthorizationScanEvents.CodeNotFound ->
                     scope.launch {
-                        snackBarHost.showSnackbar(message = "Invalid QrCode")
+                        snackBarHost.showSnackBar(message = "Invalid QrCode")
                     }
 
                 is AuthorizationScanEvents.ProceedToConfirmation -> navigator?.push(
@@ -89,25 +89,25 @@ internal class AuthorizationScanScreen : Screen {
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: AuthorizationScanState,
-        snackBarHostState: SnackbarHostState,
+        snackBarHostState: InkSnackBarHostState,
         isCameraPermissionGranted: Boolean,
         onRequestCameraPermission: () -> Unit,
         onBackButton: () -> Unit,
         onScanSuccess: (String) -> Unit,
         onScanFailure: (Throwable) -> Unit,
     ) {
-        Scaffold(
-            snackbarHost = {
-                SnackbarHost(snackBarHostState)
+        InkScaffold(
+            snackBarHost = {
+                InkSnackBarHost(snackBarHostState)
             },
             topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(Res.string.qrcode_scan_title)) },
-                    navigationIcon = { BackButton(onBackClick = onBackButton) }
+                InkTopBar(
+                    title = stringResource(Res.string.qrcode_scan_title),
+                    onNavigationClick = onBackButton,
+                    modifier = Modifier.statusBarsPadding()
                 )
             }
         ) { scaffoldPadding ->
@@ -115,13 +115,12 @@ internal class AuthorizationScanScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
+                    .padding(InkTheme.spacing.medium)
+                    .navigationBarsPadding()
             ) {
                 when (state.screenType) {
                     AuthorizationScanMode.Loading -> LoadingState(
-                        modifier = Modifier
-                            .weight(1f)
-                            .fillMaxWidth(),
-                        label = stringResource(Res.string.qrcode_scan_in_progress)
+                        modifier = Modifier.fillMaxSize()
                     )
 
                     AuthorizationScanMode.CameraView ->
@@ -133,9 +132,10 @@ internal class AuthorizationScanScreen : Screen {
                                 onScan = onScanSuccess,
                                 onFail = onScanFailure
                             )
-                        else Button(onClick = onRequestCameraPermission) {
-                            Text("Request camera permission")
-                        }
+                        else InkPrimaryButton(
+                            onClick = onRequestCameraPermission,
+                            text = "Request camera permission"
+                        )
                 }
             }
         }
