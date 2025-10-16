@@ -4,16 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,17 +20,30 @@ import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.company.presentation.generated.resources.Res
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_confirmation_cta
-import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_confirmation_intermediary_section_label
-import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_confirmation_pay_info_section_label
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_confirmation_description
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_confirmation_document_label
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_confirmation_title
+import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.danger_circle
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.AddressSection
-import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.CompanySection
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.ConfirmCompanyHeader
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.components.PaySection
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.success.CreateCompanySuccessScreen
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.divider.InkHorizontalDivider
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LabeledListItem
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 internal class ConfirmCompanyScreen : Screen {
@@ -43,11 +51,11 @@ internal class ConfirmCompanyScreen : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.current
-        val parentNavigator = navigator?.parent
         val screenModel = koinScreenModel<ConfirmCompanyScreenModel>()
         val state = screenModel.state.collectAsState()
         val scope = rememberCoroutineScope()
-        val snackBarState = remember { SnackbarHostState() }
+        val snackBarState = rememberInkSnackBarHostState()
+        val snackBarErrorIcon = painterResource(DsResources.drawable.danger_circle)
 
         LaunchedEffect(Unit) { screenModel.resumeState() }
 
@@ -56,18 +64,23 @@ internal class ConfirmCompanyScreen : Screen {
             key = screenModel,
         ) {
             when (it) {
-                is CreateCompanyEvents.Success -> parentNavigator?.pop()
+                is CreateCompanyEvents.Success -> navigator?.push(CreateCompanySuccessScreen())
 
                 is CreateCompanyEvents.Error -> {
-                    scope.launch { snackBarState.showSnackbar(it.message) }
+                    scope.launch {
+                        snackBarState.showSnackBar(
+                            message = it.message,
+                            leadingIcon = snackBarErrorIcon
+                        )
+                    }
                 }
             }
         }
 
         StateContent(
             state = state.value,
-            callbacks = remember {
-                Callbacks(
+            actions = remember {
+                Actions(
                     onBack = { navigator?.pop() },
                     onConfirm = screenModel::createCompany,
                     onScrollEnd = screenModel::enableButton
@@ -77,39 +90,32 @@ internal class ConfirmCompanyScreen : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: ConfirmCompanyState,
-        callbacks: Callbacks,
-        snackbarHostState: SnackbarHostState
+        actions: Actions,
+        snackbarHostState: InkSnackBarHostState
     ) {
-        Scaffold(
-            snackbarHost = { SnackbarHost(snackbarHostState) },
+        InkScaffold(
+            snackBarHost = { InkSnackBarHost(snackbarHostState) },
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(Res.string.create_company_confirmation_title)
-                        )
-                    },
-                    navigationIcon = {
-                        BackButton(onBackClick = callbacks.onBack)
-                    }
+                InkTopBar(
+                    onNavigationClick = actions.onBack,
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
-                PrimaryButton(
+                InkPrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium),
-                    label = stringResource(Res.string.create_company_confirmation_cta),
-                    onClick = callbacks.onConfirm,
-                    isEnabled = state.isButtonEnabled,
-                    isLoading = state.isButtonLoading
+                        .padding(Spacing.medium)
+                        .navigationBarsPadding(),
+                    text = stringResource(Res.string.create_company_confirmation_cta),
+                    onClick = actions.onConfirm,
+                    enabled = state.isButtonEnabled,
+                    loading = state.isButtonLoading
                 )
             },
-            modifier = Modifier.systemBarsPadding()
         ) { scaffoldPadding ->
             Column(
                 modifier = Modifier
@@ -121,9 +127,16 @@ internal class ConfirmCompanyScreen : Screen {
 
                 LaunchedEffect(scrollState.value) {
                     if (scrollState.value >= scrollState.maxValue) {
-                        callbacks.onScrollEnd()
+                        actions.onScrollEnd()
                     }
                 }
+
+                Title(
+                    title = stringResource(Res.string.create_company_confirmation_title),
+                    subtitle = stringResource(Res.string.create_company_confirmation_description)
+                )
+
+                VerticalSpacer(SpacerSize.Medium)
 
                 Column(
                     modifier = Modifier
@@ -131,11 +144,20 @@ internal class ConfirmCompanyScreen : Screen {
                         .verticalScroll(scrollState),
                     verticalArrangement = Arrangement.spacedBy(Spacing.medium)
                 ) {
-
-                    CompanySection(
-                        name = state.companyName,
-                        document = state.companyDocument
+                    ConfirmCompanyHeader(
+                        companyName = state.companyName,
+                        modifier = Modifier.fillMaxWidth()
                     )
+
+                    InkHorizontalDivider()
+
+                    LabeledListItem(
+                        label = stringResource(Res.string.create_company_confirmation_document_label),
+                        value = state.companyDocument,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    InkHorizontalDivider()
 
                     AddressSection(
                         addressLine1 = state.addressLine1,
@@ -146,8 +168,9 @@ internal class ConfirmCompanyScreen : Screen {
                         countryCode = state.countryCode
                     )
 
+                    InkHorizontalDivider()
+
                     PaySection(
-                        title = stringResource(Res.string.create_company_confirmation_pay_info_section_label),
                         swift = state.primaryPayAccount.swift,
                         iban = state.primaryPayAccount.iban,
                         bankName = state.primaryPayAccount.bankName,
@@ -155,8 +178,8 @@ internal class ConfirmCompanyScreen : Screen {
                     )
 
                     state.intermediaryPayAccount?.let { account ->
+                        InkHorizontalDivider()
                         PaySection(
-                            title = stringResource(Res.string.create_company_confirmation_intermediary_section_label),
                             swift = account.swift,
                             iban = account.iban,
                             bankName = account.bankName,
@@ -168,7 +191,7 @@ internal class ConfirmCompanyScreen : Screen {
         }
     }
 
-    data class Callbacks(
+    data class Actions(
         val onBack: () -> Unit,
         val onConfirm: () -> Unit,
         val onScrollEnd: () -> Unit,

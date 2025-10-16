@@ -20,10 +20,9 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_customer_description
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_customer_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_list_error_retry
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.datesReferences.InvoiceDatesAndReferencesScreen
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.customer.components.InvoiceCustomerList
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.datesReferences.InvoiceDatesAndReferencesScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -31,6 +30,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.navigation.InvoicerScreen
 import io.github.monolithic.invoicer.foundation.navigation.extensions.getScreen
@@ -104,9 +104,9 @@ internal class InvoiceCustomerScreen : Screen {
                     .padding(scaffoldPadding)
                     .padding(Spacing.medium)
             ) {
-                CreateInvoiceScreenTitle(
+                Title(
                     title = stringResource(Res.string.invoice_customer_title),
-                    description = stringResource(Res.string.invoice_customer_description)
+                    subtitle = stringResource(Res.string.invoice_customer_description)
                 )
 
                 VerticalSpacer(SpacerSize.Medium)

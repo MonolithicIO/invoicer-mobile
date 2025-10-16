@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components
+package io.github.monolithic.invoicer.foundation.designSystem.ink.public.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,9 +10,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 
 @Composable
-internal fun CreateInvoiceScreenTitle(
+fun Title(
     title: String,
-    description: String,
+    subtitle: String,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -25,7 +25,7 @@ internal fun CreateInvoiceScreenTitle(
             weight = FontWeight.Bold
         )
         InkText(
-            text = description,
+            text = subtitle,
             style = InkTextStyle.BodyMedium,
             color = InkTheme.colorScheme.onBackgroundVariant
         )

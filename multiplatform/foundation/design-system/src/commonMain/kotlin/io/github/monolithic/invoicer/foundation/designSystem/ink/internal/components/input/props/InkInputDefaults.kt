@@ -28,10 +28,7 @@ internal object InkInputDefaults {
             return InkInputColors(
                 textColor = InkTheme.colorScheme.onSurfaceVariant,
                 cursorColor = InkTheme.colorScheme.onSurfaceVariant,
-                focusedBackground = InkTheme.colorScheme.surfaceDark,
-                focusedIndicator = InkTheme.colorScheme.surfaceDark,
-                unfocusedBackground = InkTheme.colorScheme.surfaceLight,
-                unfocusedIndicator = InkTheme.colorScheme.surfaceLight,
+                indicator = InkTheme.colorScheme.surfaceLight,
                 disabledIndicator = InkTheme.colorScheme.disabled,
                 disabledBackground = InkTheme.colorScheme.disabled,
                 disabledText = InkTheme.colorScheme.onDisabled,
@@ -44,16 +41,18 @@ internal object InkInputDefaults {
                 placeholderColor = InkTheme.colorScheme.onDisabled,
                 labelColor = InkTheme.colorScheme.onSurfaceVariant,
                 supportTextColor = InkTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
+                background = InkTheme.colorScheme.surfaceLight,
+                focusedIndicator = InkTheme.colorScheme.primary
             )
         }
 
     @Composable
-    fun backgroundColor(isFocused: Boolean, isEnabled: Boolean): State<Color> {
+    fun backgroundColor(isEnabled: Boolean): State<Color> {
         val colors = colors
+
         val newColor = when {
             !isEnabled -> colors.disabledBackground
-            isFocused -> colors.focusedBackground
-            else -> colors.unfocusedBackground
+            else -> colors.background
         }
 
         return animateColorAsState(
@@ -69,7 +68,7 @@ internal object InkInputDefaults {
             !isEnabled -> colors.disabledIndicator
             isError -> colors.errorIndicator
             isFocused -> colors.focusedIndicator
-            else -> colors.unfocusedIndicator
+            else -> colors.indicator
         }
 
         return animateColorAsState(

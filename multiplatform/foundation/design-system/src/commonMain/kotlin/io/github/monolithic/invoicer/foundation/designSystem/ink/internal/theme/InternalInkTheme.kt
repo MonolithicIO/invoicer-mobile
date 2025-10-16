@@ -55,7 +55,8 @@ fun lightInkColorScheme(): InkColorScheme {
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.GreyScale.grey100,
         surfaceDark = InkColors.GreyScale.grey200,
-        primaryVariant = InkColors.Transparent.transparentPrimary
+        primaryVariant = InkColors.Transparent.transparentPrimary,
+        white = InkColors.BlackWhite.white
     )
 }
 
@@ -66,7 +67,7 @@ fun darkInkColorScheme(): InkColorScheme {
         primary = InkColors.Main.primary,
         onPrimary = InkColors.BlackWhite.white,
         disabled = InkColors.AlertStatus.darkDisabled,
-        onDisabled = InkColors.GreyScale.grey200,
+        onDisabled = InkColors.GreyScale.grey500,
         surface = InkColors.Dark.dark5,
         onSurface = InkColors.BlackWhite.white,
         borderStroke = InkColors.Dark.dark5,
@@ -77,7 +78,8 @@ fun darkInkColorScheme(): InkColorScheme {
         errorBackground = InkColors.Background.red,
         surfaceLight = InkColors.Dark.dark4,
         surfaceDark = InkColors.Dark.dark4,
-        primaryVariant = InkColors.Transparent.transparentPrimary
+        primaryVariant = InkColors.Transparent.transparentPrimary,
+        white = InkColors.BlackWhite.white
     )
 }
 

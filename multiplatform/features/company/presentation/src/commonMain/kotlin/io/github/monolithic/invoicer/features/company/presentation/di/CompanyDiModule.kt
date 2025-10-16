@@ -4,8 +4,8 @@ import io.github.monolithic.invoicer.features.company.presentation.model.CreateC
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm.ConfirmCompanyScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.info.CompanyInfoScreenModel
-import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.intermediary.IntermediaryPayInfoScreenModel
-import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.primary.PrimaryPayInfoScreenModel
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.intermediaryaccount.IntermediaryAccountScreenModel
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.payaccount.PayAccountScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.details.CompanyDetailsScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.select.SelectCompanyScreenModel
 import io.github.monolithic.invoicer.features.company.presentation.screens.updateaddress.UpdateAddressScreenModel
@@ -36,22 +36,22 @@ val companyPresentationDiModule = module {
     }
 
     factory {
-        PrimaryPayInfoScreenModel(
-            form = get<CreateCompanyFormManager>().getForm()
-        )
-    }
-
-    factory {
-        IntermediaryPayInfoScreenModel(
-            form = get<CreateCompanyFormManager>().getForm()
-        )
-    }
-
-    factory {
         ConfirmCompanyScreenModel(
             form = get<CreateCompanyFormManager>().getForm(),
             dispatcher = Dispatchers.Default,
-            repository = get()
+            repository = get(),
+        )
+    }
+
+    factory {
+        PayAccountScreenModel(
+            form = get<CreateCompanyFormManager>().getForm()
+        )
+    }
+
+    factory {
+        IntermediaryAccountScreenModel(
+            form = get<CreateCompanyFormManager>().getForm()
         )
     }
 

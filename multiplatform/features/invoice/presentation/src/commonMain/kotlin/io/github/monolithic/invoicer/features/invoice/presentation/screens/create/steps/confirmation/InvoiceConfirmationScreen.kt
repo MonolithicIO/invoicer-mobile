@@ -27,13 +27,12 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_subtitle
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_create_confirmation_title
 import invoicer.multiplatform.features.invoice.presentation.generated.resources.invoice_details_number
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.components.InvoiceActivityCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.AmountConfirmationCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationCard
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.confirmation.components.ConfirmationHeader
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback.InvoiceFeedbackScreen
+import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.feedback.InvoiceFeedbackScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
@@ -45,6 +44,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.date.defaultFormat
 import kotlinx.coroutines.flow.collectLatest
@@ -123,10 +123,10 @@ internal class InvoiceConfirmationScreen : Screen {
                     .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
-                CreateInvoiceScreenTitle(
-                    modifier = Modifier.fillMaxWidth(),
+                Title(
                     title = stringResource(Res.string.invoice_create_confirmation_title),
-                    description = stringResource(Res.string.invoice_create_confirmation_subtitle)
+                    subtitle = stringResource(Res.string.invoice_create_confirmation_subtitle),
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 VerticalSpacer(SpacerSize.Medium)

@@ -21,7 +21,7 @@ fun InkCard(
     border: BorderStroke? = null,
     contentPadding: PaddingValues = PaddingValues(),
     elevation: Dp = 0.dp,
-    containerColor: Color = InkTheme.colorScheme.surface,
+    containerColor: Color = InkTheme.colorScheme.surfaceLight,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Surface(

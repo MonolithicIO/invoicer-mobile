@@ -20,4 +20,5 @@ data class InkColorScheme(
     val errorBackground: Color,
     val surfaceLight: Color,
     val surfaceDark: Color,
+    val white: Color,
 )

@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.invoice.presentation.screens.feedback
+package io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.feedback
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth

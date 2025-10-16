@@ -1,6 +1,5 @@
 package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.confirm
 
-import io.github.monolithic.invoicer.features.company.presentation.model.CreateCompanyForm.IntermediaryAccountInfo
 import io.github.monolithic.invoicer.features.company.presentation.model.CreateCompanyForm.PayAccountInfo
 import io.github.monolithic.invoicer.features.company.services.domain.model.CreateCompanyAddressModel
 import io.github.monolithic.invoicer.features.company.services.domain.model.CreateCompanyModel
@@ -20,9 +19,8 @@ internal data class ConfirmCompanyState(
         swift = "",
         bankName = "",
         bankAddress = "",
-        shouldContinueToIntermediary = false
     ),
-    val intermediaryPayAccount: IntermediaryAccountInfo? = null,
+    val intermediaryPayAccount: PayAccountInfo? = null,
     val isButtonLoading: Boolean = false,
     val isButtonEnabled: Boolean = false
 )
@@ -33,28 +31,28 @@ internal sealed interface CreateCompanyEvents {
 }
 
 internal fun ConfirmCompanyState.toRequestModel() = CreateCompanyModel(
-    name = companyName,
-    document = companyDocument,
+    name = companyName.trim(),
+    document = companyDocument.trim(),
     address = CreateCompanyAddressModel(
-        addressLine1 = addressLine1,
-        addressLine2 = addressLine2.ifBlank { null },
-        city = city,
-        state = state,
-        postalCode = postalCode,
-        countryCode = countryCode
+        addressLine1 = addressLine1.trim(),
+        addressLine2 = addressLine2.ifBlank { null }?.trim(),
+        city = city.trim(),
+        state = state.trim(),
+        postalCode = postalCode.trim(),
+        countryCode = countryCode.trim()
     ),
     paymentAccount = CreateCompanyPaymentAccountModel(
-        iban = primaryPayAccount.iban,
-        swift = primaryPayAccount.swift,
-        bankName = primaryPayAccount.bankName,
-        bankAddress = primaryPayAccount.bankAddress
+        iban = primaryPayAccount.iban.trim(),
+        swift = primaryPayAccount.swift.trim(),
+        bankName = primaryPayAccount.bankName.trim(),
+        bankAddress = primaryPayAccount.bankAddress.trim()
     ),
     intermediaryAccount = intermediaryPayAccount?.let { account ->
         CreateCompanyPaymentAccountModel(
-            iban = account.iban,
-            swift = account.swift,
-            bankName = account.bankName,
-            bankAddress = account.bankAddress
+            iban = account.iban.trim(),
+            swift = account.swift.trim(),
+            bankName = account.bankName.trim(),
+            bankAddress = account.bankAddress.trim()
         )
     }
 )

@@ -1,17 +1,17 @@
 package io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.info
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -29,17 +29,20 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import invoicer.multiplatform.features.company.presentation.generated.resources.Res
 import invoicer.multiplatform.features.company.presentation.generated.resources.crate_company_info_title
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_continue
+import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_info_description
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_info_document_hint
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_info_document_placeholder
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_info_name_hint
 import invoicer.multiplatform.features.company.presentation.generated.resources.create_company_info_name_placeholder
+import io.github.monolithic.invoicer.features.company.presentation.screens.create.components.CreateCompanyTopBar
 import io.github.monolithic.invoicer.features.company.presentation.screens.create.steps.address.CompanyAddressStep
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.InputField
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.CloseButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.PrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.SpacerSize
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.spacer.VerticalSpacer
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
 import org.jetbrains.compose.resources.stringResource
 
 
@@ -73,51 +76,56 @@ internal class CompanyInfoStep : Screen {
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         callbacks: Callbacks,
         state: CompanyInfoState
     ) {
-        Scaffold(
-            modifier = Modifier
-                .systemBarsPadding()
-                .imePadding(),
+        InkScaffold(
+            modifier = Modifier.imePadding(),
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(text = stringResource(Res.string.crate_company_info_title))
-                    },
-                    navigationIcon = {
-                        CloseButton(onBackClick = callbacks.onClose)
-                    }
+                CreateCompanyTopBar(
+                    step = 1,
+                    onBack = callbacks.onClose,
+                    modifier = Modifier.statusBarsPadding()
                 )
             },
             bottomBar = {
-                PrimaryButton(
-                    label = stringResource(Res.string.create_company_continue),
+                InkPrimaryButton(
+                    text = stringResource(Res.string.create_company_continue),
                     onClick = callbacks.onContinue,
-                    isEnabled = state.isButtonEnabled,
-                    modifier = Modifier.fillMaxWidth().padding(Spacing.medium),
+                    enabled = state.isButtonEnabled,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(InkTheme.spacing.medium)
+                        .navigationBarsPadding(),
                 )
             }
         ) { scaffoldPadding ->
             val (nameFocus, documentFocus) = FocusRequester.createRefs()
             val keyboard = LocalSoftwareKeyboardController.current
+            val scroll = rememberScrollState()
 
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
+                    .verticalScroll(scroll),
+                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
-                InputField(
+                Title(
+                    title = stringResource(Res.string.crate_company_info_title),
+                    subtitle = stringResource(Res.string.create_company_info_description)
+                )
+
+                VerticalSpacer(SpacerSize.Medium)
+
+                InkOutlinedInput(
                     value = state.companyName,
                     onValueChange = callbacks.onNameChange,
-                    label = { Text(text = stringResource(Res.string.create_company_info_name_hint)) },
-                    placeholder = {
-                        Text(text = stringResource(Res.string.create_company_info_name_placeholder))
-                    },
+                    label = stringResource(Res.string.create_company_info_name_hint),
+                    placeholder = stringResource(Res.string.create_company_info_name_placeholder),
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(nameFocus),
@@ -129,14 +137,12 @@ internal class CompanyInfoStep : Screen {
                         imeAction = ImeAction.Next
                     )
                 )
-                VerticalSpacer(SpacerSize.Medium)
-                InputField(
+
+                InkOutlinedInput(
                     value = state.companyDocument,
                     onValueChange = callbacks.onDocumentChange,
-                    label = { Text(text = stringResource(Res.string.create_company_info_document_hint)) },
-                    placeholder = {
-                        Text(text = stringResource(Res.string.create_company_info_document_placeholder))
-                    },
+                    label = stringResource(Res.string.create_company_info_document_hint),
+                    placeholder = stringResource(Res.string.create_company_info_document_placeholder),
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(documentFocus),

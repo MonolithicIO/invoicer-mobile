@@ -32,26 +32,36 @@
     <string name="create_company_address_city_label">City</string>
     <string name="create_company_address_state_label">State</string>
     <string name="create_company_address_postal_code_label">Postal Code</string>
+    <string name="create_company_address_address_placeholder">1234 Main St</string>
+    <string name="create_company_address_city_placeholder">Anytown</string>
+    <string name="create_company_address_state_placeholder">State</string>
+    <string name="create_company_address_postal_code_placeholder">12345</string>
 
     <!-- Create company pay info -->
+    <string name="create_company_pay_title">Payment Information</string>
+    <string name="create_company_pay_description">Inform payment account</string>
     <string name="create_company_pay_info_swift_code_label">Swift Code</string>
     <string name="create_company_pay_info_iban_code_label">IBAN Code</string>
     <string name="create_company_pay_info_bank_name_label">Bank Name</string>
     <string name="create_company_pay_info_bank_address_label">Bank Address</string>
+    <string name="create_company_pay_swift_placeholder">XXXXXXXXXXX</string>
+    <string name="create_company_pay_iban_placeholder">XXXXXXXXXXXXXXXXXXXX</string>
+    <string name="create_company_pay_bank_name_placeholder">Bank of World</string>
+    <string name="create_company_pay_bank_address_placeholder">1234 Bank St, City></string>
 
     <!-- Create company pay info Primary -->
     <string name="create_company_pay_info_primary_title">Payment Account</string>
     <string name="create_company_pay_info_primary_description">Inform payment account</string>
-    <string name="create_company_pay_info_primary_use_intermediary">Add intermediary account</string>
+    <string name="create_company_pay_info_primary_use_intermediary">Use intermediary account</string>
 
     <!-- Create company pay info intermediary -->
     <string name="create_company_pay_info_intermediary_title">Intermediary Account</string>
     <string name="create_company_pay_info_intermediary_description">Inform intermediary account</string>
 
     <!-- Create company confirmation -->
-    <string name="create_company_confirmation_title">Confirm Company</string>
-    <string name="create_company_confirmation_description">Review the information below before creating your company.</string>
-    <string name="create_company_confirmation_cta">Create Company</string>
+    <string name="create_company_confirmation_title">Confirm Details</string>
+    <string name="create_company_confirmation_description">Review company information before proceeding.</string>
+    <string name="create_company_confirmation_cta">Continue</string>
     <string name="create_company_confirmation_info_section_label">Company Information</string>
     <string name="create_company_confirmation_name_label">Name</string>
     <string name="create_company_confirmation_document_label">Document</string>
@@ -64,6 +74,15 @@
     <string name="create_company_confirmation_country_code_label">Country code</string>
     <string name="create_company_confirmation_pay_info_section_label">Payment Information</string>
     <string name="create_company_confirmation_intermediary_section_label">Intermediary Account</string>
+    <string name="create_company_confirmation_swift_label">Swift Code</string>
+    <string name="create_company_confirmation_iban_label">IBAN Code</string>
+    <string name="create_company_confirmation_bank_name_label">Bank Name</string>
+    <string name="create_company_confirmation_bank_address_label">Bank Address</string>
+
+    <!-- Create company success -->
+    <string name="create_company_success_title">Company Created</string>
+    <string name="create_company_success_description">Your company has been successfully created.</string>
+    <string name="create_company_success_cta">Continue</string>
 
     <!-- Company Details -->
     <string name="company_details_title">Company Details</string>

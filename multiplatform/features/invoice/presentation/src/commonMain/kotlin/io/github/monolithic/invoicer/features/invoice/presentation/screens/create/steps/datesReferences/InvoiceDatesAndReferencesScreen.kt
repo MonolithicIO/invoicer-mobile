@@ -41,7 +41,6 @@ import invoicer.multiplatform.features.invoice.presentation.generated.resources.
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_calendar
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_key
-import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceScreenTitle
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.components.CreateInvoiceToolbar
 import io.github.monolithic.invoicer.features.invoice.presentation.screens.create.steps.activities.InvoiceActivitiesScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -49,6 +48,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import io.github.monolithic.invoicer.foundation.utils.transformations.MaskVisualTransformation
@@ -133,9 +133,9 @@ internal class InvoiceDatesAndReferencesScreen : Screen {
                     .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
-                CreateInvoiceScreenTitle(
+                Title(
                     title = stringResource(Res.string.invoice_date_reference_title),
-                    description = stringResource(Res.string.invoice_date_reference_description)
+                    subtitle = stringResource(Res.string.invoice_date_reference_description)
                 )
 
                 InkOutlinedInput(
