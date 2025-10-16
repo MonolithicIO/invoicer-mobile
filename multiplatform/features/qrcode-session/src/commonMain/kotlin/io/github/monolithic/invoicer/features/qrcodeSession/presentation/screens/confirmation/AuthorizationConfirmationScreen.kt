@@ -3,13 +3,9 @@ package io.github.monolithic.invoicer.features.qrcodeSession.presentation.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ErrorOutline
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -25,9 +21,11 @@ import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_cod
 import invoicer.multiplatform.features.qrcode_session.generated.resources.qr_code_details_error_title
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.confirmation.components.CodeDetails
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.success.AuthorizationSuccessScreen
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.buttons.BackButton
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.feedback.Feedback
 import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
@@ -66,7 +64,6 @@ internal data class AuthorizationConfirmationScreen(
         )
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun StateContent(
         state: AuthorizationConfirmationState,
@@ -74,13 +71,12 @@ internal data class AuthorizationConfirmationScreen(
         onAuthorize: () -> Unit,
         onRetryLoadData: () -> Unit,
     ) {
-        Scaffold(
+        InkScaffold(
             topBar = {
-                TopAppBar(
-                    title = { Text(stringResource(Res.string.qr_code_details)) },
-                    navigationIcon = {
-                        BackButton(onBackClick = onBack)
-                    }
+                InkTopBar(
+                    title = stringResource(Res.string.qr_code_details),
+                    onNavigationClick = onBack,
+                    modifier = Modifier.statusBarsPadding()
                 )
             }
         ) {
@@ -89,11 +85,11 @@ internal data class AuthorizationConfirmationScreen(
                     .fillMaxSize()
                     .padding(it)
                     .padding(Spacing.medium)
+                    .navigationBarsPadding()
             ) {
                 when (state.mode) {
                     AuthorizationConfirmationMode.Content -> CodeDetails(
-                        modifier = Modifier
-                            .fillMaxWidth(),
+                        modifier = Modifier.fillMaxSize(),
                         qrCodeAgent = state.qrCodeAgent,
                         qrCodeIp = state.qrCodeIp,
                         qrCodeExpiration = state.qrCodeExpiration,
@@ -101,25 +97,37 @@ internal data class AuthorizationConfirmationScreen(
                         onAuthorize = onAuthorize
                     )
 
-                    AuthorizationConfirmationMode.Error -> Feedback(
+                    AuthorizationConfirmationMode.Error -> ErrorState(
                         title = stringResource(Res.string.qr_code_details_error_title),
                         description = stringResource(Res.string.qr_code_details_error_description),
-                        primaryActionText = stringResource(Res.string.qr_code_details_error_primary_cta),
-                        onPrimaryAction = onRetryLoadData,
-                        secondaryActionText = stringResource(Res.string.qr_code_details_error_secondary_cta),
-                        onSecondaryAction = onBack,
-                        icon = Icons.Default.ErrorOutline
+                        modifier = Modifier.fillMaxSize(),
+                        primaryAction = ErrorStateAction(
+                            label = stringResource(Res.string.qr_code_details_error_primary_cta),
+                            action = onRetryLoadData
+                        ),
+                        secondaryAction =
+                            ErrorStateAction(
+                                label = stringResource(Res.string.qr_code_details_error_secondary_cta),
+                                action = onBack
+                            )
                     )
 
-                    AuthorizationConfirmationMode.AuthorizeError -> Feedback(
-                        title = stringResource(Res.string.qr_code_details_error_title),
-                        description = stringResource(Res.string.qr_code_details_error_description),
-                        primaryActionText = stringResource(Res.string.qr_code_details_error_primary_cta),
-                        onPrimaryAction = onAuthorize,
-                        secondaryActionText = stringResource(Res.string.qr_code_details_error_secondary_cta),
-                        onSecondaryAction = onBack,
-                        icon = Icons.Default.ErrorOutline
-                    )
+                    AuthorizationConfirmationMode.AuthorizeError ->
+                        ErrorState(
+                            title = stringResource(Res.string.qr_code_details_error_title),
+                            description = stringResource(Res.string.qr_code_details_error_description),
+                            modifier = Modifier.fillMaxSize(),
+                            primaryAction = ErrorStateAction(
+                                label = stringResource(Res.string.qr_code_details_error_primary_cta),
+                                action = onAuthorize
+                            ),
+                            secondaryAction =
+                                ErrorStateAction(
+                                    label = stringResource(Res.string.qr_code_details_error_secondary_cta),
+                                    action = onBack
+                                )
+                        )
+
 
                     AuthorizationConfirmationMode.Loading -> LoadingState(
                         Modifier

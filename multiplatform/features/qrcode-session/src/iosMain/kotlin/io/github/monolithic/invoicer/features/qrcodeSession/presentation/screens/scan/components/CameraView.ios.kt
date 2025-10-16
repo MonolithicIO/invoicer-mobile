@@ -1,8 +1,8 @@
 package io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.scan.components
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 
 @Composable
 actual fun QrCodeCameraView(
@@ -10,5 +10,5 @@ actual fun QrCodeCameraView(
     onScan: (String) -> Unit,
     onFail: (Throwable) -> Unit,
 ) {
-    Text("I'm not ready yet XD")
+    InkText("I'm not ready yet XD")
 }
