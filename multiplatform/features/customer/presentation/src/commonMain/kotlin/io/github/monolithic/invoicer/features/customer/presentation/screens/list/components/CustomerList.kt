@@ -22,9 +22,8 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.RoundTextAbbreviation
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.screenstate.EmptyState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -43,7 +42,7 @@ internal fun CustomerList(
     } else {
         LazyColumn(
             modifier = modifier,
-            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
         ) {
             items(
                 items = items,

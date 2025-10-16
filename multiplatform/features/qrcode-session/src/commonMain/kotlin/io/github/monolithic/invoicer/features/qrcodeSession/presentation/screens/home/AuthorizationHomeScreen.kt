@@ -16,7 +16,7 @@ import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import org.jetbrains.compose.resources.stringResource
 
 internal class AuthorizationHomeScreen : Screen {
@@ -47,7 +47,7 @@ internal class AuthorizationHomeScreen : Screen {
             Column(
                 modifier = Modifier
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .navigationBarsPadding()
             ) {
                 InkPrimaryButton(

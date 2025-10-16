@@ -38,9 +38,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LabeledListItem
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -108,7 +108,7 @@ internal class ConfirmCompanyScreen : Screen {
                 InkPrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium)
+                        .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
                     text = stringResource(Res.string.create_company_confirmation_cta),
                     onClick = actions.onConfirm,
@@ -121,7 +121,7 @@ internal class ConfirmCompanyScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
             ) {
                 val scrollState = rememberScrollState()
 
@@ -142,7 +142,7 @@ internal class ConfirmCompanyScreen : Screen {
                     modifier = Modifier
                         .weight(1f)
                         .verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                    verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
                 ) {
                     ConfirmCompanyHeader(
                         companyName = state.companyName,

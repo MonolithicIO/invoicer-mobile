@@ -23,10 +23,10 @@ import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens
 import io.github.monolithic.invoicer.features.qrcodeSession.presentation.screens.success.AuthorizationSuccessScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.ErrorStateAction
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.components.LoadingState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.LoadingState
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import org.jetbrains.compose.resources.stringResource
 
@@ -84,7 +84,7 @@ internal data class AuthorizationConfirmationScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(it)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .navigationBarsPadding()
             ) {
                 when (state.mode) {

@@ -6,7 +6,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.S
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.theme.InvoicerTheme
+import io.github.monolithic.invoicer.foundation.designSystem.ink.public.theme.InvoicerInkTheme
 import io.github.monolithic.invoicer.foundation.utils.snapshot.MultiplatformSnapshot
 import org.junit.Rule
 import org.junit.Test
@@ -107,7 +107,7 @@ class SignUpScreenScreenshotTest {
         MultiplatformSnapshot {
 
 
-            InvoicerTheme {
+            InvoicerInkTheme {
                 SignUpScreen().StateContent(
                     state = state,
                     snackBarState = InkSnackBarHostState(),

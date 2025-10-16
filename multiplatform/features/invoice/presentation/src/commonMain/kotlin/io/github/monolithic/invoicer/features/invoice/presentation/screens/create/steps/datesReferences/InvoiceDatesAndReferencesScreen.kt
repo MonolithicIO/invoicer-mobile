@@ -49,7 +49,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import io.github.monolithic.invoicer.foundation.utils.transformations.MaskVisualTransformation
 import io.github.monolithic.invoicer.foundation.utils.transformations.MaskVisualTransformation.Companion.DATE_MASK
@@ -115,7 +114,7 @@ internal class InvoiceDatesAndReferencesScreen : Screen {
                     onClick = callbacks.onNext,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium)
+                        .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
                     enabled = state.isButtonEnabled
                 )
@@ -129,7 +128,7 @@ internal class InvoiceDatesAndReferencesScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {

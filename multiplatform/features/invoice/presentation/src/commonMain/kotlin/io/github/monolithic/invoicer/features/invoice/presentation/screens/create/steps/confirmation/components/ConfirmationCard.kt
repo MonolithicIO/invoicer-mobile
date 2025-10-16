@@ -13,7 +13,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.Spacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -25,7 +24,7 @@ internal fun ConfirmationCard(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.medium)
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
     ) {
         InkText(
             text = label,
@@ -49,7 +48,7 @@ internal fun AmountConfirmationCard(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(Spacing.medium)
+        horizontalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
     ) {
         InkText(
             text = stringResource(Res.string.confirmation_amount_label),

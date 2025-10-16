@@ -48,7 +48,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -146,7 +146,7 @@ internal data class UpdatePayAccountScreen(
                     enabled = state.isButtonEnabled,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium)
+                        .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
                     loading = state.isButtonLoading
                 )
@@ -159,9 +159,9 @@ internal data class UpdatePayAccountScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
                     .verticalScroll(verticalScroll),
-                verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
                 val (swiftFocus, ibanFocus, bankAddressFocus, bankNameFocus) = FocusRequester.createRefs()
 

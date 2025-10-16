@@ -46,9 +46,9 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.EmptyState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
@@ -146,7 +146,7 @@ internal class InvoiceActivitiesScreen : Screen {
                 InkPrimaryButton(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(Spacing.medium)
+                        .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
                     text = stringResource(Res.string.invoice_create_continue_cta),
                     onClick = actions.onContinue,
@@ -167,7 +167,7 @@ internal class InvoiceActivitiesScreen : Screen {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(Spacing.medium)
+                    .padding(InkTheme.spacing.medium)
             ) {
                 Title(
                     title = stringResource(Res.string.invoice_create_activity_title),
@@ -190,7 +190,7 @@ internal class InvoiceActivitiesScreen : Screen {
 
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                    verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
                 ) {
                     itemsIndexed(
                         items = state.activities,

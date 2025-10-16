@@ -38,7 +38,6 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.InkModalBottomSheet
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.sheets.modal.props.InkSheetState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
-import io.github.monolithic.invoicer.foundation.designSystem.legacy.tokens.Spacing
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -63,8 +62,8 @@ internal fun AddActivityBottomSheet(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(Spacing.medium),
-            verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                .padding(InkTheme.spacing.medium),
+            verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
         ) {
             val (descriptionFocus, unitPriceFocus, quantityFocus) = FocusRequester.createRefs()
             val keyboard = LocalSoftwareKeyboardController.current
