@@ -40,8 +40,6 @@ val companyPresentationDiModule = module {
             form = get<CreateCompanyFormManager>().getForm(),
             dispatcher = Dispatchers.Default,
             repository = get(),
-            sessionUpdater = get(),
-            homeRefreshBus = get()
         )
     }
 
