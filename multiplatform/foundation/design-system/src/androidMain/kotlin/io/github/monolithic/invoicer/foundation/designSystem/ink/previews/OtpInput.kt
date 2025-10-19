@@ -1,5 +1,7 @@
 package io.github.monolithic.invoicer.foundation.designSystem.ink.previews
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,12 +21,17 @@ private fun OtpInputPreview() {
     PreviewContainer(true) {
         var state by remember { mutableStateOf("") }
         var error by remember { mutableStateOf(false) }
+        val interactionSource = remember { MutableInteractionSource() }
+        val focused by interactionSource.collectIsFocusedAsState()
 
-        LaunchedEffect(state) {
-            println("state: $state")
+
+
+        LaunchedEffect(focused) {
+            println("state: $focused")
         }
 
         InkOtpInput(
+            interactionSource = interactionSource,
             value = state,
             digitCount = 2,
             modifier = Modifier.fillMaxWidth(),
