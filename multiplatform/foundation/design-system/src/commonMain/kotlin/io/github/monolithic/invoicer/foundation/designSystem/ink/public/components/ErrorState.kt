@@ -14,8 +14,8 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.error
 import invoicer.multiplatform.foundation.design_system.generated.resources.img_error_default
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkText
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.InkTextStyle
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkSecondaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkNegativeButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkNegativeSubtleButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.props.InkButtonSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import org.jetbrains.compose.resources.painterResource
@@ -57,7 +57,7 @@ fun ErrorState(
         )
 
         primaryAction?.let {
-            InkPrimaryButton(
+            InkNegativeButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = it.label,
                 onClick = it.action,
@@ -66,7 +66,7 @@ fun ErrorState(
         }
 
         secondaryAction?.let {
-            InkSecondaryButton(
+            InkNegativeSubtleButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = it.label,
                 onClick = it.action,

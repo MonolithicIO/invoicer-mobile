@@ -24,6 +24,7 @@ internal data class LoginScreenCallbacks(
     val toggleCensorship: () -> Unit,
     val onBack: () -> Unit,
     val onSignUpClick: () -> Unit,
+    val onForgotPassword: () -> Unit,
 )
 
 internal sealed interface LoginScreenEvents {
@@ -39,6 +40,7 @@ internal fun rememberLoginCallbacks(
     onSubmit: () -> Unit,
     onBack: () -> Unit,
     onSignUpClick: () -> Unit,
+    onForgotPassword: () -> Unit
 ) = remember {
     LoginScreenCallbacks(
         onEmailChanged = onEmailChanged,
@@ -47,5 +49,6 @@ internal fun rememberLoginCallbacks(
         toggleCensorship = onToggleCensorship,
         onBack = onBack,
         onSignUpClick = onSignUpClick,
+        onForgotPassword = onForgotPassword
     )
 }

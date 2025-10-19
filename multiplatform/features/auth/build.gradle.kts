@@ -1,8 +1,8 @@
 plugins {
     id("invoicer.multiplatform.library")
     id("invoicer.compose")
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.paparazzi)
-
 }
 
 android {
@@ -39,6 +39,10 @@ kotlin {
             implementation(projects.multiplatform.foundation.utils)
             implementation(projects.multiplatform.foundation.watchers)
             implementation(projects.multiplatform.foundation.platform)
+
+            // Ktor
+            implementation(libs.ktor.client.serialization)
+            implementation(libs.ktor.client.core)
         }
 
         commonTest.dependencies {

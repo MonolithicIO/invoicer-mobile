@@ -95,6 +95,7 @@ class LoginScreenScreenshotTest {
                         toggleCensorship = { },
                         onBack = { },
                         onSignUpClick = { },
+                        onForgotPassword = {}
                     ),
                 )
             }
