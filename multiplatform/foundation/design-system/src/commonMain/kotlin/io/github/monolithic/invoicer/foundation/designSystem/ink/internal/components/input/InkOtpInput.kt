@@ -22,7 +22,6 @@ import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,8 +29,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -67,17 +64,15 @@ fun InkOtpInput(
     val focusManager = LocalFocusManager.current
     val keyboard = LocalSoftwareKeyboardController.current
 
-    LaunchedEffect(keyboard) {
-        keyboard
-    }
-
     BasicTextField(
         modifier = modifier,
         value = TextFieldValue(text = value, selection = TextRange(value.length)),
         onValueChange = {
             if (it.text.length <= digitCount) {
                 onValueChange(it.text)
-                if (it.text.length == digitCount) onFinalDigit()
+                if (it.text.length == digitCount) {
+                    onFinalDigit()
+                }
             }
         },
         cursorBrush = SolidColor(colors.getTextColor(isError)),
@@ -111,8 +106,8 @@ fun InkOtpInput(
         ),
         keyboardActions = KeyboardActions(
             onDone = {
-                keyboard?.hide()
                 focusManager.clearFocus()
+                keyboard?.hide()
             }
         )
     )

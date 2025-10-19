@@ -38,7 +38,10 @@ private fun OtpInputPreview() {
             onValueChange = {
                 state = it.trim()
             },
-            isError = error
+            isError = error,
+            onFinalDigit = {
+                println("last digit")
+            }
         )
 
         InkPrimaryButton(
