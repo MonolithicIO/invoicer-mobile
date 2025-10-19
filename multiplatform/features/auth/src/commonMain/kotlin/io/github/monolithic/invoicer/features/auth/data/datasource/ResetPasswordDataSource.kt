@@ -12,7 +12,7 @@ import io.ktor.client.request.setBody
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
-internal interface ForgotPasswordDataSource {
+internal interface ResetPasswordDataSource {
     suspend fun requestPasswordReset(email: String)
     suspend fun verifyResetPassword(
         pinCode: String,
@@ -26,10 +26,10 @@ internal interface ForgotPasswordDataSource {
     )
 }
 
-internal class ForgotPasswordDataSourceImpl(
+internal class ResetPasswordDataSourceImpl(
     private val dispatcher: CoroutineDispatcher,
     private val httpClient: HttpClient
-) : ForgotPasswordDataSource {
+) : ResetPasswordDataSource {
 
     override suspend fun requestPasswordReset(email: String) {
         return withContext(dispatcher) {

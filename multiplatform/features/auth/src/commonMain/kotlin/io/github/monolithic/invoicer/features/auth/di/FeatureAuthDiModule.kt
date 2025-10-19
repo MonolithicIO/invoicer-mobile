@@ -1,7 +1,9 @@
 package io.github.monolithic.invoicer.features.auth.di
 
-import io.github.monolithic.invoicer.features.auth.data.datasource.ForgotPasswordDataSource
-import io.github.monolithic.invoicer.features.auth.data.datasource.ForgotPasswordDataSourceImpl
+import io.github.monolithic.invoicer.features.auth.data.datasource.ResetPasswordDataSource
+import io.github.monolithic.invoicer.features.auth.data.datasource.ResetPasswordDataSourceImpl
+import io.github.monolithic.invoicer.features.auth.data.repository.ResetPasswordRepositoryImpl
+import io.github.monolithic.invoicer.features.auth.domain.repository.ResetPasswordRepository
 import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartupDestinationService
 import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartupDestinationServiceImpl
 import io.github.monolithic.invoicer.features.auth.presentation.screens.authmenu.AuthMenuScreenModel
@@ -65,10 +67,16 @@ private fun Module.viewModelBindings() {
         )
     }
 
-    factory<ForgotPasswordDataSource> {
-        ForgotPasswordDataSourceImpl(
+    factory<ResetPasswordDataSource> {
+        ResetPasswordDataSourceImpl(
             dispatcher = Dispatchers.IO,
             httpClient = get()
+        )
+    }
+
+    factory<ResetPasswordRepository> {
+        ResetPasswordRepositoryImpl(
+            dataSource = get()
         )
     }
 }
