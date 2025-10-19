@@ -1,5 +1,7 @@
 package io.github.monolithic.invoicer.features.auth.di
 
+import io.github.monolithic.invoicer.features.auth.data.datasource.ForgotPasswordDataSource
+import io.github.monolithic.invoicer.features.auth.data.datasource.ForgotPasswordDataSourceImpl
 import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartupDestinationService
 import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartupDestinationServiceImpl
 import io.github.monolithic.invoicer.features.auth.presentation.screens.authmenu.AuthMenuScreenModel
@@ -9,6 +11,7 @@ import io.github.monolithic.invoicer.features.auth.presentation.screens.startup.
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthValidator
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordStrengthValidatorImpl
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -59,6 +62,13 @@ private fun Module.viewModelBindings() {
             authTokenRepository = get(),
             companyRepository = get(),
             selectCompanyService = get(),
+        )
+    }
+
+    factory<ForgotPasswordDataSource> {
+        ForgotPasswordDataSourceImpl(
+            dispatcher = Dispatchers.IO,
+            httpClient = get()
         )
     }
 }
