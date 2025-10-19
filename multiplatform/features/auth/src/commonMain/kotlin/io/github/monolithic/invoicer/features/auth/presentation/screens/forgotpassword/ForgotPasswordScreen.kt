@@ -64,9 +64,7 @@ internal class ForgotPasswordScreen : Screen {
                     snackBarHost.showSnackBar(message = it.message)
                 }
 
-                ForgotPasswordUiEvents.Success -> {
-                    // TODO: Navigate to OTP screen
-                }
+                ForgotPasswordUiEvents.Success -> Unit
             }
         }
 
