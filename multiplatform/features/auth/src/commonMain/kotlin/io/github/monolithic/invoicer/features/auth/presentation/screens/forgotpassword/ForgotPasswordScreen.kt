@@ -138,7 +138,7 @@ internal class ForgotPasswordScreen : Screen {
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Email
                     ),
-                    maxLines = 1,
+                    singleLine = true,
                     placeholder = stringResource(Res.string.forgot_password_placeholder),
                     readOnly = state.isLoading
                 )
