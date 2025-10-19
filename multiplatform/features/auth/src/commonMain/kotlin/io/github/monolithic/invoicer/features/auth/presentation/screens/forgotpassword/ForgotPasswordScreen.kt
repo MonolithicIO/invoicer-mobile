@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import cafe.adriel.voyager.core.screen.Screen
@@ -32,9 +33,14 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -44,8 +50,25 @@ internal class ForgotPasswordScreen : Screen {
     override fun Content() {
         val screenModel = koinScreenModel<ForgotPasswordScreenModel>()
         val state by screenModel.state.collectAsState()
+        val snackBarHost = rememberInkSnackBarHostState()
+        val scope = rememberCoroutineScope()
 
         val navigator = LocalNavigator.current
+
+        FlowCollectEffect(
+            flow = screenModel.events,
+            screenModel
+        ) {
+            when (it) {
+                is ForgotPasswordUiEvents.Error -> scope.launch {
+                    snackBarHost.showSnackBar(message = it.message)
+                }
+
+                ForgotPasswordUiEvents.Success -> {
+                    // TODO: Navigate to OTP screen
+                }
+            }
+        }
 
         StateContent(
             state = state,
@@ -55,16 +78,21 @@ internal class ForgotPasswordScreen : Screen {
                     onChangeEmail = screenModel::updateEmail,
                     submit = screenModel::submit
                 )
-            }
+            },
+            snackBarHostState = snackBarHost
         )
     }
 
     @Composable
     fun StateContent(
         actions: Actions,
-        state: ForgotPasswordState
+        state: ForgotPasswordState,
+        snackBarHostState: InkSnackBarHostState
     ) {
         InkScaffold(
+            snackBarHost = {
+                InkSnackBarHost(state = snackBarHostState)
+            },
             topBar = {
                 InkTopBar(
                     onNavigationClick = actions.onBack,
