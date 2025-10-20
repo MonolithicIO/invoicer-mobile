@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpasswordotp
+package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize

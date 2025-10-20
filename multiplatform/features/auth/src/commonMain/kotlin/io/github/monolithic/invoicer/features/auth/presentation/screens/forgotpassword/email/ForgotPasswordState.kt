@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword
+package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.email
 
 internal data class ForgotPasswordState(
     val email: String = "",

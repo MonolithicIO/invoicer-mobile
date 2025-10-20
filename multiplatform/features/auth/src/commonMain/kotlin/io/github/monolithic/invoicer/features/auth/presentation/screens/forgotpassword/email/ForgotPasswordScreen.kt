@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword
+package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.email
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +27,7 @@ import invoicer.multiplatform.features.auth.generated.resources.forgot_password_
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_title
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_email
-import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpasswordotp.ForgotPasswordOtpScreen
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.ForgotPasswordOtpScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
