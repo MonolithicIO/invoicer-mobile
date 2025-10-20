@@ -1,6 +1,7 @@
 package io.github.monolithic.invoicer.features.auth.data.datasource
 
 import io.github.monolithic.invoicer.features.auth.data.model.StartResetPasswordRequest
+import io.github.monolithic.invoicer.features.auth.data.model.StartResetPasswordResponse
 import io.github.monolithic.invoicer.features.auth.data.model.SubmitResetPasswordRequest
 import io.github.monolithic.invoicer.features.auth.data.model.VerifyResetPasswordRequest
 import io.github.monolithic.invoicer.features.auth.data.model.VerifyResetPasswordResponse
@@ -13,7 +14,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 
 internal interface ResetPasswordDataSource {
-    suspend fun requestPasswordReset(email: String)
+    suspend fun requestPasswordReset(email: String): StartResetPasswordResponse
     suspend fun verifyResetPassword(
         pinCode: String,
         requestCode: String
@@ -31,7 +32,7 @@ internal class ResetPasswordDataSourceImpl(
     private val httpClient: HttpClient
 ) : ResetPasswordDataSource {
 
-    override suspend fun requestPasswordReset(email: String) {
+    override suspend fun requestPasswordReset(email: String): StartResetPasswordResponse {
         return withContext(dispatcher) {
             httpClient.post("/v1/user/reset_password") {
                 setBody(

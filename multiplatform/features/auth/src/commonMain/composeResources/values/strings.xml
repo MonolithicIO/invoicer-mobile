@@ -55,4 +55,14 @@
     <string name="forgot_password_field_label">Registered email address</string>
     <string name="forgot_password_cta">Send OTP Code</string>
     <string name="forgot_password_placeholder">andrew.ainsley@yourdomain.com</string>
+
+    <!-- Forgot Password Otp -->
+    <string name="forgot_password_otp_title">Enter OTP Code 🔐</string>
+    <string name="forgot_password_otp_subtitle">We’ve sent a one-time password (OTP) to your email. Enter it below to verify your account.</string>
+    <string name="forgot_password_otp_cta">Continue</string>
+    <string name="forgot_password_otp_dialog_title">Leaving OTP verification</string>
+    <string name="forgot_password_otp_dialog_description">If you leave, you will need to request a new one‑time code to continue.</string>
+    <string name="forgot_password_otp_dialog_confirm">Exit</string>
+    <string name="forgot_password_otp_dialog_cancel">Cancel</string>
+
 </resources>

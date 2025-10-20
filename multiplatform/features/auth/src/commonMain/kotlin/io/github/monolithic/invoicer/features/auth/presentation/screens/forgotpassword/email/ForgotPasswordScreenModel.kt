@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword
+package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.email
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
@@ -43,9 +43,9 @@ internal class ForgotPasswordScreenModel(
                             )
                         }
                     },
-                    onSuccess = {
+                    onSuccess = { response ->
                         _events.emit(
-                            value = ForgotPasswordUiEvents.Success
+                            value = ForgotPasswordUiEvents.Success(response)
                         )
                     },
                     onFinish = {

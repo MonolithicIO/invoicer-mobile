@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword
+package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,30 +8,30 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.KeyboardType
+import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.internal.BackHandler
 import invoicer.multiplatform.features.auth.generated.resources.Res
-import invoicer.multiplatform.features.auth.generated.resources.forgot_password_cta
-import invoicer.multiplatform.features.auth.generated.resources.forgot_password_description
-import invoicer.multiplatform.features.auth.generated.resources.forgot_password_placeholder
-import invoicer.multiplatform.features.auth.generated.resources.forgot_password_title
-import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
-import invoicer.multiplatform.foundation.design_system.generated.resources.ic_email
+import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_cta
+import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_subtitle
+import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_title
+import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.components.CloseOtpDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
-import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOtpInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
@@ -44,27 +44,38 @@ import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
-internal class ForgotPasswordScreen : Screen {
+internal class ForgotPasswordOtpScreen(
+    private val forgotPasswordRequestId: String
+) : Screen {
 
+    @OptIn(InternalVoyagerApi::class)
     @Composable
     override fun Content() {
-        val screenModel = koinScreenModel<ForgotPasswordScreenModel>()
-        val state by screenModel.state.collectAsState()
-        val snackBarHost = rememberInkSnackBarHostState()
-        val scope = rememberCoroutineScope()
-
+        val screenModel = koinScreenModel<ForgotPasswordOtpScreenModel>()
         val navigator = LocalNavigator.current
+        val state by screenModel.state.collectAsState()
+        val scope = rememberCoroutineScope()
+        val snackBarState = rememberInkSnackBarHostState()
+        val snackBarErrorIcon = painterResource(Res.drawable.ic_danger_square)
+        var showExitDialog by remember { mutableStateOf(false) }
+
+        BackHandler(enabled = true) {
+            showExitDialog = true
+        }
 
         FlowCollectEffect(
             flow = screenModel.events,
-            screenModel
-        ) {
-            when (it) {
-                is ForgotPasswordUiEvents.Error -> scope.launch {
-                    snackBarHost.showSnackBar(message = it.message)
+            key = screenModel
+        ) { event ->
+            when (event) {
+                is ForgotPasswordOtpUiEvents.Failure -> scope.launch {
+                    snackBarState.showSnackBar(
+                        message = event.reason,
+                        leadingIcon = snackBarErrorIcon
+                    )
                 }
 
-                ForgotPasswordUiEvents.Success -> Unit
+                is ForgotPasswordOtpUiEvents.Success -> Unit
             }
         }
 
@@ -72,24 +83,37 @@ internal class ForgotPasswordScreen : Screen {
             state = state,
             actions = remember {
                 Actions(
-                    onBack = { navigator?.pop() },
-                    onChangeEmail = screenModel::updateEmail,
-                    submit = screenModel::submit
+                    onBack = {
+                        showExitDialog = true
+                    },
+                    onSubmit = { screenModel.submit(requestId = forgotPasswordRequestId) },
+                    onChangeOtpCode = screenModel::onChangeOtpCode,
+                    onDismissDialog = {
+                        showExitDialog = false
+                    },
+                    onAbandonOtp = {
+                        showExitDialog = false
+                        navigator?.pop()
+                    },
                 )
             },
-            snackBarHostState = snackBarHost
+            snackBarHostState = snackBarState,
+            showExitDialog = showExitDialog
         )
     }
 
     @Composable
     fun StateContent(
+        state: ForgotPasswordOtpState,
+        showExitDialog: Boolean,
         actions: Actions,
-        state: ForgotPasswordState,
         snackBarHostState: InkSnackBarHostState
     ) {
         InkScaffold(
             snackBarHost = {
-                InkSnackBarHost(state = snackBarHostState)
+                InkSnackBarHost(
+                    state = snackBarHostState
+                )
             },
             topBar = {
                 InkTopBar(
@@ -99,13 +123,13 @@ internal class ForgotPasswordScreen : Screen {
             },
             bottomBar = {
                 InkPrimaryButton(
-                    text = stringResource(Res.string.forgot_password_cta),
+                    text = stringResource(Res.string.forgot_password_otp_cta),
+                    onClick = actions.onSubmit,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(InkTheme.spacing.medium)
-                        .navigationBarsPadding(),
-                    onClick = actions.submit,
-                    enabled = state.buttonEnabled,
+                        .navigationBarsPadding()
+                        .padding(InkTheme.spacing.medium),
+                    enabled = state.isButtonEnabled,
                     loading = state.isLoading
                 )
             },
@@ -114,39 +138,37 @@ internal class ForgotPasswordScreen : Screen {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(InkTheme.spacing.medium)
                     .padding(scaffoldPadding)
+                    .padding(InkTheme.spacing.medium)
                     .verticalScroll(rememberScrollState())
             ) {
                 Title(
-                    title = stringResource(Res.string.forgot_password_title),
-                    subtitle = stringResource(Res.string.forgot_password_description)
+                    title = stringResource(Res.string.forgot_password_otp_title),
+                    subtitle = stringResource(Res.string.forgot_password_otp_subtitle)
                 )
                 VerticalSpacer(SpacerSize.XLarge3)
-                InkOutlinedInput(
-                    value = state.email,
-                    onValueChange = actions.onChangeEmail,
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingContent = {
-                        InkIcon(
-                            painter = painterResource(DsResources.drawable.ic_email),
-                            contentDescription = null
-                        )
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Email
-                    ),
-                    singleLine = true,
-                    placeholder = stringResource(Res.string.forgot_password_placeholder),
-                    readOnly = state.isLoading
+                InkOtpInput(
+                    value = state.otpCode,
+                    onValueChange = actions.onChangeOtpCode,
+                    digitCount = 6,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
+        }
+
+        if (showExitDialog) {
+            CloseOtpDialog(
+                onCloseOtp = actions.onAbandonOtp,
+                onCloseDialog = actions.onDismissDialog
+            )
         }
     }
 
     data class Actions(
         val onBack: () -> Unit,
-        val onChangeEmail: (String) -> Unit,
-        val submit: () -> Unit
+        val onSubmit: () -> Unit,
+        val onChangeOtpCode: (String) -> Unit,
+        val onDismissDialog: () -> Unit,
+        val onAbandonOtp: () -> Unit
     )
 }

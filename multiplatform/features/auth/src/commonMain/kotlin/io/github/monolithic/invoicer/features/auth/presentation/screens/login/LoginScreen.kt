@@ -32,7 +32,7 @@ import invoicer.multiplatform.features.auth.generated.resources.auth_sign_in_sub
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_chveron_left
-import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.ForgotPasswordScreen
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.email.ForgotPasswordScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.LoginHeader
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.components.SignInForm
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreen

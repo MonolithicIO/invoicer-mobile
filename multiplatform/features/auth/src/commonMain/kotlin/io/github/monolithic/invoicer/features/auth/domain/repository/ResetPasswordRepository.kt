@@ -2,7 +2,7 @@ package io.github.monolithic.invoicer.features.auth.domain.repository
 
 internal interface ResetPasswordRepository {
 
-    suspend fun requestPasswordReset(email: String)
+    suspend fun requestPasswordReset(email: String): String
 
     suspend fun verifyResetPassword(
         pinCode: String,

@@ -7,8 +7,8 @@ internal class ResetPasswordRepositoryImpl(
     private val dataSource: ResetPasswordDataSource
 ) : ResetPasswordRepository {
 
-    override suspend fun requestPasswordReset(email: String) {
-        return dataSource.requestPasswordReset(email)
+    override suspend fun requestPasswordReset(email: String): String {
+        return dataSource.requestPasswordReset(email).resetToken
     }
 
     override suspend fun verifyResetPassword(

@@ -6,3 +6,8 @@ import kotlinx.serialization.Serializable
 internal data class StartResetPasswordRequest(
     val email: String
 )
+
+@Serializable
+internal data class StartResetPasswordResponse(
+    val resetToken: String
+)
