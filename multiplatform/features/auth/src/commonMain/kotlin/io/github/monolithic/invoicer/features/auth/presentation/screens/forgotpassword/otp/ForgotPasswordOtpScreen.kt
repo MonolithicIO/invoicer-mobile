@@ -75,9 +75,7 @@ internal class ForgotPasswordOtpScreen(
                     )
                 }
 
-                is ForgotPasswordOtpUiEvents.Success -> {
-                    // TODO: Navigate to reset password screen
-                }
+                is ForgotPasswordOtpUiEvents.Success -> Unit
             }
         }
 
