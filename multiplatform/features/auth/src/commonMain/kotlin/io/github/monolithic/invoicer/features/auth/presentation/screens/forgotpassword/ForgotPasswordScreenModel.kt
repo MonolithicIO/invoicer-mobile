@@ -43,9 +43,9 @@ internal class ForgotPasswordScreenModel(
                             )
                         }
                     },
-                    onSuccess = {
+                    onSuccess = { response ->
                         _events.emit(
-                            value = ForgotPasswordUiEvents.Success
+                            value = ForgotPasswordUiEvents.Success(response)
                         )
                     },
                     onFinish = {

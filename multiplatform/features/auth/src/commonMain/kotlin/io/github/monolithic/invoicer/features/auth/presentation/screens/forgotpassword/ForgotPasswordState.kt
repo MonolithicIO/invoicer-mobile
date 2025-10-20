@@ -8,7 +8,7 @@ internal data class ForgotPasswordState(
 }
 
 internal sealed interface ForgotPasswordUiEvents {
-    data object Success : ForgotPasswordUiEvents
+    data class Success(val requestId: String) : ForgotPasswordUiEvents
     data class Error(val message: String) : ForgotPasswordUiEvents
 
 }
