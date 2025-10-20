@@ -4,7 +4,7 @@ internal data class ForgotPasswordOtpState(
     val otpCode: String = "",
     val isLoading: Boolean = false,
 ) {
-    val isButtonEnabled: Boolean = false
+    val isButtonEnabled: Boolean = otpCode.length == 6
 }
 
 internal sealed interface ForgotPasswordOtpUiEvents {

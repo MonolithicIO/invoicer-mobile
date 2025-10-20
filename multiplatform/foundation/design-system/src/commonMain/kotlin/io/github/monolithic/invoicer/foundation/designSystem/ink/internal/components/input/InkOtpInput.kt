@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -87,6 +88,10 @@ fun InkOtpInput(
             ) {
                 repeat(digitCount) { digitIndex ->
                     OtpDigit(
+                        modifier = Modifier
+                            .weight(1f)
+                            .widthIn(max = InkOtpInputDefaults.DigitWidth)
+                            .aspectRatio(1f),
                         index = digitIndex,
                         text = value,
                         colors = colors,
@@ -147,8 +152,6 @@ private fun OtpDigit(
 
     Box(
         modifier = modifier
-            .width(InkOtpInputDefaults.DigitWidth)
-            .aspectRatio(1f)
             .border(
                 width = DigitBorderWidth,
                 color = colors.borderColor(isFocused = isFocused, hasError = hasError).value,
