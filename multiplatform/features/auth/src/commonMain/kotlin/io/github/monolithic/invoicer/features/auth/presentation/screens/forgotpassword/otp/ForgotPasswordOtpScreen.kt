@@ -94,6 +94,7 @@ internal class ForgotPasswordOtpScreen(
                         showExitDialog = false
                     },
                     onAbandonOtp = {
+                        showExitDialog = false
                         navigator?.pop()
                     },
                 )
