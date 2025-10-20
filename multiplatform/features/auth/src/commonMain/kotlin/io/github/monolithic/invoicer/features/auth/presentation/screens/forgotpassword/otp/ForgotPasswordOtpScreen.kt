@@ -12,18 +12,22 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.internal.BackHandler
 import invoicer.multiplatform.features.auth.generated.resources.Res
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_cta
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_subtitle
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_title
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.components.CloseOtpDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -48,13 +52,15 @@ internal class ForgotPasswordOtpScreen(
     @Composable
     override fun Content() {
         val screenModel = koinScreenModel<ForgotPasswordOtpScreenModel>()
+        val navigator = LocalNavigator.current
         val state by screenModel.state.collectAsState()
         val scope = rememberCoroutineScope()
         val snackBarState = rememberInkSnackBarHostState()
         val snackBarErrorIcon = painterResource(Res.drawable.ic_danger_square)
+        var showExitDialog by remember { mutableStateOf(false) }
 
         BackHandler(enabled = true) {
-            // todo
+            showExitDialog = true
         }
 
         FlowCollectEffect(
@@ -79,18 +85,28 @@ internal class ForgotPasswordOtpScreen(
             state = state,
             actions = remember {
                 Actions(
-                    onBack = {},
+                    onBack = {
+                        showExitDialog = true
+                    },
                     onSubmit = { screenModel.submit(requestId = forgotPasswordRequestId) },
-                    onChangeOtpCode = screenModel::onChangeOtpCode
+                    onChangeOtpCode = screenModel::onChangeOtpCode,
+                    onDismissDialog = {
+                        showExitDialog = false
+                    },
+                    onAbandonOtp = {
+                        navigator?.pop()
+                    },
                 )
             },
-            snackBarHostState = snackBarState
+            snackBarHostState = snackBarState,
+            showExitDialog = showExitDialog
         )
     }
 
     @Composable
     fun StateContent(
         state: ForgotPasswordOtpState,
+        showExitDialog: Boolean,
         actions: Actions,
         snackBarHostState: InkSnackBarHostState
     ) {
@@ -140,12 +156,20 @@ internal class ForgotPasswordOtpScreen(
                 )
             }
         }
+
+        if (showExitDialog) {
+            CloseOtpDialog(
+                onCloseOtp = actions.onAbandonOtp,
+                onCloseDialog = actions.onDismissDialog
+            )
+        }
     }
 
     data class Actions(
         val onBack: () -> Unit,
         val onSubmit: () -> Unit,
-        val onChangeOtpCode: (String) -> Unit
+        val onChangeOtpCode: (String) -> Unit,
+        val onDismissDialog: () -> Unit,
+        val onAbandonOtp: () -> Unit
     )
-
 }
