@@ -82,7 +82,7 @@ fun InkOtpInput(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(
-                    space = InkTheme.spacing.medium,
+                    space = InkTheme.spacing.small,
                     alignment = Alignment.CenterHorizontally
                 )
             ) {
