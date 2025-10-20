@@ -17,6 +17,7 @@ import invoicer.multiplatform.features.auth.generated.resources.forgot_password_
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOtpInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
@@ -66,13 +67,20 @@ internal class ForgotPasswordOtpScreen(
                     subtitle = stringResource(Res.string.forgot_password_otp_subtitle)
                 )
                 VerticalSpacer(SpacerSize.XLarge3)
+                InkOtpInput(
+                    value = state.otpCode,
+                    onValueChange = actions.onChangeOtpCode,
+                    digitCount = 6,
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
     }
 
     data class Actions(
         val onBack: () -> Unit,
-        val onSubmit: () -> Unit
+        val onSubmit: () -> Unit,
+        val onChangeOtpCode: (String) -> Unit
     )
 
 }
