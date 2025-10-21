@@ -118,7 +118,10 @@ internal class ResetPasswordScreen(
             bottomBar = {
                 InkPrimaryButton(
                     text = stringResource(Res.string.forgot_password_rest_cta),
-                    onClick = actions.onSubmit,
+                    onClick = {
+                        keyboard?.hide()
+                        actions.onSubmit()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(InkTheme.spacing.medium)
@@ -179,7 +182,8 @@ internal class ResetPasswordScreen(
                     keyboardActions = KeyboardActions(
                         onDone = { confirmRef.requestFocus() }
                     ),
-                    visualTransformation = getTransformation(state.isPasswordCensored)
+                    visualTransformation = getTransformation(state.isPasswordCensored),
+                    singleLine = true
                 )
 
                 InkOutlinedInput(
@@ -216,7 +220,8 @@ internal class ResetPasswordScreen(
                         onDone = { keyboard?.hide() }
                     ),
                     isError = state.passwordsMatch.not(),
-                    visualTransformation = getTransformation(state.isConfirmPasswordCensored)
+                    visualTransformation = getTransformation(state.isConfirmPasswordCensored),
+                    singleLine = true
                 )
             }
         }
