@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.component1
@@ -21,7 +24,11 @@ import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.koin.koinScreenModel
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.internal.BackHandler
 import invoicer.multiplatform.features.auth.generated.resources.Res
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_reset_confirm_password_label
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_reset_description
@@ -33,6 +40,7 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.ic_lo
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_off
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components.CloseForgotPasswordDialog
+import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.features.auth.presentation.utils.textResource
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
@@ -51,9 +59,36 @@ internal class ResetPasswordScreen(
     private val resetToken: String
 ) : Screen {
 
+    @OptIn(InternalVoyagerApi::class)
     @Composable
     override fun Content() {
-        TODO("Not yet implemented")
+        val screenModel = koinScreenModel<ResetPasswordScreenModel>()
+        val state by screenModel.state.collectAsState()
+        val navigator = LocalNavigator.current
+        var showExitDialog by remember { mutableStateOf(false) }
+
+        BackHandler(enabled = true) { showExitDialog = true }
+
+        StateContent(
+            state = state,
+            showExitDialog = showExitDialog,
+            actions = remember {
+                Actions(
+                    onUpdatePassword = screenModel::updatePassword,
+                    onUpdateConfirmPassword = screenModel::updateConfirmPassword,
+                    onSubmit = { screenModel.submit(resetToken) },
+                    dismissDialog = { shouldExitFlow ->
+                        showExitDialog = false
+                        if (shouldExitFlow) {
+                            navigator?.popUntil { it is LoginScreen }
+                        }
+                    },
+                    onBack = { showExitDialog = true },
+                    onTogglePasswordVisibility = screenModel::togglePasswordCensorship,
+                    onToggleConfirmPasswordVisibility = screenModel::toggleConfirmPasswordCensorship
+                )
+            }
+        )
     }
 
     @Composable
