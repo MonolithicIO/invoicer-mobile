@@ -30,12 +30,15 @@ import invoicer.multiplatform.features.auth.generated.resources.forgot_password_
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_rest_cta
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_lock
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_off
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components.CloseForgotPasswordDialog
 import io.github.monolithic.invoicer.features.auth.presentation.utils.textResource
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
@@ -118,6 +121,15 @@ internal class ResetPasswordScreen(
                             else InkTheme.colorScheme.onSurface
                         )
                     },
+                    trailingContent = {
+                        InkIconButton(
+                            onClick = actions.onTogglePasswordVisibility,
+                            icon = painterResource(
+                                if (state.isPasswordCensored) DsResources.drawable.ic_visibility_off
+                                else DsResources.drawable.ic_visibility_on
+                            )
+                        )
+                    },
                     label = stringResource(Res.string.forgot_password_reset_new_password_label),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Next,
@@ -141,6 +153,15 @@ internal class ResetPasswordScreen(
                             else InkTheme.colorScheme.onSurface
                         )
                     },
+                    trailingContent = {
+                        InkIconButton(
+                            onClick = actions.onToggleConfirmPasswordVisibility,
+                            icon = painterResource(
+                                if (state.isConfirmPasswordCensored) DsResources.drawable.ic_visibility_off
+                                else DsResources.drawable.ic_visibility_on
+                            )
+                        )
+                    },
                     label = stringResource(Res.string.forgot_password_reset_confirm_password_label),
                     keyboardOptions = KeyboardOptions(
                         imeAction = ImeAction.Done,
@@ -148,7 +169,8 @@ internal class ResetPasswordScreen(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = { keyboard?.hide() }
-                    )
+                    ),
+                    isError = state.passwordsMatch.not()
                 )
             }
         }
@@ -167,5 +189,7 @@ internal class ResetPasswordScreen(
         val onSubmit: () -> Unit,
         val dismissDialog: (exitFlow: Boolean) -> Unit,
         val onBack: () -> Unit,
+        val onTogglePasswordVisibility: () -> Unit,
+        val onToggleConfirmPasswordVisibility: () -> Unit
     )
 }
