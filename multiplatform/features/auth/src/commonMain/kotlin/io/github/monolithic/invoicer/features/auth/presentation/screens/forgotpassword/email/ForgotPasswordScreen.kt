@@ -136,7 +136,11 @@ internal class ForgotPasswordScreen : Screen {
                 VerticalSpacer(SpacerSize.XLarge3)
                 InkOutlinedInput(
                     value = state.email,
-                    onValueChange = actions.onChangeEmail,
+                    onValueChange = {
+                        if (state.isLoading.not()) {
+                            actions.onChangeEmail(it)
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     leadingContent = {
                         InkIcon(
@@ -149,7 +153,6 @@ internal class ForgotPasswordScreen : Screen {
                     ),
                     singleLine = true,
                     placeholder = stringResource(Res.string.forgot_password_placeholder),
-                    readOnly = state.isLoading
                 )
             }
         }

@@ -44,7 +44,6 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.ic_vi
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components.CloseForgotPasswordDialog
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
-import io.github.monolithic.invoicer.features.auth.presentation.utils.textResource
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -101,8 +100,11 @@ internal class ResetPasswordScreen(
         actions: Actions,
         showExitDialog: Boolean,
     ) {
-        val showPasswordError = remember(state.passwordError) {
-            state.passwordError != null
+        val showPasswordError = remember(state.passwordState) {
+            state.passwordState != PasswordState.Ok
+        }
+        val showConfirmPasswordError = remember(state.confirmPasswordState) {
+            state.confirmPasswordState != ConfirmPasswordState.Ok
         }
 
         val (passwordRef, confirmRef) = FocusRequester.createRefs()
@@ -147,13 +149,16 @@ internal class ResetPasswordScreen(
 
                 InkOutlinedInput(
                     value = state.password,
-                    onValueChange = actions.onUpdatePassword,
+                    onValueChange = {
+                        if (state.isLoading.not()) {
+                            actions.onUpdatePassword(it)
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .focusRequester(passwordRef),
                     isError = showPasswordError,
-                    readOnly = state.isLoading,
-                    supportText = state.passwordError.textResource(),
+                    supportText = state.passwordState.getText(),
                     leadingContent = {
                         InkIcon(
                             painter = painterResource(DsResources.drawable.ic_lock),
@@ -188,14 +193,17 @@ internal class ResetPasswordScreen(
 
                 InkOutlinedInput(
                     value = state.confirmPassword,
-                    onValueChange = actions.onUpdateConfirmPassword,
+                    onValueChange = {
+                        if (state.isLoading.not()) {
+                            actions.onUpdateConfirmPassword(it)
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth().focusRequester(confirmRef),
-                    readOnly = state.isLoading,
                     leadingContent = {
                         InkIcon(
                             painter = painterResource(DsResources.drawable.ic_lock),
                             contentDescription = null,
-                            tint = if (state.passwordsMatch.not()) InkTheme.colorScheme.error
+                            tint = if (showConfirmPasswordError) InkTheme.colorScheme.error
                             else InkTheme.colorScheme.onBackground
                         )
                     },
@@ -219,9 +227,10 @@ internal class ResetPasswordScreen(
                     keyboardActions = KeyboardActions(
                         onDone = { keyboard?.hide() }
                     ),
-                    isError = state.passwordsMatch.not(),
+                    isError = showConfirmPasswordError,
                     visualTransformation = getTransformation(state.isConfirmPasswordCensored),
-                    singleLine = true
+                    singleLine = true,
+                    supportText = state.confirmPasswordState.getText()
                 )
             }
         }
