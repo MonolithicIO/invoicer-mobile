@@ -8,7 +8,9 @@ import io.github.monolithic.invoicer.foundation.network.request.handle
 import io.github.monolithic.invoicer.foundation.network.request.launchRequest
 import kotlinx.collections.immutable.toPersistentSet
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -21,6 +23,9 @@ internal class ResetPasswordScreenModel(
 
     private val _state = MutableStateFlow(ResetPasswordState())
     val state = _state.asStateFlow()
+
+    private val _events = MutableSharedFlow<ResetPasswordUiEvents>()
+    val events = _events.asSharedFlow()
 
     fun updatePassword(newValue: String) {
         _state.update {
@@ -67,7 +72,17 @@ internal class ResetPasswordScreenModel(
                     )
                 }.handle(
                     onStart = { _state.update { it.copy(isLoading = true) } },
-                    onFinish = { _state.update { it.copy(isLoading = false) } }
+                    onFinish = { _state.update { it.copy(isLoading = false) } },
+                    onSuccess = {
+                        _events.emit(value = ResetPasswordUiEvents.Success)
+                    },
+                    onFailure = {
+                        _events.emit(
+                            value = ResetPasswordUiEvents.Failure(
+                                message = it.message.orEmpty()
+                            )
+                        )
+                    }
                 )
             }
 

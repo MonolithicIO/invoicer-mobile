@@ -77,3 +77,8 @@ internal enum class ConfirmPasswordState {
         Ok -> null
     }
 }
+
+internal sealed interface ResetPasswordUiEvents {
+    data object Success : ResetPasswordUiEvents
+    data class Failure(val message: String) : ResetPasswordUiEvents
+}

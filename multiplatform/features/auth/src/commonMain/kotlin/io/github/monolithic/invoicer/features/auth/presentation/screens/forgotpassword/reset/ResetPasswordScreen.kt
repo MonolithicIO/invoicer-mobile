@@ -17,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -39,6 +40,7 @@ import invoicer.multiplatform.features.auth.generated.resources.forgot_password_
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_reset_title
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_rest_cta
 import invoicer.multiplatform.foundation.design_system.generated.resources.DsResources
+import invoicer.multiplatform.foundation.design_system.generated.resources.ic_danger_square
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_lock
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_off
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_on
@@ -52,9 +54,14 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.InkSnackBarHost
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.InkSnackBarHostState
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.snackbar.props.rememberInkSnackBarHostState
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.theme.InkTheme
 import io.github.monolithic.invoicer.foundation.designSystem.ink.public.components.Title
+import io.github.monolithic.invoicer.foundation.utils.compose.FlowCollectEffect
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
@@ -69,8 +76,27 @@ internal class ResetPasswordScreen(
         val state by screenModel.state.collectAsState()
         val navigator = LocalNavigator.current
         var showExitDialog by remember { mutableStateOf(false) }
+        val scope = rememberCoroutineScope()
+        val snackBarState = rememberInkSnackBarHostState()
+        val snackBarIcon = painterResource(DsResources.drawable.ic_danger_square)
 
         BackHandler(enabled = true) { showExitDialog = true }
+
+        FlowCollectEffect(
+            flow = screenModel.events,
+            screenModel
+        ) { event ->
+            when (event) {
+                is ResetPasswordUiEvents.Failure -> scope.launch {
+                    snackBarState.showSnackBar(
+                        message = event.message,
+                        leadingIcon = snackBarIcon
+                    )
+                }
+
+                ResetPasswordUiEvents.Success -> Unit
+            }
+        }
 
         StateContent(
             state = state,
@@ -90,7 +116,8 @@ internal class ResetPasswordScreen(
                     onTogglePasswordVisibility = screenModel::togglePasswordCensorship,
                     onToggleConfirmPasswordVisibility = screenModel::toggleConfirmPasswordCensorship
                 )
-            }
+            },
+            snackBarState = snackBarState
         )
     }
 
@@ -99,6 +126,7 @@ internal class ResetPasswordScreen(
         state: ResetPasswordState,
         actions: Actions,
         showExitDialog: Boolean,
+        snackBarState: InkSnackBarHostState
     ) {
         val showPasswordError = remember(state.passwordState) {
             state.passwordState != PasswordState.Ok
@@ -111,6 +139,9 @@ internal class ResetPasswordScreen(
         val keyboard = LocalSoftwareKeyboardController.current
 
         InkScaffold(
+            snackBarHost = {
+                InkSnackBarHost(state = snackBarState)
+            },
             topBar = {
                 InkTopBar(
                     onNavigationClick = actions.onBack,
