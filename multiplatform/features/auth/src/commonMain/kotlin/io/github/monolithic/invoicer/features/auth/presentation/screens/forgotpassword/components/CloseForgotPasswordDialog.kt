@@ -1,4 +1,4 @@
-package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.components
+package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components
 
 import androidx.compose.runtime.Composable
 import invoicer.multiplatform.features.auth.generated.resources.Res
@@ -11,21 +11,21 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun CloseOtpDialog(
-    onCloseOtp: () -> Unit,
-    onCloseDialog: () -> Unit
+internal fun CloseForgotPasswordDialog(
+    onCloseFlow: () -> Unit,
+    onDismissDialog: () -> Unit
 ) {
     InkDialog(
-        onDismissRequest = onCloseDialog,
+        onDismissRequest = onDismissDialog,
         title = stringResource(Res.string.forgot_password_otp_dialog_title),
         description = stringResource(Res.string.forgot_password_otp_dialog_description),
         primaryAction = InkDialogAction(
             title = stringResource(Res.string.forgot_password_otp_dialog_confirm),
-            onClick = onCloseOtp
+            onClick = onCloseFlow
         ),
         secondaryAction = InkDialogAction(
             title = stringResource(Res.string.forgot_password_otp_dialog_cancel),
-            onClick = onCloseDialog
+            onClick = onDismissDialog
         )
     )
 }

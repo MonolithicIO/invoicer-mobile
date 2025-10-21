@@ -25,11 +25,6 @@ import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_ema
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_email_label
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_email_placeholder
 import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_password_label
-import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_digit
-import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_length
-import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_lowercase
-import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_special
-import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_uppercase
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
 import invoicer.multiplatform.features.auth.generated.resources.ic_email
 import invoicer.multiplatform.features.auth.generated.resources.ic_lock
@@ -38,6 +33,7 @@ import invoicer.multiplatform.features.auth.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpEmailIssue
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenState
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordIssue
+import io.github.monolithic.invoicer.features.auth.presentation.utils.textResource
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
@@ -186,15 +182,6 @@ private fun SignUpPasswordField(
         }
     }
 
-    val supportText = when (passwordIssue) {
-        PasswordIssue.LENGTH -> stringResource(Res.string.auth_sign_up_weak_password_length)
-        PasswordIssue.UPPERCASE -> stringResource(Res.string.auth_sign_up_weak_password_uppercase)
-        PasswordIssue.LOWERCASE -> stringResource(Res.string.auth_sign_up_weak_password_lowercase)
-        PasswordIssue.DIGIT -> stringResource(Res.string.auth_sign_up_weak_password_digit)
-        PasswordIssue.SPECIAL_CHARACTER -> stringResource(Res.string.auth_sign_up_weak_password_special)
-        null -> null
-    }
-
     InkOutlinedInput(
         value = value,
         onValueChange = onChange,
@@ -228,7 +215,7 @@ private fun SignUpPasswordField(
             onNext = { onImeAction() }
         ),
         isEnabled = enabled,
-        supportText = supportText,
-        isError = supportText != null
+        supportText = passwordIssue.textResource(),
+        isError = passwordIssue != null
     )
 }

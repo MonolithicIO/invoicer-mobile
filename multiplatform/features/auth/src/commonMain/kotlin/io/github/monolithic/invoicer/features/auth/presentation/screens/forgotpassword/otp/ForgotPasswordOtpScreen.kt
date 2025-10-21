@@ -27,7 +27,7 @@ import invoicer.multiplatform.features.auth.generated.resources.forgot_password_
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_subtitle
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_title
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
-import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.components.CloseOtpDialog
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components.CloseForgotPasswordDialog
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -157,9 +157,9 @@ internal class ForgotPasswordOtpScreen(
         }
 
         if (showExitDialog) {
-            CloseOtpDialog(
-                onCloseOtp = actions.onAbandonOtp,
-                onCloseDialog = actions.onDismissDialog
+            CloseForgotPasswordDialog(
+                onCloseFlow = actions.onAbandonOtp,
+                onDismissDialog = actions.onDismissDialog
             )
         }
     }
