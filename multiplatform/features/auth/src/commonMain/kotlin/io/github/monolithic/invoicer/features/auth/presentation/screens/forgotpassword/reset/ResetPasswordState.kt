@@ -1,13 +1,21 @@
 package io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.reset
 
 import io.github.monolithic.invoicer.features.auth.presentation.utils.PasswordIssue
+import kotlinx.collections.immutable.PersistentSet
+import kotlinx.collections.immutable.persistentSetOf
 
 internal data class ResetPasswordState(
     val password: String = "",
     val confirmPassword: String = "",
     val isLoading: Boolean = false,
-    private val passwordIssues: Set<PasswordIssue>
+    val isPasswordCensored: Boolean = true,
+    val isConfirmPasswordCensored: Boolean = true,
+    private val passwordIssues: PersistentSet<PasswordIssue> = persistentSetOf(),
+    private val showPasswordErrors: Boolean = false,
+    private val showConfirmPasswordErrors: Boolean = false
 ) {
-    private val passwordsMatch = password == confirmPassword
-    val passwordError = passwordIssues.lastOrNull()
+    val passwordsMatch = (password == confirmPassword) && showPasswordErrors
+    val passwordError = if (showConfirmPasswordErrors) passwordIssues.lastOrNull() else null
+
+    val isFormValid = passwordIssues.isEmpty() && password == confirmPassword
 }
