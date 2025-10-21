@@ -95,5 +95,4 @@ internal class ResetPasswordScreenModel(
             }
         }
     }
-
 }
