@@ -8,11 +8,12 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +25,8 @@ import androidx.compose.ui.focus.FocusRequester.Companion.FocusRequesterFactory.
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -47,6 +50,7 @@ import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.compon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIcon
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.InkIconButton
+import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.icon.basic.InkIconButtonDefaults
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.input.InkOutlinedInput
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.scaffold.InkScaffold
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.topbar.InkTopBar
@@ -97,10 +101,8 @@ internal class ResetPasswordScreen(
         actions: Actions,
         showExitDialog: Boolean,
     ) {
-        val showPasswordError by remember {
-            derivedStateOf {
-                state.passwordError != null
-            }
+        val showPasswordError = remember(state.passwordError) {
+            state.passwordError != null
         }
 
         val (passwordRef, confirmRef) = FocusRequester.createRefs()
@@ -130,7 +132,8 @@ internal class ResetPasswordScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(scaffoldPadding)
-                    .padding(InkTheme.spacing.medium),
+                    .padding(InkTheme.spacing.medium)
+                    .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(InkTheme.spacing.medium)
             ) {
                 Title(
@@ -146,14 +149,14 @@ internal class ResetPasswordScreen(
                         .fillMaxWidth()
                         .focusRequester(passwordRef),
                     isError = showPasswordError,
-                    readOnly = state.isLoading.not(),
+                    readOnly = state.isLoading,
                     supportText = state.passwordError.textResource(),
                     leadingContent = {
                         InkIcon(
                             painter = painterResource(DsResources.drawable.ic_lock),
                             contentDescription = null,
                             tint = if (showPasswordError) InkTheme.colorScheme.error
-                            else InkTheme.colorScheme.onSurface
+                            else InkTheme.colorScheme.onBackground,
                         )
                     },
                     trailingContent = {
@@ -162,6 +165,9 @@ internal class ResetPasswordScreen(
                             icon = painterResource(
                                 if (state.isPasswordCensored) DsResources.drawable.ic_visibility_off
                                 else DsResources.drawable.ic_visibility_on
+                            ),
+                            colors = InkIconButtonDefaults.colors.copy(
+                                containerColor = InkTheme.colorScheme.surfaceLight
                             )
                         )
                     },
@@ -172,20 +178,21 @@ internal class ResetPasswordScreen(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = { confirmRef.requestFocus() }
-                    )
+                    ),
+                    visualTransformation = getTransformation(state.isPasswordCensored)
                 )
 
                 InkOutlinedInput(
-                    value = state.password,
-                    onValueChange = actions.onUpdatePassword,
+                    value = state.confirmPassword,
+                    onValueChange = actions.onUpdateConfirmPassword,
                     modifier = Modifier.fillMaxWidth().focusRequester(confirmRef),
-                    readOnly = state.isLoading.not(),
+                    readOnly = state.isLoading,
                     leadingContent = {
                         InkIcon(
                             painter = painterResource(DsResources.drawable.ic_lock),
                             contentDescription = null,
-                            tint = if (showPasswordError) InkTheme.colorScheme.error
-                            else InkTheme.colorScheme.onSurface
+                            tint = if (state.passwordsMatch.not()) InkTheme.colorScheme.error
+                            else InkTheme.colorScheme.onBackground
                         )
                     },
                     trailingContent = {
@@ -194,6 +201,9 @@ internal class ResetPasswordScreen(
                             icon = painterResource(
                                 if (state.isConfirmPasswordCensored) DsResources.drawable.ic_visibility_off
                                 else DsResources.drawable.ic_visibility_on
+                            ),
+                            colors = InkIconButtonDefaults.colors.copy(
+                                containerColor = InkTheme.colorScheme.surfaceLight
                             )
                         )
                     },
@@ -205,7 +215,8 @@ internal class ResetPasswordScreen(
                     keyboardActions = KeyboardActions(
                         onDone = { keyboard?.hide() }
                     ),
-                    isError = state.passwordsMatch.not()
+                    isError = state.passwordsMatch.not(),
+                    visualTransformation = getTransformation(state.isConfirmPasswordCensored)
                 )
             }
         }
@@ -227,4 +238,13 @@ internal class ResetPasswordScreen(
         val onTogglePasswordVisibility: () -> Unit,
         val onToggleConfirmPasswordVisibility: () -> Unit
     )
+}
+
+@Composable
+private fun getTransformation(isCensored: Boolean): VisualTransformation = remember(isCensored) {
+    if (isCensored) {
+        PasswordVisualTransformation(mask = '●')
+    } else {
+        VisualTransformation.None
+    }
 }

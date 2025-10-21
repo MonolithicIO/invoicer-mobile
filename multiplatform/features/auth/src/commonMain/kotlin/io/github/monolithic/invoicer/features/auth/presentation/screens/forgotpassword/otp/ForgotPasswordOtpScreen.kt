@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -114,6 +115,8 @@ internal class ForgotPasswordOtpScreen(
         actions: Actions,
         snackBarHostState: InkSnackBarHostState
     ) {
+        val keyboard = LocalSoftwareKeyboardController.current
+
         InkScaffold(
             snackBarHost = {
                 InkSnackBarHost(
@@ -129,7 +132,10 @@ internal class ForgotPasswordOtpScreen(
             bottomBar = {
                 InkPrimaryButton(
                     text = stringResource(Res.string.forgot_password_otp_cta),
-                    onClick = actions.onSubmit,
+                    onClick = {
+                        keyboard?.hide()
+                        actions.onSubmit()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()

@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -92,6 +93,8 @@ internal class ForgotPasswordScreen : Screen {
         state: ForgotPasswordState,
         snackBarHostState: InkSnackBarHostState
     ) {
+        val keyboard = LocalSoftwareKeyboardController.current
+
         InkScaffold(
             snackBarHost = {
                 InkSnackBarHost(state = snackBarHostState)
@@ -109,7 +112,10 @@ internal class ForgotPasswordScreen : Screen {
                         .fillMaxWidth()
                         .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
-                    onClick = actions.submit,
+                    onClick = {
+                        keyboard?.hide()
+                        actions.submit()
+                    },
                     enabled = state.buttonEnabled,
                     loading = state.isLoading
                 )

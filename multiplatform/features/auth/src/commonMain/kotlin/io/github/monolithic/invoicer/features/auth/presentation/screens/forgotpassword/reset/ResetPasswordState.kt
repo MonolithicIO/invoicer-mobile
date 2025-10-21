@@ -14,8 +14,8 @@ internal data class ResetPasswordState(
     private val showPasswordErrors: Boolean = false,
     private val showConfirmPasswordErrors: Boolean = false
 ) {
-    val passwordsMatch = (password == confirmPassword) && showPasswordErrors
-    val passwordError = if (showConfirmPasswordErrors) passwordIssues.lastOrNull() else null
+    val passwordsMatch = (password == confirmPassword) && showConfirmPasswordErrors
+    val passwordError = if (showPasswordErrors) passwordIssues.lastOrNull() else null
 
     val isFormValid = passwordIssues.isEmpty() && password == confirmPassword
 }

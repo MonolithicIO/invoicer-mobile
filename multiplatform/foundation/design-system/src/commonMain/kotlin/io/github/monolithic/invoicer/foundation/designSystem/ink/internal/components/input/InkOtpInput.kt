@@ -226,7 +226,7 @@ internal object InkOtpInputDefaults {
         get() = InkOtpInputColors(
             border = InkTheme.colorScheme.borderStroke,
             focusedBorder = InkTheme.colorScheme.primaryVariant,
-            textColor = InkTheme.colorScheme.onSurface,
+            textColor = InkTheme.colorScheme.onBackground,
             errorBorder = InkTheme.colorScheme.error,
             errorText = InkTheme.colorScheme.error
         )

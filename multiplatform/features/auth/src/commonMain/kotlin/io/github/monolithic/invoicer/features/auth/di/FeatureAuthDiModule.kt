@@ -99,7 +99,7 @@ private fun Module.viewModelBindings() {
 
     factory {
         ResetPasswordScreenModel(
-            dispatcher = get(),
+            dispatcher = Dispatchers.Default,
             resetPasswordRepository = get(),
             passwordStrengthValidator = get()
         )
