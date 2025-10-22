@@ -17,6 +17,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import cafe.adriel.voyager.core.annotation.InternalVoyagerApi
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -27,7 +28,8 @@ import invoicer.multiplatform.features.auth.generated.resources.forgot_password_
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_subtitle
 import invoicer.multiplatform.features.auth.generated.resources.forgot_password_otp_title
 import invoicer.multiplatform.features.auth.generated.resources.ic_danger_square
-import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.components.CloseOtpDialog
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components.CloseForgotPasswordDialog
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.reset.ResetPasswordScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.button.InkPrimaryButton
@@ -75,7 +77,11 @@ internal class ForgotPasswordOtpScreen(
                     )
                 }
 
-                is ForgotPasswordOtpUiEvents.Success -> Unit
+                is ForgotPasswordOtpUiEvents.Success -> navigator?.push(
+                    ResetPasswordScreen(
+                        resetToken = event.resetToken
+                    )
+                )
             }
         }
 
@@ -109,6 +115,8 @@ internal class ForgotPasswordOtpScreen(
         actions: Actions,
         snackBarHostState: InkSnackBarHostState
     ) {
+        val keyboard = LocalSoftwareKeyboardController.current
+
         InkScaffold(
             snackBarHost = {
                 InkSnackBarHost(
@@ -124,7 +132,10 @@ internal class ForgotPasswordOtpScreen(
             bottomBar = {
                 InkPrimaryButton(
                     text = stringResource(Res.string.forgot_password_otp_cta),
-                    onClick = actions.onSubmit,
+                    onClick = {
+                        keyboard?.hide()
+                        actions.onSubmit()
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .navigationBarsPadding()
@@ -157,9 +168,9 @@ internal class ForgotPasswordOtpScreen(
         }
 
         if (showExitDialog) {
-            CloseOtpDialog(
-                onCloseOtp = actions.onAbandonOtp,
-                onCloseDialog = actions.onDismissDialog
+            CloseForgotPasswordDialog(
+                onCloseFlow = actions.onAbandonOtp,
+                onDismissDialog = actions.onDismissDialog
             )
         }
     }

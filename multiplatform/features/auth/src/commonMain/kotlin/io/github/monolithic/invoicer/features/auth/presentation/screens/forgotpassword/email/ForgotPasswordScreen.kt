@@ -16,6 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -92,6 +93,8 @@ internal class ForgotPasswordScreen : Screen {
         state: ForgotPasswordState,
         snackBarHostState: InkSnackBarHostState
     ) {
+        val keyboard = LocalSoftwareKeyboardController.current
+
         InkScaffold(
             snackBarHost = {
                 InkSnackBarHost(state = snackBarHostState)
@@ -109,7 +112,10 @@ internal class ForgotPasswordScreen : Screen {
                         .fillMaxWidth()
                         .padding(InkTheme.spacing.medium)
                         .navigationBarsPadding(),
-                    onClick = actions.submit,
+                    onClick = {
+                        keyboard?.hide()
+                        actions.submit()
+                    },
                     enabled = state.buttonEnabled,
                     loading = state.isLoading
                 )
@@ -130,7 +136,11 @@ internal class ForgotPasswordScreen : Screen {
                 VerticalSpacer(SpacerSize.XLarge3)
                 InkOutlinedInput(
                     value = state.email,
-                    onValueChange = actions.onChangeEmail,
+                    onValueChange = {
+                        if (state.isLoading.not()) {
+                            actions.onChangeEmail(it)
+                        }
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     leadingContent = {
                         InkIcon(
@@ -143,7 +153,6 @@ internal class ForgotPasswordScreen : Screen {
                     ),
                     singleLine = true,
                     placeholder = stringResource(Res.string.forgot_password_placeholder),
-                    readOnly = state.isLoading
                 )
             }
         }

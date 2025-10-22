@@ -9,6 +9,7 @@ import io.github.monolithic.invoicer.features.auth.domain.services.ResolveStartu
 import io.github.monolithic.invoicer.features.auth.presentation.screens.authmenu.AuthMenuScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.email.ForgotPasswordScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.otp.ForgotPasswordOtpScreenModel
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.reset.ResetPasswordScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.signup.SignUpScreenModel
 import io.github.monolithic.invoicer.features.auth.presentation.screens.startup.StartupScreenModel
@@ -93,6 +94,14 @@ private fun Module.viewModelBindings() {
         ForgotPasswordOtpScreenModel(
             dispatcher = Dispatchers.Default,
             repository = get()
+        )
+    }
+
+    factory {
+        ResetPasswordScreenModel(
+            dispatcher = Dispatchers.Default,
+            resetPasswordRepository = get(),
+            passwordStrengthValidator = get()
         )
     }
 }

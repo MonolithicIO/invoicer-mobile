@@ -37,6 +37,7 @@
     <string name="auth_sign_in_email_label">Email</string>
     <string name="auth_sign_in_password_label">Password</string>
     <string name="auth_sign_in_forgot_password">Forgot password?</string>
+
     <!-- Auth menu -->
     <string name="auth_menu_title">Let's Get Started</string>
     <string name="auth_menu_description">Let's dive in into your account</string>
@@ -64,5 +65,25 @@
     <string name="forgot_password_otp_dialog_description">If you leave, you will need to request a new one‑time code to continue.</string>
     <string name="forgot_password_otp_dialog_confirm">Exit</string>
     <string name="forgot_password_otp_dialog_cancel">Cancel</string>
+
+    <!-- Forgot password reset -->
+    <string name="forgot_password_reset_title">Secure Your Account 🔒</string>
+    <string name="forgot_password_reset_description">Enter your new password below. Make sure it’s strong and secure!</string>
+    <string name="forgot_password_rest_cta">Save New Password</string>
+    <string name="forgot_password_reset_new_password_label">Create new password</string>
+    <string name="forgot_password_reset_password_blank_error">Password is required</string>
+    <string name="forgot_password_reset_confirm_password_blank_error">Confirm password is required</string>
+    <string name="forgot_password_reset_confirm_password_mismatch_error">Passwords don't match</string>
+    <string name="forgot_password_reset_confirm_password_label">Confirm new password</string>
+    <string name="forgot_password_reset_weak_password_length">Password must be at least 8 digits long</string>
+    <string name="forgot_password_reset_weak_password_uppercase">Password must contain at least one uppercase letter</string>
+    <string name="forgot_password_reset_weak_password_lowercase">Password must contain at least one lowercase letter</string>
+    <string name="forgot_password_reset_weak_password_digit">Password must contain at least one digit</string>
+    <string name="forgot_password_reset_weak_password_special">Password must contain at least one special character</string>
+
+    <!-- Forgot password success -->
+    <string name="forgot_password_success_title">You’re all set!</string>
+    <string name="forgot_password_success_description">Your password has been updated.</string>
+    <string name="forgot_password_success_cta">Sign in</string>
 
 </resources>

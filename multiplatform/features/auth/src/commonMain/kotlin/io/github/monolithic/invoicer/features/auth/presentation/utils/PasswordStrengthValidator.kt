@@ -1,6 +1,15 @@
 package io.github.monolithic.invoicer.features.auth.presentation.utils
 
-interface PasswordStrengthValidator {
+import androidx.compose.runtime.Composable
+import invoicer.multiplatform.features.auth.generated.resources.Res
+import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_digit
+import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_length
+import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_lowercase
+import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_special
+import invoicer.multiplatform.features.auth.generated.resources.auth_sign_up_weak_password_uppercase
+import org.jetbrains.compose.resources.stringResource
+
+internal interface PasswordStrengthValidator {
     fun validate(password: String): Set<PasswordIssue>
 }
 
@@ -29,10 +38,20 @@ internal object PasswordStrengthValidatorImpl : PasswordStrengthValidator {
 }
 
 
-enum class PasswordIssue {
+internal enum class PasswordIssue {
     LENGTH,
     UPPERCASE,
     LOWERCASE,
     DIGIT,
-    SPECIAL_CHARACTER
+    SPECIAL_CHARACTER;
+}
+
+@Composable
+internal fun PasswordIssue?.textResource() = when (this) {
+    PasswordIssue.LENGTH -> stringResource(Res.string.auth_sign_up_weak_password_length)
+    PasswordIssue.UPPERCASE -> stringResource(Res.string.auth_sign_up_weak_password_uppercase)
+    PasswordIssue.LOWERCASE -> stringResource(Res.string.auth_sign_up_weak_password_lowercase)
+    PasswordIssue.DIGIT -> stringResource(Res.string.auth_sign_up_weak_password_digit)
+    PasswordIssue.SPECIAL_CHARACTER -> stringResource(Res.string.auth_sign_up_weak_password_special)
+    null -> null
 }
