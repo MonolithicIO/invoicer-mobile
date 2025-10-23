@@ -45,6 +45,7 @@ import invoicer.multiplatform.foundation.design_system.generated.resources.ic_lo
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_off
 import invoicer.multiplatform.foundation.design_system.generated.resources.ic_visibility_on
 import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.components.CloseForgotPasswordDialog
+import io.github.monolithic.invoicer.features.auth.presentation.screens.forgotpassword.feedback.ResetPasswordFeedbackScreen
 import io.github.monolithic.invoicer.features.auth.presentation.screens.login.LoginScreen
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.SpacerSize
 import io.github.monolithic.invoicer.foundation.designSystem.ink.internal.components.VerticalSpacer
@@ -94,7 +95,7 @@ internal class ResetPasswordScreen(
                     )
                 }
 
-                ResetPasswordUiEvents.Success -> Unit
+                ResetPasswordUiEvents.Success -> navigator?.push(ResetPasswordFeedbackScreen())
             }
         }
 
